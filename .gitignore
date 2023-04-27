@@ -1,7 +1,6 @@
 .classpath
 .project
 .springBeans
-.settings/org.eclipse.jdt.core.prefs
 .settings/
 target/
-src/test/resources/log4j.xml
+src/test/
