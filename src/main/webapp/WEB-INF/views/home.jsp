@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>안녕하세요</h1>
-	${msg}
-	<h2>안녕하세요2</h2>
+   <h1>안녕하세요</h1>
+   ${msg}
+   <h2>안녕하세요2</h2>
 </body>
 </html>
