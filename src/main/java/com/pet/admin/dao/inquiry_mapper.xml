@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- xml 을 java 에서 쓰기 위해 연결되는 interface 가 필요 하다. -->
+
+<!-- 쿼리문을 작성해둔 interface 주소 -->
+<mapper namespace="com.pet.admin.dao.InquiryDAO">
+   
+   		<select id="inqlist" resultType="com.pet.admin.dto.InquiryDTO">
+			SELECT * FROM board ORDER BY boardNum DESC
+		</select>
+   
+		<select id="inqdetail" 
+			resultType="com.pet.admin.dto.InquiryDTO">
+			SELECT * FROM board WHERE boardNum = #{boardNum}
+		</select>
+		
+		<update id="upHit" parameterType="int">
+   		UPDATE board SET boardbHit = boardbHit+1
+   			WHERE boardNum = #{param1}
+   		</update>
+</mapper>
