@@ -1,5 +1,5 @@
 package com.pet.walkroute.dao;
 
-public class MateFindDAO {
+public interface MateFindDAO {
 
 }
