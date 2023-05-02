@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.pet">
+	<logger name="com.pet.main">
 		<level value="info" />
 	</logger>
 	
