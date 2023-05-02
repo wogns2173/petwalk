@@ -4,6 +4,18 @@
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 서버가 켜졌을 때 읽혀질 설정 -->
+	<!--  Tip. 어디에 설정을 넣을지 헷갈리면 우선 servlet-context.xml 에 넣고 에러가 나면
+	root-context.xml 에 넣는다. -->
+	<!-- bean 으로 넣을지 beans 으로 넣을지는 초반 설정을 확인해보고 넣기.ex) beans xmlns -->
 	
+	<!-- bean 특정할 클래스를 지정하고 특정한 매개변수를 지정해준다. -->
+	<bean id ="multipartResolver" 
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="maxInMemorySize" value="10000000"/>
+		<property name="maxUploadSize" value="10000000"/>
+	</bean>
 		
 </beans>

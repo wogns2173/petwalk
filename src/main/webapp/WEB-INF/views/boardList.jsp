@@ -14,10 +14,11 @@
 	<a href="boardB_02list.do">더보기></a>
 	<c:forEach items="${B_02list}" var="bbs">
 	<ul>
-		<li>${bbs.boardName} ${bbs.boardbHit }</li>
+		<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName}</a> ${bbs.boardbHit }</li>
 	</ul>
 	</c:forEach>
 	<h3>반려견 질문 게시판</h3>
+		<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName}</a> ${bbs.boardbHit }</li>
 	<h3>미아견 게시판</h3>
 	
 </body>

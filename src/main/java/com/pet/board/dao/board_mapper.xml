@@ -10,4 +10,36 @@
    <select id="B_02list" resultType="com.pet.board.dto.boardDTO">
    	SELECT * FROM board ORDER BY boardNum DESC
    </select>
+   
+<!--  <insert id="boardWrite">
+   	INSERT INTO board(userID,boardName,boardDetail,categoryCode,noticeWhether,
+   	boardBlindWhether,boardbHit)
+   	VALUES(#{param1},#{param2},#{param3},#{param4},0,0,0)
+   </insert>
+ -->
+ 
+ 	<insert 
+		useGeneratedKeys="true"
+		keyColumn="boardNum"
+		keyProperty="boardNum"
+		
+		id="boardWrite" parameterType="com.pet.board.dto.boardDTO">
+		INSERT INTO board(boardDetail,categoryCode,boardName,noticeWhether,
+   		boardBlindWhether,boardbHit)
+   		VALUES(#{boardDetail},#{categoryCode},#{boardName},0,0,0)
+	</insert>
+	
+	<insert id="fileWrite">
+		INSERT INTO photo(boardNum,oriPhotoname,serPhotoname)
+			VALUES(#{boardNum},#{oriPhotoname},#{serPhotoname})
+	</insert>
+   
+   <select id="boardDetail" parameterType="String" resultType="com.pet.board.dto.boardDTO">
+    SELECT userID, boardName, boardDetail, boardWriteDate, boardbHit, categoryCode
+    FROM board WHERE boardNum = #{boardNum}
+</select>
+   
+   <update id="boardbHit" parameterType="String">
+   	UPDATE board SET boardbHit = boardbHit+1 WHERE boardNum = #{boardNum}
+	</update>
 </mapper>

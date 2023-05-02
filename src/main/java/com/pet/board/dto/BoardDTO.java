@@ -1,5 +1,6 @@
 package com.pet.board.dto;
 
+import java.sql.Clob;
 import java.sql.Date;
 
 public class boardDTO {
@@ -15,12 +16,60 @@ public class boardDTO {
 	private boolean noticeWhether;
 	private boolean boardBlindWhether;
 	
+	//photo dto
+	private int photoNum;
+	private String oriPhotoname;
+	private String serPhotoname;
+	private Date savaDate;
+	private int photoIdenNum;
+	private boolean photoBlindWhether;
+	
+	//photo
+	public int getPhotoNum() {
+		return photoNum;
+	}
+	public void setPhotoNum(int photoNum) {
+		this.photoNum = photoNum;
+	}
+	public String getOriPhotoname() {
+		return oriPhotoname;
+	}
+	public void setOriPhotoname(String oriPhotoname) {
+		this.oriPhotoname = oriPhotoname;
+	}
+	public String getSerPhotoname() {
+		return serPhotoname;
+	}
+	public void setSerPhotoname(String serPhotoname) {
+		this.serPhotoname = serPhotoname;
+	}
+	public Date getSavaDate() {
+		return savaDate;
+	}
+	public void setSavaDate(Date savaDate) {
+		this.savaDate = savaDate;
+	}
+	public int getPhotoIdenNum() {
+		return photoIdenNum;
+	}
+	public void setPhotoIdenNum(int photoIdenNum) {
+		this.photoIdenNum = photoIdenNum;
+	}
+	public boolean isPhotoBlindWhether() {
+		return photoBlindWhether;
+	}
+	public void setPhotoBlindWhether(boolean photoBlindWhether) {
+		this.photoBlindWhether = photoBlindWhether;
+	}
+	
+	// board
 	public String getUserID() {
 		return userID;
 	}
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
+
 	public String getCategoryCode() {
 		return categoryCode;
 	}
@@ -45,17 +94,12 @@ public class boardDTO {
 	public void setBoardName(String boardName) {
 		this.boardName = boardName;
 	}
+
 	public String getBoardDetail() {
 		return boardDetail;
 	}
 	public void setBoardDetail(String boardDetail) {
 		this.boardDetail = boardDetail;
-	}
-	public int getBoardbHit() {
-		return boardbHit;
-	}
-	public void setBoardbHit(int boardbHit) {
-		this.boardbHit = boardbHit;
 	}
 	public Date getBoardWriteDate() {
 		return boardWriteDate;
@@ -74,6 +118,12 @@ public class boardDTO {
 	}
 	public void setBoardBlindWhether(boolean boardBlindWhether) {
 		this.boardBlindWhether = boardBlindWhether;
+	}
+	public int getBoardbHit() {
+		return boardbHit;
+	}
+	public void setBoardbHit(int boardbHit) {
+		this.boardbHit = boardbHit;
 	}
 	
 	

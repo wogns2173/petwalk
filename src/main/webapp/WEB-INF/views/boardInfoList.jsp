@@ -11,12 +11,12 @@
 <body>
 	<h3> 지식 공유 게시판 리스트 </h3>
 	
-	<select name="categoryCode">
-      <option value="B_01">반려견 갤러리</option>
-      <option value="B_02">지식 공유 게시판</option>
-      <option value="B_03">질문 게시판</option>
-      <option value="B_04">미아견 게시판</option>
-   </select>
+	<select id="category" name="category" required>
+            <option value="">검색 조건</option>
+            <option value="boardName">제목</option>
+            <option value="userNickname">닉네임</option>
+            <option value="userID">ID</option>
+        </select>
 	<table>
 		<colgroup>
 			<col width=10%/>
@@ -38,7 +38,7 @@
 			<c:forEach items="${B_02list}" var="bbs">
 			<tr>
 				<td>${bbs.boardNum }</td>
-				<td>${bbs.boardName }</td>
+				<td><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName }</a></td>
 				<td>${bbs.userID }</td>
 				<td>${bbs.boardWriteDate }</td>
 				<td>${bbs.boardbHit }</td>
