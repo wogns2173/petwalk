@@ -1,5 +1,5 @@
 package com.pet.admin.dao;
 
-public class AdminDAO {
+public interface AdminDAO {
 
 }
