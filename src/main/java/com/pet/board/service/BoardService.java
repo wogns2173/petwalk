@@ -16,17 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pet.board.dao.boardDAO;
-import com.pet.board.dto.boardDTO;
+import com.pet.board.dao.BoardDAO;
+import com.pet.board.dto.BoardDTO;
 
 @Service
 public class BoardService {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@Autowired boardDAO dao;
+	@Autowired BoardDAO dao;
 	
-	public ArrayList<boardDTO> B_02list() {
+	public ArrayList<BoardDTO> B_02list() {
 		logger.info("Service B_02list");
 		return dao.B_02list();
 	}
@@ -53,41 +53,43 @@ public class BoardService {
 		String page = "redirect:/board";
 
 		//1. 게시글만 작성
-		boardDTO dto = new boardDTO();
+		BoardDTO dto = new BoardDTO();
 		
-		dto.setBoardDetail(params.get("boardDetail"));
+		
 		dto.setCategoryCode(params.get("categoryCode"));
-		dto.setBoardName(params.get("boardName"));
+		dto.setBoardName(params.get("categoryCode"));
+		dto.setBoardDetail(params.get("boardDetail"));
 		
 		logger.info(dto.getBoardDetail() + "/" + dto.getCategoryCode() + "/" + dto.getBoardName());
 		int row = dao.boardWrite(dto);
 		logger.info("update row:"+row);
-		
-		int boardNum = Integer.parseInt(dto.getBoardNum());
-		logger.info("방금 inset한 boardNum: "+boardNum);
+		String boardNum = dto.getBoardNum();
+		String categoryCode = dto.getCategoryCode();
+		logger.info("방금 inset한 categoryCode: "+categoryCode+"/"+boardNum);
 				
 	
 		//첨부파일 같이 업로드 
 		if(!photo.getOriginalFilename().equals("")) {
 			logger.info("파일 업로드 작업");
-			fileSave(boardNum,photo);
+			fileSave(categoryCode,photo);
 		}
 		return page;
 	}
 
 
-	private void fileSave(int boardNum, MultipartFile photo) {
+	private void fileSave(String categoryCode, MultipartFile photo) {
 		String oriPhotoname = photo.getOriginalFilename();
 		String ext = oriPhotoname.substring(oriPhotoname.lastIndexOf("."));
 		String serPhotoname = System.currentTimeMillis()+ext;
 		logger.info(oriPhotoname+"->"+serPhotoname);
+		logger.info("카테고리 코드:"+categoryCode);
 	
 		try {
 			byte[] bytes = photo.getBytes();
 			Path path = Paths.get("C:/img/petwork/"+serPhotoname);
 			Files.write(path, bytes);
 			logger.info(serPhotoname+"save OK");
-			dao.fileWrite(boardNum,oriPhotoname,serPhotoname);
+			dao.fileWrite(categoryCode, oriPhotoname, serPhotoname);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,7 +99,7 @@ public class BoardService {
 		
 }
 
-	public boardDTO boardDetail(String boardNum) {
+	public BoardDTO boardDetail(String boardNum) {
 		logger.info("Service boardDetail!");
 		dao.boardbHit(boardNum);
 		return dao.boardDetail(boardNum);

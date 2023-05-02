@@ -18,22 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.pet.board.dao.boardDAO;
-import com.pet.board.dto.boardDTO;
+import com.pet.board.dto.BoardDTO;
 import com.pet.board.service.BoardService;
 
 @Controller
 public class BoardController {
 	
 	@Autowired BoardService service;
-	@Autowired boardDAO dao;
+	BoardDTO dto = new BoardDTO();
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping(value = "/board")
 	public String home(Model model) {
-		logger.info("list call");
-		ArrayList<boardDTO> B_02list = service.B_02list();
+		ArrayList<BoardDTO> B_02list = service.B_02list();
 		
 		model.addAttribute("B_02list", B_02list);
 		return "boardList";
@@ -41,8 +39,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/boardB_02list.do")
 	public String boardInfoList(Model model) {
-		logger.info("boardB_02list.do");
-		ArrayList<boardDTO> B_02list = service.B_02list();
+		ArrayList<BoardDTO> B_02list = service.B_02list();
 		model.addAttribute("B_02list", B_02list);
 		return "boardInfoList";
 	}
@@ -83,8 +80,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/boardDetail.do")
 	public String boardDetail(Model model, @RequestParam String boardNum) {
-		logger.info("controller boardDetail: "+boardNum);
-		boardDTO dto = service.boardDetail(boardNum);
+		BoardDTO dto = service.boardDetail(boardNum);
 		logger.info("dto :"+dto);
 		model.addAttribute("dto", dto);
 		

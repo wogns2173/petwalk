@@ -18,7 +18,7 @@
 		</br>
 		<h3>${dto.boardWriteDate} 조회수: ${dto.boardbHit }</h3>
 		</br>
-		<c:if test="${dto.newFileName ne null}">
+		<c:if test="${dto.serPhotoname ne null}">
 			<tr>
 				<th>사진</th>
 				<td><img width="300" src="/photo/${dto.serPhotoname }"/></td>

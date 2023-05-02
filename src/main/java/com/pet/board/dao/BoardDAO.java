@@ -3,22 +3,22 @@ package com.pet.board.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.pet.board.dto.boardDTO;
+import com.pet.board.dto.BoardDTO;
 
-public interface boardDAO {
+public interface BoardDAO {
 
-	ArrayList<boardDTO> B_02list();
+	ArrayList<BoardDTO> B_02list();
 
 	//int boardWrite(String userID,String boardName, String boardDetail, String categoryCode);
 	
 	
 	void boardbHit(String boardNum);
 
-	boardDTO boardDetail(String boardNum);
+	BoardDTO boardDetail(String boardNum);
 
-	int boardWrite(boardDTO dto);
+	int boardWrite(BoardDTO dto);
 
-	void fileWrite(int boardNum, String oriPhotoname, String serPhotoname);
+	void fileWrite(String categoryCode, String oriPhotoname, String serPhotoname);
 
 
 }

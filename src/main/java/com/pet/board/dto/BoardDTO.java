@@ -1,9 +1,10 @@
 package com.pet.board.dto;
 
+import java.sql.Date;
+
 
 public class BoardDTO {
 
-public class boardDTO {
 	private String userID;
 	private String categoryCode;
 	private String categoryName;
@@ -125,6 +126,4 @@ public class boardDTO {
 	public void setBoardbHit(int boardbHit) {
 		this.boardbHit = boardbHit;
 	}
-	
-	
-}
+}	

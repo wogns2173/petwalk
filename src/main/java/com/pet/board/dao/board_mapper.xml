@@ -5,9 +5,9 @@
 <!-- xml 을 java 에서 쓰기 위해 연결되expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}는 interface 가 필요 하다. -->
 
 <!-- 쿼리문을 작성해둔 interface 주소 -->
-<mapper namespace="com.pet.board.dao.boardDAO">
+<mapper namespace="com.pet.board.dao.BoardDAO">
    
-   <select id="B_02list" resultType="com.pet.board.dto.boardDTO">
+   <select id="B_02list" resultType="com.pet.board.dto.BoardDTO">
    	SELECT * FROM board ORDER BY boardNum DESC
    </select>
    
@@ -20,21 +20,21 @@
  
  	<insert 
 		useGeneratedKeys="true"
-		keyColumn="boardNum"
-		keyProperty="boardNum"
+		keyColumn="categoryCode"
+		keyProperty="categoryCode"
 		
-		id="boardWrite" parameterType="com.pet.board.dto.boardDTO">
-		INSERT INTO board(boardDetail,categoryCode,boardName,noticeWhether,
+		id="boardWrite" parameterType="com.pet.board.dto.BoardDTO">
+		INSERT INTO board(boardName,categoryCode,boardDetail,noticeWhether,
    		boardBlindWhether,boardbHit)
-   		VALUES(#{boardDetail},#{categoryCode},#{boardName},0,0,0)
+   		VALUES(#{boardName},#{categoryCode},#{boardDetail},0,0,0)
 	</insert>
 	
-	<insert id="fileWrite">
-		INSERT INTO photo(boardNum,oriPhotoname,serPhotoname)
-			VALUES(#{boardNum},#{oriPhotoname},#{serPhotoname})
+	<insert id="fileWrite" >
+		INSERT INTO photo(categoryCode,oriPhotoname,serPhotoname,savaDate,photoBlindWhether,photoIdenNum)
+			VALUES((SELECT categoryCode FROM board WHERE boardNum = #{param1}),#{param2},#{param3},'2023-05-02',0,1)
 	</insert>
    
-   <select id="boardDetail" parameterType="String" resultType="com.pet.board.dto.boardDTO">
+   <select id="boardDetail" parameterType="String" resultType="com.pet.board.dto.BoardDTO">
     SELECT userID, boardName, boardDetail, boardWriteDate, boardbHit, categoryCode
     FROM board WHERE boardNum = #{boardNum}
 </select>
