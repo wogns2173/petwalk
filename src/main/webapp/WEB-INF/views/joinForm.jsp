@@ -8,12 +8,8 @@
 <title>너나들이 회원가입</title>
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
-	table, th, td{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 5px 10px;
-	}
-	
+
+		
 </style>
 </head>
 <body>
@@ -22,8 +18,11 @@
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" id="userID"/>
-					<button id="overlay">중복체크</button>
+
+					<input type="text" id="userID"/>					
+					<button id="overlayid">중복체크</button></br>
+					<span id="idmsg"></span>
+
 				</td>
 			</tr>
 			<tr>
@@ -91,17 +90,28 @@
 			<tr>
 				<th>비밀번호 확인</th>
 				<td>
-					<input type="password" id ="confirm"/>
-					<span id="msg"></span>
+
+					<input type="password" id ="confirm"/></br>
+					<span id="pwmsg"></span>
+
 				</td>
 			</tr>
 			<tr>
 				<th>닉네임</th>
-				<td><input type="text" id="userNickname"/></td>
+
+				<td>
+					<input type="text" id="userNickname"/>					
+					<button id="overlaynickname">중복체크</button></br>
+					<span id="nicknamemsg"></span>
+				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><input type="text" id="userName"/></td>
+				<td>
+					<input type="text" id="userName"/>					
+				</td>
+				
+
 			</tr>
 			<tr>
 				<th>나이</th>
@@ -212,11 +222,14 @@
 </body>
 <script>
 var pweq = false;
-var overlayChk = false;
+
+var overlayIdChk = false;
+var overlayNicknameChk = false;
 
 function join(){
 	
-	if(pweq && overlayChk){
+	if(pweq && overlayIdChk && overlayNicknameChk){
+
 		
 		var $userID = $('#userID');
 		var $siID = $('#siID');
@@ -309,24 +322,32 @@ function join(){
 		}
 				
 	}else{
-		alert('아이디 중복체크와 비밀번호 확인을 해 주세요');
+
+		alert('아이디, 닉네임 중복체크와 비밀번호 확인을 해 주세요');
 	}	
 }
 
-$('#overlay').on('click', function(e){
+$('#overlayid').on('click', function(e){
+
     var chkId = $('#userID').val();      
     console.log("중복체크 요청 : " + chkId);
     
     $.ajax({
        type: 'get'
-       ,url: 'overlay.ajax'
+
+       ,url: 'overlayid.ajax'
+
        ,data:{'userID':chkId}
        ,dataType:'json'
        ,success:function(data){
           console.log(data);
-          if(data.overlay==0){
+
+          if(data.overlayid==0){
              alert('사용 가능한 아이디 입니다.');
-             overlayChk=true;
+             overlayIdChk=true;
+             $('#idmsg').css({'font-size': '10px','color': 'darkgreen'});
+      		$('#idmsg').html('사용가능한 아이디 입니다.');
+
           } else {
              alert('이미 사용중인 아이디 입니다.');
              $('#userID').val('');
@@ -336,17 +357,48 @@ $('#overlay').on('click', function(e){
           console.log(e);
        }
     });      
- });   
+
+ });
+
+$('#overlaynickname').on('click', function(e){
+    var chkNickname = $('#userNickname').val();      
+    console.log("중복체크 요청 : " + chkNickname);
+    
+    $.ajax({
+       type: 'get'
+       ,url: 'overlaynickname.ajax'
+       ,data:{'userNickname':chkNickname}
+       ,dataType:'json'
+       ,success:function(data){
+          console.log(data);
+          if(data.overlaynickname==0){
+             alert('사용 가능한 닉네임 입니다.');
+             overlayNicknameChk=true;
+             $('#nicknamemsg').css({'font-size': '10px','color': 'darkgreen'});
+     		$('#nicknamemsg').html('사용가능한 닉네임 입니다.');
+          } else {
+             alert('이미 사용중인 닉네임 입니다.');
+             $('#userNickname').val('');
+          }
+       }
+       ,error:function(e){
+          console.log(e);
+       }
+    });      
+ });
+
 
 
 $('#confirm').on('keyup',function(e){	
 	if($('#userPW').val() == $(this).val()){
-		$('#msg').css({'font-size': '10px','color': 'darkgreen'});
-		$('#msg').html('비밀번호가 일치 합니다.');
+
+		$('#pwmsg').css({'font-size': '10px','color': 'darkgreen'});
+		$('#pwmsg').html('비밀번호가 일치 합니다.');
 		pweq = true;
 	}else{
-		$('#msg').css({'font-size':'10px','color': 'red'});
-		$('#msg').html('비밀번호가 일치 하지 않습니다');
+		$('#pwmsg').css({'font-size':'10px','color': 'red'});
+		$('#pwmsg').html('비밀번호가 일치 하지 않습니다');
+
 	}	
 	
 });

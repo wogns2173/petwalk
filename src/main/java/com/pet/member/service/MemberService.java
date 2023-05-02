@@ -16,13 +16,23 @@ public class MemberService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 
-	public HashMap<String, Object> overlay(String userID) {
+
+	public HashMap<String, Object> overlayid(String userID) {
 		
 		HashMap<String, Object> map = new HashMap<>();
 		// 같은 아이디가 있는가? 있으면 1 없으면 0	
-		map.put("overlay", dao.overlay(userID));		
+		map.put("overlayid", dao.overlayid(userID));		
 		return map;
 	}
+
+	public HashMap<String, Object> overlaynickname(String userNickname) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		// 같은 닉네임이 있는가? 있으면 1 없으면 0	
+		map.put("overlaynickname", dao.overlaynickname(userNickname));		
+		return map;
+	}
+	
 
 	public HashMap<String, Object> join(HashMap<String, String> params) {
 		
@@ -35,6 +45,20 @@ public class MemberService {
 		
 		return dao.login(userID, userPW);
 	}
-	
+
+
+	public int deletemember(Object removeAttribute) {
+
+		return dao.memberdelete(removeAttribute);
+	}
+
+	public int memberdeletetrue(Object attribute) {
+
+		return dao.memberdelete(attribute);
+	}
+
+
+
 	
 }
+

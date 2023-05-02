@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,11 +29,18 @@ public class MemberController {
 	      return "joinForm";      
 	   }
 	   
-	   @RequestMapping(value="/overlay.ajax")
+	   @RequestMapping(value="/overlayid.ajax")
 	   @ResponseBody
 	   public HashMap<String, Object> overlay(@RequestParam String userID){
-		   logger.info("overlay : "+userID);
-	      return service.overlay(userID);      
+		   logger.info("overlayid : "+userID);
+	      return service.overlayid(userID);      
+	   }
+	   @RequestMapping(value="/overlaynickname.ajax")
+	   @ResponseBody
+	   public HashMap<String, Object> overlaynickname(@RequestParam String userNickname){
+		   logger.info("overlaynickname : "+userNickname);
+	      return service.overlaynickname(userNickname);      
+
 	   }
 	   
 	   @RequestMapping(value="/join.ajax")
@@ -77,12 +83,37 @@ public class MemberController {
 		
 	   @RequestMapping(value="main.go")
 	   public String main(HttpSession session) {  
+
+		   String page = "main";
+		return page;
+	   }	   
+	   
+	   @RequestMapping(value="memberdelete.go")
+	   public String memberdelete(HttpSession session) {  
+
 		   
 		   String page = "redirect:/";
 		   
 		   if(session.getAttribute("loginId") != null) {
-			   page = "main";
+
+			   page = "memberdelete";
 		   }
+		   
 		return page;
 	   }
+	   
+	   @RequestMapping(value="memberdelete.do")
+	   public String memberdeletetrue(HttpSession session) {  
+		   
+		   String page = "redirect:/";
+		   
+		   if(session.getAttribute("loginId") != null) {
+			   service.memberdeletetrue(session.getAttribute("loginId"));
+			   page = "home";
+		   }
+		   
+		return page;
+	   }
+	    	   
+
 }

@@ -7,9 +7,16 @@
 <!-- 쿼리문을 작성해둔 interface 주소 -->
 <mapper namespace="com.pet.member.dao.MemberDAO">
 
-   <select id="overlay" resultType="int">
+
+   <select id="overlayid" resultType="int">
+
 		SELECT COUNT(userID) FROM member
 			WHERE userID = #{param1}
+	</select>
+	
+	<select id="overlaynickname" resultType="int">
+		SELECT COUNT(userNickname) FROM member
+			WHERE userNickname = #{param1}
 	</select>
 	
 	<insert id="join" parameterType="hashmap">
@@ -24,5 +31,11 @@
 		SELECT COUNT(userID) FROM member WHERE
 		userID = #{param1} AND userPW = #{param2} AND userBlindWhether = false
 	</select>
+
+	
+	<update id="memberdelete">
+		UPDATE member SET userBlindWhether = 1  WHERE userID = #{param1}
+	</update>
+
    
 </mapper>

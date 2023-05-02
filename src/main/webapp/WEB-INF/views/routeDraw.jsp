@@ -28,7 +28,7 @@
 	</p>
 	<input type="text" id="location" placeholder="경로를 그리고싶은 지역을 입력하세요(동)">
 	<button onclick="search()">검색하기</button>
-	
+	<p>123</p>
 	<p>제목</p>
 	<input type="text" id="subject" placeholder="제목을 입력하세요">
 	<p>내용</p>
