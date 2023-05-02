@@ -1,5 +1,9 @@
 package com.pet.walkroute.dao;
 
-public class MateFindDAO {
+import java.util.ArrayList;
+
+public interface MateFindDAO {
+
+	ArrayList<MateFindDAO> dong();
 
 }
