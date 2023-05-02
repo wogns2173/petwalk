@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>너나들이</title>
+<title>Insert title here</title>
+<script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<style></style>
 </head>
 <body>
 	<jsp:include page="loginBox.jsp"></jsp:include>
-	${msg}	
-	<button onclick="location.href='join.go'">회원가입</button>
-	<button onclick="location.href='login.go'">로그인</button>
-	<button onclick="location.href='memberdelete.go'">회원탈퇴</button>
-	
 </body>
+<script>
+
+</script>
 </html>
