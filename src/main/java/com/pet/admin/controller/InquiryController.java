@@ -27,7 +27,7 @@ public class InquiryController {
 	
 	
 	@RequestMapping(value = "/inquiry")
-<<<<<<< HEAD
+
 	public String inquirylist(Locale locale, Model model) {
 		logger.info("inquiry List Call");
 		System.out.println("list call");
@@ -37,12 +37,7 @@ public class InquiryController {
 		logger.info("inqlist :"+inqlist.size());
 		
 		return "inquiryList";
-=======
-	public String home(Locale locale, Model model) {
-		model.addAttribute("msg", "inquiry");
-		logger.info("msg");
-		return "home";
->>>>>>> origin/master
+
 	}
 	
 	@RequestMapping(value="/inquirydetail.do")

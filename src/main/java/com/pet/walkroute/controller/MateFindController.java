@@ -30,7 +30,7 @@ public class MateFindController {
 		logger.info("dong : " + dong);
 		model.addAttribute("list",dong);
 		
-		return "map";
+		return "walkMateList";
 	}
 	
 }
