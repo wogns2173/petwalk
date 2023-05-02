@@ -1,5 +1,5 @@
 package com.pet.board.dto;
 
-public interface BoardDTO {
+public class BoardDTO {
 
 }

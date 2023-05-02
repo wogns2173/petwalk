@@ -19,6 +19,7 @@ public class InquiryController {
 	@RequestMapping(value = "/inquiry")
 	public String home(Locale locale, Model model) {
 		model.addAttribute("msg", "inquiry");
+		logger.info("msg");
 		return "home";
 	}
 	

@@ -1,5 +1,5 @@
 package com.pet.main.dao;
 
-public class MainDAO {
+public interface MainDAO {
 
 }

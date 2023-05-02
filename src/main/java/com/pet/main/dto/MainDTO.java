@@ -1,5 +1,5 @@
 package com.pet.main.dto;
 
-public interface MainDTO {
+public class MainDTO {
 
 }
