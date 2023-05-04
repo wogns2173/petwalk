@@ -336,24 +336,37 @@ function getTimeHTML(distance) {
 
 function sendArray2() {
 	console.log('sendArray2() 호출');
-	console.log(clickLine.getPath());
+	console.log(clickLine.getPath()[0].La);
 	console.log($('#subject').val());
 	console.log($('#content').val());
-	var lineList1 = ["1234","12345"];
-	console.log(lineList1);
-	var lineList2 = [];
+	
+	var latArray = [];
+	var lngArray = [];
+	
+	var linelist = []
 	clickLine.getPath().forEach(function(asd) {
-		console.log(asd.getLng() +"/"+ asd.getLat());
-		lineList2.push(asd.getLng() +"/"+ asd.getLat());
+		//console.log(asd.getLng() +"/"+ asd.getLat());
+		linelist.push(JSON.stringify({"lat" : asd.getLat(), "lng" : asd.getLng()}));
 	});
+	
+	var list = {
+			/*
+			'latArray' : JSON.stringify(latArray),
+			'lngArray' : JSON.stringify(lngArray),
+			*/
+			'lineList' : JSON.stringify(clickLine.getPath()),
+			'subject' : $('#subject').val(),
+			'content' : $('#content').val()
+	};
+	console.log(latArray);
+	console.log(lngArray);
+	
+	
 	
 	$.ajax({
 		type:'post',
-		url:'line2.ajax',
-		data:{
-			'lineList2': lineList2,
-			'subject' : $('#subject').val(),
-			'content' : $('#content').val()},
+		url:'./line.ajax',
+		data:{'list' : list},
 		dataType:'json',
 		success:function(data123){
 			console.log(data123);
