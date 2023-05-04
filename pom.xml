@@ -91,6 +91,7 @@
           <artifactId>jackson-core</artifactId>
           <version>2.9.4</version>
       </dependency>	
+
 		
 		<!-- MultipartFile 관련 -->
       <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
@@ -123,6 +124,14 @@
           <artifactId>jackson-core</artifactId>
           <version>2.9.4</version>
       </dependency>		
+
+		<!-- 암호화 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-crypto</artifactId>
+		    <version>5.5.0</version>
+		</dependency>
+		
 		
 		
 		<!-- AspectJ -->

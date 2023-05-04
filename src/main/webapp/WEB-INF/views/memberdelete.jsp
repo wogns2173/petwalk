@@ -10,8 +10,8 @@
 </head>
 <body>
 <jsp:include page="loginBox.jsp"></jsp:include>
-<h3>회원탈퇴 하시겠습니까?</h3>
-<div>- 회원탈퇴 후 3일 동안은 재가입이 불가능 합니다.</div>
+<h3>회원 탈퇴 하시겠습니까?</h3>
+<div>- 회원 탈퇴 후 3일 동안은 재가입이 불가능 합니다.</div>
 <div>- 탈퇴 시 계정의 모든 정보는 삭제되며, 재가입 시에는 복귀되지 않습니다.</div>
 <button onclick="location.href='memberdelete.do'">예</button>
 <button onclick="location.href='main.go'">아니요</button>

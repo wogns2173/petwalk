@@ -5,117 +5,48 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>너나들이 회원가입</title>
+<title>너나들이 프로필</title>
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
-
 		
 </style>
 </head>
 <body>
-<h3>회원가입</h3>
+	<jsp:include page="loginBox.jsp"></jsp:include>
+	<h3>프로필</h3>
 		<table>
 			<tr>
 				<th>아이디</th>
 				<td>
-
-					<input type="text" id="userID"/>					
-					<button id="overlayid">중복체크</button></br>
-					<span id="idmsg"></span>
-
-				</td>
-			</tr>
-			<tr>
-			<th>주소</th>
-				<td>
-					<select id="siID">
-						<option value="">시를 선택하세요</option>
-						<option value="1">서울 특별시</option>
-		<!--  			  	<option value="부산 광역시">부산 광역시</option>
-					  	<option value="인천 광역시">인천 광역시</option>
-					  	<option value="대구 광역시">대구 광역시</option>
-					  	<option value="광주 광역시">광주 광역시</option>
-					  	<option value="대전 광역시">대전 광역시</option>
-					  	<option value="울산 광역시">울산 광역시</option>-->
-					</select>
-					<select id="guID">
-						  <option value="">구를 선택하세요</option>					  
-						 <!-- <option value="종로구">종로구</option>
-						  <option value="중구">중구</option>
-						  <option value="용산구">용산구</option>
-						  <option value="성동구">성동구</option>
-						  <option value="광진구">광진구</option>
-						  <option value="동대문구">동대문구</option>
-						  <option value="중랑구">중랑구</option>
-						  <option value="성북구">성북구</option>
-						  <option value="강북구">강북구</option>
-						  <option value="도봉구">도봉구</option>
-						  <option value="노원구">노원구</option>
-						  <option value="은평구">은평구</option>
-						  <option value="서대문구">서대문구</option>
-						  <option value="마포구">마포구</option>
-						  <option value="양천구">양천구</option>
-						  <option value="강서구">강서구</option>
-						  <option value="구로구">구로구</option>
-						  <option value="금천구">금천구</option>
-						  <option value="영등포구">영등포구</option>
-						  <option value="동작구">동작구</option>
-						  <option value="관악구">관악구</option>
-						  <option value="서초구">서초구</option>-->
-						  <option value="1">강남구</option>
-						 <!-- <option value="송파구">송파구</option>
-						  <option value="강동구">강동구</option>-->
-					</select>
-					<select id ="dongID">
-					  	<option value="">동을 선택하세요</option>
-					      <!--  <option value="개포동">개포동</option>-->
-					      <option value="1">논현동</option>
-					      <!-- <option value="대치동">대치동</option>
-					      <option value="도곡동">도곡동</option>
-					      <option value="삼성동">삼성동</option>
-					      <option value="세곡동">세곡동</option>
-					      <option value="수서동">수서동</option>
-					      <option value="신사동">신사동</option>
-					      <option value="압구정동">압구정동</option>
-					      <option value="역삼동">역삼동</option>
-					      <option value="일원동">일원동</option>
-					      <option value="청담동">청담동</option> -->
-					</select>
-				</td>
-			</tr>						
-			<tr>
-				<th>비밀번호</th>
-				<td><input type="password" id="userPW"/></td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인</th>
-				<td>
-
-					<input type="password" id ="confirm"/></br>
-					<span id="pwmsg"></span>
-
-				</td>
-			</tr>
-			<tr>
-				<th>닉네임</th>
-
-				<td>
-					<input type="text" id="userNickname"/>					
-					<button id="overlaynickname">중복체크</button></br>
-					<span id="nicknamemsg"></span>
+					<div>${member.userID}</div>
+					<!--<input type="text" id="userID" value="${member.userID}" readonly/>-->									
 				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
 				<td>
-					<input type="text" id="userName"/>					
-				</td>
-				
-
+					<input type="text" id="userName" value="${member.userName}"/>					
+				</td>				
 			</tr>
 			<tr>
+				<th>닉네임</th>
+				<td>
+					<input type="text" id="userNickname" value="${member.userNickname}"/>					
+					<button id="overlaynickname">중복체크</button></br>
+					<span id="nicknamemsg"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>E-MAIL</th>
+				<td><input type="email" id="userEmail" value="${member.userEmail}"/></td>
+			</tr>	
+			<tr>
+				<th>연락처</th>
+				<td><input type="text" id="userContact" value="${member.userContact}"/></td>
+			</tr>										
+			<tr>
 				<th>나이</th>
-				<td><input type="text" id="userAge"/></td>
+				<td><input type="text" id="userAge" value="${member.userAge}"/></td>
 			</tr>
 			<tr>
 				<th>생년월일</th>	
@@ -196,40 +127,91 @@
 						<option value="31">31</option>
 					</select>
 					</td>
-			<tr>			
+			<tr>	
+			<tr>
+			<th>주소</th>
+				<td>
+					<select id="siID">
+						<option value="">시를 선택하세요</option>
+						<option value="1">서울 특별시</option>
+		<!--  			  	<option value="부산 광역시">부산 광역시</option>
+					  	<option value="인천 광역시">인천 광역시</option>
+					  	<option value="대구 광역시">대구 광역시</option>
+					  	<option value="광주 광역시">광주 광역시</option>
+					  	<option value="대전 광역시">대전 광역시</option>
+					  	<option value="울산 광역시">울산 광역시</option>-->
+					</select>
+					<select id="guID">
+						  <option value="">구를 선택하세요</option>					  
+						 <!-- <option value="종로구">종로구</option>
+						  <option value="중구">중구</option>
+						  <option value="용산구">용산구</option>
+						  <option value="성동구">성동구</option>
+						  <option value="광진구">광진구</option>
+						  <option value="동대문구">동대문구</option>
+						  <option value="중랑구">중랑구</option>
+						  <option value="성북구">성북구</option>
+						  <option value="강북구">강북구</option>
+						  <option value="도봉구">도봉구</option>
+						  <option value="노원구">노원구</option>
+						  <option value="은평구">은평구</option>
+						  <option value="서대문구">서대문구</option>
+						  <option value="마포구">마포구</option>
+						  <option value="양천구">양천구</option>
+						  <option value="강서구">강서구</option>
+						  <option value="구로구">구로구</option>
+						  <option value="금천구">금천구</option>
+						  <option value="영등포구">영등포구</option>
+						  <option value="동작구">동작구</option>
+						  <option value="관악구">관악구</option>
+						  <option value="서초구">서초구</option>-->
+						  <option value="1">강남구</option>
+						 <!-- <option value="송파구">송파구</option>
+						  <option value="강동구">강동구</option>-->
+					</select>
+					<select id ="dongID">
+					  	<option value="">동을 선택하세요</option>
+					      <!--  <option value="개포동">개포동</option>-->
+					      <option value="1">논현동</option>
+					      <!-- <option value="대치동">대치동</option>
+					      <option value="도곡동">도곡동</option>
+					      <option value="삼성동">삼성동</option>
+					      <option value="세곡동">세곡동</option>
+					      <option value="수서동">수서동</option>
+					      <option value="신사동">신사동</option>
+					      <option value="압구정동">압구정동</option>
+					      <option value="역삼동">역삼동</option>
+					      <option value="일원동">일원동</option>
+					      <option value="청담동">청담동</option> -->
+					</select>
+				</td>
+			</tr>			
 				<th>성별</th>
 				<td>
-					<input type="radio" name="userGender" value="남"/>남자 
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="userGender" value="여"/>여자
+					<input type="radio" name="userGender" value="남"
+					<c:if test="${member.userGender eq '남' }">checked</c:if>
+					/>남자 &nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="userGender" value="여"
+					<c:if test="${member.userGender eq '여' }">checked</c:if>
+					/>여자
 				</td>				
-			</tr>
-			<tr>
-				<th>연락처</th>
-				<td><input type="text" id="userContact"/></td>
-			</tr>		
-			<tr>
-				<th>E-MAIL</th>
-				<td><input type="email" id="userEmail"/></td>
 			</tr>			
-			<tr>
-         		<th colspan="2">
-            		<button onclick="join()">가입</button>
-            		<button onclick="location.href='./'">돌아가기</button>
-         		</th>
-      		</tr>
+	         <th colspan="2">
+	            <button onclick="profileupdate()">회원정보 수정</button>
+	            <button onclick="location.href='changememberpw.go'">비밀번호 변경하러가기</button>
+	            <button onclick="location.href='./'">돌아가기</button>
+	         </th>
+	      	</tr>
 		</table>
 </body>
 <script>
 var pweq = false;
-
 var overlayIdChk = false;
 var overlayNicknameChk = false;
 
-function join(){
+function profileupdate(){
 	
 	if(pweq && overlayIdChk && overlayNicknameChk){
-
 		
 		var $userID = $('#userID');
 		var $siID = $('#siID');
@@ -256,10 +238,7 @@ function join(){
 		}else if($dongID.val()==''){
 			alert('동을 입력해 주세요!');
 		}else if($userPW.val()==''){
-			alert('비밀번호를 입력해 주세요!');			
-			$userPW.focus();			
-		}else if($userPW.val().length <= 7){
-			alert('비밀번호를 8자리 이상 입력해 주세요!');
+			alert('비밀번호를 입력해 주세요!');
 			$userPW.focus();
 		}else if($userNickname.val()==''){
 			alert('닉네임를 입력해 주세요!');
@@ -305,99 +284,50 @@ function join(){
 			
 			$.ajax({
 				type:'post'
-				,url:'join.ajax'
+				,url:'profileupdate.ajax'
 				,data:param
 				,dataType:'json'
 				,success:function(data){
 					console.log(data);
 					if(data.success == 1){
-						alert('회원가입이 완료 되었습니다.');
+						alert('회원정보 수정이 완료 되었습니다.');
 						location.href ='./';
 					}else{
-						alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요');
+						alert('회원정보 수정에 실패 했습니다.\r\n 다시 시도해 주세요');
 					}
 				},
 				error:function(e){
 					console.log(e);
-					alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요');
+					alert('회원정보 수정에 실패 했습니다.\r\n 다시 시도해 주세요');
 				}
 			});
 		}
 				
 	}else{
-
-		alert('아이디, 닉네임 중복체크와 비밀번호 확인을 해 주세요');
+		alert('닉네임 중복체크와 비밀번호 확인을 해 주세요');
 	}	
 }
 
-$('#overlayid').on('click', function(e){
-
-    var chkId = $('#userID').val();      
-    
-    console.log("중복체크 요청 : " + chkId);
-    console.log($('#userID').val().length);
-    
-    $.ajax({
-       type: 'get'
-
-       ,url: 'overlayid.ajax'
-
-       ,data:{'userID':chkId}
-       ,dataType:'json'
-       ,success:function(data){
-          console.log(data);
-
-          if($('#userID').val().length <=4){
-        	  $('#idmsg').css({'font-size': '10px','color': 'red'});
-        		$('#idmsg').html('아이디를 5자리 이상 입력해주세요.');
-        		// && $('#userID').val().length >=5
-          }else if(data.overlayid==0){
-             alert('사용 가능한 아이디 입니다.');
-             overlayIdChk=true;
-             $('#idmsg').css({'font-size': '10px','color': 'darkgreen'});
-      		$('#idmsg').html('사용 가능한 아이디 입니다.');
-
-          } else {
-             alert('사용 불가능한 아이디 입니다.');
-             $('#userID').val('');
-             $('#idmsg').css({'font-size': '10px','color': 'red'});
-       		$('#idmsg').html('사용 불가능한 아이디 입니다.');
-          }
-       }
-       ,error:function(e){
-          console.log(e);
-       }
-    });      
-
- });
 
 $('#overlaynickname').on('click', function(e){
     var chkNickname = $('#userNickname').val();      
     console.log("중복체크 요청 : " + chkNickname);
-    console.log($('#userNickname').val().length);
+    
     $.ajax({
        type: 'get'
        ,url: 'overlaynickname.ajax'
        ,data:{'userNickname':chkNickname}
        ,dataType:'json'
        ,success:function(data){
-		console.log(data);				
-		if($('#userNickname').val().length <=1){
-			$('#nicknamemsg').css({'font-size': '10px','color': 'red'});
-      		$('#nicknamemsg').html('닉네임은 2글자 이상 10글자 이하로 입력해주세요.');
-		}else if($('#userNickname').val().length >=11){
-			$('#nicknamemsg').css({'font-size': '10px','color': 'red'});
-      		$('#nicknamemsg').html('닉네임은 2글자 이상 10글자 이하로 입력해주세요.');
-		}else if(data.overlaynickname==0){
+          console.log(data);
+          if(data.overlaynickname==0){
              alert('사용 가능한 닉네임 입니다.');
              overlayNicknameChk=true;
              $('#nicknamemsg').css({'font-size': '10px','color': 'darkgreen'});
-     		$('#nicknamemsg').html('사용 가능한 닉네임 입니다.');
-          }else {
-             alert('중복된 닉네임 입니다.');
+     		$('#nicknamemsg').html('사용가능한 닉네임 입니다.');
+          } else {
+             alert('이미 사용중인 닉네임 입니다.');
              $('#userNickname').val('');
-             $('#nicknamemsg').css({'font-size': '10px','color': 'red'});
-      		$('#nicknamemsg').html('중복된 닉네임 입니다.');
           }
        }
        ,error:function(e){
@@ -406,18 +336,14 @@ $('#overlaynickname').on('click', function(e){
     });      
  });
 
-
-
 $('#confirm').on('keyup',function(e){	
 	if($('#userPW').val() == $(this).val()){
-
 		$('#pwmsg').css({'font-size': '10px','color': 'darkgreen'});
 		$('#pwmsg').html('비밀번호가 일치 합니다.');
 		pweq = true;
 	}else{
 		$('#pwmsg').css({'font-size':'10px','color': 'red'});
 		$('#pwmsg').html('비밀번호가 일치 하지 않습니다');
-
 	}	
 	
 });
