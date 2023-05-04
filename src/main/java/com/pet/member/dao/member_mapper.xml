@@ -12,6 +12,11 @@
 			WHERE userID = #{param1}
 	</select>
 	
+	<select id="overlaypw" resultType="int">
+		SELECT COUNT(userPW) FROM member
+			WHERE userPW = #{param1}
+	</select>
+	
 	<select id="overlaynickname" resultType="int">
 		SELECT COUNT(userNickname) FROM member
 			WHERE userNickname = #{param1}
@@ -25,13 +30,52 @@
 		)					
 	</insert>
 	
-	<select id="login" resultType="int">
-		SELECT COUNT(userID) FROM member WHERE
-		userID = #{param1} AND userPW = #{param2} AND userBlindWhether = false
+	<select id="login" resultType="com.pet.member.dto.MemberDTO">
+		SELECT userNickname FROM member WHERE
+		userID = #{param1} AND userBlindWhether = false
 	</select>
 	
 	<update id="memberdelete">
-		UPDATE member SET userBlindWhether = 1  WHERE userID = #{param1}
+		UPDATE member SET userBlindWhether = true  WHERE userNickname = #{param1}
 	</update>
-   
+	
+	<select id="memberdetail" resultType="com.pet.member.dto.MemberDTO">
+		SELECT * FROM member WHERE userNickname = #{param1} AND userBlindWhether = false
+	</select>	
+
+   <select id="findmemberid" resultType="com.pet.member.dto.MemberDTO">
+		SELECT userID FROM member WHERE 
+		userName = #{param1} AND userEmail = #{param2} AND userBlindWhether = false
+	</select>
+	
+	<select id="findmemberpw" resultType="int">
+		SELECT COUNT(userID) FROM member WHERE
+		userName = #{param1} AND userID = #{param2} AND userEmail = #{param3} AND userBlindWhether = false
+	</select>
+	
+	<update id="RandomPassword">
+		UPDATE member SET userPW = #{param4} WHERE 
+		userName = #{param1} AND userID = #{param2} AND userEmail = #{param3}
+	</update>
+	
+	<select id="findloginpw" resultType="com.pet.member.dto.MemberDTO">
+		SELECT userPW FROM member WHERE
+		 userID = #{param1} AND userBlindWhether = false
+	</select>
+	
+	<select id="chkpw" resultType="com.pet.member.dto.MemberDTO">
+		SELECT userPW FROM member WHERE
+		 userNickname = #{param1} AND userBlindWhether = false
+	</select>
+		
+	<select id="changememberpw" resultType="com.pet.member.dto.MemberDTO">
+		SELECT userPW FROM member WHERE
+		 userNickname = #{param1} AND userBlindWhether = false
+	</select>
+	
+	<update id="changememberpwtrue">
+		UPDATE member SET userPW = #{param2} WHERE 
+		userNickname = #{param1}
+	</update>
+		
 </mapper>

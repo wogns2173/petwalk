@@ -23,7 +23,6 @@ public class MainController {
 	@RequestMapping(value = "/")
 	public String home(Model model, HttpSession session) {
 		
-		session.removeAttribute("loginId");
 		model.addAttribute("msg", "main");
 		return "home";
 	}

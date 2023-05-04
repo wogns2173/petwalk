@@ -24,8 +24,10 @@
       <tr>
          <th colspan="2">
             <button onclick="login()">로그인</button>
-            <button onclick="location.href='findid/pw.go'">아이디/비밀번호찾기</button>
+            <button onclick="location.href='findmemberid.go'">아이디 찾기</button>
+            <button onclick="location.href='findmemberpw.go'">비밀번호 찾기</button>
             <button onclick="location.href='join.go'">회원가입</button>
+            <button onclick="location.href='./'">돌아가기</button>
          </th>
       </tr>
    </table>
@@ -43,7 +45,7 @@ function login(){
 			,dataType:'json'
 			,success:function(data){
 				console.log(data);
-				if(data.success == 1){
+				if(data.member != null){
 					alert('로그인에 성공 했습니다.');				
 					location.href='main.go';
 				}else{

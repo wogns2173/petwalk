@@ -10,9 +10,13 @@
 <body>
 	<jsp:include page="loginBox.jsp"></jsp:include>
 	${msg}	
-	<button onclick="location.href='join.go'">회원가입</button>
-	<button onclick="location.href='login.go'">로그인</button>
-	<button onclick="location.href='memberdelete.go'">회원탈퇴</button>
-	
+	<jsp:include page="loginBox.jsp"></jsp:include>
+	<button onclick="location.href=''">추천 경로</button>
+	<button onclick="location.href=''">산책 경로 공유</button>
+	<button onclick="location.href=''">산책 메이트 찾기</button>
+	<button onclick="location.href=''">커뮤니티</button>
+	<hr>
+	<h3>이런곳은 어떠세요?</h3>	
+	<button onclick="location.href=''">더 알아보기</button>	
 </body>
 </html>

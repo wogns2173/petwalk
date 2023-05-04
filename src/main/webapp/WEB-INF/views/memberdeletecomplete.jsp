@@ -14,7 +14,7 @@
 <div>안녕하세요 너나들이 입니다.</div>
  <div>서비스를 이용하시면서 불편함을 드렸다면 죄송합니다.</div>
  <div>더 나은 서비스를 제공하기 위해 노력하는 너나들이가 되겠습니다.</div>
- <button onclick="location.href='/'">메인으로 돌아가기</button>
+ <button onclick="location.href='main.go'">메인으로 돌아가기</button>
 
 </body>
 <script></script>
