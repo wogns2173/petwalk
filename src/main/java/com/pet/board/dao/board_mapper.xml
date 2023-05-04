@@ -8,7 +8,7 @@
 <mapper namespace="com.pet.board.dao.BoardDAO">
    
    <select id="B_02list" resultType="com.pet.board.dto.BoardDTO">
-   	SELECT * FROM board ORDER BY boardNum DESC
+   	SELECT * FROM board WHERE boardBlindWhether ='false' ORDER BY boardNum DESC
    </select>
    
 <!--  <insert id="boardWrite">
@@ -20,26 +20,56 @@
  
  	<insert 
 		useGeneratedKeys="true"
-		keyColumn="categoryCode"
-		keyProperty="categoryCode"
+		keyColumn="boardNum"
+		keyProperty="boardNum"
 		
 		id="boardWrite" parameterType="com.pet.board.dto.BoardDTO">
-		INSERT INTO board(boardName,categoryCode,boardDetail,noticeWhether,
+		INSERT INTO board(categoryCode,boardName,boardDetail,noticeWhether,
    		boardBlindWhether,boardbHit)
-   		VALUES(#{boardName},#{categoryCode},#{boardDetail},0,0,0)
+   		VALUES(#{categoryCode},#{boardName},#{boardDetail},0,0,0)
 	</insert>
 	
 	<insert id="fileWrite" >
-		INSERT INTO photo(categoryCode,oriPhotoname,serPhotoname,savaDate,photoBlindWhether,photoIdenNum)
-			VALUES((SELECT categoryCode FROM board WHERE boardNum = #{param1}),#{param2},#{param3},'2023-05-02',0,1)
+		INSERT INTO photo(categoryCode,oriPhotoname,serPhotoname,photoBlindWhether,photoIdenNum)
+			VALUES(#{param1},#{param2},#{param3},false,#{param4})
 	</insert>
    
-   <select id="boardDetail" parameterType="String" resultType="com.pet.board.dto.BoardDTO">
-    SELECT userID, boardName, boardDetail, boardWriteDate, boardbHit, categoryCode
-    FROM board WHERE boardNum = #{boardNum}
-</select>
+   <select id="boardDetail" resultType="com.pet.board.dto.BoardDTO">
+    <!-- SELECT b.userID, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, b.categoryCode,p.photoNum,p.serPhotoname,p.photoIdenNum,b.boardNum
+    FROM board b left join photo p ON b.boardNum = p.photoIdenNum WHERE b.boardNum = #{param1}-->
+    <!--  SELECT b.userID, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, b.categoryCode,
+	(select p.photoNum from photo p where p.photoBlindWhether ='false' and p.photoIdenNum = #{param1})
+	,(select p.serPhotoname from photo p where p.photoBlindWhether ='false'and p.photoIdenNum = #{param1})
+	,(select p.photoIdenNum from photo p where p.photoBlindWhether ='false'and p.photoIdenNum = #{param1}),b.boardNum
+    FROM board b left join photo p ON b.boardNum = p.photoIdenNum WHERE b.boardNum = #{param1} -->
+    <!-- SELECT b.userID, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, b.categoryCode, p.photoNum, 
+    p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether
+	FROM board b LEFT JOIN photo p ON b.boardNum = p.photoIdenNum 
+	WHERE b.boardNum = #{param1} AND b.boardBlindWhether = 0 and p.photoBlindWhether =0-->
+	SELECT b.userID, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, b.categoryCode, 
+       p.photoNum, p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether
+	FROM board b LEFT OUTER JOIN photo p ON b.boardNum = p.photoIdenNum 
+	WHERE b.boardNum = #{param1} AND b.boardBlindWhether = 0 AND (p.photoBlindWhether = 0 OR p.photoBlindWhether IS NULL);
+	</select>
    
    <update id="boardbHit" parameterType="String">
-   	UPDATE board SET boardbHit = boardbHit+1 WHERE boardNum = #{boardNum}
+   	UPDATE board SET boardbHit = boardbHit+1 WHERE boardNum = #{param1}
+	</update>
+	
+	<update id="boardDelete" >
+		<!-- DELETE FROM board WHERE boardNum = #{param1}  -->
+		UPDATE board SET boardBlindWhether = true WHERE boardNum = #{param1}
+	</update>
+	
+	<select id="findFile" resultType="String">
+		SELECT serPhotoname FROM photo WHERE photoIdenNum = #{param1} AND photoBlindWhether = true
+	</select>
+	
+	<update id="boardUpdate" parameterType="hashmap">
+		UPDATE board SET boardName=#{boardName}, boardDetail=#{boardDetail} WHERE boardNum = #{boardNum} or  boardNum in (select photoIdenNum from photo where photoIdenNum = #{boardNum});
+	</update>
+	
+	<update id="photoDelete">
+		UPDATE photo SET photoBlindWhether = 1 WHERE serPhotoname = #{param1}
 	</update>
 </mapper>

@@ -44,6 +44,7 @@
 				<td>${bbs.boardbHit }</td>
 			</tr>
 			</c:forEach>
+			
 		</tbody>
 	</table>
 	<button onclick="location.href='boardWrite.go'">글쓰기</button>

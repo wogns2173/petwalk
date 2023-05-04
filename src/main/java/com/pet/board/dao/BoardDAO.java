@@ -18,7 +18,19 @@ public interface BoardDAO {
 
 	int boardWrite(BoardDTO dto);
 
-	void fileWrite(String categoryCode, String oriPhotoname, String serPhotoname);
+	void fileWrite(String categoryCode, String oriPhotoname, String serPhotoname, int boardNum);
+
+	String findFile(String boardNum);
+
+	int boardDelete(String boardNum);
+
+	int boardUpdate(HashMap<String, String> params);
+
+	int photoDelete(String serPhotoname);
+
+	int totalCount();
+
+	ArrayList<BoardDTO> list(int cnt, int offset);
 
 
 }

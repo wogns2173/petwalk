@@ -9,8 +9,8 @@
 <style></style>
 </head>
 <body>
-	<c:forEach items="dto">
-		<h2>${dto.categoryCode}</h2>
+	<!-- <c:forEach items="dto">-->
+		<input type="hidden" name="categoryCode">${dto.categoryCode}</input>
 		</br>
 		<h1>${dto.boardName}</h1>
 		</br>
@@ -20,16 +20,16 @@
 		</br>
 		<c:if test="${dto.serPhotoname ne null}">
 			<tr>
-				<th>사진</th>
-				<td><img width="300" src="/photo/${dto.serPhotoname }"/></td>
+				<td><img width="300" src="/photo/${dto.serPhotoname}"/></td>
 			</tr>
+			
 		</c:if>
 		<h2>${dto.boardDetail}</h2>
-	</c:forEach>
 		<button>신고</button>
-		<button>삭제</button>
-		<button>수정</button>
+		<input type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}'" value="삭제"/>
+		<input type= "button" onclick="location.href='./boardUpdate.go?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="수정"/>
 		<button>목록</button>
+	<!--</c:forEach>-->
 </body>
 <script>
 

@@ -9,7 +9,7 @@ public class BoardDTO {
 	private String categoryCode;
 	private String categoryName;
 	
-	private String boardNum;
+	private int boardNum;
 	private String boardName;
 	private String boardDetail;
 	private int boardbHit;
@@ -83,10 +83,10 @@ public class BoardDTO {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	public String getBoardNum() {
+	public int getBoardNum() {
 		return boardNum;
 	}
-	public void setBoardNum(String boardNum) {
+	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
 	}
 	public String getBoardName() {
