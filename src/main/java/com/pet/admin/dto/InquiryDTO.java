@@ -13,6 +13,12 @@ public class InquiryDTO {
 	private Date boardWriteDate;
 	private boolean noticeWhether;
 	private boolean boardBlindWhether;
+	private boolean process;
+	
+	private String commentDetail;
+	private Date commentWriteDate;
+	private boolean commentBlindWhether;
+	private int replyNum;
 	
 	public int getBoardNum() {
 		return boardNum;
@@ -68,5 +74,41 @@ public class InquiryDTO {
 	public void setBoradBlindWhether(boolean boradBlindWhether) {
 		this.boardBlindWhether = boradBlindWhether;
 	}
+
+	public String getCommentDetail() {
+		return commentDetail;
+	}
+	public void setCommetnDetail(String commetnDetail) {
+		this.commentDetail = commetnDetail;
+	}
+	public Date getCommentWriteDate() {
+		return commentWriteDate;
+	}
+	public void setCommentWriteDate(Date commentWriteDate) {
+		this.commentWriteDate = commentWriteDate;
+	}
+	public boolean isCommentBlindWhether() {
+		return commentBlindWhether;
+	}
+	public void setCommentBlindWhether(boolean commentBlindWhether) {
+		this.commentBlindWhether = commentBlindWhether;
+	}
+	public int getReplyNum() {
+		return replyNum;
+	}
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+	public void setCommentDetail(String commentDetail) {
+		this.commentDetail = commentDetail;
+	}
+	public boolean isProcess() {
+		return process;
+	}
+	public void setProcess(boolean process) {
+		this.process = process;
+	}
 	
+	
+
 }

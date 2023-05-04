@@ -62,18 +62,14 @@
      }
 </style>
 </head>
-
-
-  
-
-<body onload="loadSavedOption()">
+<body>
 	<!-- 글 번호 -->
 	<input type="hidden" name="inquiry" value="${inq.boardNum}">
 	
 	<!-- 문의 글 디테일 가져오기  -->
 	<table>
 		<tr>
-        	<th>${inq.boardName } / ${inq.categoryCode }</th>
+        	<th>${inq.boardName }</th>
         </tr>   
         <tr>
             <td>${inq.userID} </td>
@@ -86,14 +82,12 @@
         </tr>            
    </table>
    
-   <div>
-	   <select id="adminSelect_${inq.boardNum}">
-	      <option value="false">미처리</option>
-	      <option value="true">처리완료</option>
-	   </select>
-	   <button onclick="saveOption()">저장</button>
-   	</div>
-   	
+   
+   <select>
+      <option selected>미처리</option>
+      <option>처리완료</option>
+   </select>
+   		
 		<!-- 문의글 목록으로 돌아가기 -->
         <input type="button" onclick='location.href="./inquiry"' value="목록">
       
@@ -114,48 +108,43 @@
 			<p>${inqrep.commentDetail }</p>
 		</div>	
 	</c:forEach>
+<%-- 	<c:forEach items="${inqreplist}" var="inqrep">
+		<div>
+			<p>${inqrep.userID} / ${inqrep.commentWriteDate}</p>
+			<form method="get" action="inquiryreplyupdate.do">
+				<input type="hidden" name="boardNum" value="${inq.boardNum}">
+				<input type="hidden" name="replyNum" value ="${replyNum}">
+				<div class="inquiry_reply">
+			        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" value="${inqrep.commentDetail}">
+			        <p id="inquiryreply_legnth">0/100</p>
+			        <button type="submit">수정</button>
+				</div>
+			</form>
+		</div>	 
+	</c:forEach> --%>
 	
-	<!-- 댓글 작성 -->
-    <form method="post" action="inquiryreplywrite.do">
-    <input type="hidden" name="boardNum" value="${inq.boardNum}">
-    
+		<!-- 댓글 수정 -->
+    <form method="get" action="inquiryreplyupdate.do">
 	<div class="inquiry_reply">
-        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="내용을 입력 해 주세요.">
+		<input type="hidden" name="boardNum" value="${inq.boardNum}">
+		<input type="hidden" name="replyNum" value ="${replyNum}">
+        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" value="${inqrep.commentDetail}">
         <p id="inquiryreply_legnth">0/100</p>
-        <button type="submit">등록</button>
+        <button type="submit">수정</button>
 	</div>  
     </form>
     
 </body>
 <script>
 
-	/* 댓글 작성 글자 수 표시 */
+/* 댓글 작성 글자 수 표시 */
 	function checkLength() {
-	    var maxLength = 100;
-	    var length = document.getElementById("inquiryreply_text").value.length;
-	    var lengthElement = document.getElementById("inquiryreply_legnth");
-	    lengthElement.innerHTML = length + "/" + maxLength;
-	  }
-  	
-	var selectEl = document.getElementById("adminSelect_" + inq.boardNum);
-	selectEl.id = "adminSelect_" + inq.boardNum;
-	
-	function saveOption(){
-		console.log("inq.boardNum :"+${inq.boardNum});
-		var selectedOption = document.getElementById("adminSelect_"+inq.boardNum).value;
-		localStorage.setItem("selectedOption", selectedOption);	
+		var maxLength = 100;
+		var length = document.getElementById("inquiryreply_text").value.length;
+		var lengthElement = document.getElementById("inquiryreply_legnth");
+		lengthElement.innerHTML = length + "/" + maxLength;
 	}
-	
-	var savedOption = localStorage.getItem("selectedOption");
-	if (savedOption){
-		document.getElemntById("adminSelect_"+inq.boardNum).value=savedOption;
-	}
-	
-	function loadSavedOption() {
-		  var savedOption = localStorage.getItem("selectedOption");
-		  if (savedOption) {
-		    document.getElementById("adminSelect_"+inq.boardNum).value = savedOption;
-		  }
-		}
+ 
+		
 </script>
 </html>

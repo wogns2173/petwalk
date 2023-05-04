@@ -2,7 +2,30 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
+	
+		<!-- 해당 클래스로 encodingFilter 라는 이름으로 객체화를 한다. -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!-- 인코딩 종류 -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<!-- 강제 인코딩 여부 -->
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+	</filter>
+	
+	<!-- 어떤 요청이 왔을 때 어떤 필터 쓸래? -->
+	<!-- (8)filter-mapping 을 통해 어느 요청경로에 대해 필터를 적용할것인지에 대한 범위 설정이 가능하며, -->
+	<!-- (9)/* 로 하게 되면 모든 요청경로에 대해 필터를 적용하게 됩니다. -->
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
