@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MemMangeController {
 	
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping(value = "/memManage")
 	public String home(Locale locale, Model model) {

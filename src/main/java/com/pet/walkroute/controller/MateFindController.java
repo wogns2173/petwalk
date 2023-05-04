@@ -34,6 +34,7 @@ public class MateFindController {
 		model.addAttribute("list",dong);
 		
 		return "walkMateList";
+
 	}
 	
 	@RequestMapping(value = "/matefind/list")
@@ -78,6 +79,7 @@ public class MateFindController {
 	public ArrayList<MateFindDTO> dongList(@RequestParam String guID) {
 		ArrayList<MateFindDTO> dongList = service.dongList(guID);
 		return dongList;
+
 	}
 	
 }
