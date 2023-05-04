@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pet.walkroute.dao.MateFindDAO;
+import com.pet.walkroute.dto.MateFindDTO;
 
 @Service
 public class MateFindService {
@@ -16,9 +17,25 @@ public class MateFindService {
 	
 	@Autowired MateFindDAO dao;
 	
-	public ArrayList<MateFindDAO> dong() {
+	public ArrayList<MateFindDTO> dong() {
 		// TODO Auto-generated method stub
 		return dao.dong();
+	}
+
+	public ArrayList<MateFindDTO> mateList(String dong) {
+		return dao.mateList(dong);
+	}
+
+	public ArrayList<MateFindDTO> siList() {
+		return dao.siList();
+	}
+
+	public ArrayList<MateFindDTO> guList(String siID) {
+		return dao.guList(siID);
+	}
+
+	public ArrayList<MateFindDTO> dongList(String guID) {
+		return dao.dongList(guID);
 	}
 
 }
