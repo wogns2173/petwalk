@@ -109,6 +109,8 @@ $('#nowuserPW').on('keyup', function(e){
 
 
 $('#changeuserPW').on('keyup', function(e){
+	overlayPwChk=false;
+	
     var chkPW = $('#changeuserPW').val();      
     
     console.log("현재 사용중인 비밀번호? : " + chkPW);
@@ -140,6 +142,8 @@ $('#changeuserPW').on('keyup', function(e){
  });
 
 	$('#confirm').on('keyup',function(e){	
+		pweq = false;
+		
 		if($('#changeuserPW').val() == $('#confirm').val()){
 			$('#pwmsg').css({'font-size': '10px','color': 'darkgreen'});
 			$('#pwmsg').html('비밀번호가 일치 합니다.');
