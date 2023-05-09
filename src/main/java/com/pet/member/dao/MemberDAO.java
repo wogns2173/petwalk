@@ -18,7 +18,7 @@ public interface MemberDAO {
 
 	int memberdelete(Object attribute);		
 
-	MemberDTO memberdetail(Object attribute);
+	MemberDTO myinformation(Object attribute);
 
 	MemberDTO findmemberid(String userName, String userEmail);
 
@@ -35,6 +35,26 @@ public interface MemberDAO {
 	MemberDTO changememberpw(Object attribute);
 
 	int changememberpwtrue(Object object, String encodedPassword);
+
+	int updateusername(String usernickname, String username);
+	
+	int updateusernickname(String nownickname, String userNickname);
+
+	int updateuseremail(String usernickname, String useremail);
+
+	int updateuserContact(String usernickname, String usereContact);
+
+	int updateuserAge(String usernickname, String userAge);
+
+	int updateuserBirthdate(String usernickname, String userBirthdate);
+
+	int updateuseraddress(String usernickname, String siID, String guID, String dongID);
+
+	int updateuserGender(String usernickname, String userGender);
+
+	MemberDTO sessionupdatenickname(String userNickname);
+
+	
 
 	
 

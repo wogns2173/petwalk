@@ -116,6 +116,13 @@
 		    <version>5.5.0</version>
 		</dependency>
 		
+		<!--  메일전송api -->
+		<dependency>		
+			<groupId>org.apache.commons</groupId>		
+			<artifactId>commons-email</artifactId>		
+			<version>1.5</version>		
+		</dependency>
+		
 		
 		
 		<!-- AspectJ -->
