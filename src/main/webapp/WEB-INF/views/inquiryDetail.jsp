@@ -83,19 +83,27 @@
         </tr>      
         <tr>
             <td>${inq.boardDetail}</td>
-        </tr>            
+            <c:if test="${inq.serPhotoname ne null}">
+			<tr>
+				<td><img width="300" src="/photo/${inq.serPhotoname}"/></td>
+			</tr>
+			</c:if>
+    	 </tr>            
    </table>
    
-   <div>
-	   <select id="adminSelect_${inq.boardNum}">
-	      <option value="false">미처리</option>
-	      <option value="true">처리완료</option>
-	   </select>
-	   <button onclick="saveOption()">저장</button>
-   	</div>
+   <form id="inquiryprocess" action="inquriyprocess.go" method="POST">
+	   <div>
+		   <select name="selectedValue" id="${inq.boardNum}">
+		      <option value="false">미처리</option>
+		      <option value="true">처리완료</option>
+		   </select>
+		   <input type="hidden" name="boardNum" value="${inq.boardNum}">
+		   <input type="submit" value="저장">
+	   	</div>
+   	</form>
    	
 		<!-- 문의글 목록으로 돌아가기 -->
-        <input type="button" onclick='location.href="./inquiry"' value="목록">
+        <input type="button" onclick='location.href="./inquirylist.go"' value="목록">
       
    <hr>
    
@@ -110,7 +118,7 @@
 		<div class="inqrep">
 			${inqrep.userID} / ${inqrep.commentWriteDate}
 			<input type ="button" onclick='location.href="inqrepdel.do?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}"' value="삭제"/>
-			<input type ="button" onclick='location.href="inqrepupdate.go?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}"' value="수정"/>
+			<input type ="button" onclick='location.href="inqrepupdate.go?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}&commentDetail=${inqrep.commentDetail }"' value="수정"/>
 			<p>${inqrep.commentDetail }</p>
 		</div>	
 	</c:forEach>
@@ -137,25 +145,5 @@
 	    lengthElement.innerHTML = length + "/" + maxLength;
 	  }
   	
-	var selectEl = document.getElementById("adminSelect_" + inq.boardNum);
-	selectEl.id = "adminSelect_" + inq.boardNum;
-	
-	function saveOption(){
-		console.log("inq.boardNum :"+${inq.boardNum});
-		var selectedOption = document.getElementById("adminSelect_"+inq.boardNum).value;
-		localStorage.setItem("selectedOption", selectedOption);	
-	}
-	
-	var savedOption = localStorage.getItem("selectedOption");
-	if (savedOption){
-		document.getElemntById("adminSelect_"+inq.boardNum).value=savedOption;
-	}
-	
-	function loadSavedOption() {
-		  var savedOption = localStorage.getItem("selectedOption");
-		  if (savedOption) {
-		    document.getElementById("adminSelect_"+inq.boardNum).value = savedOption;
-		  }
-		}
 </script>
 </html>

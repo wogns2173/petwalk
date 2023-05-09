@@ -3,9 +3,9 @@ package com.pet.admin.dto;
 import java.sql.Date;
 
 public class InquiryDTO {
-
+	
+	// board dto
 	private int boardNum;
-	private String categoryCode;
 	private String userID;
 	private String boardName;
 	private String boardDetail;
@@ -15,10 +15,72 @@ public class InquiryDTO {
 	private boolean boardBlindWhether;
 	private boolean process;
 	
+	// category dto
+	private String categoryCode;
+	private String categoryName;
+	
+	// reply dto
 	private String commentDetail;
 	private Date commentWriteDate;
 	private boolean commentBlindWhether;
 	private int replyNum;
+	
+	//photo dto
+	private int photoNum;
+	private String oriPhotoname;
+	private String serPhotoname;
+	private Date savaDate;
+	private int photoIdenNum;
+	private boolean photoBlindWhether;
+	
+	public boolean isBoardBlindWhether() {
+		return boardBlindWhether;
+	}
+	public void setBoardBlindWhether(boolean boardBlindWhether) {
+		this.boardBlindWhether = boardBlindWhether;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public int getPhotoNum() {
+		return photoNum;
+	}
+	public void setPhotoNum(int photoNum) {
+		this.photoNum = photoNum;
+	}
+	public String getOriPhotoname() {
+		return oriPhotoname;
+	}
+	public void setOriPhotoname(String oriPhotoname) {
+		this.oriPhotoname = oriPhotoname;
+	}
+	public String getSerPhotoname() {
+		return serPhotoname;
+	}
+	public void setSerPhotoname(String serPhotoname) {
+		this.serPhotoname = serPhotoname;
+	}
+	public Date getSavaDate() {
+		return savaDate;
+	}
+	public void setSavaDate(Date savaDate) {
+		this.savaDate = savaDate;
+	}
+	public int getPhotoIdenNum() {
+		return photoIdenNum;
+	}
+	public void setPhotoIdenNum(int photoIdenNum) {
+		this.photoIdenNum = photoIdenNum;
+	}
+	public boolean isPhotoBlindWhether() {
+		return photoBlindWhether;
+	}
+	public void setPhotoBlindWhether(boolean photoBlindWhether) {
+		this.photoBlindWhether = photoBlindWhether;
+	}
 	
 	public int getBoardNum() {
 		return boardNum;

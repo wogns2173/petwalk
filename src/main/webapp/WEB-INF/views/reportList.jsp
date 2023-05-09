@@ -16,22 +16,18 @@
 		border-collapse: collapse;
 		padding : 10px 5px;
 	}
-	
+
 </style>
 </head>
 <body>
 
-<h3> 문의 리스트 </h3>
+<h3> 신고 리스트 </h3>
 
-	<!-- 문의 필터링  -->
+	<!-- 신고 필터링  -->
 	<select id="categoryCode">
-		<option value="default">문의 필터링</option>
-		<option value="B_06">산책 경로 문의</option>
-		<option value="B_07">게시글 문의</option>
-		<option value="9">채팅 문의</option>
-		<option value="B_1B_08">계정 문의</option>
-		<option value="B_00">광고 문의</option>
-		<option value="B_11">기타 문의</option>
+		<option value="default">신고 필터링</option>
+		<option value="B_12">프로필 신고</option>
+		<option value="B_13">게시글 신고</option>
 	</select>
 	
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -42,7 +38,18 @@
 		<option value="false">미처리</option>
 		<option value="true">처리완료</option>
 	</select>
-	 
+	
+	<!-- 검색 조건 -->
+	<select id="serchText">
+		<option value="default">검색 조건</option>
+		<option value="userName">이름</option>
+		<option value="userID">아이디</option>
+		<option value="userNickname">닉네임</option>
+	</select>
+	
+	<input type="text" id="searchInput" placeholder="내용을 입력 해 주세요">
+   <button id="searchButton">검색</button>
+	
 	<select id="pagePerNum">
 		<option value="5">5</option>
 		<option value="10">10</option>
@@ -52,31 +59,15 @@
 	
 	<hr>
 	
-<%-- 	<!-- 문의 게시판 리스트  -->
-	<table>
-		<c:if test="${inqlist.size() eq 0}">
-			<tr><th colspan="10">게시물이 없습니다.</th></tr>	
-		</c:if>
-			<c:forEach items="${inqlist}" var="inq">
-				<tr>
-					<td>문의 종류 : ${inq.categoryCode }</td>
-					<td><a href="inquirydetail.do?boardNum=${inq.boardNum}">${inq.boardName}</a></td>
-					<td>작성자 : ${inq.userID }</td>
-					<td>조회수 : ${inq.boardbHit }</td>
-					<td>작성일자 : ${inq.boardWriteDate }</td>
-					<td>처리 여부 : ${inq.process }</td>
-				</tr>	
-			</c:forEach>
-	</table> --%>
 		<table>
 		<thead>
 		</thead>
-		<tbody id = "inqlist">
+		<tbody id = "replist">
 		<!-- 리스트가 출력될 영역 -->
 		</tbody>
 		<tr>
 			<td colspan="6" id="paging">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
+					<!-- 플러그인 사용	(twbsPagination)	 -->
 				<div class="container">									
 					<nav aria-label="Page navigation" style="text-align:center">
 						<ul class="pagination" id="pagination"></ul>
@@ -92,7 +83,7 @@
 var showPage = 1;
 var selectedcategoryCode = 'default'
 var selectedprocess = 'default'
-
+var searchText = 'default';
 listCall(showPage);
 console.log("list call");
 
@@ -113,31 +104,46 @@ $('#process').change(function(){
    $('#pagination').twbsPagination('destroy');
 });
 
+$('#searchText').change(function(){
+	console.log("searchText change");
+	console.log(selectedprocess);
+	searchText = $(this).val();
+   listCall(showPage);
+   $('#pagination').twbsPagination('destroy');
+});
+/* //검색어에 따른 출력 
+$('#searchButton').click(function(){
+	console.log("searchButton");
+   //검색어 확인 
+   searchText = $('#searchInput').val();
+   listCall(showPage);
+   $('#pagination').twbsPagination('destroy');
+}); */
+
 $('#pagePerNum').change(function(){
 	console.log("Paging");
-	listCall(showPage ,$(this).val()); // cnt 값 전달
+	listCall(showPage);
 	// 페이지 처리 부분이 이미 만들어져 버려서 pagePerNum 이 변경되면 수정이 안된다.
 	// 그래서 pagePerNum 이 변경되면 부수고 다시 만들어야 한다.
 	$('#pagination').twbsPagination('destroy');
 });
 
-function listCall(page, cnt){
-	
-	  	cnt = cnt || 5;
+function listCall(page){
 	   $.ajax({
 	      type:'post',
-	      url:'inqlist.ajax',
+	      url:'replist.ajax',
 	      data:{
 	    	  'page':page,
 	    	  'categoryCode' :selectedcategoryCode,
 	    	  'process' :selectedprocess,
-	    	  'cnt': cnt
+	    	  'cnt':$('#pagePerNum').val(),
+	    	  'search':searchText
 	      },
 	      dataType:'json',           
 	      success:function(data){
 	    	 console.log("success");
 	         console.log(data);
-	         listPrint(data.inqlist);
+	         listPrint(data.replist);
 	         
 	         // 페이징 처리를 위해 필요한 데이터
 	         // 1. 총 페이지의 수
@@ -152,7 +158,7 @@ function listCall(page, cnt){
 	            console.log(page,showPage);
 	            if(page != showPage){
 	               showPage=page;
-	               listCall(page,cnt);
+	               listCall(page);
 	               
 	            }
 	         	}
@@ -164,48 +170,46 @@ function listCall(page, cnt){
 	});
 }
 	
-function listPrint(inqlist){
+function listPrint(replist){
 	console.log("listPrint Call");
 	var content ='';
 	
-	if(inqlist && Array.isArray(inqlist)){
-		inqlist.forEach(function(item){
-		var categoryNames = {
-				B_06 : "산책 경로 문의",
-				B_07 : "게시글 문의",
-				B_08 : "계정 문의",
-				B_09 : "광고 문의",
-				B_10 : "채팅 문의",
-				B_11 : "기타 문의"
-				
-		};
-		
-		var processNames = {
-				false : "미처리",
-				true : "처리완료"
-		};
+	if(replist && Array.isArray(replist)){
+		replist.forEach(function(item,reportNum){
 		      
-		var categoryName = categoryNames[item.categoryCode] || item.categoryCode;
-		var processName = processNames[item.process] || item.process;
-		
       content +='<tr>';
-      content +='<td id="inquiry">'+categoryName+'</td>';
-      content +='<td id="boardName"><a href="inquirydetail.do?boardNum='+ item.boardNum+'">'+item.boardName+'</a></td>';
+      content +='<td id="inquiry">'+item.categoryCode+'</td>';
+      content +='<td id="boardName"><a href="inquirydetail.do?boardNum='+ item.reportNum+'">'+item.reportName+'</a></td>';
       content +='<td id="userID">'+item.userID +'</td>';
-      content +='<td>'+item.boardbHit +'</td>';
-      var date = new Date(item.boardWriteDate);
-		// 기본값은 en-US
-	  content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';
-     /*  content +='<td>'+item.boardWriteDate +'</td>'; */
-      content +='<td>'+processName+'</td>';
+      content +='<td id="userName">'+item.userName +'</td>';
+      content +='<td id="userNickName">'+item.userNickName +'</td>';
+      content +='<td>'+item.reportDate +'</td>';
+      content +='<td>'+item.process +'</td>';
       content +='</tr>';
-      
+     
       
   	 });
 	}
-   $('#inqlist').empty();
-   $('#inqlist').append(content);
+   $('#list').empty();
+   $('#list').append(content);
 }
 
+/* //검색어에 따른 출력 
+$('#searchButton').click(function(){
+   //검색어 확인 
+   var searchText = $('#searchInput').val();
+   console.log(searchText);
+   
+   $('tbody tr').each(function() {
+      var subject = $(this).find('#subject').text();
+      var writerId = $(this).find('#writerId').text();
+      
+      if (subject.includes(searchText) || writerId.includes(searchText)){
+         $(this).show();
+      } else {
+           $(this).hide();
+       }
+   });
+}); */
 </script>
 </html>

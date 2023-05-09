@@ -6,13 +6,63 @@
 
 <!-- 쿼리문을 작성해둔 interface 주소 -->
 <mapper namespace="com.pet.admin.dao.InquiryDAO">
-   
-   		<select id="inqlist" resultType="com.pet.admin.dto.InquiryDTO">
-			SELECT * FROM board ORDER BY boardNum DESC
+   		
+
+
+   		
+  		<!-- 아작스는 * 쓰면 안됨 -->
+		<select id="inquirylist" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
+		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether,boardBlindWhether,inqProcess 
+		FROM board ORDER BY boardNum DESC 
+		LIMIT #{param2} OFFSET ${param3} 
 		</select>
-   
+		
+		<select id="listinqprocess" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
+		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether,boardBlindWhether,inqProcess 
+		FROM board WHERE process = #{param2} ORDER BY boardNum DESC
+		LIMIT #{param3} OFFSET ${param4}
+		</select>
+		
+		<select id="listinqAll" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
+		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether,boardBlindWhether,inqProcess 
+		FROM board WHERE categoryCode = #{param2} AND process = #{param3} ORDER BY boardNum DESC
+		LIMIT #{param4} OFFSET ${param5}
+		</select>
+		
+		<select id="listinquiry" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
+		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether,boardBlindWhether,inqProcess 
+		FROM board WHERE categoryCode = #{param2} ORDER BY boardNum DESC
+		LIMIT #{param3} OFFSET ${param4}
+		</select>
+		
+		
+   		<!-- <select id="inqlist" resultType="com.pet.admin.dto.InquiryDTO">
+			SELECT * FROM board ORDER BY boardNum DESC
+		</select> -->
+		
+		<!-- resultType="java.lang.Integer" -->
+    	
+    	<select id="totalCount" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(boardNum) FROM board 
+		</select>	
+		
+		<select id="totalCountinquiry" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(boardNum) FROM board WHERE categoryCode = #{param2}
+		</select>	
+		
+		<select id="totalCountprocess" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(boardNum) FROM board WHERE inqProcess = #{param2}
+		</select>	
+		
+		<select id="totalCountAll" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(boardNum) FROM board WHERE categoryCode = #{param2} AND inqProcess = #{param3}
+		</select>	 
+    	
 		<select id="inqdetail"  resultType="com.pet.admin.dto.InquiryDTO">
-			SELECT * FROM board WHERE boardNum = #{boardNum}
+		SELECT b.userID, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, b.categoryCode, 
+      		 p.photoNum, p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether
+		FROM board b LEFT OUTER JOIN photo p ON b.boardNum = p.photoIdenNum 
+		WHERE b.boardNum = #{param1} AND b.boardBlindWhether = 0 AND (p.photoBlindWhether = 0 OR p.photoBlindWhether IS NULL);
 		</select>
 		
 		<update id="upHit" parameterType="int">
@@ -20,7 +70,7 @@
    		</update>
    		
    		<select id="inqreplist" resultType="com.pet.admin.dto.InquiryDTO">
-   			SELECT * FROM reply WHERE boardNum = #{param1} AND replyNum = #{param2} ORDER BY boardNum DESC
+   			SELECT * FROM reply WHERE boardNum = #{param1} AND replyNum = #{param2} AND commentDetail = #{param3} ORDER BY boardNum DESC
    		</select>
    		
    		<select id="inqreplist2" resultType="com.pet.admin.dto.InquiryDTO">
@@ -39,5 +89,24 @@
 		<update id="inqrepupdate" parameterType="Hashmap">
    			UPDATE reply SET commentDetail = #{content} WHERE replyNum = #{replyNum}
    		</update>
+   		
+   		<update id="inqprocessupdate" parameterType="Hashmap">
+   			UPDATE board SET inqProcess = #{param1} WHERE boardNum = #{param2}
+   		</update>
 	
+		<insert 
+		useGeneratedKeys="true"
+		keyColumn="boardNum"
+		keyProperty="boardNum"
+		
+		id="boardWrite" parameterType="com.pet.admin.dto.InquiryDTO">
+		INSERT INTO board(categoryCode,boardName,boardDetail,noticeWhether,
+   		boardBlindWhether,boardbHit)
+   		VALUES(#{categoryCode},#{boardName},#{boardDetail},false,false,false)
+		</insert>
+	
+		<insert id="fileWrite" >
+		INSERT INTO photo(categoryCode,oriPhotoname,serPhotoname,photoBlindWhether,photoIdenNum)
+			VALUES(#{param1},#{param2},#{param3},false,#{param4})
+		</insert>
 </mapper>
