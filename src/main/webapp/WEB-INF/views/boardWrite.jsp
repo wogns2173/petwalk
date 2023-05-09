@@ -9,9 +9,9 @@
 <style></style>
 </head>
 <body>
-	<form method="post" action="boardWrite.do"  enctype="multipart/form-data">
+	<form method="post" action="boardWrite.do"  enctype="multipart/form-data" onsubmit="return checkPhoto()">
 	<div>
-        <select id="categoryCode" name="categoryCode">
+        <select id="categoryCode" name="categoryCode" onchange="checkPhoto()">
             <option value="B_01">반려견 갤러리</option>
             <option value="B_02">지식 공유 게시판</option>
             <option value="B_03">반려견 질문 게시판</option>
@@ -28,13 +28,39 @@
     </div>
     <div>
     	첨부파일
-    	<input type="file" name="photo"/>
+    	<input type="file" name="photo" id="photo" onchange="checkExtension()"/>
     </div>
-    <input type="button" onclick="location.href='./boardB_02list.do'" value="취소"/>
+    <input type="button" onclick="location.href='./boardList.go'" value="취소"/>
     <button type="submit">등록</button>
 </form>
 </body>
 <script>
-
+	function checkExtension() {
+	  var file = document.getElementById("photo");
+	  var fileName = file.value;
+	  var idx = fileName.lastIndexOf(".");
+	
+	  // 확장자명 추출
+	  var ext = fileName.slice(idx + 1).toLowerCase();
+	
+	  // 확장자명이 jsp인 경우 경고창 출력
+	  if (ext != "jsp" && ext != "png") {
+	    alert("확장자가 .jsp인 파일만 선택할 수 있습니다.");
+	    file.value = "";
+	    return false;
+	  }
+	  
+	}
+	
+	function checkPhoto(){
+		const categoryCode = document.getElementById('categoryCode').value;
+		const photoInput = document.getElementById('photo');
+		  
+		  if (categoryCode == 'B_01' && photoInput.value == '') {
+		    alert('반려견 갤러리는 사진 첨부가 필수입니다!');
+		    return false;
+		  }
+	}
+	
 </script>
 </html>

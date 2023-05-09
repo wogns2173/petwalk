@@ -1,0 +1,34 @@
+/* 공통 css */
+
+body {
+    background: #E3EDEB;
+}
+a {
+    text-decoration: none;
+    color: #666;
+    padding: 17px;
+}
+.main {
+    width: 720px;
+    height: 2000px;
+    background-color: white;
+    margin: 0 auto;
+}
+.main .topMenu {
+    width: 100%;
+    max-width: 720px;
+    position : fixed;
+    padding: 19px;
+    height: 94px;
+    background-color: white;
+}
+.main .topMenu .link {
+    position : absolute;
+    padding: 19px;
+    top : 0;
+    right: 0;
+}
+.main .topMenu .logo img {
+    width: 70px;
+    height: 70px;
+}
