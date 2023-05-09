@@ -100,7 +100,8 @@
 	    			console.log(data);
 	    			var content='<tr>';
 	    			data.forEach((list, index) =>  {
-	    				content += ('<td>'+list.mateName+'</td>');
+	    				content += ('<td><a href="./listDetail.do?mateWalkNum='+list.mateWalkNum+'">'+list.mateName+'</a></td>');
+	    				/*location.href=  */
 	    				content += ('<td>'+list.mateDetail+'</td>');
 	    				content += ('<td>'+list.userID+'</td>');
 	    				content += ('<td>'+list.petWalkDate+'</td>');

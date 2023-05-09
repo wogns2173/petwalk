@@ -2,7 +2,7 @@ package com.pet.walkroute.dto;
 
 import java.sql.Date;
 
-public class routeListDTO {
+public class RouteListDTO {
 	private int walkNum;
 	private String userID;
 	private String walkName;
@@ -10,6 +10,7 @@ public class routeListDTO {
 	private Date walkDate;
 	private int mapOrder;
 	private Double lat;
+	private Double lng;
 	
 	public int getWalkNum() {
 		return walkNum;
@@ -59,5 +60,4 @@ public class routeListDTO {
 	public void setLng(Double lng) {
 		this.lng = lng;
 	}
-	private Double lng;
 }

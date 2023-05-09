@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.walkroute.dao.MateFindDAO;
 import com.pet.walkroute.dto.MateFindDTO;
+import com.pet.walkroute.dto.MateListDetailDTO;
 import com.pet.walkroute.service.MateFindService;
 
 
@@ -51,6 +53,9 @@ public class MateFindController {
 	public ArrayList<MateFindDTO> markerList(@RequestParam String dong) {
 		logger.info("param : " + dong);
 		ArrayList<MateFindDTO> mateList = service.mateList(dong);
+		for (int i = 0; i < mateList.size(); i++) {	
+			logger.info("walkNum : " + mateList.get(i).getMateWalkNum());
+		}
 		return mateList;
 	}
 	
@@ -79,6 +84,23 @@ public class MateFindController {
 	public ArrayList<MateFindDTO> dongList(@RequestParam String guID) {
 		ArrayList<MateFindDTO> dongList = service.dongList(guID);
 		return dongList;
+
+	}
+	
+	@RequestMapping(value = "/matefind/listDetail.do")
+	public String listDetail(@RequestParam String mateWalkNum, Model model) {
+		String flag = "detail";
+		logger.info(mateWalkNum, flag);
+		MateListDetailDTO list = service.detail(mateWalkNum, flag);
+		logger.info("walkNum : " + list.getWalkNum());
+		ArrayList<MateListDetailDTO> coordinate = service.coordinate(list.getWalkNum());
+		logger.info("list" + list);
+		logger.info("coordinate : " + coordinate);
+		model.addAttribute("list", list);
+		model.addAttribute("coordinate", coordinate);
+		logger.info("lat : " + coordinate.get(0).getLat());
+		logger.info("lng : " + coordinate.get(0).getLng());
+		return "walkMateListDetail";
 
 	}
 	

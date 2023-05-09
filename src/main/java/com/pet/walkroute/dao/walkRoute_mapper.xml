@@ -9,4 +9,16 @@
    <select id="dong" resultType="com.pet.walkroute.dto.WalkRouteDTO">
 	 SELECT dongID, guID, dongName, lat, lng from dongdetail
    </select>
+   
+   <insert
+   		useGeneratedKeys="true"
+		keyColumn="walkNum"
+		keyProperty="walkNum" 
+		id="routeListStore" parameterType="com.pet.walkroute.dto.RouteListDTO">
+	 INSERT INTO routeList(userID, walkDetail, walkName) values ('fewqtr',#{walkDetail},#{walkName})
+   </insert>
+   
+   <insert id="coordinateStore" parameterType="HashMap">
+	 INSERT INTO coordinate(walkNum,mapOrder,lat,lng) values(#{walkNum},#{mapOrder},#{lat},#{lng})
+   </insert>
 </mapper>
