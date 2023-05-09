@@ -11,19 +11,33 @@
    </select>
    
    <select id="mateList" resultType="com.pet.walkroute.dto.MateFindDTO">
-	select userID,walkNum,siID,guID,dongID,mateName,mateDetail,matebHit,petWalkDate,state,mateBlindWhether from routemate
-	where dongId = (select d.dongID from dongdetail d where dongName = #{param1})
+		select mateWalkNum,userID,walkNum,siID,guID,dongID,mateName,mateDetail,matebHit,petWalkDate,state,mateBlindWhether from routemate
+		where dongId = (select d.dongID from dongdetail d where dongName = #{param1})
    </select>
    
    <select id="siList" resultType="com.pet.walkroute.dto.MateFindDTO">
-	SELECT * from sidetail
+		SELECT * from sidetail
    </select>
    
    <select id="guList" resultType="com.pet.walkroute.dto.MateFindDTO">
-	SELECT * from gudetail Where siID = #{param1}
+		SELECT * from gudetail Where siID = #{param1}
    </select>
    
    <select id="dongList" resultType="com.pet.walkroute.dto.MateFindDTO">
-	SELECT * from dongdetail where guID = #{param1}
+		SELECT * from dongdetail where guID = #{param1}
    </select>
+   
+   <update id="upHit">
+		UPDATE routeMate SET matebHit = matebHit+1	
+		WHERE mateWalkNum = #{param1}
+	</update>
+	
+	<select id="detail" resultType="com.pet.walkroute.dto.MateListDetailDTO">
+		SELECT * FROM routemate rm JOIN routelist rl ON (rm.walkNum = rl.walkNum)
+		WHERE rm.mateWalkNum = #{param1}	
+	</select>
+	
+	<select id="coordinate" resultType="com.pet.walkroute.dto.MateListDetailDTO">
+		SELECT * FROM coordinate WHERE walkNum = #{param1}	
+	</select>
 </mapper>

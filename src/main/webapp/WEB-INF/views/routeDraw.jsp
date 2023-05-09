@@ -70,7 +70,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 var drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
 var moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
-var clickLine // 마우스로 클릭한 좌표로 그려질 선 객체입니다
+var clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
 var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
 var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
 
@@ -80,7 +80,8 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
     // 마우스로 클릭한 위치입니다 
     var clickPosition = mouseEvent.latLng;
-
+	console.log('clickPosition : ' + clickPosition);
+	console.log('clickPosition type : ' + typeof clickPosition);
     // 지도 클릭이벤트가 발생했는데 선을 그리고있는 상태가 아니면
     if (!drawingFlag) {
 
@@ -122,6 +123,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
         // 그려지고 있는 선의 좌표 배열을 얻어옵니다
         var path = clickLine.getPath();
+    	console.log('path: '+path);
 
         // 좌표 배열에 클릭한 위치를 추가합니다
         path.push(clickPosition);
@@ -130,6 +132,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
         clickLine.setPath(path);
 
         var distance = Math.round(clickLine.getLength());
+        console.log(distance);
         displayCircleDot(clickPosition, distance);
     }
 });
@@ -182,7 +185,9 @@ kakao.maps.event.addListener(map, 'rightclick', function (mouseEvent) {
                 dots[dots.length-1].distance.setMap(null);
                 dots[dots.length-1].distance = null;    
             }
-
+			
+            console.log('clickLine : '+clickLine);
+            console.log('clickLine.getPath() : '+clickLine.getPath());
             var distance = Math.round(clickLine.getLength()), // 선의 총 거리를 계산합니다
                 content = getTimeHTML(distance); // 커스텀오버레이에 추가될 내용입니다
                 
@@ -345,18 +350,16 @@ function sendArray2() {
 	
 	var linelist = []
 	clickLine.getPath().forEach(function(asd) {
-		//console.log(asd.getLng() +"/"+ asd.getLat());
-		linelist.push(JSON.stringify({"lat" : asd.getLat(), "lng" : asd.getLng()}));
+		console.log(asd.getLng() +"/"+ asd.getLat());
+		latArray.push(asd.getLat());
+		lngArray.push(asd.getLng());
 	});
 	
 	var list = {
-			/*
-			'latArray' : JSON.stringify(latArray),
-			'lngArray' : JSON.stringify(lngArray),
-			*/
-			'lineList' : JSON.stringify(clickLine.getPath()),
-			'subject' : $('#subject').val(),
-			'content' : $('#content').val()
+			latArray : latArray,
+			lngArray : lngArray,
+			subject : $('#subject').val(),
+			content : $('#content').val()
 	};
 	console.log(latArray);
 	console.log(lngArray);
@@ -366,7 +369,8 @@ function sendArray2() {
 	$.ajax({
 		type:'post',
 		url:'./line.ajax',
-		data:{'list' : list},
+		data: JSON.stringify(list),
+		contentType: "application/json",
 		dataType:'json',
 		success:function(data123){
 			console.log(data123);

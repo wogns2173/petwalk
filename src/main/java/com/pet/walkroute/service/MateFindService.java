@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.pet.walkroute.dao.MateFindDAO;
 import com.pet.walkroute.dto.MateFindDTO;
+import com.pet.walkroute.dto.MateListDetailDTO;
 
 @Service
 public class MateFindService {
@@ -36,6 +37,17 @@ public class MateFindService {
 
 	public ArrayList<MateFindDTO> dongList(String guID) {
 		return dao.dongList(guID);
+	}
+
+	public MateListDetailDTO detail(String mateWalkNum, String flag) {
+		if(flag.equals("detail")) {
+			dao.upHit(mateWalkNum);
+		}
+		return dao.detail(mateWalkNum);
+	}
+
+	public ArrayList<MateListDetailDTO> coordinate(int walkNum) {
+		return dao.coordinate(walkNum);
 	}
 
 }
