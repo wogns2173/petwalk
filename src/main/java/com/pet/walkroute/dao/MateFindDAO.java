@@ -3,6 +3,7 @@ package com.pet.walkroute.dao;
 import java.util.ArrayList;
 
 import com.pet.walkroute.dto.MateFindDTO;
+import com.pet.walkroute.dto.MateListDetailDTO;
 
 public interface MateFindDAO {
 
@@ -15,5 +16,11 @@ public interface MateFindDAO {
 	ArrayList<MateFindDTO> guList(String siID);
 
 	ArrayList<MateFindDTO> dongList(String guID);
+
+	int upHit(String mateWalkNum);
+
+	MateListDetailDTO detail(String mateWalkNum);
+
+	ArrayList<MateListDetailDTO> coordinate(int walkNum);
 
 }

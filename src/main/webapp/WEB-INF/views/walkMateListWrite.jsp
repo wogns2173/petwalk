@@ -20,12 +20,11 @@
 </head>
 <body>
 	<div id="map" style="width:100%;height:350px;"></div>
-	<select class="form-select" aria-label="Default select example">
-		<option selected>Open this select menu</option>
+	<select class="form-select mineOrBookmark" aria-label="Default select example">
 		<option value="1">내가 등록한 산책경로</option>
 		<option value="2">즐겨찾기한 경로</option>
 	</select>
-	<button>불러오기</button>
+	<button onclick="bringIn()">불러오기</button>
 	<div class="mb-3">
 		<label for="exampleFormControlInput1" class="form-label">제목</label>
 		<input type="email" class="form-control" id="exampleFormControlInput1">
@@ -51,6 +50,11 @@
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
 <script>
+	if(sessionStorage.getItem("loginID") == null) {
+		alert('로그인하셈 ㅋ');
+		location.href='/';
+	}
+	
 	$.ajax({
 		type:'get',
 		url:'./silist.ajax',
@@ -131,5 +135,33 @@
 	$('.siList').on('change', function() {
 		console.log($(this).val());
 	});
+	
+	function bringIn() {
+		console.log($('.mineOrBookmark option:selected').val());
+		if($('.mineOrBookmark option:selected').val() == 1) {
+			$.ajax({
+				type:'get',
+				url:'./donglist.ajax',
+				data:{guID : $('option:selected', this).val()},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					var content='';
+					data.forEach((list, index) =>  {
+						content += ('<option value='+list.dongID+'>'+list.dongName+'</option>');
+					});
+					console.log(content);
+					$('.dongList').append(content);
+					
+				},
+				error:function(e){
+					console.log(e);
+				}		
+			});
+		}
+		else {
+			
+		}
+	}
 </script>
 </html>
