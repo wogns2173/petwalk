@@ -33,7 +33,7 @@
 	</insert>
 	
 	<select id="login" resultType="com.pet.member.dto.MemberDTO">
-		SELECT userNickname FROM member WHERE
+		SELECT userID, userNickname, Role FROM member WHERE
 		userID = #{param1} AND userBlindWhether = false
 	</select>
 
@@ -43,8 +43,11 @@
 	</update>
 
 	
-	<select id="memberdetail" resultType="com.pet.member.dto.MemberDTO">
-		SELECT * FROM member WHERE userNickname = #{param1} AND userBlindWhether = false
+	<select id="myinformation" resultType="com.pet.member.dto.MemberDTO">
+		SELECT m.userID, m.userNickname, m.userName, m.userEmail, m.userContact, m.userAge, m.userBirthdate, m.userGender ,s.siName, g.guName, d.dongName,m.siID, m.guID, m.dongID   
+		FROM member m INNER JOIN sidetail s ON m.siID = s.siID 
+		INNER JOIN gudetail g ON m.guID = g.guID INNER JOIN dongdetail d ON m.dongID = d.dongID 
+		WHERE m.userNickname = #{param1} AND m.userBlindWhether = false;
 	</select>	
 
    <select id="findmemberid" resultType="com.pet.member.dto.MemberDTO">
@@ -81,5 +84,52 @@
 		UPDATE member SET userPW = #{param2} WHERE 
 		userNickname = #{param1}
 	</update>
+	
+	<update id="updateusername">
+		UPDATE member SET userName = #{param2} WHERE 
+		userNickname = #{param1}
+	</update>
+	
+	<update id="updateusernickname">
+		UPDATE member SET userNickname = #{param2} WHERE 
+		userNickname = #{param1}
+	</update>
+	
+	<update id="updateuseremail" >
+		UPDATE member SET userEmail = #{param2} WHERE 
+		userNickname = #{param1}
+	</update>
+	
+	<update id="updateuserContact" >
+		UPDATE member SET userContact = #{param2} WHERE 
+		userNickname = #{param1}
+	</update>
+	
+	<update id="updateuserAge" >
+		UPDATE member SET userAge = #{param2} WHERE 
+		userNickname = #{param1}
+	</update>
+	
+	<update id="updateuserBirthdate" >
+		UPDATE member SET userBirthdate = #{param2} WHERE 
+		userNickname = #{param1}
+	</update>
+	
+	<update id="updateuseraddress" >
+		UPDATE member SET siID = #{param2}, guID = #{param2}, dongID = #{param2}WHERE 
+		userNickname = #{param1}
+	</update>
+	
+	<update id="updateuserGender" >
+		UPDATE member SET userGender = #{param2} WHERE 
+		userNickname = #{param1}
+	</update>
+	
+	<select id="sessionupdatenickname" resultType="com.pet.member.dto.MemberDTO">
+		SELECT userID, userNickname FROM member WHERE
+		userNickname = #{param1}
+	</select>
+	
+	
 		
 </mapper>
