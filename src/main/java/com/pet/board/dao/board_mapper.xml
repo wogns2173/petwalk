@@ -39,8 +39,8 @@
 		
 		id="boardWrite" parameterType="com.pet.board.dto.BoardDTO">
 		INSERT INTO board(categoryCode,boardName,boardDetail,noticeWhether,
-   		boardBlindWhether,boardbHit)
-   		VALUES(#{categoryCode},#{boardName},#{boardDetail},0,0,0)
+   		boardBlindWhether,boardbHit,inqProcess)
+   		VALUES(#{categoryCode},#{boardName},#{boardDetail},0,0,0,0)
 	</insert>
 	
 	<!-- 파일저장 -->

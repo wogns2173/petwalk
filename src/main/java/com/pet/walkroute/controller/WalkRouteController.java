@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pet.walkroute.dto.WalkRouteVO;
-import com.pet.walkroute.dto.RouteListDTO;
+
 import com.pet.walkroute.service.WalkRouteService;
 
 import jdk.nashorn.internal.parser.JSONParser;

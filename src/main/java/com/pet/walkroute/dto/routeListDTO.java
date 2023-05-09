@@ -60,4 +60,6 @@ public class RouteListDTO {
 	public void setLng(Double lng) {
 		this.lng = lng;
 	}
+	
+	
 }
