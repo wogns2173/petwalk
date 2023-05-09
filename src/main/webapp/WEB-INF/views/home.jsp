@@ -7,8 +7,7 @@
 <meta charset="UTF-8">
 <title>너나들이</title>
 </head>
-<body>
-
+<body>	
 	<jsp:include page="loginBox.jsp"></jsp:include>
 	${msg}	
 

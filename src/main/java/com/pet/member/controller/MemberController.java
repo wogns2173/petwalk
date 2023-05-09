@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pet.member.dto.MemberDTO;
 import com.pet.member.service.MemberService;
 
-
-
-
 @Controller
 public class MemberController {
 	
@@ -31,13 +28,15 @@ public class MemberController {
 	
 	@RequestMapping(value="/join.go")
 	   public String joinForm() {
+		
 	      return "joinForm";      
 	   }
 
 	   @RequestMapping(value="/overlayid.ajax")
 	   @ResponseBody
 	   public HashMap<String, Object> overlayid(@RequestParam String userID){
-		   logger.info("overlayid : "+userID);				   
+		   logger.info("overlayid : "+userID);
+		   
 	      return service.overlayid(userID);      
 	   }
 	   
@@ -72,8 +71,7 @@ public class MemberController {
 		   
 		   String userPW = (String) session.getAttribute("userPW");
 
-		   logger.info("{}"+ session.getAttribute("userPW"));		   
-		   
+		   logger.info("{}"+ session.getAttribute("userPW"));		   		   
 		   
 		   BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();			
 		   boolean isMatched = encoder.matches(nowuserPW, userPW);
@@ -90,6 +88,7 @@ public class MemberController {
 	   @ResponseBody
 	   public HashMap<String, Object> overlaynickname(@RequestParam String userNickname){
 		   logger.info("overlaynickname : "+userNickname);
+		   
 	      return service.overlaynickname(userNickname);      
 
 	   }
@@ -98,11 +97,13 @@ public class MemberController {
 	   @ResponseBody
 	   public HashMap<String, Object> join(@RequestParam HashMap<String, String> params){
 		   logger.info("params: {}"+params);
+		   
 		return service.join(params);		   
 	   }
 	   
 	   @RequestMapping(value="/login.go")
 	   public String loginForm() {
+		   
 	      return "loginForm";      
 	   }
 	   
@@ -131,7 +132,9 @@ public class MemberController {
 			   dto = service.login(userID);
 			   logger.info("dto :" + dto.getUserNickname());			   
 			   		   		   
-			   session.setAttribute("userNickname", dto.getUserNickname());		   
+			   session.setAttribute("userNickname", dto.getUserNickname());
+			   session.setAttribute("userID", dto.getUserID());
+			   session.setAttribute("Role", dto.getRole());
 			   map.put("member", dto);
 		   }
 		   return map;
@@ -141,12 +144,12 @@ public class MemberController {
 		public String logout(HttpSession session) {
 			
 			session.removeAttribute("userNickname");
+			session.removeAttribute("userID");
 			return "redirect:/";
 		}
 		
 	   @RequestMapping(value="/main.go")
 	   public String main(HttpSession session) {  
-
 		   
 		return "home";
 	   }	
@@ -165,8 +168,7 @@ public class MemberController {
 				 session.setAttribute("userPW", dto.getUserPW());
 				 logger.info("암호는?"+session.getAttribute("userPW"));
 				 page = "changememberpw";
-			 }
-		   
+			 }		   
 		return page;
 	   }
 	   
@@ -186,15 +188,12 @@ public class MemberController {
 	   
 	   @RequestMapping(value="/memberdelete.go")
 	   public String memberdelete(HttpSession session) {  
-
 		   
-		   String page = "redirect:/";
-		   
+		   String page = "redirect:/";		   
 
 		   if(session.getAttribute("userNickname") != null) {
 			   page = "memberdelete";			   
-		   }
-		   
+		   }		   
 		return page;
 	   }
 	   
@@ -206,24 +205,24 @@ public class MemberController {
 		   if(session.getAttribute("userNickname") != null) {
 			   service.memberdeletetrue(session.getAttribute("userNickname"));
 			   session.removeAttribute("userNickname");
+			   session.removeAttribute("userID");
 			   page = "memberdeletecomplete";
 		   }
 		   
 		return page;
 	   }
-
 	   
-	   @RequestMapping(value="/memberdetail.do")
-	   public String memberdetail(HttpSession session, Model model) {  
+	   @RequestMapping(value="/myinformation.go")
+	   public String myinformation(HttpSession session, Model model) {  
 			
 			String page = "redirect:/";		
 			
 			logger.info("닉네임은?"+session.getAttribute("userNickname"));
 			
 			 if(session.getAttribute("userNickname") != null) {
-				 MemberDTO dto = service.memberdetail(session.getAttribute("userNickname"));				 
+				 MemberDTO dto = service.myinformation(session.getAttribute("userNickname"));				 
 				 model.addAttribute("member",dto);
-				 page = "memberdetail";
+				 page = "myinformation";
 			 }
 			
 			return page;
@@ -261,22 +260,141 @@ public class MemberController {
 	   public HashMap<String, Object> findmemberpw(@RequestParam String userName, 
 			   @RequestParam String userID, @RequestParam String userEmail, HttpSession session){
 		   		   		  
-		   logger.info(userName+"/"+userID+"/"+userEmail);
-		   
-		   MemberDTO dto = new MemberDTO();
+		   logger.info(userName+"/"+userID+"/"+userEmail);		   
 		   
 		   HashMap<String, Object> map = new HashMap<String, Object>();
 		   
 		   int success = service.findmemberpw(userName, userID, userEmail);
+		   
 		   logger.info("findsuccess: "+ success);
+		   
 		   if(success == 1) {
 			   String findpw =(String) service.RandomPassword(userName, userID, userEmail);
-			   logger.info("임시비밀번호"+findpw);
-			   logger.info("data {}"+dto);	   		   			   			   
+			   logger.info("임시비밀번호: "+findpw); 		   			   			   
 			   map.put("findpw", findpw);
-		   }
-		   		   		   		   
+		   }		   		   		   		  
 		return  map;
 	   }	   	  
-
+	   
+	   @RequestMapping(value="/myinformationupdate.go")
+	   public String myinformationupdate(HttpSession session, Model model) {
+		   
+		   String page = "redirect:/";		
+			
+			logger.info("닉네임은?"+session.getAttribute("userNickname"));
+			
+			 if(session.getAttribute("userNickname") != null) {
+				 MemberDTO dto = service.myinformation(session.getAttribute("userNickname"));				 
+				 model.addAttribute("member",dto);
+				 String mdph = dto.getUserContact();
+				 int mdphn = Integer.parseInt(mdph.substring(3, 7));
+				 logger.info("m"+mdphn);
+				 int lstphn = Integer.parseInt(mdph.substring(7));
+				 logger.info("s"+lstphn);
+				 model.addAttribute("mdphn", mdphn);
+				 model.addAttribute("lstphn", lstphn);
+				 
+				 String Birthdate = dto.getUserBirthdate();
+				 int year = Integer.parseInt(Birthdate.substring(0, 4));
+				 int month = Integer.parseInt(Birthdate.substring(5, 7));
+				 int day = Integer.parseInt(Birthdate.substring(8));
+				 model.addAttribute("year", year);
+				 model.addAttribute("month", month);
+				 model.addAttribute("day", day);
+ 
+				 page = "myinformationupdate";
+				 
+				 
+			 }
+	      return page;      
+	   }
+	   
+	   @RequestMapping(value="/updateusername.ajax")	
+	   @ResponseBody
+	   public HashMap<String, Object> updateusername(HttpSession session, @RequestParam String username){
+		
+		String usernickname = (String) session.getAttribute("userNickname");
+		   
+		   return service.updateusername(usernickname, username);		   
+	   }
+	   
+	   @RequestMapping(value="/updateusernickname.ajax")	
+	   @ResponseBody
+	   public HashMap<String, Object> updateusernickname(HttpSession session, @RequestParam String userNickname){
+				   		   
+		String nownickname = (String) session.getAttribute("userNickname");								
+		 HashMap<String, Object> map = new HashMap<String, Object>();		 
+		 map = service.updateusernickname(nownickname, userNickname);
+		 session.removeAttribute("userNickname");
+		 session.removeAttribute("userID");
+		 
+		 MemberDTO dto = service.sessionupdatenickname(userNickname);
+		 session.setAttribute("userNickname", dto.getUserNickname());
+		 session.setAttribute("userID", dto.getUserID());
+		   return map;		   
+	   }
+	   
+	   @RequestMapping(value="/updateuseremail.ajax")	
+	   @ResponseBody
+	   public HashMap<String, Object> updateuseremail(HttpSession session, @RequestParam String useremail){
+		   // 세션 변경 해줘야함 
+		   String usernickname = (String) session.getAttribute("userNickname");
+		   
+		   return service.updateuseremail(usernickname, useremail);		   
+	   }
+	   
+	   @RequestMapping(value="/updateuserContact.ajax")	
+	   @ResponseBody
+	   public HashMap<String, Object> updateuserContact(HttpSession session, @RequestParam String usereContact){
+  
+		   String usernickname = (String) session.getAttribute("userNickname");
+		   
+		   return service.updateuserContact(usernickname, usereContact);		   
+	   }
+	   
+	   @RequestMapping(value="/updateuserAge.ajax")	
+	   @ResponseBody
+	   public HashMap<String, Object> updateuserAge(HttpSession session, @RequestParam String userAge){
+  
+		   String usernickname = (String) session.getAttribute("userNickname");
+		   
+		   return service.updateuserAge(usernickname, userAge);		   
+	   }
+	   
+	   @RequestMapping(value="/updateuserBirthdate.ajax")	
+	   @ResponseBody
+	   public HashMap<String, Object> updateuserBirthdate(HttpSession session, @RequestParam String userBirthdate){
+  
+		   String usernickname = (String) session.getAttribute("userNickname");
+		   
+		   return service.updateuserBirthdate(usernickname, userBirthdate);		   
+	   }
+	   
+	   @RequestMapping(value="/updateuseraddress.ajax")	
+	   @ResponseBody
+	   public HashMap<String, Object> updateuseraddress(HttpSession session, @RequestParam String siID, @RequestParam String guID, @RequestParam String dongID){
+  
+		   String usernickname = (String) session.getAttribute("userNickname");
+		   
+		   return service.updateuseraddress(usernickname, siID, guID, dongID);		   
+	   }
+	   
+	   @RequestMapping(value="/updateuserGender.ajax")	
+	   @ResponseBody
+	   public HashMap<String, Object> updateuserGender(HttpSession session, @RequestParam String userGender){
+  
+		   String usernickname = (String) session.getAttribute("userNickname");
+		   
+		   return service.updateuserGender(usernickname, userGender);		   
+	   }
+	   
+	   @RequestMapping(value="/profile.go")
+	   public String profile() {
+		   
+		   
+		   
+	      return "profile";      
+	   }
+	   
+	   
 }
