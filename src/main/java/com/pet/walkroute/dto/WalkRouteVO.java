@@ -1,6 +1,7 @@
 package com.pet.walkroute.dto;
 
 public class WalkRouteVO {
+	
 	private double[] latArray;
 	private double[] lngArray;
 	private String subject;
@@ -30,6 +31,5 @@ public class WalkRouteVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
 	
 }

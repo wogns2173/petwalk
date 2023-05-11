@@ -3,6 +3,8 @@ package com.pet.walkroute.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.pet.walkroute.dao.WalkRouteDAO;
 import com.pet.walkroute.dto.RouteListDTO;
-import com.pet.walkroute.dto.WalkRouteDTO;
+import com.pet.walkroute.dto.DongInfoDTO;
 import com.pet.walkroute.dto.WalkRouteVO;
 
 @Service
@@ -19,23 +21,15 @@ public class WalkRouteService {
 	
 	@Autowired WalkRouteDAO dao;
 	
-	public ArrayList<WalkRouteDTO> dong() {
+	public ArrayList<DongInfoDTO> dong() {
 		return dao.dong();
 	}
 
-	public ArrayList<String> insert(ArrayList<String> list) {
-		for(String latlng : list) {
-			String[] asd = latlng.split("/");
-			logger.info("lng : " + asd[0] + "/" + "lat : " + asd[1]);
-		}
-		return null;
-	}
-
-	public String routeStore(WalkRouteVO vo) {
+	public String routeStore(WalkRouteVO vo, String id) {
 		RouteListDTO dto = new RouteListDTO();
 		dto.setWalkName(vo.getSubject());
 		dto.setWalkDetail(vo.getContent());
-		
+		dto.setUserID(id);
 		dao.routeListStore(dto);
 		int walkNum = dto.getWalkNum();
 		logger.info("walkNum : " + walkNum);
@@ -54,5 +48,28 @@ public class WalkRouteService {
 			map.clear();
 		}
 		return "성공";
+	}
+
+	public ArrayList<RouteListDTO> routeList(int mineOrBookmark, String id) {
+		ArrayList<RouteListDTO> list = null;
+		if(mineOrBookmark == 1) {
+			list = dao.routeList(id);
+		}else {
+			
+		}
+		return list;
+	}
+	
+	public ArrayList<RouteListDTO> routeList(String id) {
+		ArrayList<RouteListDTO> list = dao.routeList(id);
+		return list;
+	}
+
+	public ArrayList<RouteListDTO> routeBring(String walkNum) {
+		ArrayList<RouteListDTO> list = dao.coordinateBring(walkNum);
+		for(int i=0; i<list.size(); i++) {
+			logger.info("lat : " + list.get(i).getLat());
+		}
+		return list;
 	}
 }

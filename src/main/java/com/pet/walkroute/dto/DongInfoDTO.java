@@ -1,6 +1,6 @@
 package com.pet.walkroute.dto;
 
-public class WalkRouteDTO {
+public class DongInfoDTO {
 	private int dongID; 
 	private int guID; 
 	private String dongName;
