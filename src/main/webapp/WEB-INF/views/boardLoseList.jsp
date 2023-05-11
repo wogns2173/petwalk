@@ -31,7 +31,7 @@
 	</style>
 </head>
 <body>
-	<h1>반려견 질문 게시판</h1>
+	<h1>미아견 게시판</h1>
    <div id = "boardSearchForm">
 	<select id="boardSearch">
      	<option value="default">검색조건</option>
@@ -71,13 +71,13 @@
 				</div>
 			</td>
 		</tr>
-		<button onclick="location.href='boardWrite.go?categoryCode=B_03'">글쓰기</button>
+		<button onclick="location.href='boardWrite.go?categoryCode=B_04'">글쓰기</button>
 	</table>
 </body>
 <script>
 	var showPage = 1;
 	var selectedBoardSearch = 'default';
-	var categoryCode = 'B_03';
+	var categoryCode = 'B_04';
 	var searchText = 'default';
 	console.log(selectedBoardSearch);
 	listCall(showPage);
@@ -159,10 +159,6 @@
 		$('#list').empty();
 		$('#list').append(content);
 	}
-	
-	var msg ="${msg}";
-	if(msg !=''){
-		alert(msg);
-	}
+
 </script>
 </html>
