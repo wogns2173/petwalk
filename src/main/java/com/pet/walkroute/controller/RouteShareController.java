@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pet.walkroute.dto.RouteListDTO;
+import com.pet.walkroute.dto.RouteShareDTO;
 import com.pet.walkroute.service.RouteShareService;
 import com.pet.walkroute.service.WalkRouteService;
 
@@ -67,10 +68,19 @@ public class RouteShareController {
 	
 	@RequestMapping(value = "/routeshare/sigudong.ajax")
 	@ResponseBody
-	public void sigudongAjax(@RequestParam HashMap<String, Object> params) {
+	public HashMap<String, String> sigudongAjax(@RequestParam HashMap<String, Object> params) {
 		logger.info("params : " + params);
 		logger.info("siName : " + params.get("siGuDong[siName]"));
 		logger.info("guName : " + params.get("siGuDong[guName]"));
 		logger.info("dongName : " + params.get("siGuDong[dongName]"));
+		
+		return routeShareService.sigudong(params);
+	}
+	
+	@RequestMapping(value = "/routeshare/listBring.ajax")
+	@ResponseBody
+	public ArrayList<RouteShareDTO> listBringAjax() {
+		logger.info("list : "+routeShareService.list().size());;
+		return routeShareService.list();
 	}
 }
