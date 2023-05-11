@@ -61,22 +61,7 @@ console.log(Role);
 		$("#loginBox").html(content);
 	}
 	
-	$('#board').on('mouseenter',down);
-	$('#board').on('mouseleave',function(){
-		$(this).off('mouseenter');
-        $(this).next().slideUp('slow',function(){
-            $('#board').on('mouseenter',down);
-        });
-	});
-	
-	function down(){
-        $(this).next().slideDown('slow');
-    }
-    $('#board').on('click',function(){
-        // console.log($(this));
-        $(this).next().slideToggle('slow');
-    });
-	
+
 
 	
 </script>

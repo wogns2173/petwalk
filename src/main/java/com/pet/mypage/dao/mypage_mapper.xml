@@ -7,5 +7,27 @@
 <!-- 쿼리문을 작성해둔 interface 주소 -->
 <mapper namespace="com.pet.mypage.dao.MyPageDAO">
    
+   <insert id="profileWrite">
+   	INSERT INTO profile(userID, petAge, petName, petGender, petNeutered, petIntroduce, petSize)
+   	VALUES(#{param1}, #{param4}, #{param3}, #{param5}, #{param6}, #{param7}, #{param2})
+   </insert>
+      
+   <select id="findprofile" resultType="com.pet.mypage.dto.MyPageDTO">
+   	SELECT * FROM profile WHERE userID = #{param1}
+   </select>
+   
+   <select id="findprofileAndphoto" resultType="com.pet.mypage.dto.MyPageDTO">
+	  SELECT p.*, ph.serPhotoname FROM profile p
+	  LEFT JOIN photo ph ON p.profileID = ph.photoidenNum 
+	  WHERE p.userID = #{param1} AND ph.categoryCode = #{param2} AND ph.photoidenNum = #{param3} AND ph.photoBlindWhether = 0
+	</select>
+	
+	<update id="petprofileUpdate">
+		UPDATE profile SET petAge=#{param4}, petName=#{param3}, petGender=#{param5}, petNeutered=#{param6}, petIntroduce=#{param7}, petSize=#{param2}
+		WHERE userID=#{param1}
+	</update>
+
+   
+   
    
 </mapper>

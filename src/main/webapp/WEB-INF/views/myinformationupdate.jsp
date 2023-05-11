@@ -118,14 +118,14 @@
 						  <option value="동작구">동작구</option>
 						  <option value="관악구">관악구</option>
 						  <option value="서초구">서초구</option>-->
-						  <option value="1"<c:if test="${member.guID eq '1' }">selected</c:if>>강남구</option>
+						  <option value="3"<c:if test="${member.guID eq '3' }">selected</c:if>>강남구</option>
 						 <!-- <option value="송파구">송파구</option>
 						  <option value="강동구">강동구</option>-->
 					</select>
 					<select id ="dongID">
 					  	<option value="">동을 선택하세요</option>
 					      <!--  <option value="개포동">개포동</option>-->
-					      <option value="1" <c:if test="${member.dongID eq '1' }">selected</c:if>>논현동</option>
+					      <option value="2" <c:if test="${member.dongID eq '2' }">selected</c:if>>논현동</option>
 					      <!-- <option value="대치동">대치동</option>
 					      <option value="도곡동">도곡동</option>
 					      <option value="삼성동">삼성동</option>
@@ -199,6 +199,10 @@ $('#updateusername').on('click', function(e){
 	       }
 	    });
 	}
+});
+
+$('#userNickname').on('keydown', function(e){
+	overlaynickname=false;
 });
 
 $('#userNickname').on('keyup', function(e){
