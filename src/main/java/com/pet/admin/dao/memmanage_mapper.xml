@@ -5,7 +5,83 @@
 <!-- xml 을 java 에서 쓰기 위해 연결되는 interface 가 필요 하다. -->
 
 <!-- 쿼리문을 작성해둔 interface 주소 -->
-<mapper namespace="com.pet.board.dao.BoardDAO">
+<mapper namespace="com.pet.admin.dao.MemManageDAO">
    
-   
+		<select id="memTotalList" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
+			SELECT userName, userID, userSignup, userBlindWhether FROM member
+			LIMIT #{param2} OFFSET #{param3}
+		</select>
+		
+		<select id="memIDTotalList" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
+			SELECT userName, userID, userSignup, userBlindWhether
+			FROM member WHERE userID LIKE CONCAT ('%',#{param3},'%')
+			LIMIT #{param4} OFFSET #{param5}
+		</select>
+		
+		<select id="memNameTotalList" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
+			SELECT userName, userID, userSignup, userBlindWhether
+			FROM member WHERE userName LIKE CONCAT ('%',#{param3},'%')
+			LIMIT #{param4} OFFSET #{param5}
+		</select>
+		
+		<select id="memTotalListByProcess" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
+			SELECT userName, userID, userSignup, userBlindWhether
+			FROM member WHERE userBlindWhether = #{param2}
+			LIMIT #{param3} OFFSET #{param4}
+		</select>
+		
+		<select id="memIDTotalListByProcess" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
+			SELECT userName, userID, userSignup, userBlindWhether
+			FROM member WHERE userID LIKE CONCAT ('%',#{param3},'%') AND userBlindWhether = #{param4}
+			LIMIT #{param5} OFFSET #{param6}
+		</select>
+		
+		<select id="memNameTotalListByProcess" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
+			SELECT userName, userID, userSignup, userBlindWhether
+			FROM member WHERE userName LIKE CONCAT ('%',#{param3},'%') AND userblindWhether = #{param4}
+			LIMIT #{param5} OFFSET #{param6}
+		</select>
+		
+		
+		
+		<select id="memTotalCount" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT COUNT(userSignup) FROM member
+		</select>
+		
+		<select id="memIDTotalCount" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT COUNT(userID) FROM member
+		</select>
+		
+		<select id="memNameTotalCount" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT COUNT(userName) FROM member
+		</select>
+		
+		<select id="memTotalCountByProcess" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT COUNT(userSignup) FROM member WHERE userBlindWhether = #{param2}
+		</select>
+		
+		<select id="memIDTotalCountByProcess" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT COUNT(userID) FROM member WHERE userID LIKE CONCAT('%', #{param3}, '%') AND userBlindWhether = #{param4}
+		</select>
+		
+		<select id="memNameTotalCountByProcess" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT COUNT(userName) FROM member WHERE userName LIKE CONCAT('%', #{param3}, '%') AND userBlindWhether = #{param4}
+		</select>
+		
+		
+		
+		<select id="memdetail"  resultType="com.pet.admin.dto.MemManageDTO">
+		SELECT *
+			FROM member
+			INNER JOIN sidetail ON member.siID = sidetail.siID
+			INNER JOIN gudetail ON member.guID = gudetail.guID
+			INNER JOIN dongdetail ON member.dongID = dongdetail.dongID
+			WHERE member.userID = #{param1}
+		</select>
+		
+		
+		
+		<update id="memprocessupdate" parameterType="Hashmap">
+   			UPDATE member SET userBlindWhether = #{param1} WHERE userID = #{param2}
+   		</update>
 </mapper>

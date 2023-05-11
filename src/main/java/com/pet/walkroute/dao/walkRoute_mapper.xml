@@ -9,7 +9,7 @@
    <select id="dong" resultType="com.pet.walkroute.dto.DongInfoDTO">
 	SELECT dongID, guID, dongName, lat, lng from dongdetail
    </select>
-   
+    
    <insert
    		useGeneratedKeys="true"
 		keyColumn="walkNum"
