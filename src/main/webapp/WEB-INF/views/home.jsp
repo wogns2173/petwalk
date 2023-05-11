@@ -13,9 +13,9 @@
 
 	<jsp:include page="loginBox.jsp"></jsp:include>
 	<button onclick="location.href=''">추천 경로</button>
-	<button onclick="location.href=''">산책 경로 공유</button>
-	<button onclick="location.href=''">산책 메이트 찾기</button>
-	<button onclick="location.href=''">커뮤니티</button>
+	<button onclick="location.href='routeshare/list'">산책 경로 공유</button>
+	<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>
+	<button onclick="location.href='board'">커뮤니티</button>
 	<hr>
 	<h3>이런곳은 어떠세요?</h3>	
 	<button onclick="location.href=''">더 알아보기</button>	

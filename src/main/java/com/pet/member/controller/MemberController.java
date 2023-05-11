@@ -135,6 +135,9 @@ public class MemberController {
 			   session.setAttribute("userNickname", dto.getUserNickname());
 			   session.setAttribute("userID", dto.getUserID());
 			   session.setAttribute("Role", dto.getRole());
+			   logger.info("nicik : " +session.getAttribute("userNickname"));
+			   logger.info("userID : " +session.getAttribute("userID"));
+			   logger.info("Role : " +session.getAttribute("Role"));
 			   map.put("member", dto);
 		   }
 		   return map;
@@ -142,7 +145,7 @@ public class MemberController {
 	   
 		@RequestMapping(value = "/logout", method = RequestMethod.GET)
 		public String logout(HttpSession session) {
-			
+			logger.info("로그아웃 함");
 			session.removeAttribute("userNickname");
 			session.removeAttribute("userID");
 			return "redirect:/";
@@ -150,7 +153,7 @@ public class MemberController {
 		
 	   @RequestMapping(value="/main.go")
 	   public String main(HttpSession session) {  
-		   
+		   logger.info("id : " + session.getAttribute("userID"));
 		return "home";
 	   }	
 	   
@@ -388,13 +391,7 @@ public class MemberController {
 		   return service.updateuserGender(usernickname, userGender);		   
 	   }
 	   
-	   @RequestMapping(value="/profile.go")
-	   public String profile() {
-		   
-		   
-		   
-	      return "profile";      
-	   }
+	   
 	   
 	   
 }
