@@ -121,84 +121,62 @@ public class InquiryService {
 		}
 	}
 
-	
-
-	/*
-	 * public HashMap<String, Object> inqlist(int page, int cnt) { // 1page = offset
-	 * : 0 // 2page = offset : 5 // 3page = offset : 10
-	 * 
-	 * HashMap<String, Object> map = new HashMap<String,Object>();
-	 * 
-	 * int offset = (page-1)*cnt;
-	 * 
-	 * // 만들 수 있는 총 페이지 수 // 전체 게시물 / 페이지당 보여줄 수 int total = inqdao.totalCount();
-	 * int range = total%cnt == 0 ? total/cnt : (total/cnt)+1;
-	 * logger.info("전체 게시물 수 :"+total); logger.info("총 페이지 수 :"+range);
-	 * 
-	 * page = page > range ? range : page;
-	 * 
-	 * 
-	 * 
-	 * map.put("currPage", page); map.put("pages", range);
-	 * 
-	 * ArrayList<BoardDTO> list = inqdao.inquirylist(cnt, offset); map.put("list",
-	 * list);
-	 * 
-	 * return map;
-	 * 
-	 * 
-	 * }
-	 */
 	public HashMap<String, Object> inqlist(HashMap<String, Object> params) {
 	      
 			logger.info("params :"+params);
+			
+			int page = Integer.parseInt(String.valueOf(params.get("page")));
 	      
-	      int page = Integer.parseInt(String.valueOf(params.get("page")));
-	      String categoryCode = String.valueOf(params.get("categoryCode"));
-	      Boolean process = Boolean.valueOf(String.valueOf(params.get("process")));
-	      int cnt = Integer.parseInt(String.valueOf(params.get("cnt")));
+			String categoryCode = String.valueOf(params.get("categoryCode"));
 	      
-	      logger.info("categoryCode :"+categoryCode+"/"+"process :"+process);
-	      logger.info(page + "를 선택된 문의 방식이" +categoryCode+"때만 보여줘");
-	      logger.info("한페이지에 " + cnt +"개씩 보여줄 것 ");
+			int cnt = Integer.parseInt(String.valueOf(params.get("cnt")));
+			
+			String inqProcess = String.valueOf(params.get("inqProcess"));
+			Object storedValue;
+
+			if (inqProcess.equals("default")) {
+			    storedValue = inqProcess; // "default"를 문자열로 저장합니다.
+			} else {
+			    storedValue = inqProcess.equals("true") ? 1 : 0; // "true"일 때는 1로, "false"일 때는 0으로 저장합니다.
+			}
+			
+			logger.info("storedValue :"+storedValue);
+			
+			
+			logger.info("categoryCode :"+categoryCode+"/"+"storedValue :"+storedValue);
+			logger.info(page + "페이지를 선택된 문의 방식이 " +categoryCode+" 때만 보여준다.");
+			logger.info("한 페이지에 " + cnt +" 개씩 보여줄 것 ");
 	      
-	      HashMap<String, Object> map = new HashMap<String, Object>();
-	      
-	      // 1페이지  offset 0
-	      // 2페이지 offset 5
-	      // 3 페이지 offset 10
-	      int offset = cnt * (page-1);
-	      
-	      logger.info("offset : " + offset);
-	      
-	      // 만들 수 있는 총 페이지 수 : 전체 게시글의 수 / 페이지당 보여줄 수 있는 수
-	      int total = 0;
-	      
-	     // if(categoryCode.equals("default")){
-	         if(categoryCode.equals("default") && process.equals(Boolean.valueOf("default"))) {
-	         // 전체 보여주기
-	         total = inqdao.totalCount(params);
-	         logger.info("totalCount");
-	        
-	         }else if(!(categoryCode.equals("default")) && process.equals(Boolean.valueOf("default"))){
-	        	 params.put("categoryCode", categoryCode);
-			     logger.info("params :"+params);
-	            // 문의 필터링만 선택 된 경우 
-	            total = inqdao.totalCountinquiry(params,categoryCode);
-	            logger.info("totalCountinquiry");
-	            
-	         }else if(categoryCode.equals("default") && !process.equals(Boolean.valueOf("default"))){
-	            
-	            // 처리 여부 필터링만 선택 된 경우
-	            total = inqdao.totalCountprocess(params,process);
-	            logger.info("totalCountprocess");
-	         }else {
-	            // 문의,처리 필터링 둘다 선택 된 경우 
-	            total = inqdao.totalCountAll(params,categoryCode,process);
-	            logger.info("totalCountAll");
-	         }
-	      
-	      
+			HashMap<String, Object> map = new HashMap<String, Object>();
+		      
+		      // 1페이지  offset 0
+		      // 2페이지 offset 5
+		      // 3 페이지 offset 10
+		    int offset = cnt * (page-1);
+		      
+		    logger.info("offset : " + offset);
+		      
+		    // 만들 수 있는 총 페이지 수 : 전체 게시글의 수 / 페이지당 보여줄 수 있는 수
+		    int total = 0;
+
+		    if (categoryCode.equals("default")) {
+		        if (inqProcess.equals("default")) {
+		            total = inqdao.totalCount(params, categoryCode,storedValue);
+		            logger.info("전체 문의 리스트 / totalCount");
+		        } else {
+		            total = inqdao.totalCountprocess(params, storedValue, categoryCode);
+		            logger.info("처리 여부 리스트 / totalCountprocess" + storedValue);
+		        }
+		    } else {
+		        if (inqProcess.equals("default")) {
+		            total = inqdao.totalCountinquiry(params, categoryCode);
+		            logger.info("선택한 문의 리스트 / totalCountinquiry" + categoryCode);
+		        } else {
+		            total = inqdao.totalCountAll(params, categoryCode, storedValue);
+		            logger.info("선택한 문의, 처리여부 리스트 / totalCountAll" + categoryCode + storedValue);
+		        }
+		    }
+
 	      
 	      int range = total%cnt  == 0 ? total/cnt : (total/cnt)+1;
 	      
@@ -211,34 +189,42 @@ public class InquiryService {
 	      map.put("pages", range);
 	      
 	      ArrayList<InquiryDTO> inqlist = null;
-	      
-	      
+	           
 	      params.put("offset", offset);
 	      
-	      
-	      logger.info("params : " + params);
-	      
 	      // if(categoryCode.equals("default")){
-	         if(categoryCode.equals("default") && process.equals(Boolean.valueOf("default"))) {
-	            // 전체 보여주기
-				/* list = inqdao.inquirylist(offset,categoryCode); */
-	        	 inqlist = inqdao.inquirylist(params,cnt,offset);
-	            logger.info("inquirylist");
-	         }else if(!(categoryCode.equals("default")) && process.equals(Boolean.valueOf("default"))) {
-	            // 문의 필터링만 선택 된 경우 
-	        	 inqlist = inqdao.listinquiry(params,categoryCode,cnt,offset);
-	            logger.info("listinquiry");
-	         }
-	         
-	         else if(categoryCode.equals("default") && !(process.equals(Boolean.valueOf("default")))){
-	            // 처리 여부 필터링만 선택 된 경우
-	        	 inqlist = inqdao.listinqprocess(params,process,cnt,offset);
-	            logger.info("listinqprocess");
-	         }else {
-	            // 문의,처리 필터링 모두 선택
-	        	 inqlist = inqdao.listinqAll(params,categoryCode,process,cnt,offset);
-	            logger.info("listinqAll");
-	         }
+	      //  && (inqProcess.equals(Boolean.valueOf("default")))
+			/*
+			 * if(categoryCode.equals("default") && (inqProcess.equals("default"))){ inqlist
+			 * = inqdao.inquirylist(map, cnt, offset, categoryCode);
+			 * logger.info("전체 문의 리스트 / inquirylist"); }else
+			 * if(!(categoryCode.equals("default") && (inqProcess.equals("default")))) {
+			 * inqlist = inqdao.listinquiry(params, categoryCode, cnt, offset);
+			 * logger.info("선택한 문의 리스트 / listinquiry"+categoryCode); }else
+			 * if(categoryCode.equals("default") && !(inqProcess.equals("default"))) {
+			 * inqlist = inqdao.listinqprocess(params, storedValue, cnt, offset,
+			 * categoryCode); logger.info("처리 여부 리스트 / listinqprocess"+storedValue); }else {
+			 * inqlist = inqdao.listinqAll(params, categoryCode, storedValue, cnt, offset);
+			 * logger.info("선택한 문의, 처리여부 리스트 / listinqAll"+categoryCode+storedValue); }
+			 */
+	      if (categoryCode.equals("default")) {
+	    	    if (inqProcess.equals("default")) {
+	    	    	inqlist = inqdao.inquirylist(map, cnt, offset, categoryCode,storedValue);
+	    	        logger.info("전체 문의 리스트 / inquirylist");
+	    	    } else {
+	    	    	inqlist = inqdao.listinqprocess(params, storedValue, cnt, offset,categoryCode);
+	    	        logger.info("처리 여부 리스트 / listinqprocess" + storedValue);
+	    	    }
+	    	} else {
+	    	    if (inqProcess.equals("default")) {
+	    	    	inqlist = inqdao.listinquiry(params, categoryCode, cnt, offset);
+	    	        logger.info("선택한 문의 리스트 / listinquiry" + categoryCode);
+	    	    } else {
+	    	    	inqlist = inqdao.listinqAll(params, categoryCode, storedValue, cnt, offset);
+	    	        logger.info("선택한 문의, 처리여부 리스트 / listinqAll" + categoryCode + storedValue);
+	    	    }
+	    	}
+
 	         
 	         map.put("inqlist", inqlist);
 	         logger.info("inqlist :"+inqlist);

@@ -8,55 +8,64 @@
 <mapper namespace="com.pet.admin.dao.ReportDAO">
    
    <!-- 아작스는 * 쓰면 안됨 -->
-		<select id="reportlist" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
-		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind reportIdenNum,process,reportNickName 
+		<select id="repList" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
+		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind, reportIdenNum,repProcess
 		FROM report ORDER BY reportNum DESC 
 		LIMIT #{param2} OFFSET ${param3} 
 		</select>
 		
-		<select id="reportprocess" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
-		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind reportIdenNum,process,reportNickName 
-		FROM report WHERE process = #{param2} ORDER BY reportNum DESC 
+		<select id="repCategoryCodeList" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
+		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind, reportIdenNum,repProcess 
+		FROM report WHERE categoryCode = #{param2} ORDER BY reportNum DESC 
 		LIMIT #{param3} OFFSET ${param4}
 		</select>
 		
-		<select id="reportlistAll" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
-		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind reportIdenNum,process,reportNickName 
-		FROM report WHERE categoryCode = #{param2} AND process = #{param3} ORDER BY reportNum DESC 
+		<select id="repListByProcess" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
+		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind, reportIdenNum,repProcess 
+		FROM report WHERE repProcess = #{param2} ORDER BY reportNum DESC 
+		LIMIT #{param3} OFFSET ${param4}
+		</select>
+		
+   		<select id="repAllList" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
+		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind, reportIdenNum,repProcess 
+		FROM report WHERE categoryCode = #{param2} AND repProcess = #{param3} ORDER BY reportNum DESC 
 		LIMIT #{param4} OFFSET ${param5}
 		</select>
-		
-		<select id="reportcategorycode" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
-		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind reportIdenNum,process,reportNickName 
-		FROM report WHERE categoryCode = #{param2} ORDER BY reportNum DESC 
-		LIMIT #{param3} OFFSET ${param4}
-		</select>
-		
-		<select id="reportsearch" parameterType="HashMap" resultType="com.pet.admin.dto.ReportDTO">
-		SELECT reportNum, userID, categoryCode, reportName, reportDetail, reportDate, reportBlind reportIdenNum,process,reportNickName 
-		FROM report WHERE categoryCode = #{param2} ORDER BY reportNum DESC 
-		LIMIT #{param3} OFFSET ${param4}
-		</select>
-		
-   
    		
-   		<select id="reptotalCount" parameterType="HashMap" resultType="java.lang.Integer">
+   		
+   		
+   		
+   		<select id="repTotalCountList" parameterType="HashMap" resultType="java.lang.Integer">
 		SELECT COUNT(reportNum) FROM report 
 		</select>	
 		
-		<select id="reptotalCountcategory" parameterType="HashMap" resultType="java.lang.Integer">
+		<select id="repTotalCategoryCountCode" parameterType="HashMap" resultType="java.lang.Integer">
 		SELECT COUNT(reportNum) FROM report WHERE categoryCode = #{param2}
 		</select>	
 		
-		<select id="reptotalCountprocess" parameterType="HashMap" resultType="java.lang.Integer">
-		SELECT COUNT(reportNum) FROM report WHERE process = #{param2}
+		<select id="repTotalCountListByProcess" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(reportNum) FROM report WHERE repProcess = #{param2}
 		</select>	
 		
-		<select id="reptotalSearch" parameterType="HashMap" resultType="java.lang.Integer">
-		SELECT COUNT(reportNum) FROM report WHERE  = #{param2}
+		<select id="repTotalCategoryAll" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(reportNum) FROM report WHERE categoryCode = #{param2} AND repProcess = #{param3}
 		</select>
 		
-		<select id="reptotalCountAll" parameterType="HashMap" resultType="java.lang.Integer">
-		SELECT COUNT(reportNum) FROM report WHERE categoryCode = #{param2} AND process = #{param3}
-		</select>	 
+
+		
+		
+		<select id="repDetail"  resultType="com.pet.admin.dto.ReportDTO">
+		SELECT* FROM report WHERE reportNum = #{param1}
+		</select>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 </mapper>

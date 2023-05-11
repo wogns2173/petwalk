@@ -13,7 +13,7 @@ public class InquiryDTO {
 	private Date boardWriteDate;
 	private boolean noticeWhether;
 	private boolean boardBlindWhether;
-	private boolean process;
+	private boolean inqProcess;
 	
 	// category dto
 	private String categoryCode;
@@ -164,12 +164,13 @@ public class InquiryDTO {
 	public void setCommentDetail(String commentDetail) {
 		this.commentDetail = commentDetail;
 	}
-	public boolean isProcess() {
-		return process;
+	public boolean isInqProcess() {
+		return inqProcess;
 	}
-	public void setProcess(boolean process) {
-		this.process = process;
+	public void setInqProcess(boolean inqProcess) {
+		this.inqProcess = inqProcess;
 	}
+
 	
 	
 

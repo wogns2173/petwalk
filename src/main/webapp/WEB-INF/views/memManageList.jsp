@@ -17,6 +17,18 @@
 		padding : 10px 5px;
 	}
 	
+	input[type="button"]{
+        background-color: #87d1bf;
+        color: white;
+        border:none;
+    }
+	
+	button{
+        background-color: #87d1bf;
+        color: white;
+        border:none;
+	}
+	
 	#title{
 	 	color:#87d1bf;
 	 }
@@ -24,24 +36,26 @@
 </head>
 <body>
 
-<h3 id="title"> 신고 리스트 </h3>
+<h3 id="title"> 회원 리스트 </h3>
 
-	<!-- 신고 필터링  -->
-	<select id="categoryCode">
-		<option value="default">신고 필터링</option>
-		<option value="B_12">프로필 신고</option>
-		<option value="B_13">게시글 신고</option>
+	<!-- 회원 필터링  -->
+	<select id="memManage">
+		<option value="default">회원 정보 검색</option>
+		<option value="userID">아이디</option>
+		<option value="userName">이름</option>
 	</select>
 	
+	<input type="text" id="memManageInput" placeholder="내용을 입력 해 주세요">
+    <button id="searchButton">검색</button>
+   
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	
-	<!-- 처리 여부 필터링  -->
-	<select id="repProcess">
-		<option value="default">처리 여부 필터링</option>
-		<option value="false">미처리</option>
-		<option value="true">처리완료</option>
+	<select id="memProcess">
+		<option value="default">블라인드 처리 여부</option>
+		<option value="false">false</option>
+		<option value="true">true</option>
 	</select>
-	
+	 
+	 
 	<select id="pagePerNum">
 		<option value="5">5</option>
 		<option value="10">10</option>
@@ -54,12 +68,12 @@
 		<table>
 		<thead>
 		</thead>
-		<tbody id = "replist">
+		<tbody id = "memlist">
 		<!-- 리스트가 출력될 영역 -->
 		</tbody>
 		<tr>
 			<td colspan="6" id="paging">	
-					<!-- 플러그인 사용	(twbsPagination)	 -->
+				<!-- 	플러그인 사용	(twbsPagination)	-->
 				<div class="container">									
 					<nav aria-label="Page navigation" style="text-align:center">
 						<ul class="pagination" id="pagination"></ul>
@@ -73,23 +87,27 @@
 <script>
 
 var showPage = 1;
-var selectedcategoryCode = 'default';
-var selectedprocess = 'default';
+var searchText = 'default';
+var searchType = 'default';
+var memProcess = 'default';
 
 listCall(showPage);
 console.log("list call");
 
-// 필터링 선택에 따른 출력
-$('#categoryCode').change(function(){
-	console.log("categoryCode change");
-	selectedcategoryCode = $(this).val();
-   listCall(showPage);
+//검색어에 따른 출력 
+$('#searchButton').click(function(){
+   //검색어 확인 
+   searchText = $('#memManageInput').val();
+   searchType = $('#memManage').val();
+   console.log(searchText,searchType);
+   listCall(showPage, $('#pagePerNum').val(), searchText, searchType);
    $('#pagination').twbsPagination('destroy');
 });
 
-$('#repProcess').change(function(){
+$('#memProcess').change(function(){
 	console.log("process change");
-	selectedprocess = $(this).val();
+	console.log(memProcess);
+	memProcess = $(this).val();
    listCall(showPage);
    $('#pagination').twbsPagination('destroy');
 });
@@ -97,7 +115,7 @@ $('#repProcess').change(function(){
 
 $('#pagePerNum').change(function(){
 	console.log("Paging");
-	listCall(showPage, $(this).val());
+	listCall(showPage ,$(this).val()); // cnt 값 전달
 	// 페이지 처리 부분이 이미 만들어져 버려서 pagePerNum 이 변경되면 수정이 안된다.
 	// 그래서 pagePerNum 이 변경되면 부수고 다시 만들어야 한다.
 	$('#pagination').twbsPagination('destroy');
@@ -105,21 +123,22 @@ $('#pagePerNum').change(function(){
 
 function listCall(page,cnt){
 	
-		cnt = cnt || 5;
+	  	cnt = cnt || 5;
 	   $.ajax({
 	      type:'post',
-	      url:'replist.ajax',
+	      url:'memlist.ajax',
 	      data:{
 	    	  'page':page,
-	    	  'categoryCode' :selectedcategoryCode,
-	    	  'repProcess' :selectedprocess,
-	    	  'cnt':cnt
+	    	  'searchText':searchText,
+	    	  'searchType':searchType,
+	    	  'cnt': cnt,
+	    	  'memProcess':memProcess
 	      },
 	      dataType:'json',           
 	      success:function(data){
 	    	 console.log("success");
 	         console.log(data);
-	         listPrint(data.replist);
+	         listPrint(data.memlist);
 	         
 	         // 페이징 처리를 위해 필요한 데이터
 	         // 1. 총 페이지의 수
@@ -146,40 +165,31 @@ function listCall(page,cnt){
 	});
 }
 	
-function listPrint(replist){
+function listPrint(memlist){
 	console.log("listPrint Call");
 	var content ='';
 	
-	if(replist && Array.isArray(replist)){
-		replist.forEach(function(item,reportNum){
-			
-			var categoryNames = {
-					B_12 : "프로필 신고",
-					B_13 : "게시글 신고"
-			};
-			
-			var processNames = {
-					false : "미처리",
-					true : "처리완료"
-			}
-	
-			var categoryName = categoryNames[item.categoryCode] || item.categoryCode;
-			var processName = processNames[item.repProcess] || item.repProcess;
-		      
-			  content +='<tr>';
-		      content +='<td id="report">'+categoryName+'</td>';
-		      content +='<td id="reportName"><a href="reportdetail.do?reportNum='+ item.reportNum+'">'+item.reportName+'</a></td>';
-		      content +='<td id="userID">'+item.userID +'</td>';
-		      var date = new Date(item.reportDate);
-				// 기본값은 en-US
-			  content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';
-		     /*  content +='<td>'+item.boardWriteDate +'</td>'; */
-		      content +='<td>'+processName+'</td>';
-		      content +='</tr>';
+	if(memlist && Array.isArray(memlist)){
+		memlist.forEach(function(item,memlist){
+		
+      content +='<tr>';
+      content +='<td id="userName">'+item.userName+'</td>';
+      content +='<td id="userID">'+item.userID +'</td>';
+      var date = new Date(item.userSignup);
+		// 기본값은 en-US
+	  content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';
+     /*  content +='<td>'+item.boardWriteDate +'</td>'; */
+      content +='<td>'+item.userBlindWhether+'</td>';
+      // content +='<td><input type="button" onclick="location.href=\'./memMangeDetail.go\'" value="상세보기"></td>';
+      content += '<td><input type="button" data-userid="' + item.userID + '" onclick="location.href=\'./memMangeDetail.go?userID=\' + this.dataset.userid" value="상세보기"></td>';
+      content +='</tr>';
+      
+      
   	 });
 	}
-   $('#replist').empty();
-   $('#replist').append(content);
+   $('#memlist').empty();
+   $('#memlist').append(content);
 }
+
 </script>
 </html>

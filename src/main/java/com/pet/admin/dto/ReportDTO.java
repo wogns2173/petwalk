@@ -4,6 +4,11 @@ import java.sql.Date;
 
 public class ReportDTO {
 	
+		// member join
+		private String userNickname;
+		private String userName;
+	
+	
 		// report dto
 		private int reportNum;
 		private String userID;
@@ -13,7 +18,7 @@ public class ReportDTO {
 		private Date reportDate;
 		private boolean reportBlind;
 		private int reportidenNum;
-		private boolean process;
+		private boolean repProcess;
 		private String reportNickName;
 		
 		// category dto
@@ -80,12 +85,6 @@ public class ReportDTO {
 		public void setReportidenNum(int reportidenNum) {
 			this.reportidenNum = reportidenNum;
 		}
-		public boolean isProcess() {
-			return process;
-		}
-		public void setProcess(boolean process) {
-			this.process = process;
-		}
 		public String getCategoryCode() {
 			return categoryCode;
 		}
@@ -151,5 +150,23 @@ public class ReportDTO {
 		}
 		public void setReportNickName(String reportNickName) {
 			this.reportNickName = reportNickName;
+		}
+		public String getUserNickname() {
+			return userNickname;
+		}
+		public void setUserNickname(String userNickname) {
+			this.userNickname = userNickname;
+		}
+		public String getUserName() {
+			return userName;
+		}
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
+		public boolean isRepProcess() {
+			return repProcess;
+		}
+		public void setRepProcess(boolean repProcess) {
+			this.repProcess = repProcess;
 		}
 }

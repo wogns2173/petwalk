@@ -79,14 +79,24 @@
         </tr>      
         <tr>
             <td>${inq.boardDetail}</td>
-        </tr>            
+            <c:if test="${inq.serPhotoname ne null}">
+			<tr>
+				<td><img width="300" src="/photo/${inq.serPhotoname}"/></td>
+			</tr>
+			</c:if>
+    	 </tr>                        
    </table>
    
-   
-   <select>
-      <option selected>미처리</option>
-      <option>처리완료</option>
-   </select>
+   <form id="inquiryprocess" action="inquriyprocess.go" method="POST">
+	   <div>
+		   <select name="selectedValue" id="${inq.boardNum}">
+		      <option value="false">미처리</option>
+		      <option value="true">처리완료</option>
+		   </select>
+		   <input type="hidden" name="boardNum" value="${inq.boardNum}">
+		   <input type="submit" value="저장">
+	   	</div>
+   	</form>
    		
 		<!-- 문의글 목록으로 돌아가기 -->
         <input type="button" onclick='location.href="./inquiry"' value="목록">
@@ -103,27 +113,11 @@
 	<c:forEach items="${inqreplist}" var="inqrep">
 		<div class="inqrep">
 			${inqrep.userID} / ${inqrep.commentWriteDate}
-			<input type ="button" onclick='location.href="inqrepdel.do?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}"' value="삭제"/>
-			<input type ="button" onclick='location.href="inqrepupdate.go?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}"' value="수정"/>
 			<p>${inqrep.commentDetail }</p>
 		</div>	
 	</c:forEach>
-<%-- 	<c:forEach items="${inqreplist}" var="inqrep">
-		<div>
-			<p>${inqrep.userID} / ${inqrep.commentWriteDate}</p>
-			<form method="get" action="inquiryreplyupdate.do">
-				<input type="hidden" name="boardNum" value="${inq.boardNum}">
-				<input type="hidden" name="replyNum" value ="${replyNum}">
-				<div class="inquiry_reply">
-			        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" value="${inqrep.commentDetail}">
-			        <p id="inquiryreply_legnth">0/100</p>
-			        <button type="submit">수정</button>
-				</div>
-			</form>
-		</div>	 
-	</c:forEach> --%>
 	
-		<!-- 댓글 수정 -->
+	<!-- 댓글 수정 -->
     <form method="get" action="inquiryreplyupdate.do">
 	<div class="inquiry_reply">
 		<input type="hidden" name="boardNum" value="${inq.boardNum}">
@@ -145,6 +139,5 @@
 		lengthElement.innerHTML = length + "/" + maxLength;
 	}
  
-		
 </script>
 </html>

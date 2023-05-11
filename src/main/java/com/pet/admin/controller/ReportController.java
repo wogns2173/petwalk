@@ -1,5 +1,6 @@
 package com.pet.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pet.admin.dto.InquiryDTO;
+import com.pet.admin.dto.ReportDTO;
 import com.pet.admin.service.ReportService;
 
 @Controller
@@ -37,5 +40,23 @@ public class ReportController {
 		
 		return repservice.replist(params);
 		
+	}
+	
+	@RequestMapping(value="/reportdetail.do")
+	public String inquirydetail(Model model , @RequestParam int reportNum) {
+		logger.info("Report Detail Call");
+		
+		
+		ReportDTO reqdto = repservice.repdetail(reportNum,"repdetail");
+	
+		
+		model.addAttribute("rep",reqdto);
+		
+		
+		 ArrayList<ReportDTO> repreplist = repservice.inqreplist2(reportNum);
+		 logger.info("repreplist Call"); model.addAttribute("repreplist",repreplist);
+		 
+		
+		return "reportDetail";
 	}
 }

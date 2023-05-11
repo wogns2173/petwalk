@@ -17,27 +17,30 @@
 		padding : 10px 5px;
 	}
 	
+	#title{
+	 	color:#87d1bf;
+	 }
 </style>
 </head>
 <body>
 
-<h3> 문의 리스트 </h3>
+<h3 id="title"> 문의 리스트 </h3>
 
 	<!-- 문의 필터링  -->
 	<select id="categoryCode">
 		<option value="default">문의 필터링</option>
 		<option value="B_06">산책 경로 문의</option>
 		<option value="B_07">게시글 문의</option>
-		<option value="9">채팅 문의</option>
-		<option value="B_1B_08">계정 문의</option>
-		<option value="B_00">광고 문의</option>
+		<option value="B_08">채팅 문의</option>
+		<option value="B_09">계정 문의</option>
+		<option value="B_10">광고 문의</option>
 		<option value="B_11">기타 문의</option>
 	</select>
 	
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	
 	<!-- 처리 여부 필터링  -->
-	<select id="process">
+	<select id="inqProcess">
 		<option value="default">처리 여부 필터링</option>
 		<option value="false">미처리</option>
 		<option value="true">처리완료</option>
@@ -105,7 +108,7 @@ $('#categoryCode').change(function(){
    $('#pagination').twbsPagination('destroy');
 });
 
-$('#process').change(function(){
+$('#inqProcess').change(function(){
 	console.log("process change");
 	console.log(selectedprocess);
 	selectedprocess = $(this).val();
@@ -130,7 +133,7 @@ function listCall(page, cnt){
 	      data:{
 	    	  'page':page,
 	    	  'categoryCode' :selectedcategoryCode,
-	    	  'process' :selectedprocess,
+	    	  'inqProcess' :selectedprocess,
 	    	  'cnt': cnt
 	      },
 	      dataType:'json',           
@@ -169,7 +172,8 @@ function listPrint(inqlist){
 	var content ='';
 	
 	if(inqlist && Array.isArray(inqlist)){
-		inqlist.forEach(function(item){
+		inqlist.forEach(function(item,board){
+			
 		var categoryNames = {
 				B_06 : "산책 경로 문의",
 				B_07 : "게시글 문의",
@@ -186,7 +190,7 @@ function listPrint(inqlist){
 		};
 		      
 		var categoryName = categoryNames[item.categoryCode] || item.categoryCode;
-		var processName = processNames[item.process] || item.process;
+		var processName = processNames[item.inqProcess] || item.inqProcess;
 		
       content +='<tr>';
       content +='<td id="inquiry">'+categoryName+'</td>';

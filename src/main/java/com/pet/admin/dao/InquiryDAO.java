@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.pet.admin.dto.InquiryDTO;
-import com.pet.board.dto.BoardDTO;
 
 public interface InquiryDAO {
 
@@ -28,23 +27,23 @@ public interface InquiryDAO {
 
 	void fileWrite(String categoryCode, String oriPhotoname, String serPhotoname, int boardNum);
 
-	int totalCount(HashMap<String, Object> params);
+	int totalCount(HashMap<String, Object> params , String categoryCode, Object storedValue);
 
 	int totalCountinquiry(HashMap<String, Object> params, String categoryCode);
 
-	int totalCountprocess(HashMap<String, Object> params, Boolean process);
+	int totalCountprocess(HashMap<String, Object> params, Object storedValue, String categoryCode);
 
-	int totalCountAll(HashMap<String, Object> params, String categoryCode, Boolean process);
+	int totalCountAll(HashMap<String, Object> params, String categoryCode, Object storedValue);
 
 	/* ArrayList<InquiryDTO> inquirylist(int offset, String categoryCode); */
 
-	ArrayList<InquiryDTO> listinqprocess(HashMap<String, Object> params, Boolean process, int cnt, int offset);
+	ArrayList<InquiryDTO> listinqprocess(HashMap<String, Object> params, Object storedValue, int cnt, int offset, String categoryCode);
 
-	ArrayList<InquiryDTO> listinqAll(HashMap<String, Object> params, String categoryCode, Boolean process, int cnt, int offset);
+	ArrayList<InquiryDTO> listinqAll(HashMap<String, Object> params, String categoryCode, Object storedValue, int cnt, int offset);
 
 	ArrayList<InquiryDTO> listinquiry(HashMap<String, Object> params, String categoryCode, int cnt, int offset);
 
-	ArrayList<InquiryDTO> inquirylist(HashMap<String, Object> params, int cnt, int offset);
+	ArrayList<InquiryDTO> inquirylist(HashMap<String, Object> params, int cnt, int offset, String categoryCode, Object storedValue);
 
 	int inqprocessupdate(Boolean selectedValue, int boardNum);
 

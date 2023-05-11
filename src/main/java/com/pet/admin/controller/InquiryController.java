@@ -159,10 +159,7 @@ public class InquiryController {
 		
 		logger.info("Inquiry Process Update Call");
 		logger.info("selectedValue :"+selectedValue+"/"+"boardNum :"+boardNum);
-		
-		
-		
-		
+	
 		return inqservice.processupdate(selectedValue,boardNum);
 	}
 }
