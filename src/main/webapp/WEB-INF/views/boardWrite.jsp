@@ -9,7 +9,9 @@
 <style></style>
 </head>
 <body>
+	<jsp:include page="loginBox.jsp"/>
 	<form method="post" action="boardWrite.do"  enctype="multipart/form-data" onsubmit="return checkPhoto()">
+	<input type="hidden" name="userID" value="${userID}"/>
 	<div>
         <select id="categoryCode" name="categoryCode" onchange="checkPhoto()">
             <option value="B_01">반려견 갤러리</option>
@@ -60,6 +62,19 @@
 		    alert('반려견 갤러리는 사진 첨부가 필수입니다!');
 		    return false;
 		  }
+	}
+	
+	var categoryCode = '${param.categoryCode}';
+	var categoryCodeSelect = document.getElementById('categoryCode');
+	//console.log(${param.categoryCode});
+	if(categoryCode == 'B_01'){
+		categoryCodeSelect.value='B_01';
+	}else if(categoryCode == 'B_02'){
+		categoryCodeSelect.value='B_02';
+	}else if(categoryCode == 'B_03'){
+		categoryCodeSelect.value='B_03';
+	}else{
+		categoryCodeSelect.value='B_04';
 	}
 	
 </script>

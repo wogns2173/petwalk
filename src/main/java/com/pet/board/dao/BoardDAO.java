@@ -43,7 +43,7 @@ public interface BoardDAO {
 
 	ArrayList<BoardDTO> boarduserIDsearch(int cnt, int offset, String categoryCode, String boardSearch, String search);
 
-	int boardRepWrite(int boardNum, String content);
+	int boardRepWrite(int boardNum, String content, String userID);
 
 	BoardDTO boardRepList(String boardNum, int replyNum);
 
@@ -62,6 +62,7 @@ public interface BoardDAO {
 	int boarduserIDsearchTotal(String categoryCode, String search);
 
 	int boardPhotoCount(String boardNum);
+
 
 	//ArrayList<BoardDTO> photoboardList();
 

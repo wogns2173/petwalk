@@ -65,6 +65,8 @@ public class BoardService {
 		}else if(boardSearch.equals("userID") && !search.equals("")) {
 			logger.info("userID 으로 검색: "+search);
 			total = dao.boarduserIDsearchTotal(categoryCode,search);
+		}else if(!categoryCode.equals("") && boardSearch.equals("default") && search.equals("")){
+			total = dao.totalCount(categoryCode);
 		}
 		
 		int range = total%cnt == 0?total/cnt:(total/cnt)+1;
@@ -89,6 +91,8 @@ public class BoardService {
 		}else if(boardSearch.equals("userID") && !search.equals("")) {
 			logger.info("userID 으로 검색: "+search);
 			list = dao.boarduserIDsearch(cnt,offset,categoryCode,boardSearch,search);
+		}else if(!categoryCode.equals("") && boardSearch.equals("default") && search.equals("")){
+			list = dao.list(cnt,offset,categoryCode,boardSearch,search);
 		}
 		logger.info("리스트담기 성공!");
 		map.put("list", list);
@@ -96,7 +100,7 @@ public class BoardService {
 	}
 
 	// 글 작성하기
-	public String boardWrite(MultipartFile photo, HashMap<String, String> params) {
+	public String boardWrite(MultipartFile photo, HashMap<String, String> params,HttpSession session,String userID) {
 		
 		String page = "redirect:/board";
 		//1. 게시글만 작성
@@ -106,8 +110,9 @@ public class BoardService {
 		dto.setCategoryCode(params.get("categoryCode"));
 		dto.setBoardName(params.get("boardName"));
 		dto.setBoardDetail(params.get("boardDetail"));
+		dto.setUserID(userID);
 		
-		logger.info(dto.getBoardDetail() + "/" + dto.getCategoryCode() + "/" + dto.getBoardName());
+		logger.info(dto.getBoardDetail() + "/" + dto.getCategoryCode() + "/" + dto.getBoardName()+"/"+dto.getUserID());
 		int row = dao.boardWrite(dto);
 		logger.info("writeupdate row:"+row);
 		int boardNum = dto.getBoardNum();
@@ -206,14 +211,6 @@ public class BoardService {
 		int row = dao.boardDelete(boardNum);
 		logger.info("delete row:"+row);
 		
-		/*
-		if(serPhotoname != null && row >0) {
-			File file = new File("C:/img/petwork/"+serPhotoname);
-			if(file.exists()) {
-				file.delete();
-			}
-		}
-		*/
 	}
 
 	// 글 수정하기
@@ -246,42 +243,11 @@ public class BoardService {
 		return page;
 	}
 
-	/*
-	// 사진 블라인드 처리하기
-	public void photoDelete(String serPhotoname,String categoryCode,int boardNum) {
-		logger.info("photoDelete service");
-		dao.photoDelete(serPhotoname);
-		/*
-		String page ="redirect:/boardUpdate.go?boardNum="+boardNum+"&categoryCode="+categoryCode;
-		
-		File delFile = new File("C:/img/petwork/"+serPhotoname);
-		if(delFile.exists()) {
-			delFile.delete();
-			int row = dao.photoDelete(serPhotoname);
-			logger.info("photo del:"+row);
-		}
-		 */
-		/*
-		int row = dao.photoDelete(serPhotoname);
-		if (serPhotoname != null && row > 0) {
-	        File sourceFile = new File("C:/img/petwork/" + serPhotoname);
-	        if (sourceFile.exists()) {
-	            File destFile = new File("C:/img/delpetwork/" + serPhotoname);
-	            if (sourceFile.renameTo(destFile)) {
-	                logger.info("File moved successfully.");
-	            } else {
-	                logger.info("Failed to move file.");
-	            }
-	        }
-	    }
-		return page;
-	}
-*/
 
 	// 댓글 작성하기
-	public int boardRepWrite(int boardNum, String content) {
+	public int boardRepWrite(int boardNum, String content,String userID) {
 		logger.info("Board Reply Write Service");
-		return dao.boardRepWrite(boardNum, content);
+		return dao.boardRepWrite(boardNum, content, userID);
 		
 	}
 
