@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.admin.dto.InquiryDTO;
 import com.pet.admin.service.InquiryService;
@@ -30,19 +32,34 @@ public class InquiryController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
+	@RequestMapping(value="/inquirylist.go")
+	public String inquirylist() {
+		logger.info("inquiry list page 이동");
+		
+		return"inquiryList";
+	}
 	
-	@RequestMapping(value = "/inquiry")
-
-	public String inquirylist(Locale locale, Model model) {
+	
+	
+	@RequestMapping(value="/inqlist.ajax")
+	@ResponseBody
+	public HashMap<String, Object> inquirylist(@RequestParam HashMap<String,Object> params) {
 		logger.info("inquiry List Call");
-		System.out.println("list call");
-		ArrayList<InquiryDTO> inqlist = inqservice.inqlist();
 		
-		model.addAttribute("inqlist" ,inqlist);
-		logger.info("inqlist :"+inqlist.size());
 		
-		return "inquiryList";
-
+		/*
+		 * HashMap<String,Object> map = new HashMap<String, Object>();
+		 * ArrayList<InquiryDTO> inqlist = inqservice.inqlist();
+		 * 
+		 * model.addAttribute("inqlist" ,inqlist);
+		 * logger.info("inqlist :"+inqlist.size());
+		 * 
+		 * map.put("inquiryList", inqlist);
+		 * 
+		 * return map;
+		 */
+		
+		return inqservice.inqlist(params);
 	}
 	
 	@RequestMapping(value="/inquirydetail.do")
@@ -66,7 +83,18 @@ public class InquiryController {
 	@RequestMapping(value="/inquirywrite.go")
 	public String inquirywriteform() {
 		logger.info("inquiry write page 이동");
+		
 		return"inquiryWrite";
+	}
+	
+	
+	@RequestMapping(value = "/inquirywrite.do", method = RequestMethod.POST)
+	public String boardWrite(MultipartFile photo, @RequestParam HashMap<String, String> params) {
+			
+		logger.info("params:{}",params);
+	
+		
+		return inqservice.boardWrite(photo,params);
 	}
 	
 	@RequestMapping(value="/inquiryreplywrite.do", method = RequestMethod.POST)
@@ -92,12 +120,13 @@ public class InquiryController {
 	}
 	
 	@RequestMapping(value="/inqrepupdate.go", method = RequestMethod.GET)
-	public String inquiryrepupdateform(Model model, @RequestParam int boardNum, @RequestParam int replyNum) {
+	public String inquiryrepupdateform(Model model, @RequestParam int boardNum, @RequestParam int replyNum, @RequestParam String commentDetail) {
 		
 		logger.info("Inquiry Update Reply Form Call");
 		
 		logger.info("boardNum :"+boardNum);
 		logger.info("replyNum :"+replyNum);
+		logger.info("commentDetail :"+commentDetail);
 		model.addAttribute("replyNum", replyNum);
 		
 		InquiryDTO inqdto = inqservice.inqdetail(boardNum,"inqdetail");
@@ -106,9 +135,11 @@ public class InquiryController {
 		ArrayList<InquiryDTO> inqreplist2 = inqservice.inqreplist2(boardNum);
 		model.addAttribute("inqreplist", inqreplist2);
 		
-		InquiryDTO inqreplist = inqservice.inqreplist(boardNum, replyNum);
-		logger.info("inqreplist Call");
+		InquiryDTO inqreplist = inqservice.inqreplist(boardNum, replyNum, commentDetail);
+		logger.info("Inquiry Update List Call");
 		logger.info("boardNum : " + inqreplist.getBoardNum());
+		logger.info("commentDetail :" +inqreplist.getCommentDetail());
+		
 		model.addAttribute("inqreplist2",inqreplist);
 		
 		return "inquiryrepupdate";		
@@ -123,5 +154,12 @@ public class InquiryController {
 		return inqservice.update(params);
 	}
 	
-
+	@RequestMapping(value="/inquriyprocess.go", method = RequestMethod.POST)
+	public String inquiryprocessupdate(@RequestParam Boolean selectedValue, @RequestParam int boardNum) {
+		
+		logger.info("Inquiry Process Update Call");
+		logger.info("selectedValue :"+selectedValue+"/"+"boardNum :"+boardNum);
+	
+		return inqservice.processupdate(selectedValue,boardNum);
+	}
 }

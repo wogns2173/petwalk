@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <style>
-   .inquiry_reply {
+   .report_reply {
       border : 1px solid lightgray;
       border-radius: 5px;
       height: 30px;
@@ -41,7 +41,7 @@
         
      }
      
-     #inquiryreply_legnth {
+     #reportreply_legnth {
        float: right;
         border:none;
         font-size: 14px;
@@ -64,68 +64,68 @@
 </head>
 
 	<!-- 글 번호 -->
-	<input type="hidden" name="inquiry" value="${inq.boardNum}">
+	<input type="hidden" name="inquiry" value="${rep.reportNum}">
 	
-	<!-- 문의 글 디테일 가져오기  -->
+	<!-- 신고 글 디테일 가져오기  -->
 	<table>
 		<tr>
-        	<th>${inq.boardName }</th>
+        	<th>${rep.reportName }</th>
         </tr>   
         <tr>
-            <td>${inq.userID} </td>
+            <td>${rep.userID} </td>
         </tr>
         <tr>         
-            <td>${inq.boardWriteDate} 조회수 : ${inq.boardbHit }</td>
+            <td>${rep.reportDate}</td>
         </tr>      
         <tr>
-            <td>${inq.boardDetail}</td>
-            <c:if test="${inq.serPhotoname ne null}">
+            <td>${rep.reportDetail}</td>
+            <c:if test="${rep.serPhotoname ne null}">
 			<tr>
-				<td><img width="300" src="/photo/${inq.serPhotoname}"/></td>
+				<td><img width="300" src="/photo/${rep.serPhotoname}"/></td>
 			</tr>
 			</c:if>
     	 </tr>            
    </table>
    
-   <form id="inquiryprocess" action="inquriyprocess.go" method="POST">
+   <form id="reportprocess" action="reportprocess.go" method="POST">
 	   <div>
-		   <select name="selectedValue" id="${inq.boardNum}">
+		   <select name="selectedValue" id="${rep.reportNum}">
 		      <option value="false">미처리</option>
 		      <option value="true">처리완료</option>
 		   </select>
-		   <input type="hidden" name="boardNum" value="${inq.boardNum}">
+		   <input type="hidden" name="reportNum" value="${rep.reportNum}">
 		   <input type="submit" value="저장">
 	   	</div>
    	</form>
    	
-		<!-- 문의글 목록으로 돌아가기 -->
-        <input type="button" onclick='location.href="./inquirylist.go"' value="목록">
+		<!-- 신고글 목록으로 돌아가기 -->
+        <input type="button" onclick='location.href="./reportList.go"' value="목록">
       
    <hr>
    
    <p>답변</p>         
    
-	<!-- 문의글 댓글 리스트 가져오기 -->
-    <c:if test="${inqreplist.size() eq 0}">
+	<!-- 신고글 댓글 리스트 가져오기 -->
+    <c:if test="${repreplist.size() eq 0}">
 		<tr><th colspan="10">등록된 답변이 없습니다.</th></tr>	
 	</c:if>
 	
-	<c:forEach items="${inqreplist}" var="inqrep">
+	<c:forEach items="${repreplist}" var="report">
 		<div class="inqrep">
-			${inqrep.userID} / ${inqrep.commentWriteDate}
-			<input type ="button" onclick='location.href="inqrepdel.do?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}"' value="삭제"/>
-			<input type ="button" onclick='location.href="inqrepupdate.go?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}&commentDetail=${inqrep.commentDetail }"' value="수정"/>
-			<p>${inqrep.commentDetail }</p>
+			${report.userID}
+			<input type ="button" onclick='location.href="reprepdel.do?repReplyNum=${report.repReplyNum}&reportNum=${rep.reportNum}"' value="삭제"/>
+			<input type ="button" onclick='location.href="reprepupdate.go?repReplyNum=${report.repReplyNum}&reportNum=${rep.reportNum}&reportProcess=${report.reportProcess }"' value="수정"/>
+			<p>${report.reportProcess }</p>
 		</div>	
 	</c:forEach>
 	
 	<!-- 댓글 작성 -->
-    <form method="post" action="inquiryreplywrite.do">
-    <input type="hidden" name="boardNum" value="${inq.boardNum}">
+    <form method="post" action="reportreplywrite.do">
+    <input type="hidden" name="reportNum" value="${rep.reportNum}">
     
-	<div class="inquiry_reply">
-        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="내용을 입력 해 주세요.">
-        <p id="inquiryreply_legnth">0/100</p>
+	<div class="report_reply">
+        <input name = "content" id="reportreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="내용을 입력 해 주세요.">
+        <p id="reportreply_legnth">0/100</p>
         <button type="submit">등록</button>
 	</div>  
     </form>
@@ -136,8 +136,8 @@
 	/* 댓글 작성 글자 수 표시 */
 	function checkLength() {
 	    var maxLength = 100;
-	    var length = document.getElementById("inquiryreply_text").value.length;
-	    var lengthElement = document.getElementById("inquiryreply_legnth");
+	    var length = document.getElementById("reportreply_text").value.length;
+	    var lengthElement = document.getElementById("reportreply_legnth");
 	    lengthElement.innerHTML = length + "/" + maxLength;
 	  }
   	

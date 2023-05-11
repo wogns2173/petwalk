@@ -24,28 +24,24 @@
 </head>
 <body>
 
-<h3 id="title"> 문의 리스트 </h3>
+<h3 id="title"> 신고 리스트 </h3>
 
-	<!-- 문의 필터링  -->
+	<!-- 신고 필터링  -->
 	<select id="categoryCode">
-		<option value="default">문의 필터링</option>
-		<option value="B_06">산책 경로 문의</option>
-		<option value="B_07">게시글 문의</option>
-		<option value="B_08">채팅 문의</option>
-		<option value="B_09">계정 문의</option>
-		<option value="B_10">광고 문의</option>
-		<option value="B_11">기타 문의</option>
+		<option value="default">신고 필터링</option>
+		<option value="B_12">프로필 신고</option>
+		<option value="B_13">게시글 신고</option>
 	</select>
 	
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	
 	<!-- 처리 여부 필터링  -->
-	<select id="inqProcess">
+	<select id="repProcess">
 		<option value="default">처리 여부 필터링</option>
 		<option value="false">미처리</option>
 		<option value="true">처리완료</option>
 	</select>
-	 
+	
 	<select id="pagePerNum">
 		<option value="5">5</option>
 		<option value="10">10</option>
@@ -55,31 +51,15 @@
 	
 	<hr>
 	
-<%-- 	<!-- 문의 게시판 리스트  -->
-	<table>
-		<c:if test="${inqlist.size() eq 0}">
-			<tr><th colspan="10">게시물이 없습니다.</th></tr>	
-		</c:if>
-			<c:forEach items="${inqlist}" var="inq">
-				<tr>
-					<td>문의 종류 : ${inq.categoryCode }</td>
-					<td><a href="inquirydetail.do?boardNum=${inq.boardNum}">${inq.boardName}</a></td>
-					<td>작성자 : ${inq.userID }</td>
-					<td>조회수 : ${inq.boardbHit }</td>
-					<td>작성일자 : ${inq.boardWriteDate }</td>
-					<td>처리 여부 : ${inq.process }</td>
-				</tr>	
-			</c:forEach>
-	</table> --%>
 		<table>
 		<thead>
 		</thead>
-		<tbody id = "inqlist">
+		<tbody id = "replist">
 		<!-- 리스트가 출력될 영역 -->
 		</tbody>
 		<tr>
 			<td colspan="6" id="paging">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
+					<!-- 플러그인 사용	(twbsPagination)	 -->
 				<div class="container">									
 					<nav aria-label="Page navigation" style="text-align:center">
 						<ul class="pagination" id="pagination"></ul>
@@ -93,54 +73,53 @@
 <script>
 
 var showPage = 1;
-var selectedcategoryCode = 'default'
-var selectedprocess = 'default'
+var selectedcategoryCode = 'default';
+var selectedprocess = 'default';
 
 listCall(showPage);
 console.log("list call");
 
 // 필터링 선택에 따른 출력
 $('#categoryCode').change(function(){
-	console.log("inquiry change");
-	console.log(selectedcategoryCode);
+	console.log("categoryCode change");
 	selectedcategoryCode = $(this).val();
    listCall(showPage);
    $('#pagination').twbsPagination('destroy');
 });
 
-$('#inqProcess').change(function(){
+$('#repProcess').change(function(){
 	console.log("process change");
-	console.log(selectedprocess);
 	selectedprocess = $(this).val();
    listCall(showPage);
    $('#pagination').twbsPagination('destroy');
 });
 
+
 $('#pagePerNum').change(function(){
 	console.log("Paging");
-	listCall(showPage ,$(this).val()); // cnt 값 전달
+	listCall(showPage, $(this).val());
 	// 페이지 처리 부분이 이미 만들어져 버려서 pagePerNum 이 변경되면 수정이 안된다.
 	// 그래서 pagePerNum 이 변경되면 부수고 다시 만들어야 한다.
 	$('#pagination').twbsPagination('destroy');
 });
 
-function listCall(page, cnt){
+function listCall(page,cnt){
 	
-	  	cnt = cnt || 5;
+		cnt = cnt || 5;
 	   $.ajax({
 	      type:'post',
-	      url:'inqlist.ajax',
+	      url:'replist.ajax',
 	      data:{
 	    	  'page':page,
 	    	  'categoryCode' :selectedcategoryCode,
-	    	  'inqProcess' :selectedprocess,
-	    	  'cnt': cnt
+	    	  'repProcess' :selectedprocess,
+	    	  'cnt':cnt
 	      },
 	      dataType:'json',           
 	      success:function(data){
 	    	 console.log("success");
 	         console.log(data);
-	         listPrint(data.inqlist);
+	         listPrint(data.replist);
 	         
 	         // 페이징 처리를 위해 필요한 데이터
 	         // 1. 총 페이지의 수
@@ -167,49 +146,40 @@ function listCall(page, cnt){
 	});
 }
 	
-function listPrint(inqlist){
+function listPrint(replist){
 	console.log("listPrint Call");
 	var content ='';
 	
-	if(inqlist && Array.isArray(inqlist)){
-		inqlist.forEach(function(item,board){
+	if(replist && Array.isArray(replist)){
+		replist.forEach(function(item,reportNum){
 			
-		var categoryNames = {
-				B_06 : "산책 경로 문의",
-				B_07 : "게시글 문의",
-				B_08 : "계정 문의",
-				B_09 : "광고 문의",
-				B_10 : "채팅 문의",
-				B_11 : "기타 문의"
-				
-		};
-		
-		var processNames = {
-				false : "미처리",
-				true : "처리완료"
-		};
+			var categoryNames = {
+					B_12 : "프로필 신고",
+					B_13 : "게시글 신고"
+			};
+			
+			var processNames = {
+					false : "미처리",
+					true : "처리완료"
+			}
+	
+			var categoryName = categoryNames[item.categoryCode] || item.categoryCode;
+			var processName = processNames[item.repProcess] || item.repProcess;
 		      
-		var categoryName = categoryNames[item.categoryCode] || item.categoryCode;
-		var processName = processNames[item.inqProcess] || item.inqProcess;
-		
-      content +='<tr>';
-      content +='<td id="inquiry">'+categoryName+'</td>';
-      content +='<td id="boardName"><a href="inquirydetail.do?boardNum='+ item.boardNum+'">'+item.boardName+'</a></td>';
-      content +='<td id="userID">'+item.userID +'</td>';
-      content +='<td>'+item.boardbHit +'</td>';
-      var date = new Date(item.boardWriteDate);
-		// 기본값은 en-US
-	  content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';
-     /*  content +='<td>'+item.boardWriteDate +'</td>'; */
-      content +='<td>'+processName+'</td>';
-      content +='</tr>';
-      
-      
+			  content +='<tr>';
+		      content +='<td id="report">'+categoryName+'</td>';
+		      content +='<td id="reportName"><a href="reportdetail.do?reportNum='+ item.reportNum+'">'+item.reportName+'</a></td>';
+		      content +='<td id="userID">'+item.userID +'</td>';
+		      var date = new Date(item.reportDate);
+				// 기본값은 en-US
+			  content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';
+		     /*  content +='<td>'+item.boardWriteDate +'</td>'; */
+		      content +='<td>'+processName+'</td>';
+		      content +='</tr>';
   	 });
 	}
-   $('#inqlist').empty();
-   $('#inqlist').append(content);
+   $('#replist').empty();
+   $('#replist').append(content);
 }
-
 </script>
 </html>

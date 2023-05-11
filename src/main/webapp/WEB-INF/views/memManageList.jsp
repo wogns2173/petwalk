@@ -17,6 +17,18 @@
 		padding : 10px 5px;
 	}
 	
+	input[type="button"]{
+        background-color: #87d1bf;
+        color: white;
+        border:none;
+    }
+	
+	button{
+        background-color: #87d1bf;
+        color: white;
+        border:none;
+	}
+	
 	#title{
 	 	color:#87d1bf;
 	 }
@@ -24,27 +36,25 @@
 </head>
 <body>
 
-<h3 id="title"> 문의 리스트 </h3>
+<h3 id="title"> 회원 리스트 </h3>
 
-	<!-- 문의 필터링  -->
-	<select id="categoryCode">
-		<option value="default">문의 필터링</option>
-		<option value="B_06">산책 경로 문의</option>
-		<option value="B_07">게시글 문의</option>
-		<option value="B_08">채팅 문의</option>
-		<option value="B_09">계정 문의</option>
-		<option value="B_10">광고 문의</option>
-		<option value="B_11">기타 문의</option>
+	<!-- 회원 필터링  -->
+	<select id="memManage">
+		<option value="default">회원 정보 검색</option>
+		<option value="userID">아이디</option>
+		<option value="userName">이름</option>
 	</select>
 	
+	<input type="text" id="memManageInput" placeholder="내용을 입력 해 주세요">
+    <button id="searchButton">검색</button>
+   
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	
-	<!-- 처리 여부 필터링  -->
-	<select id="inqProcess">
-		<option value="default">처리 여부 필터링</option>
-		<option value="false">미처리</option>
-		<option value="true">처리완료</option>
+	<select id="memProcess">
+		<option value="default">블라인드 처리 여부</option>
+		<option value="false">false</option>
+		<option value="true">true</option>
 	</select>
+	 
 	 
 	<select id="pagePerNum">
 		<option value="5">5</option>
@@ -55,26 +65,10 @@
 	
 	<hr>
 	
-<%-- 	<!-- 문의 게시판 리스트  -->
-	<table>
-		<c:if test="${inqlist.size() eq 0}">
-			<tr><th colspan="10">게시물이 없습니다.</th></tr>	
-		</c:if>
-			<c:forEach items="${inqlist}" var="inq">
-				<tr>
-					<td>문의 종류 : ${inq.categoryCode }</td>
-					<td><a href="inquirydetail.do?boardNum=${inq.boardNum}">${inq.boardName}</a></td>
-					<td>작성자 : ${inq.userID }</td>
-					<td>조회수 : ${inq.boardbHit }</td>
-					<td>작성일자 : ${inq.boardWriteDate }</td>
-					<td>처리 여부 : ${inq.process }</td>
-				</tr>	
-			</c:forEach>
-	</table> --%>
 		<table>
 		<thead>
 		</thead>
-		<tbody id = "inqlist">
+		<tbody id = "memlist">
 		<!-- 리스트가 출력될 영역 -->
 		</tbody>
 		<tr>
@@ -93,28 +87,31 @@
 <script>
 
 var showPage = 1;
-var selectedcategoryCode = 'default'
-var selectedprocess = 'default'
+var searchText = 'default';
+var searchType = 'default';
+var memProcess = 'default';
 
 listCall(showPage);
 console.log("list call");
 
-// 필터링 선택에 따른 출력
-$('#categoryCode').change(function(){
-	console.log("inquiry change");
-	console.log(selectedcategoryCode);
-	selectedcategoryCode = $(this).val();
+//검색어에 따른 출력 
+$('#searchButton').click(function(){
+   //검색어 확인 
+   searchText = $('#memManageInput').val();
+   searchType = $('#memManage').val();
+   console.log(searchText,searchType);
+   listCall(showPage, $('#pagePerNum').val(), searchText, searchType);
+   $('#pagination').twbsPagination('destroy');
+});
+
+$('#memProcess').change(function(){
+	console.log("process change");
+	console.log(memProcess);
+	memProcess = $(this).val();
    listCall(showPage);
    $('#pagination').twbsPagination('destroy');
 });
 
-$('#inqProcess').change(function(){
-	console.log("process change");
-	console.log(selectedprocess);
-	selectedprocess = $(this).val();
-   listCall(showPage);
-   $('#pagination').twbsPagination('destroy');
-});
 
 $('#pagePerNum').change(function(){
 	console.log("Paging");
@@ -124,23 +121,24 @@ $('#pagePerNum').change(function(){
 	$('#pagination').twbsPagination('destroy');
 });
 
-function listCall(page, cnt){
+function listCall(page,cnt){
 	
 	  	cnt = cnt || 5;
 	   $.ajax({
 	      type:'post',
-	      url:'inqlist.ajax',
+	      url:'memlist.ajax',
 	      data:{
 	    	  'page':page,
-	    	  'categoryCode' :selectedcategoryCode,
-	    	  'inqProcess' :selectedprocess,
-	    	  'cnt': cnt
+	    	  'searchText':searchText,
+	    	  'searchType':searchType,
+	    	  'cnt': cnt,
+	    	  'memProcess':memProcess
 	      },
 	      dataType:'json',           
 	      success:function(data){
 	    	 console.log("success");
 	         console.log(data);
-	         listPrint(data.inqlist);
+	         listPrint(data.memlist);
 	         
 	         // 페이징 처리를 위해 필요한 데이터
 	         // 1. 총 페이지의 수
@@ -167,48 +165,30 @@ function listCall(page, cnt){
 	});
 }
 	
-function listPrint(inqlist){
+function listPrint(memlist){
 	console.log("listPrint Call");
 	var content ='';
 	
-	if(inqlist && Array.isArray(inqlist)){
-		inqlist.forEach(function(item,board){
-			
-		var categoryNames = {
-				B_06 : "산책 경로 문의",
-				B_07 : "게시글 문의",
-				B_08 : "계정 문의",
-				B_09 : "광고 문의",
-				B_10 : "채팅 문의",
-				B_11 : "기타 문의"
-				
-		};
-		
-		var processNames = {
-				false : "미처리",
-				true : "처리완료"
-		};
-		      
-		var categoryName = categoryNames[item.categoryCode] || item.categoryCode;
-		var processName = processNames[item.inqProcess] || item.inqProcess;
+	if(memlist && Array.isArray(memlist)){
+		memlist.forEach(function(item,memlist){
 		
       content +='<tr>';
-      content +='<td id="inquiry">'+categoryName+'</td>';
-      content +='<td id="boardName"><a href="inquirydetail.do?boardNum='+ item.boardNum+'">'+item.boardName+'</a></td>';
+      content +='<td id="userName">'+item.userName+'</td>';
       content +='<td id="userID">'+item.userID +'</td>';
-      content +='<td>'+item.boardbHit +'</td>';
-      var date = new Date(item.boardWriteDate);
+      var date = new Date(item.userSignup);
 		// 기본값은 en-US
 	  content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';
      /*  content +='<td>'+item.boardWriteDate +'</td>'; */
-      content +='<td>'+processName+'</td>';
+      content +='<td>'+item.userBlindWhether+'</td>';
+      // content +='<td><input type="button" onclick="location.href=\'./memMangeDetail.go\'" value="상세보기"></td>';
+      content += '<td><input type="button" data-userid="' + item.userID + '" onclick="location.href=\'./memMangeDetail.go?userID=\' + this.dataset.userid" value="상세보기"></td>';
       content +='</tr>';
       
       
   	 });
 	}
-   $('#inqlist').empty();
-   $('#inqlist').append(content);
+   $('#memlist').empty();
+   $('#memlist').append(content);
 }
 
 </script>
