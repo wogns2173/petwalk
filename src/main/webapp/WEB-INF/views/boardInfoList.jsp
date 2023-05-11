@@ -60,6 +60,9 @@
 		</thead>
 		<tbody id="list">			
 		<!-- 리스트가 출력될 영역 -->
+		<c:if test="list.size() == 0">
+			<p>등록된 글이 없습니다.</p>
+		</c:if>
 		</tbody>
 		<tr>
 			<td colspan="5" id="paging">	
@@ -71,7 +74,7 @@
 				</div>
 			</td>
 		</tr>
-		<button onclick="location.href='boardWrite.go'">글쓰기</button>
+		<button onclick="location.href='boardWrite.go?categoryCode=B_02'">글쓰기</button>
 	</table>
 </body>
 <script>
@@ -159,6 +162,5 @@
 		$('#list').empty();
 		$('#list').append(content);
 	}
-
 </script>
 </html>

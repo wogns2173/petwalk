@@ -59,43 +59,61 @@
 		<c:if test="${dto.photoBlindWhether eq true }">		
 		</c:if>
 		<h2>${dto.boardDetail}</h2>
-		<button>신고</button>
-		<input type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="삭제"/>
-		<input type= "button" onclick="location.href='./boardUpdate.go?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="수정"/>
-		<input type="button" onclick="location.href='./boardList.go?categoryCode=${dto.categoryCode}'" value="목록"/>
+		<c:if test="${dto.userID ne userID && userID ne null}">
+			<button>신고</button>
+		</c:if>
+		<c:if test="${dto.userID eq userID}">
+			<input id="updateButton" type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="삭제"/>
+			<input id="deleteButton"type= "button" onclick="location.href='./boardUpdate.go?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="수정"/>
+		</c:if>
+			<input type="button" onclick="location.href='./boardList.go?categoryCode=${dto.categoryCode}'" value="목록"/>
 	<!--</c:forEach>-->
 	
 	<hr>
 	<p>댓글</p>         
    
 	<!--  댓글 리스트 가져오기 -->
-    <c:if test="${boardRepList.size() eq 0}">
-		<tr><th colspan="10">등록된 댓글이 없습니다.</th></tr>	
+	<c:if test="${userID == null }">
+		<p>댓글을 작성하시거나 등록된 댓글을 확인하시려면 로그인 해주세요.</p>
 	</c:if>
-	
-	<c:forEach items="${boardRepList}" var="boardRep">
-		<div class="boardRep">
-			${boardRep.userNickname} / ${boardRep.commentWriteDate}
-			<input type ="button" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="삭제"/>
-			<input type ="button" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="수정"/>
-			<p>${boardRep.commentDetail }</p>
-		</div>	
-	</c:forEach>
-	
-	<!-- 댓글 작성 -->
-    <form method="post" action="boardRepWrite.do">
-    <input type="hidden" name="boardNum" value="${dto.boardNum}">
-    
-	<div class="board_reply">
-        <input name = "content" id="boardReply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="내용을 입력 해 주세요.">
-        <p id="boardReply_legnth">0/100</p>
-        <button type="submit">등록</button>
-	</div>  
-    </form>
+	<c:if test="${userID != null }">
+	    <c:if test="${boardRepList.size() eq 0}">
+			<tr><th colspan="10">등록된 댓글이 없습니다.</th></tr>	
+		</c:if>
+		
+		<c:forEach items="${boardRepList}" var="boardRep">
+			<div class="boardRep">
+				${boardRep.replyUser} / ${boardRep.commentWriteDate}
+				<c:if test="${boardRep.userID == userID}">
+					<input type ="button" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="삭제"/>
+					<input type ="button" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="수정"/>
+				</c:if>
+				<p>${boardRep.commentDetail }</p>
+			</div>	
+		</c:forEach>
+		
+		<!-- 댓글 작성 -->
+	    <form method="post" action="boardRepWrite.do">
+	    <input type="hidden" name="boardNum" value="${dto.boardNum}">
+	    
+		<div class="board_reply">
+	        <input name = "content" id="boardReply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="내용을 입력 해 주세요.">
+	        <p id="boardReply_legnth">0/100</p>
+	        <button type="submit">등록</button>
+		</div>  
+	    </form>
+    </c:if>
     
 </body>
 <script>
-
+	// 세션 스코프를 이용하여 로그인 아이디를 사용하는 방법
+	/*
+	var loginID = sessionScope.loginID;
+	if(loginID == '${dto.userID}') {
+		$('#updateButton').attr('type','hidden');
+		$('#deleteButton').attr('type','hidden');
+	}
+	*/
 	/* 댓글 작성 글자 수 표시 */
 	function checkLength() {
 	    var maxLength = 100;
@@ -137,6 +155,9 @@
 </html>
 </body>
 <script>
-	
+	var mas = "${msg}";
+	if(msg != null){
+		alert(msg);
+	}
 </script>
 </html>

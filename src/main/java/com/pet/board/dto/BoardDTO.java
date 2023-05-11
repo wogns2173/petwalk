@@ -36,6 +36,8 @@ public class BoardDTO {
 	private Date commentWriteDate;
 	private boolean commentBlindWhether;
 	private int replyNum;
+	// reply 작성자 별칭
+	private String replyUser;
 	
 	// total reply
 	private int replyCount;
@@ -176,6 +178,14 @@ public class BoardDTO {
 	}
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
+	}
+	
+	// reply 작성자
+	public String getReplyUser() {
+		return replyUser;
+	}
+	public void setReplyUserID(String replyUser) {
+		this.replyUser = replyUser;
 	}
 	
 }	

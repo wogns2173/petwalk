@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -46,16 +47,17 @@ public class BoardController {
 	// 카테고리별 보드 리스트 페이지
 	@RequestMapping(value = "/boardList.go")
 	public String boardInfoList(Model model,@RequestParam String categoryCode) {
+		logger.info("categoryCode: "+categoryCode);
 		String page = "boardList";
 		logger.info(categoryCode);
 		if(categoryCode.equals("B_01")) {
-			logger.info("B_01");
+			page ="boardPhotoList";
 		}else if(categoryCode.equals("B_02")) {
 			page ="boardInfoList";
 		}else if(categoryCode.equals("B_03")) {
 			page ="boardQnaList";
 		}else if(categoryCode.equals("B_04")) {
-			logger.info("B_04");
+			page = "boardLoseList";
 		}
 		return page;
 	}
@@ -64,31 +66,44 @@ public class BoardController {
 	@RequestMapping(value="/boardList.ajax")
 	@ResponseBody
 	public HashMap<String, Object> list(@RequestParam String page, @RequestParam String cnt,
-			@RequestParam String categoryCode, @RequestParam String boardSearch, @RequestParam String search){
+			@RequestParam String categoryCode, @RequestParam String boardSearch, @RequestParam String search
+			,HttpSession ssesion){
 		logger.info("boardList Controller!");
 		logger.info("categoryCode: "+categoryCode+"boardSearch:"+boardSearch+"search:"+search);
+		
 		return service.list(Integer.parseInt(page),Integer.parseInt(cnt),categoryCode,boardSearch,search);
 	}
 	
 	// 글쓰기 페이지 이동
 	@RequestMapping(value = "/boardWrite.go", method=RequestMethod.GET)
-	public String boardWriteForm(Model model) {
+	public String boardWriteForm(Model model,@RequestParam String categoryCode, HttpSession session) {
 		logger.info("writeForm");
-		return "boardWrite";
+		String page = "redirect:/boardList.go?categoryCode="+categoryCode;
+		logger.info("write categoryCode: "+categoryCode);
+		logger.info("{}",session.getAttribute("userID"));
+		
+		String userID = (String) session.getAttribute("userID");
+		
+		if(session.getAttribute("userID") != null) {
+			model.addAttribute("categoryCode", categoryCode);
+			model.addAttribute("userID",userID);
+			page = "boardWrite";
+		}
+		
+		return page;
 	}
 
 	// 글 작성하기
 	@RequestMapping(value = "/boardWrite.do", method = RequestMethod.POST)
 	public String boardWrite(MultipartFile photo, 
-			@RequestParam HashMap<String, String> params) {
+			@RequestParam HashMap<String, String> params, HttpSession session,@RequestParam String userID) {
 		logger.info("params:{}",params);
-		
-		return service.boardWrite(photo,params);
+		return service.boardWrite(photo,params,session,userID);
 	}
 	
 	// 글 상세보기
 	@RequestMapping(value = "/boardDetail.do")
-	public String boardDetail(Model model, @RequestParam String boardNum) {
+	public String boardDetail(Model model, @RequestParam String boardNum,HttpSession session) {
 		String page= "boardDetail";
 		logger.info(boardNum);
 		
@@ -96,11 +111,18 @@ public class BoardController {
 		logger.info("dto :"+dto);
 		if(dto !=null) {
 			model.addAttribute("dto", dto);
+			logger.info("dtoUserID: "+dto.getUserID());
 		}
 		ArrayList<BoardDTO> boardRepList = service.boardRepList2(boardNum);
 		logger.info("boardRepList Call");
 		model.addAttribute("boardRepList", boardRepList);
 		logger.info("photo : "+dto.getSerPhotoname());
+		
+		String userID = (String) session.getAttribute("userID");
+		logger.info(userID);
+		// 이미 위에서 userID 를 지정해주었기 때문에 setAttribute 는 안해줘도 된다.
+		//session.setAttribute("userID", userID);
+		
 		return page;
 	}
 	
@@ -117,19 +139,24 @@ public class BoardController {
 	// 글 수정폼 이동
 	@RequestMapping(value = "/boardUpdate.go")
 	public String boardUpdate(Model model,@RequestParam String categoryCode,@RequestParam String boardNum
-			) {
+			,HttpSession session) {
 		logger.info("update boardNum: "+boardNum);
 		logger.info("update categoryCode: "+categoryCode);
+
 		String page = "redirect:/board.do";
+		String userID = (String) session.getAttribute("userID");
 		
 		BoardDTO dto = service.boardDetail(boardNum, "boardUpdate");
 		if(dto.isPhotoBlindWhether() == true) {
 			logger.info("업데이트 완료");
 		}
 		
-		if(dto != null) {
+		if(dto != null && userID.equals(dto.getUserID())) { //작성자와 로그인한 사용자가 같은 경우
 			page ="boardUpdate";
 			model.addAttribute("dto",dto);
+		}else { // 작성자와 로그인한 사용자가 다른 경우
+			String msg = "글 수정 권한이 없습니다.";
+	        model.addAttribute("msg", msg);
 		}
 		return page;
 
@@ -146,25 +173,20 @@ public class BoardController {
 		return service.boardUpdate(photo,params,deletePhoto);
 	}
 
-	/*
-	//사진 블라인드 처리하기
-	@RequestMapping(value="/photoDelete.ajax")
-	public String photoDelete(@RequestParam String serPhotoname,@RequestParam String categoryCode,@RequestParam int boardNum) {
-		logger.info("delete:"+serPhotoname+"/"+categoryCode+"/"+boardNum);
-		//String page = service.photoDelete(serPhotoname,categoryCode,boardNum);
-		return "redirect:/";
-	}
-	*/
-
 	
 	// 댓글 작성하기
 		@RequestMapping(value="/boardRepWrite.do", method = RequestMethod.POST)
-		public String inquiryreplywrite(Model model,@RequestParam int boardNum, @RequestParam String content) {
+		public String inquiryreplywrite(Model model,@RequestParam int boardNum, @RequestParam String content
+				,HttpSession session) {
 			logger.info("Board Reply Write Call");
 			
 			logger.info("boardNum :"+boardNum);
 			logger.info("content :"+content);
-			int row = service.boardRepWrite(boardNum,content);
+			
+			String userID = (String) session.getAttribute("userID");
+			logger.info("userID: "+userID);
+			
+			int row = service.boardRepWrite(boardNum,content,userID);
 			logger.info("reply write row: "+row);
 			
 			return "redirect:/boardDetail.do?boardNum="+boardNum;
@@ -172,7 +194,8 @@ public class BoardController {
 		
 	// 댓글 리스트 
 	@RequestMapping(value="/boardRepUpdate.go", method = RequestMethod.GET)
-	public String inquiryrepupdateform(Model model, @RequestParam String boardNum, @RequestParam int replyNum) {
+	public String inquiryrepupdateform(Model model, @RequestParam String boardNum, @RequestParam int replyNum
+			,HttpSession session) {
 		
 		logger.info("board Reply UpdateForm Call");
 		
@@ -190,6 +213,7 @@ public class BoardController {
 		logger.info("boardReplist Call");
 		logger.info("boardNum : " + boardRepList.getBoardNum());
 		model.addAttribute("boardRepList2",boardRepList);
+		//String userID = (String) session.getAttribute("userID");
 		
 		return "boardRepUpdate";
 	}

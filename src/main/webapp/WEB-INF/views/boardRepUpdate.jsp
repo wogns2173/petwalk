@@ -66,9 +66,11 @@
 
 	<c:forEach items="${boardRepList}" var="boardRep">
 		<div class="boardRep">
-			${boardRep.userNickname} / ${boardRep.commentWriteDate}
-			<input type ="button" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${dto.boardNum}"' value="삭제"/>
-			<input type ="button" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${dto.boardNum}"' value="수정"/>
+			${boardRep.replyUser} / ${boardRep.commentWriteDate}
+			<c:if test="${boardRep.userID == userID}">
+				<input type ="button" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${dto.boardNum}"' value="삭제"/>
+				<input type ="button" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${dto.boardNum}"' value="수정"/>
+			</c:if>
 			<p>${boardRep.commentDetail }</p>
 		</div>	
 	</c:forEach>

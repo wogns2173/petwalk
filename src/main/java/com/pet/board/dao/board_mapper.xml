@@ -9,26 +9,30 @@
    
    <!--  메인 보드 리스트 -->
    <select id="boardList" resultType="com.pet.board.dto.BoardDTO">
-		(SELECT b.*, p.serPhotoname, p.photoBlindWhether 
+		(SELECT b.*, p.serPhotoname, p.photoBlindWhether, count(r.replyNum) AS replyCount
 		FROM board b 
 		LEFT OUTER JOIN photo p ON b.boardNum = p.photoIdenNum 
-		WHERE b.categoryCode='B_01' AND b.boardBlindWhether ='false' 
-		ORDER BY boardNum DESC LIMIT 4)
+		LEFT OUTER JOIN reply r ON b.boardNum = r.boardNum 
+		WHERE b.categoryCode='B_01' AND b.boardBlindWhether ='false' AND p.photoBlindWhether = 'false'
+		GROUP BY b.boardNum ORDER BY boardNum DESC LIMIT 4)
 		UNION ALL
-		(SELECT b.*, NULL, NULL 
+		(SELECT b.*, NULL, NULL ,count(r.replyNum) AS replyCount
 		FROM board b 
+		LEFT OUTER JOIN reply r ON b.boardNum = r.boardNum 
 		WHERE categoryCode='B_02' AND boardBlindWhether ='false' 
-		ORDER BY boardNum DESC LIMIT 5)
+		GROUP BY b.boardNum ORDER BY boardNum DESC LIMIT 5)
 		UNION ALL
-		(SELECT b.*, NULL, NULL 
+		(SELECT b.*, NULL, NULL ,count(r.replyNum) AS replyCount
 		FROM board b 
+		LEFT OUTER JOIN reply r ON b.boardNum = r.boardNum 
 		WHERE categoryCode='B_03' AND boardBlindWhether ='false' 
-		ORDER BY boardNum DESC LIMIT 5)
+		GROUP BY b.boardNum ORDER BY boardNum DESC LIMIT 5)
 		UNION ALL
-		(SELECT b.*, NULL, NULL 
+		(SELECT b.*, NULL, NULL ,count(r.replyNum) AS replyCount
 		FROM board b 
+		LEFT OUTER JOIN reply r ON b.boardNum = r.boardNum 
 		WHERE categoryCode='B_04' AND boardBlindWhether ='false' 
-		ORDER BY boardNum DESC LIMIT 5);
+		GROUP BY b.boardNum ORDER BY boardNum DESC LIMIT 5);
 	</select>
  
  	<!-- 글작성 -->
@@ -38,9 +42,9 @@
 		keyProperty="boardNum"
 		
 		id="boardWrite" parameterType="com.pet.board.dto.BoardDTO">
-		INSERT INTO board(categoryCode,boardName,boardDetail,noticeWhether,
+		INSERT INTO board(userID,categoryCode,boardName,boardDetail,noticeWhether,
    		boardBlindWhether,boardbHit,inqProcess)
-   		VALUES(#{categoryCode},#{boardName},#{boardDetail},0,0,0,0)
+   		VALUES(#{userID},#{categoryCode},#{boardName},#{boardDetail},0,0,0,0)
 	</insert>
 	
 	<!-- 파일저장 -->
@@ -51,7 +55,7 @@
    
    <!-- 글 상세보기 -->
 	<select id="boardDetail" resultType="com.pet.board.dto.BoardDTO">
-		SELECT b.userID, m.userNickname, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, 
+		SELECT c.categoryCode,b.userID, m.userNickname, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, 
        c.categoryName, p.photoNum, p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether
 		FROM board b 
 		LEFT OUTER JOIN photo p ON b.boardNum = p.photoIdenNum 
@@ -200,13 +204,13 @@
 	
 	<!-- 댓글 작성하기 -->
 	<insert id="boardRepWrite">
-		INSERT INTO reply(userID,boardNum,commentDetail,commentBlindWhether)
-		VALUES ('test',#{param1},#{param2},0)
+		INSERT INTO reply(boardNum,commentDetail,commentBlindWhether,userID)
+		VALUES (#{param1},#{param2},0,#{param3})
 	</insert>
 	
 	<!--  댓글 리스트 1 -->
 	<select id="boardRepList" resultType="com.pet.board.dto.BoardDTO">
-   		SELECT r.*, m.userNickname FROM reply r 
+   		SELECT r.*, m.userNickname as replyUser FROM reply r 
 		LEFT JOIN member m ON r.userID = m.userID 
 		WHERE r.boardNum = #{param1} AND r.replyNum = #{param2} AND r.commentBlindWhether = 0 
 		ORDER BY r.boardNum DESC
@@ -214,7 +218,7 @@
    	
    	<!--  댓글 리스트 2 -->
 	<select id="boardRepList2" resultType="com.pet.board.dto.BoardDTO">
-		SELECT r.*, m.userNickname FROM reply r
+		SELECT r.*, m.userNickname as replyUser FROM reply r
 		LEFT OUTER JOIN member m ON r.userID = m.userID
 		WHERE r.boardNum = #{boardNum} AND r.commentBlindWhether = 0
 		ORDER BY r.boardNum DESC
