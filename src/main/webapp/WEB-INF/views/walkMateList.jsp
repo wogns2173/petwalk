@@ -29,19 +29,19 @@
 	</div>
 	
 	<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">제목</th>
-      <th scope="col">내용</th>
-      <th scope="col">작성자</th>
-      <th scope="col">작성일자</th>
-      <th scope="col">모집여부</th>
-    </tr>
-  </thead>
-  <tbody id="tbody">
+ 		<thead>
+    		<tr>
+		      <th scope="col">제목</th>
+		      <th scope="col">내용</th>
+		      <th scope="col">작성자</th>
+		      <th scope="col">작성일자</th>
+		      <th scope="col">모집여부</th>
+			</tr>
+		</thead>
+		<tbody id="tbody">
    	
-  </tbody>
-</table>
+		</tbody>
+	</table>
 	
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>

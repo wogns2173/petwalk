@@ -35,7 +35,7 @@
 	<textarea id="content">
 	
 	</textarea>
-	<button onclick="sendArray2()">저장하기</button>
+	<button onclick="sendArray()">저장하기</button>
 </body>
 
 <script>
@@ -339,8 +339,8 @@ function getTimeHTML(distance) {
     return content;
 }
 
-function sendArray2() {
-	console.log('sendArray2() 호출');
+function sendArray() {
+	console.log('sendArray() 호출');
 	console.log(clickLine.getPath()[0].La);
 	console.log($('#subject').val());
 	console.log($('#content').val());
@@ -372,11 +372,11 @@ function sendArray2() {
 		data: JSON.stringify(list),
 		contentType: "application/json",
 		dataType:'json',
-		success:function(data123){
-			console.log(data123);
+		success:function(data){
+			console.log(data);
 		},
-		error:function(e123){
-			console.log(e123);
+		error:function(e){
+			console.log(e);
 		}		
 	});
 	
