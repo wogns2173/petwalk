@@ -30,8 +30,6 @@ public interface ReportDAO {
 
 	ReportDTO repDetail(int reportNum);
 
-	ArrayList<ReportDTO> inqreplist2(int reportNum);
-
 
 	
 
