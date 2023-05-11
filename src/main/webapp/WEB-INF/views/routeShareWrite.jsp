@@ -99,14 +99,15 @@
     			dataType:'json',
     			success:function(data){
     				console.log(data);
+    				$('input[name="siID"]').val(data.siID);
+    	            $('input[name="guID"]').val(data.guID);
+    	            $('input[name="dongID"]').val(data.dongID);
     			},
     			error:function(e){
     				console.log(e);
     			}
     		});
-            $('input[name="siID"]').val(siName);
-            $('input[name="guID"]').val(result[0].address.region_2depth_name);
-            $('input[name="dongID"]').val(result[0].address.region_3depth_name);
+            
         }   
     });
     

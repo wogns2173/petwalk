@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pet.walkroute.dao.RouteShareDAO;
+import com.pet.walkroute.dto.RouteShareDTO;
 
 
 @Service
@@ -28,6 +29,25 @@ public class RouteShareService {
 		}
 		
 		return dao.write(params);
+	}
+
+
+	public HashMap<String, String> sigudong(HashMap<String, Object> params) {
+		HashMap<String, String> sigudong = new HashMap<String, String>();
+		String siName = String.valueOf(params.get("siGuDong[siName]")); 
+		String guName = String.valueOf(params.get("siGuDong[guName]"));
+		String dongName = String.valueOf(params.get("siGuDong[dongName]"));
+		
+		sigudong.put("siID", dao.siID(siName));
+		sigudong.put("guID", dao.guID(guName));
+		sigudong.put("dongID", dao.dongID(dongName));
+		
+		return sigudong;
+	}
+
+
+	public ArrayList<RouteShareDTO> list() {
+		return dao.list();
 	}
 	
 }

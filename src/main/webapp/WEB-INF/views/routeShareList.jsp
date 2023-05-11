@@ -183,5 +183,29 @@
 			}		
 		});
     });
+	
+	$.ajax({
+		type:'get',
+		url:'./listBring.ajax',
+		data:{},
+		dataType:'json',
+		contentType: "application/json",
+		success:function(data){
+			console.log(data);
+			var content = '<tr>';
+			data.forEach(function(list) {
+				content += '<td>'+list.walkRouteName+"</td>";
+				content += '<td>'+list.userID+"</td>";
+				content += '<td>'+list.walkRouteWriteDate+"</td>";
+				content += '<td>'+list.walkRoutebHit+"</td>";
+				content += '<td>'+list.walkRoutebHit+"</td></tr>";
+			});
+			
+			$('#tbody').append(content);
+		},
+		error:function(e){
+			console.log(e);
+		}		
+	});
 </script>
 </html>
