@@ -57,13 +57,13 @@
 		</br>
 		</br>
 		<c:forEach items="${boardList}" var="bbs">
-		<c:if test="${bbs.categoryCode=='B_01'}">
-			<div class="board-item">
-			<a href="boardDetail.do?boardNum=${bbs.boardNum}"><img alt="default"  src="/photo/${bbs.serPhotoname}" ></a></br>
-			<a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount }]</a></br>
-			${bbs.boardWriteDate} 조회 ${bbs.boardbHit }</br>
-			</div>
-		</c:if>
+			<c:if test="${bbs.categoryCode=='B_01'}">
+				<div class="board-item">
+					<a href="boardDetail.do?boardNum=${bbs.boardNum}"><img alt="default"  src="/photo/${bbs.serPhotoname}" ></a></br>
+					<a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount }]</a></br>
+					${bbs.boardWriteDate} 조회 ${bbs.boardbHit }</br>
+				</div>
+			</c:if>
 		</c:forEach>
 		<hr>
 		<h3>반려견 지식 공유 게시판</h3>
@@ -71,11 +71,11 @@
 		</br>
 		</br>
 		<c:forEach items="${boardList}" var="bbs">
-		<c:if test="${bbs.categoryCode=='B_02'}">
-			<ul>
-				<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount}]</a> 조회수: ${bbs.boardbHit }</li>
-			</ul>
-		</c:if>
+			<c:if test="${bbs.categoryCode=='B_02'}">
+				<ul>
+					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount}]</a> 조회수: ${bbs.boardbHit }</li>
+				</ul>
+			</c:if>
 		</c:forEach>
 		<hr>
 		<h3>반려견 질문 게시판</h3>
