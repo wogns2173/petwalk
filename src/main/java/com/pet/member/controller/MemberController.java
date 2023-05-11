@@ -145,7 +145,7 @@ public class MemberController {
 	   
 		@RequestMapping(value = "/logout", method = RequestMethod.GET)
 		public String logout(HttpSession session) {
-			
+			logger.info("로그아웃 함");
 			session.removeAttribute("userNickname");
 			session.removeAttribute("userID");
 			return "redirect:/";

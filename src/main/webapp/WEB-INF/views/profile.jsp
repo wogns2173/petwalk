@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>너나들이 프로필</title>
-<script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>  
 <style>
 		
 </style>
