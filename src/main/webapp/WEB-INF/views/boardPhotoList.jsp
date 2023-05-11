@@ -70,7 +70,7 @@ ul{
 	  <div class="gallery-wrap">
   <ul class="gallery-list">
     <!-- 리스트를 출력할 영역-->
-    <c:forEach>
+
 	    <li class="gallery-item">
 			<a href="#">
 	        	<img src="/photo/1682988733053.png" class="thumbnail">
@@ -105,7 +105,7 @@ ul{
 			<p class="view-count">작성자 / 댓글수 </p>
 			<p class="view-count">작성일자 / 조회수</p>
 		</li>
-    </c:forEach>
+
     <li class="gallery-item">
       <a href="#">
         <img src="/photo/1682988733053.png" class="thumbnail">
