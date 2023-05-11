@@ -6,8 +6,8 @@
 
 <!-- 쿼리문을 작성해둔 interface 주소 -->
 <mapper namespace="com.pet.walkroute.dao.WalkRouteDAO">
-   <select id="dong" resultType="com.pet.walkroute.dto.WalkRouteDTO">
-	 SELECT dongID, guID, dongName, lat, lng from dongdetail
+   <select id="dong" resultType="com.pet.walkroute.dto.DongInfoDTO">
+	SELECT dongID, guID, dongName, lat, lng from dongdetail
    </select>
    
    <insert
@@ -15,10 +15,18 @@
 		keyColumn="walkNum"
 		keyProperty="walkNum" 
 		id="routeListStore" parameterType="com.pet.walkroute.dto.RouteListDTO">
-	 INSERT INTO routeList(userID, walkDetail, walkName) values ('fewqtr',#{walkDetail},#{walkName})
+	INSERT INTO routeList(userID, walkDetail, walkName) values (#{userID},#{walkDetail},#{walkName})
    </insert>
    
    <insert id="coordinateStore" parameterType="HashMap">
-	 INSERT INTO coordinate(walkNum,mapOrder,lat,lng) values(#{walkNum},#{mapOrder},#{lat},#{lng})
+	INSERT INTO coordinate(walkNum,mapOrder,lat,lng) values(#{walkNum},#{mapOrder},#{lat},#{lng})
    </insert>
+   
+   <select id="routeList" resultType="com.pet.walkroute.dto.RouteListDTO">
+	select * from routelist where userID = #{param1}
+   </select>
+   
+   <select id="coordinateBring" resultType="com.pet.walkroute.dto.RouteListDTO">
+	select * from coordinate where walkNum = #{param1}
+   </select>
 </mapper>

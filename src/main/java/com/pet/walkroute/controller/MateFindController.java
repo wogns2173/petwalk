@@ -3,7 +3,10 @@ package com.pet.walkroute.controller;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +68,15 @@ public class MateFindController {
 		return "walkMateListWrite";
 	}
 	
+	@RequestMapping(value = "/matefind/write.do")
+	public String writeDo(@RequestParam HashMap<String, Object> params, HttpSession session) {
+		logger.info("params : " + params);
+		logger.info("userID : " + session.getAttribute("userID"));
+		params.put("userID", session.getAttribute("userID"));
+		service.mateInsert(params);
+		return "redirect:/matefind/write.go";
+	}
+	
 	@RequestMapping(value = "/matefind/silist.ajax")
 	@ResponseBody
 	public ArrayList<MateFindDTO> siList() {
@@ -101,7 +113,5 @@ public class MateFindController {
 		logger.info("lat : " + coordinate.get(0).getLat());
 		logger.info("lng : " + coordinate.get(0).getLng());
 		return "walkMateListDetail";
-
 	}
-	
 }

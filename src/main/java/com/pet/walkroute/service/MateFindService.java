@@ -1,6 +1,7 @@
 package com.pet.walkroute.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,10 @@ public class MateFindService {
 
 	public ArrayList<MateListDetailDTO> coordinate(int walkNum) {
 		return dao.coordinate(walkNum);
+	}
+
+	public int mateInsert(HashMap<String, Object> params) {
+		return dao.mateInsert(params);
 	}
 
 }

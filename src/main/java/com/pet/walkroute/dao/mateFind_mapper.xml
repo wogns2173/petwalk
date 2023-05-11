@@ -40,4 +40,10 @@
 	<select id="coordinate" resultType="com.pet.walkroute.dto.MateListDetailDTO">
 		SELECT * FROM coordinate WHERE walkNum = #{param1}	
 	</select>
+	
+	<insert id="mateInsert" parameterType="hashmap">
+		INSERT INTO routemate(userID,walkNum,siID,guID,dongID,mateName,mateDetail
+					  ,matebHit,petWalkDate,state,mateBlindWhether) 
+		VALUES(#{userID},#{walkNum},#{siID},#{guID},#{dongID},#{mateName},#{mateDetail},0,#{petWalkDate},'모집중',false);
+	</insert>
 </mapper>
