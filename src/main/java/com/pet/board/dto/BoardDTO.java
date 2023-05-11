@@ -5,10 +5,15 @@ import java.sql.Date;
 
 public class BoardDTO {
 
+	//category dto
 	private String userID;
 	private String categoryCode;
 	private String categoryName;
 	
+	// member dto
+	private String userNickname;
+	
+	//board dto
 	private int boardNum;
 	private String boardName;
 	private String boardDetail;
@@ -24,6 +29,16 @@ public class BoardDTO {
 	private Date savaDate;
 	private int photoIdenNum;
 	private boolean photoBlindWhether;
+	
+	
+	// reply dto
+	private String commentDetail;
+	private Date commentWriteDate;
+	private boolean commentBlindWhether;
+	private int replyNum;
+	
+	// total reply
+	private int replyCount;
 	
 	//photo
 	public int getPhotoNum() {
@@ -126,4 +141,41 @@ public class BoardDTO {
 	public void setBoardbHit(int boardbHit) {
 		this.boardbHit = boardbHit;
 	}
+	public String getCommentDetail() {
+		return commentDetail;
+	}
+	public void setCommentDetail(String commentDetail) {
+		this.commentDetail = commentDetail;
+	}
+	public Date getCommentWriteDate() {
+		return commentWriteDate;
+	}
+	public void setCommentWriteDate(Date commentWriteDate) {
+		this.commentWriteDate = commentWriteDate;
+	}
+	public boolean isCommentBlindWhether() {
+		return commentBlindWhether;
+	}
+	public void setCommentBlindWhether(boolean commentBlindWhether) {
+		this.commentBlindWhether = commentBlindWhether;
+	}
+	public int getReplyNum() {
+		return replyNum;
+	}
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+	public String getUserNickname() {
+		return userNickname;
+	}
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+	
 }	
