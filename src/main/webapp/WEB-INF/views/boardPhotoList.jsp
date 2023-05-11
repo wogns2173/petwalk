@@ -65,97 +65,20 @@ ul{
 	<input type="text" id="searchInput" placeholder="검색 조건을 입력해주세요.">
    	<button id="searchButton">검색</button>
 	</div>
-	
 	<div class="gallery-wrap">
-	  <div class="gallery-wrap">
-  <ul class="gallery-list">
-    <!-- 리스트를 출력할 영역-->
-
-	    <li class="gallery-item">
-			<a href="#">
-	        	<img src="/photo/1682988733053.png" class="thumbnail">
-	      	</a>
-	      	<p class="date">제목</p>
-	      	<p class="view-count">작성자 / 댓글수 </p>
-	      	<p class="view-count">작성일자 / 조회수</p>
-	    </li>
-	    <li class="gallery-item">
-			<a href="#">
-	        	<img src="/photo/1682988733053.png" class="thumbnail">
-			</a>
-	      	<p class="date">제목</p>
-	      	<p class="view-count">작성자 / 댓글수 </p>
-	      	<p class="view-count">작성일자 / 조회수</p>
-	    </li>
-	    <li class="gallery-item">
-			<a href="#">
-	        	<img src="/photo/1682988733053.png" class="thumbnail">
-	      	</a>
-	      	<p class="date">제목</p>
-	      	<p class="view-count">작성자 / 댓글수 </p>
-	      	<p class="view-count">작성일자 / 조회수</p>
-	    </li>
-    
-    
-		<li class="gallery-item">
-			<a href="#">
-				<img src="/photo/1682988733053.png" class="thumbnail">
-			</a>
-			<p class="date">제목</p>
-			<p class="view-count">작성자 / 댓글수 </p>
-			<p class="view-count">작성일자 / 조회수</p>
-		</li>
-
-    <li class="gallery-item">
-      <a href="#">
-        <img src="/photo/1682988733053.png" class="thumbnail">
-      </a>
-      <p class="date">제목</p>
-      <p class="view-count">작성자 / 댓글수 </p>
-      <p class="view-count">작성일자 / 조회수</p>
-    </li>
-    <li class="gallery-item">
-      <a href="#">
-        <img src="/photo/1682988733053.png" class="thumbnail">
-      </a>
-      <p class="date">제목</p>
-      <p class="view-count">작성자 / 댓글수 </p>
-      <p class="view-count">작성일자 / 조회수</p>
-    </li>
-    <li class="gallery-item">
-      <a href="#">
-        <img src="/photo/1682988733053.png" class="thumbnail">
-      </a>
-      <p class="date">제목</p>
-      <p class="view-count">작성자 / 댓글수 </p>
-      <p class="view-count">작성일자 / 조회수</p>
-    </li>
-    <li class="gallery-item">
-      <a href="#">
-        <img src="/photo/1682988733053.png" class="thumbnail">
-      </a>
-      <p class="date">제목</p>
-      <p class="view-count">작성자 / 댓글수 </p>
-      <p class="view-count">작성일자 / 조회수</p>
-    </li>
-  </ul>
-</div>
-	<!--  
-	<div class= "inner">
-		<span class="col">
-			<span><img src="/photo/1682988733053.png" alt="image"/></span>
-			<span><img src="/photo/1682995399146.png" alt="image"/></span>
-			<span><img src="/photo/1682988733053.png" alt="image"/></span>
-			<span><img src="/photo/1682994837671.png" alt="image"/></span>
-		</span>
-		<span class="col">
-			<span><img src="/photo/1682995399146.png" alt="image"/></span>
-			<span><img src="/photo/1682988733053.png" alt="image"/></span>
-			<span><img src="/photo/1682988733053.png" alt="image"/></span>
-			<span><img src="/photo/1682994837671.png" alt="image"/></span>
-		</span>
+		<ul class="gallery-list">
+			<!-- 리스트를 출력할 영역-->
+	
+		    <li class="gallery-item">
+				<a href="#">
+		        	<img src="/photo/1682988733053.png" class="thumbnail">
+		      	</a>
+		      	<p class="date">제목</p>
+		      	<p class="view-count">작성자 / 댓글수 </p>
+		      	<p class="view-count">작성일자 / 조회수</p>
+			</li>
+		</ul>
 	</div>
-	-->
 		<button onclick="location.href='boardWrite.go?categoryCode=B_01'">글쓰기</button>
 </body>
 <script>
