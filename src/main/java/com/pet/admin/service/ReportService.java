@@ -122,7 +122,7 @@ public class ReportService {
 
 	public ArrayList<ReportDTO> inqreplist2(int reportNum) {
 		
-		return repdao.inqreplist2(reportNum);
+		return repdao.repreplist2(reportNum);
 	}
 	}
 	

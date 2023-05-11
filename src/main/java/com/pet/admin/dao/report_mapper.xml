@@ -58,7 +58,13 @@
 		SELECT* FROM report WHERE reportNum = #{param1}
 		</select>
 		
-		
+		<select id="repreplist" resultType="com.pet.admin.dto.InquiryDTO">
+   			SELECT * FROM reply WHERE boardNum = #{param1} AND replyNum = #{param2} AND commentDetail = #{param3} ORDER BY boardNum DESC
+   		</select>
+   		
+   		<select id="repreplist2" resultType="com.pet.admin.dto.InquiryDTO">
+   			SELECT * FROM reply WHERE boardNum = #{boardNum} ORDER BY boardNum DESC
+   		</select>
 		
 		
 		

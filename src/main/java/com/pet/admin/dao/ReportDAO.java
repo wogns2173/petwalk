@@ -30,6 +30,8 @@ public interface ReportDAO {
 
 	ReportDTO repDetail(int reportNum);
 
+	ArrayList<ReportDTO> repreplist2(int reportNum);
+
 
 	
 
