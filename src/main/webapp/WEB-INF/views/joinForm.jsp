@@ -88,7 +88,7 @@
 				<th>비밀번호 확인</th>
 				<td>
 
-					<input type="password" id ="confirm"/></br>
+					<input type="password" id ="confirm"/><br/>
 					<span id="pwmsg"></span>
 
 				</td>
@@ -291,7 +291,7 @@ function join(){
 		alert('태어난 일(날짜) 을 입력해 주세요!');
 		$day.focus();
 	}else if($userGender.val()==null){
-		alert('성별을 입력해 주세요!');			
+		alert('성별을 선택해 주세요!');			
 	}else if($ftphn.val()==''){
 		alert('연락처 첫 3자리를 입력해 주세요!');	
 		$ftphn.focus();
@@ -345,6 +345,10 @@ function join(){
 		alert('모두 입력해주세요.');
 	}	
 }
+$('#userID').on('keydown', function(e){
+	overlayIdChk=false;	
+});
+
 $('#userID').on('keyup', function(e){
 
     var chkId = $('#userID').val();      
@@ -379,6 +383,10 @@ $('#userID').on('keyup', function(e){
     });      
 
  });
+
+$('#userNickname').on('keydown', function(e){
+	overlayNicknameChk=false;
+});
 
 $('#userNickname').on('keyup', function(e){
     var chkNickname = $('#userNickname').val();      
@@ -415,6 +423,10 @@ $('#userNickname').on('keyup', function(e){
     });     
 	}
  });
+ 
+$('#confirm').on('keydown',function(e){
+	pweq = false;
+});
 
 $('#confirm').on('keyup',function(e){
 	pweq = false;

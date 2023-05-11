@@ -115,7 +115,7 @@ public class BoardController {
 		}
 		ArrayList<BoardDTO> boardRepList = service.boardRepList2(boardNum);
 		logger.info("boardRepList Call");
-		model.addAttribute("boardRepList",boardRepList);
+		model.addAttribute("boardRepList", boardRepList);
 		logger.info("photo : "+dto.getSerPhotoname());
 		
 		String userID = (String) session.getAttribute("userID");
