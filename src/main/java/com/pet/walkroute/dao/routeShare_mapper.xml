@@ -16,4 +16,20 @@
    		VALUES(#{userID},#{walkNum},#{siID},#{guID},#{dongID},#{walkRouteName},#{walkRouteDetail}
    				,0,#{walkRouteType},false);  
    </insert>
+   
+   <select id="siID" resultType="String">
+   		select siID from siDetail where siName = #{param1}  
+   </select>
+   
+   <select id="guID" resultType="String">
+   		select guID from guDetail where guName = #{param1}  
+   </select>
+   
+   <select id="dongID" resultType="String">
+   		select dongID from dongDetail where dongName = #{param1}  
+   </select>
+   
+   <select id="list" resultType="com.pet.walkroute.dto.RouteShareDTO">
+   		select * from routeboard where walkRouteType = '공유';  
+   </select>
 </mapper>
