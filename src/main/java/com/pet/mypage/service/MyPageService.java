@@ -181,6 +181,14 @@ public class MyPageService {
 		
 		return myinquiryList;
 	}
+	public ArrayList<MyPageDTO> findrouteShareList(String userID) {
+
+		logger.info("산책경로 공유글 리스트");
+		
+		ArrayList<MyPageDTO> findrouteShareList = dao.findrouteShareList(userID);
+		
+		return findrouteShareList;
+	}
 
 
 }

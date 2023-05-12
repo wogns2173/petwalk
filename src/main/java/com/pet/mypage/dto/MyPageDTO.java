@@ -22,10 +22,12 @@ public class MyPageDTO {
 	private String boardWriteDate;
 	private String inqProcess;
 	
+	private String walkRouteNum;	
+	private String walkRouteName;
+	private String walkRoutebHit;
+	private String walkRouteWriteDate;
 	
-	
-	
-	
+
 	
 	public int getProfileID() {
 		return profileID;
@@ -128,6 +130,30 @@ public class MyPageDTO {
 	}
 	public void setInqProcess(String inqProcess) {
 		this.inqProcess = inqProcess;
+	}
+	public String getWalkRouteNum() {
+		return walkRouteNum;
+	}
+	public void setWalkRouteNum(String walkRouteNum) {
+		this.walkRouteNum = walkRouteNum;
+	}
+	public String getWalkRouteName() {
+		return walkRouteName;
+	}
+	public void setWalkRouteName(String walkRouteName) {
+		this.walkRouteName = walkRouteName;
+	}
+	public String getWalkRoutebHit() {
+		return walkRoutebHit;
+	}
+	public void setWalkRoutebHit(String walkRoutebHit) {
+		this.walkRoutebHit = walkRoutebHit;
+	}
+	public String getWalkRouteWriteDate() {
+		return walkRouteWriteDate;
+	}
+	public void setWalkRouteWriteDate(String walkRouteWriteDate) {
+		this.walkRouteWriteDate = walkRouteWriteDate;
 	}
 	
 	

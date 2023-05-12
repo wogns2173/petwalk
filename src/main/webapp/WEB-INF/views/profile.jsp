@@ -86,23 +86,18 @@
 		<c:if test="${routeDraw != null}">		
 			<table class="table">
 				<colgroup>					
+					<col width="70%">
 					<col width="30%">
-					<col width="30%">
-					<col width="20%">
-					<col width="10%">
 				</colgroup>
 				<tbody id="tbody">					
 		   			<tr>						
 						<td>산책 경로 이름</td>
-						<td>산책 경로 설명</td>
 						<td>작성일자</td>
 					</tr>					
 					<c:forEach items="${routeDraw}" var="route">
 					<tr>
 						<td><a href="detail.do?idx=${route.walkNum}">${route.walkName}</a></td>
-						<td>${route.walkDetail}</td>
-						<td>${route.walkDate}</td>
-						<td><a href="del.do?idx=${route.walkNum}">삭제</a></td>						
+						<td>${route.walkDate}</td>						
 					</tr>				
 					</c:forEach>
 					
@@ -148,26 +143,23 @@
 		
 		<h3>문의 내역</h3>
 		<button onclick="location.href='inquirywrite.go'">문의 하기</button>
-		<c:if test="${inquiry == null}">
+		<c:if test="${empty inquiry}">
 		문의 내역이 없습니다.<br/>		
 		</c:if>
-		<c:if test="${inquiry != null}">
+		<c:if test="${!empty inquiry }">
 			<table class="inquirytable">
 				<colgroup>					
-					<col width="20%">
-					<col width="60%">
+					<col width="80%">
 					<col width="20%">
 				</colgroup>
 				<tbody id="inquirytbody">					
 		   			<tr>						
 						<td>문의 제목</td>
-						<td>문의 내용</td>
 						<td>문의 일자</td>
 					</tr>					
 					<c:forEach items="${inquiry}" var="inquiry">
 					<tr>
-						<td><a href="detail.do?idx=${inquiry.boardNum}">${inquiry.boardName}</a></td>
-						<td>${inquiry.boardDetail}</td>
+						<td><a href="inquirydetail.do?boardNum=${inquiry.boardNum}">${inquiry.boardName}</a></td>						
 						<td>${inquiry.boardWriteDate}</td>											
 					</tr>				
 					</c:forEach>
@@ -186,7 +178,7 @@
 		<table>
 			<tr>		
 				<th colspan="2">
-		            		                        
+		            		                       
 					<button onclick="location.href='./'">돌아가기</button>
 		        </th>
 	      	</tr>		
@@ -202,5 +194,6 @@ console.log('${pet.petAge}');
 console.log('${pet.petGender}');
 console.log('${pet.petNeutered}');
 console.log('${pet.petIntroduce}');
+console.log('${inquiry}');
 </script>
 </html>

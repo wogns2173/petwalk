@@ -21,6 +21,8 @@ public interface MyPageDAO {
 
 	ArrayList<MyPageDTO> myinquiryList(String userID);
 
+	ArrayList<MyPageDTO> findrouteShareList(String userID);
+
 	
 
 	

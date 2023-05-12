@@ -31,11 +31,15 @@
 		SELECT * FROM routelist WHERE userID = #{param1} ORDER BY walkDate DESC
 	</select>
 	
-	<select id="myinquiryList" resultType="com.pet.mypage.dto.MyPageDTO">
-		SELECT * FROM board WHERE userID = #{param1} ORDER BY boardWriteDate DESC
+	<select id="myinquiryList" resultType="com.pet.mypage.dto.MyPageDTO">		
+		SELECT * FROM board WHERE userID = #{param1} 
+		AND categoryCode IN ('B_06', 'B_07', 'B_08', 'B_09', 'B_10', 'B_11') 
+		ORDER BY boardWriteDate DESC		
+	</select>
+	
+	<select id="findrouteShareList" resultType="com.pet.mypage.dto.MyPageDTO">
+		SELECT * FROM routeboard WHERE userID = #{param1} ORDER BY walkRouteWriteDate DESC
 	</select>
 
-   
-   
    
 </mapper>
