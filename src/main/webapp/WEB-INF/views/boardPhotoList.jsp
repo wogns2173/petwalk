@@ -74,18 +74,9 @@
 	<div class="gallery-wrap">
 		<ul class="gallery-list" id="list">
 			<!-- 리스트를 출력할 영역-->
-		    <!--  <li class="gallery-item">
-				<a href="#">
-		        	<img src="${bbs.serPhotoname }" class="thumbnail">
-		      	</a>
-		      	<p class="boardName">${bbs.boardName } [${bbs.replyNum}]</p>
-		      	<p class="board1">${bbs.userNickname }</p>
-		      	<p class="board2">${bbs.boardWriteDate} 조회 ${bbs.boardbHit}</p>
-			</li>
-			-->
 		</ul>
 	</div>
-	<button onclick="location.href='boardWrite.go?categoryCode=B_01'">글쓰기</button>
+	<input type="button" onclick="location.href='boardWrite.go?categoryCode=B_01'" id="writeButton" value="글쓰기"/>
 	<div id="paging">	
 		<!-- 	플러그인 사용	(twbsPagination)	-->
 		<div class="container">									
@@ -97,6 +88,11 @@
 		
 </body>
 <script>
+
+	var loginID = "${sessionScope.userID}";
+	if(loginID == "") {
+		$('#writeButton').attr('type','hidden');
+	}
 	var cnt = 8;
 	var showPage = 1;
 	var selectedBoardSearch = 'default';

@@ -149,7 +149,7 @@ public class BoardController {
 		logger.info("update boardNum: "+boardNum);
 		logger.info("update categoryCode: "+categoryCode);
 
-		String page = "redirect:/board.do";
+		String page = "redirect:/boardList";
 		
 		
 		BoardDTO dto = service.boardDetail(boardNum, "boardUpdate");
@@ -170,6 +170,7 @@ public class BoardController {
 		}else {  //작성자와 로그인한 사용자가 다른 경우
 			String msg = "글 수정 권한이 없습니다.";
 	        model.addAttribute("msg", msg);
+	        page = "redirect:/boardList";
 		}
 
 		return page;

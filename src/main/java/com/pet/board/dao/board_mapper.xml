@@ -56,7 +56,7 @@
    <!-- 글 상세보기 -->
 	<select id="boardDetail" resultType="com.pet.board.dto.BoardDTO">
 		SELECT c.categoryCode,b.userID, m.userNickname, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, 
-       c.categoryName, p.photoNum, p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether
+       c.categoryName, p.photoNum, p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether, m.Role
 		FROM board b 
 		LEFT OUTER JOIN photo p ON b.boardNum = p.photoIdenNum 
 		LEFT OUTER JOIN member m ON b.userID = m.userID
@@ -79,9 +79,10 @@
    <!-- 사진삭제된 글 상세보기 -->
    <select id="boardDetailPhotoDel" resultType="com.pet.board.dto.BoardDTO">
 		SELECT b.userID, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, b.categoryCode, 
-	       p.photoNum, p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether,c.categoryName
+	       p.photoNum, p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether,c.categoryName, m.userNickname, m.Role
 		FROM board b LEFT OUTER JOIN photo p ON b.boardNum = p.photoIdenNum
 		LEFT OUTER JOIN category c ON b.categoryCode = c.categoryCode 
+		LEFT OUTER JOIN member m ON b.userID = m.userID
 		WHERE b.boardNum = #{param1} 
 			AND b.boardBlindWhether = 0 
 			AND (p.photoBlindWhether = 1 OR p.photoBlindWhether IS NULL) ORDER BY photoNum DESC LIMIT 1;
@@ -137,7 +138,7 @@
 		LEFT JOIN photo p ON b.boardNum = p.photoIdenNum AND p.photoBlindWhether  = false
 		WHERE b.boardBlindWhether = false AND b.categoryCode = #{param3}
 		GROUP BY b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname, p.serPhotoname
-		ORDER BY b.boardNum LIMIT #{param1} OFFSET #{param2}
+		ORDER BY b.boardNum DESC LIMIT #{param1} OFFSET #{param2}
 	</select>
 	
 	<!-- 페이징 -->
