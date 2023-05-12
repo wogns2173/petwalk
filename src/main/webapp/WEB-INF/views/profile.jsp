@@ -89,7 +89,7 @@
 		<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>
 		</c:if>
 		<c:if test="${routeDraw != null}">
-		<button>더 보기</button>		
+		<button onclick="location.href='routeshare/bring.go'">더 보기</button>		
 			<table class="table">
 				<colgroup>					
 					<col width="70%">
@@ -103,7 +103,7 @@
 					<c:forEach items="${routeDraw}" var="route" varStatus="loop">
 						<c:if test="${loop.index < 5}">
 					<tr>
-						<td><a href="matefind/listDetail.do?mateWalkNum=${route.walkNum}">${route.walkName}</a></td>
+						<td>${route.walkName}</td>
 						<td>${route.walkDate}</td>						
 					</tr>				
 						</c:if>
