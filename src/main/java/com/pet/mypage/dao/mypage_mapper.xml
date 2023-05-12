@@ -23,9 +23,17 @@
 	</select>
 	
 	<update id="petprofileUpdate">
-		UPDATE profile SET petAge=#{param4}, petName=#{param3}, petGender=#{param5}, petNeutered=#{param6}, petIntroduce=#{param7}, petSize=#{param2}
+		UPDATE profile SET petAge = #{param4}, petName = #{param3}, petGender = #{param5}, petNeutered = #{param6}, petIntroduce = #{param7}, petSize = #{param2}
 		WHERE userID=#{param1}
 	</update>
+	
+	<select id="findrouteDrawList" resultType="com.pet.mypage.dto.MyPageDTO">
+		SELECT * FROM routelist WHERE userID = #{param1} ORDER BY walkDate DESC
+	</select>
+	
+	<select id="myinquiryList" resultType="com.pet.mypage.dto.MyPageDTO">
+		SELECT * FROM board WHERE userID = #{param1} ORDER BY boardWriteDate DESC
+	</select>
 
    
    

@@ -45,5 +45,7 @@ public interface ReportDAO {
 	int fileWrite(String categoryCode, String oriPhotoname, String serPhotoname, int reportNum);
 
 
+
+
 	
 }

@@ -2,6 +2,7 @@ package com.pet.mypage.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -37,6 +38,22 @@ public class MyPageController {
 			 String userID = (String) session.getAttribute("userID");
 			 MyPageDTO dto = service.findprofileAndphoto(userID);				 
 			 model.addAttribute("pet", dto);
+			 
+			 ArrayList<MyPageDTO> findrouteDrawList = service.findrouteDrawList(userID);
+			 model.addAttribute("routeDraw", findrouteDrawList);
+			 
+			 ArrayList<MyPageDTO> myinquiryList = service.myinquiryList(userID);
+			 model.addAttribute("inquiry", myinquiryList);
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
 			 
 			 page = "profile";
 		 }

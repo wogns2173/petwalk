@@ -27,4 +27,17 @@ public class MainController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "adminPage.go")
+	public String adminPage(Model model, HttpSession session) {
+		
+		String Role = (String) session.getAttribute("Role");
+		String page = "redirect:/";
+		logger.info(Role);
+		if(Role.equals("admin")) {
+			page = "adminPage";
+		}
+					
+		
+		return page;
+	}
 }
