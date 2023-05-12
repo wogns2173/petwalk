@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <style>
 	.board_reply {
       border : 1px solid lightgray;
@@ -38,22 +41,32 @@
 		<input type="hidden" name="categoryCode">${dto.categoryCode}</input>
 		</br>
 		<h1>${dto.boardName}</h1>
-		</br>
-		${dto.userNickname}
-		</br>
+		<div id="ex1" class="modal">
+		  <p><a href="otherprofile.go?userID=${dto.userID}">프로필 보기</a></p>
+		  <p><a href="reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}">프로필 신고하기</a></p>
+		  <!-- <a href="#" rel="modal:close">닫기</a>-->
+		</div>
+		 
+		<p><a href="#ex1" rel="modal:open">
+			${dto.userNickname }
+		</a></p>
+		<!--<p>작성자: <a href="#" class="username" data-user-id="${dto.userID}">${dto.userNickname }</a></p>-->
 		<h3>${dto.boardWriteDate} 조회수: ${dto.boardbHit }</h3>
 		</br>
 		<c:if test="${dto.serPhotoname ne null}">
 			<tr>
 				<td><img width="300" src="/photo/${dto.serPhotoname}"/></td>
 			</tr>
-			
 		</c:if>
 		<h2>${dto.boardDetail}</h2>
-		<button>신고</button>
-		<input type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}'" value="삭제"/>
-		<input type= "button" onclick="location.href='./boardUpdate.go?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="수정"/>
-		<button>목록</button>
+		<c:if test="${dto.userID ne userID && userID ne null}">
+			<button onclick="./reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}">신고</button>
+		</c:if>
+		<c:if test="${dto.userID eq userID}">
+			<input id="updateButton" type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="삭제"/>
+			<input id="deleteButton"type= "button" onclick="location.href='./boardUpdate.go?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="수정"/>
+		</c:if>
+			<input type="button" onclick="location.href='./boardList.go?categoryCode=${dto.categoryCode}'" value="목록"/>
 	<!--</c:forEach>-->
 	
 	<hr>
