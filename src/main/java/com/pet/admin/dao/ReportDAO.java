@@ -32,8 +32,18 @@ public interface ReportDAO {
 
 	ArrayList<ReportDTO> repreplist2(int reportNum);
 
+	int reprepwrite(int reportNum, String reportProcess);
 
-	
+	int reprepdelte(int repReplyNum);
+
+	ReportDTO repreplist(int reportNum, int repReplyNum, String reportProcess);
+
+	int reprepupdate(HashMap<String, String> params);
+
+	int reportWrite(ReportDTO repdto);
+
+	int fileWrite(String categoryCode, String oriPhotoname, String serPhotoname, int reportNum);
+
 
 	
 }

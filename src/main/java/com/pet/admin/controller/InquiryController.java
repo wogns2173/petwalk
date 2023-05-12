@@ -122,6 +122,7 @@ public class InquiryController {
 	@RequestMapping(value="/inqrepupdate.go", method = RequestMethod.GET)
 	public String inquiryrepupdateform(Model model, @RequestParam int boardNum, @RequestParam int replyNum, @RequestParam String commentDetail) {
 		
+		
 		logger.info("Inquiry Update Reply Form Call");
 		
 		logger.info("boardNum :"+boardNum);
@@ -139,7 +140,7 @@ public class InquiryController {
 		logger.info("Inquiry Update List Call");
 		logger.info("boardNum : " + inqreplist.getBoardNum());
 		logger.info("commentDetail :" +inqreplist.getCommentDetail());
-		
+		model.addAttribute("inqreply",inqreplist.getCommentDetail());
 		model.addAttribute("inqreplist2",inqreplist);
 		
 		return "inquiryrepupdate";		

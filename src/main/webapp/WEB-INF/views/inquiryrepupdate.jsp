@@ -122,7 +122,7 @@
 	<div class="inquiry_reply">
 		<input type="hidden" name="boardNum" value="${inq.boardNum}">
 		<input type="hidden" name="replyNum" value ="${replyNum}">
-        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" value="${inqrep.commentDetail}">
+        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();"  placeholder="${inqreply }">
         <p id="inquiryreply_legnth">0/100</p>
         <button type="submit">수정</button>
 	</div>  

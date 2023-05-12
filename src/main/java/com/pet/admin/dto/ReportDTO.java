@@ -26,7 +26,7 @@ public class ReportDTO {
 		private String categoryName;
 		
 		// reportreply dto
-		private int repreplyNum;
+		private int repReplyNum;
 		private String reportProcess;
 		
 		//photo dto
@@ -97,12 +97,6 @@ public class ReportDTO {
 		public void setCategoryName(String categoryName) {
 			this.categoryName = categoryName;
 		}
-		public int getRepreplyNum() {
-			return repreplyNum;
-		}
-		public void setRepreplyNum(int repreplyNum) {
-			this.repreplyNum = repreplyNum;
-		}
 		public String getReportProcess() {
 			return reportProcess;
 		}
@@ -168,5 +162,11 @@ public class ReportDTO {
 		}
 		public void setRepProcess(boolean repProcess) {
 			this.repProcess = repProcess;
+		}
+		public int getRepReplyNum() {
+			return repReplyNum;
+		}
+		public void setRepReplyNum(int repReplyNum) {
+			this.repReplyNum = repReplyNum;
 		}
 }

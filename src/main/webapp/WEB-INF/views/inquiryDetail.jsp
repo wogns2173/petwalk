@@ -124,7 +124,7 @@
     <input type="hidden" name="boardNum" value="${inq.boardNum}">
     
 	<div class="inquiry_reply">
-        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="내용을 입력 해 주세요.">
+        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="${inqreply }">
         <p id="inquiryreply_legnth">0/100</p>
         <button type="submit">등록</button>
 	</div>  

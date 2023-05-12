@@ -1,5 +1,9 @@
 package com.pet.admin.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.admin.dao.ReportDAO;
 import com.pet.admin.dto.InquiryDTO;
@@ -124,7 +129,89 @@ public class ReportService {
 		
 		return repdao.repreplist2(reportNum);
 	}
+
+	public int reportreplywrite(int reportNum, String reportProcess) {
+
+		logger.info("Report Reply Write Service Call");
+		return repdao.reprepwrite(reportNum,reportProcess);
 	}
+
+	public int reprepdel(int repReplyNum) {
+		
+		logger.info("Report Reply Delete Service Call");
+		return repdao.reprepdelte(repReplyNum);
+	}
+
+	public ArrayList<ReportDTO> repreplist2(int reportNum) {
+		
+		return repdao.repreplist2(reportNum);
+	}
+
+	public ReportDTO repreplist(int reportNum, int repReplyNum, String reportProcess) {
+		logger.info("Report Reply List Service");
+		return repdao.repreplist(reportNum, repReplyNum, reportProcess);
+	}
+
+
+	public String reprepupdate(HashMap<String, String> params) {
+		logger.info("Report Reply Update");
+		logger.info("params :"+params);
+		
+		int row = repdao.reprepupdate(params);
+		
+		logger.info("update row :"+row);
+		
+		return "redirect:/reportdetail.do?reportNum=" + params.get("reportNum"); 
+	}
+
+	public String repWrite(MultipartFile photo, HashMap<String, String> params) {
+		
+		String page = "redirect:/reportlist.go";
+
+		//1. 게시글만 작성
+		ReportDTO repdto = new ReportDTO();
+		
+		
+		repdto.setCategoryCode(params.get("categoryCode"));
+		repdto.setReportName(params.get("reportName"));
+		repdto.setReportDetail(params.get("reportDetail"));
+		
+		logger.info(repdto.getReportDetail() + "/" + repdto.getCategoryCode() + "/" + repdto.getReportName());
+		int row = repdao.reportWrite(repdto);
+		logger.info("writeupdate row:"+row);
+		int reportNum = repdto.getReportNum();
+		String categoryCode = repdto.getCategoryCode();
+		logger.info("방금 inset한 categoryCode: "+categoryCode+"/"+reportNum);
+				
+	
+		//첨부파일 같이 업로드 
+		if(!photo.getOriginalFilename().equals("")) {
+			logger.info("파일 업로드 작업");
+			fileSave(categoryCode,photo,reportNum);
+		}
+		return page;
+	}
+
+	private void fileSave(String categoryCode, MultipartFile photo, int reportNum) {
+		String oriPhotoname = photo.getOriginalFilename();
+		String ext = oriPhotoname.substring(oriPhotoname.lastIndexOf("."));
+		String serPhotoname = System.currentTimeMillis()+ext;
+		logger.info(oriPhotoname+"->"+serPhotoname);
+		logger.info("categoryCode :"+categoryCode);
+	
+		try {
+			byte[] bytes = photo.getBytes();
+			Path path = Paths.get("C:/img/petwork/"+serPhotoname);
+			Files.write(path, bytes);
+			logger.info(serPhotoname+"save OK");
+			repdao.fileWrite(categoryCode, oriPhotoname, serPhotoname, reportNum);
+			logger.info("사진 저장 완료");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
 	
 	
 
