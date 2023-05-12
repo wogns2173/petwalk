@@ -63,6 +63,17 @@ public interface BoardDAO {
 
 	int boardPhotoCount(String boardNum);
 
+	ArrayList<BoardDTO> boardPhotoList(int cnt, int offset, String categoryCode, String boardSearch, String search);
+
+	ArrayList<BoardDTO> boardPhotoNameSearch(int cnt, int offset, String categoryCode, String boardSearch,
+			String search);
+
+	ArrayList<BoardDTO> boardPhotoNicknamesearch(int cnt, int offset, String categoryCode, String boardSearch,
+			String search);
+
+	ArrayList<BoardDTO> boardPhotouserIDsearch(int cnt, int offset, String categoryCode, String boardSearch,
+			String search);
+
 
 	//ArrayList<BoardDTO> photoboardList();
 

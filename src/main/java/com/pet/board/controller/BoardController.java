@@ -80,8 +80,12 @@ public class BoardController {
 		logger.info("writeForm");
 		String page = "redirect:/boardList.go?categoryCode="+categoryCode;
 		logger.info("write categoryCode: "+categoryCode);
-		logger.info("{}",session.getAttribute("userID"));
 		
+		model.addAttribute("categoryCode", categoryCode);
+		page = "boardWrite";
+		
+		
+		logger.info("{}",session.getAttribute("userID"));
 		String userID = (String) session.getAttribute("userID");
 		
 		if(session.getAttribute("userID") != null) {
@@ -89,6 +93,7 @@ public class BoardController {
 			model.addAttribute("userID",userID);
 			page = "boardWrite";
 		}
+		
 		
 		return page;
 	}
@@ -120,6 +125,7 @@ public class BoardController {
 		
 		String userID = (String) session.getAttribute("userID");
 		logger.info(userID);
+		
 		// 이미 위에서 userID 를 지정해주었기 때문에 setAttribute 는 안해줘도 된다.
 		//session.setAttribute("userID", userID);
 		
@@ -144,20 +150,28 @@ public class BoardController {
 		logger.info("update categoryCode: "+categoryCode);
 
 		String page = "redirect:/board.do";
-		String userID = (String) session.getAttribute("userID");
+		
 		
 		BoardDTO dto = service.boardDetail(boardNum, "boardUpdate");
 		if(dto.isPhotoBlindWhether() == true) {
 			logger.info("업데이트 완료");
 		}
 		
+		if(dto != null) {
+			page ="boardUpdate";
+			model.addAttribute("dto",dto);
+		}
+
+		String userID = (String) session.getAttribute("userID");
+		
 		if(dto != null && userID.equals(dto.getUserID())) { //작성자와 로그인한 사용자가 같은 경우
 			page ="boardUpdate";
 			model.addAttribute("dto",dto);
-		}else { // 작성자와 로그인한 사용자가 다른 경우
+		}else {  //작성자와 로그인한 사용자가 다른 경우
 			String msg = "글 수정 권한이 없습니다.";
 	        model.addAttribute("msg", msg);
 		}
+
 		return page;
 
 	}
@@ -213,7 +227,7 @@ public class BoardController {
 		logger.info("boardReplist Call");
 		logger.info("boardNum : " + boardRepList.getBoardNum());
 		model.addAttribute("boardRepList2",boardRepList);
-		//String userID = (String) session.getAttribute("userID");
+		String userID = (String) session.getAttribute("userID");
 		
 		return "boardRepUpdate";
 	}

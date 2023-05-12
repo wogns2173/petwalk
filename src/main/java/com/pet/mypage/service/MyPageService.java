@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -164,5 +165,30 @@ public class MyPageService {
 		}
 		return map;
 	}
+	public ArrayList<MyPageDTO> findrouteDrawList(String userID) {
+		
+		logger.info("내가 작성한 산책 경로 리스트");
+	
+		ArrayList<MyPageDTO> findrouteDrawList = dao.findrouteDrawList(userID);
+	
+		return findrouteDrawList;
+	}
+	public ArrayList<MyPageDTO> myinquiryList(String userID) {
+ 
+		logger.info("내가 문의한 글 리스트");
+		
+		ArrayList<MyPageDTO> myinquiryList = dao.myinquiryList(userID);
+		
+		return myinquiryList;
+	}
+	public ArrayList<MyPageDTO> findrouteShareList(String userID) {
+
+		logger.info("산책경로 공유글 리스트");
+		
+		ArrayList<MyPageDTO> findrouteShareList = dao.findrouteShareList(userID);
+		
+		return findrouteShareList;
+	}
+
 
 }

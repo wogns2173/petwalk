@@ -12,7 +12,22 @@ public class MyPageDTO {
 	private String petSize;
 	private String serPhotoname;
 	
+	private String walkNum;	
+	private String walkName;
+	private String walkDetail;
+	private String walkDate;
 	
+	private String boardNum;
+	private String boardName;
+	private String boardWriteDate;
+	private String inqProcess;
+	
+	private String walkRouteNum;	
+	private String walkRouteName;
+	private String walkRoutebHit;
+	private String walkRouteWriteDate;
+	
+
 	
 	public int getProfileID() {
 		return profileID;
@@ -67,6 +82,78 @@ public class MyPageDTO {
 	}
 	public void setSerPhotoname(String serPhotoname) {
 		this.serPhotoname = serPhotoname;
+	}
+	public String getWalkNum() {
+		return walkNum;
+	}
+	public void setWalkNum(String walkNum) {
+		this.walkNum = walkNum;
+	}
+	public String getWalkName() {
+		return walkName;
+	}
+	public void setWalkName(String walkName) {
+		this.walkName = walkName;
+	}
+	public String getWalkDetail() {
+		return walkDetail;
+	}
+	public void setWalkDetail(String walkDetail) {
+		this.walkDetail = walkDetail;
+	}
+	public String getWalkDate() {
+		return walkDate;
+	}
+	public void setWalkDate(String walkDate) {
+		this.walkDate = walkDate;
+	}
+	public String getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(String boardNum) {
+		this.boardNum = boardNum;
+	}
+	public String getBoardName() {
+		return boardName;
+	}
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
+	}
+	public String getBoardWriteDate() {
+		return boardWriteDate;
+	}
+	public void setBoardWriteDate(String boardWriteDate) {
+		this.boardWriteDate = boardWriteDate;
+	}
+	public String getInqProcess() {
+		return inqProcess;
+	}
+	public void setInqProcess(String inqProcess) {
+		this.inqProcess = inqProcess;
+	}
+	public String getWalkRouteNum() {
+		return walkRouteNum;
+	}
+	public void setWalkRouteNum(String walkRouteNum) {
+		this.walkRouteNum = walkRouteNum;
+	}
+	public String getWalkRouteName() {
+		return walkRouteName;
+	}
+	public void setWalkRouteName(String walkRouteName) {
+		this.walkRouteName = walkRouteName;
+	}
+	public String getWalkRoutebHit() {
+		return walkRoutebHit;
+	}
+	public void setWalkRoutebHit(String walkRoutebHit) {
+		this.walkRoutebHit = walkRoutebHit;
+	}
+	public String getWalkRouteWriteDate() {
+		return walkRouteWriteDate;
+	}
+	public void setWalkRouteWriteDate(String walkRouteWriteDate) {
+		this.walkRouteWriteDate = walkRouteWriteDate;
 	}
 	
 	
