@@ -18,11 +18,11 @@
     </div>
     <div>
         <label for="reportName">제목:</label>
-        <input type="text" name="boardName">
+        <input type="text" name="reportName">
     </div>
     <div>
         <label for="reportDetail">Content:</label>
-        <textarea name="boardDetail" ></textarea>
+        <textarea name="reportDetail" ></textarea>
     </div>
     <div>
     	첨부파일

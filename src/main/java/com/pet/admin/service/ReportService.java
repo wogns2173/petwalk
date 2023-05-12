@@ -166,7 +166,7 @@ public class ReportService {
 
 	public String repWrite(MultipartFile photo, HashMap<String, String> params) {
 		
-		String page = "redirect:/reportlist.go";
+		String page = "redirect:";
 
 		//1. 게시글만 작성
 		ReportDTO repdto = new ReportDTO();

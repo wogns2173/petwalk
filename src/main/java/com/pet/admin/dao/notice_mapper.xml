@@ -5,7 +5,75 @@
 <!-- xml 을 java 에서 쓰기 위해 연결되는 interface 가 필요 하다. -->
 
 <!-- 쿼리문을 작성해둔 interface 주소 -->
-<mapper namespace="com.pet.board.dao.BoardDAO">
+<mapper namespace="com.pet.admin.dao.NoticeDAO">
    
+	<select id="noticeAllTotal" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT COUNT(boardNum) FROM board WHERE categoryCode = 'B_05'
+	</select>
    
+	<select id="noticeSearchTotal" parameterType="HashMap" resultType="java.lang.Integer">
+			SELECT COUNT(boardNum) FROM board WHERE boardName  LIKE CONCAT('%', #{param2}, '%')
+	</select>
+	
+	<select id="noticeAllList" parameterType="HashMap" resultType="com.pet.admin.dto.NoticeDTO">
+			SELECT boardNum,boardName, userID, boardWriteDate, boardBlindWhether FROM board WHERE categoryCode = 'B_05'
+			ORDER BY boardNum DESC
+			LIMIT #{param2} OFFSET #{param3}
+	</select>
+	
+	<select id="noticeSearchList" parameterType="HashMap" resultType="com.pet.admin.dto.NoticeDTO">
+			SELECT boardName, userID, boardWriteDate, boardBlindWhether
+			FROM board WHERE boardName LIKE CONCAT ('%',#{param2},'%') AND categoryCode = 'B_05'
+			ORDER BY boardNum DESC
+			LIMIT #{param3} OFFSET #{param4}
+	</select>
+	
+	
+	<select id="noticeDetail"  resultType="com.pet.admin.dto.NoticeDTO">
+		SELECT b.userID, b.boardName, b.boardDetail, b.boardWriteDate, b.boardbHit, b.categoryCode, 
+      		 p.photoNum, p.serPhotoname, p.photoIdenNum, b.boardNum, p.photoBlindWhether
+		FROM board b LEFT OUTER JOIN photo p ON b.boardNum = p.photoIdenNum 
+		WHERE b.boardNum = #{param1} AND b.boardBlindWhether = 0 AND (p.photoBlindWhether = 0 OR p.photoBlindWhether IS NULL);
+	</select>
+	
+	<update id="upHit" parameterType="int">
+   			UPDATE board SET boardbHit = boardbHit+1 WHERE boardNum = #{param1}
+   	</update>
+   	
+   	<insert 
+		useGeneratedKeys="true"
+		keyColumn="boardNum"
+		keyProperty="boardNum"
+		
+		id="noticeWrite" parameterType="com.pet.admin.dto.NoticeDTO">
+		INSERT INTO board(categoryCode,boardName,boardDetail,noticeWhether,
+   		boardBlindWhether,boardbHit,inqProcess)
+   		VALUES('B_05',#{boardName},#{boardDetail},false,false,false,false)
+		</insert>
+	
+		<insert id="fileWrite" >
+		INSERT INTO photo(categoryCode,oriPhotoname,serPhotoname,photoBlindWhether,photoIdenNum)
+			VALUES(#{param1},#{param2},#{param3},false,#{param4})
+		</insert>
+		
+		<insert id="noticerepwrite">
+   			INSERT INTO reply(userID,boardNum,commentDetail,commentBlindWhether)
+   			VALUES ('adminJH',#{param1},#{param2},0)
+		</insert>
+	
+		<select id="noticereplist" resultType="com.pet.admin.dto.NoticeDTO">
+   			SELECT * FROM reply WHERE boardNum = #{param1} AND replyNum = #{param2} AND commentDetail = #{param3} ORDER BY boardNum DESC
+   		</select>
+   		
+   		<select id="noticereplist2" resultType="com.pet.admin.dto.NoticeDTO">
+   			SELECT * FROM reply WHERE boardNum = #{boardNum} ORDER BY boardNum DESC
+   		</select>
+   		
+   		<delete id="noticerepdel">
+			DELETE FROM reply WHERE replyNum = #{replyNum}
+		</delete>
+		
+		<update id="noticerepupdate" parameterType="Hashmap">
+   			UPDATE reply SET commentDetail = #{content} WHERE replyNum = #{replyNum}
+   		</update>
 </mapper>

@@ -85,9 +85,8 @@
 		keyProperty="reportNum"
 		
 		id="reportWrite" parameterType="com.pet.admin.dto.ReportDTO">
-		INSERT INTO board(categoryCode,boardName,boardDetail,noticeWhether,
-   		boardBlindWhether,boardbHit,inqProcess)
-   		VALUES(#{categoryCode},#{boardName},#{boardDetail},false,false,false,false)
+		INSERT INTO report(userID,categoryCode,reportName,reportDetail,repProcess)
+   		VALUES('adminJH',#{categoryCode},#{reportName},#{reportDetail},false)
 		</insert>
 	
 		<insert id="fileWrite" >
