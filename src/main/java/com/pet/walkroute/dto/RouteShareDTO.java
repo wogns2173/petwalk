@@ -15,6 +15,7 @@ public class RouteShareDTO {
 	private Date walkRouteWriteDate;
 	private String walkRouteType;
 	private boolean walkRouteBlind;
+	private int recommendation;
 	
 	public int getWalkRouteNum() {
 		return walkRouteNum;
@@ -87,6 +88,12 @@ public class RouteShareDTO {
 	}
 	public void setWalkRouteBlind(boolean walkRouteBlind) {
 		this.walkRouteBlind = walkRouteBlind;
+	}
+	public int getRecommendation() {
+		return recommendation;
+	}
+	public void setRecommendation(int recommendation) {
+		this.recommendation = recommendation;
 	}
 	
 }
