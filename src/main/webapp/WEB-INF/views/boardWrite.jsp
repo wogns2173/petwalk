@@ -46,8 +46,8 @@
 	  var ext = fileName.slice(idx + 1).toLowerCase();
 	
 	  // 확장자명이 jsp인 경우 경고창 출력
-	  if (ext != "jsp" && ext != "png") {
-	    alert("확장자가 .jsp인 파일만 선택할 수 있습니다.");
+	  if (ext != "jpg" && ext != "png") {
+	    alert("확장자가 .jpg, .png인 파일만 선택할 수 있습니다.");
 	    file.value = "";
 	    return false;
 	  }
