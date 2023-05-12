@@ -21,11 +21,11 @@
 	    
 	    <div>
 	        <label for="boardName">제목:</label>
-	        <input type="text" name="boardName" value="${dto.boardName}">
+	        <input type="text" name="boardName" value="${dto.boardName}" id="boardName">
 	    </div>
 	    <div>
 	        <label for="boardDetail">내용:</label>
-	        <textarea name="boardDetail">${dto.boardDetail}</textarea>
+	        <textarea name="boardDetail" id="boardDetail">${dto.boardDetail}</textarea>
 	    </div>
 	    
 	    <div>
@@ -66,6 +66,13 @@
 			if (deletePhotoInput == "false" && categoryCode == "B_01" && fileName == "") {
 			  alert('반려견 갤러리는 사진 첨부 성공');
 			  return false;
+			}
+			var boardName = document.getElementById('boardName').value;
+			var boardDetail = document.getElementById('boardDetail').value;
+			
+				if (!boardName || !boardDetail){
+					alert('제목, 내용을 입력해 주세요.');
+					return false;
 			}
 		  }
 

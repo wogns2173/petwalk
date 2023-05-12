@@ -74,10 +74,16 @@
 				</div>
 			</td>
 		</tr>
-		<button onclick="location.href='boardWrite.go?categoryCode=B_02'">글쓰기</button>
+		<input type="button" onclick="location.href='boardWrite.go?categoryCode=B_02'" id="writeButton" value="글쓰기"/>
 	</table>
 </body>
 <script>
+
+	var loginID = "${sessionScope.userID}";
+	if(loginID == "") {
+		$('#writeButton').attr('type','hidden');
+	}
+
 	var showPage = 1;
 	var selectedBoardSearch = 'default';
 	var categoryCode = 'B_02';

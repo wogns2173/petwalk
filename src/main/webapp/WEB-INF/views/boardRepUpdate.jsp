@@ -38,7 +38,7 @@
 </head>
 <body>
 	<!-- <c:forEach items="dto">-->
-		<input type="hidden" name="categoryCode">${dto.categoryCode}</input>
+		<input type="hidden" name="categoryCode">${dto.categoryName}</input>
 		</br>
 		<h1>${dto.boardName}</h1>
 		<div id="ex1" class="modal">
@@ -79,24 +79,30 @@
 
 	<c:forEach items="${boardRepList}" var="boardRep">
 		<div class="boardRep">
-			${boardRep.replyUser} / ${boardRep.commentWriteDate}
-			<c:if test="${boardRep.userID == userID}">
-				<input type ="button" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${dto.boardNum}"' value="삭제"/>
-				<input type ="button" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${dto.boardNum}"' value="수정"/>
-			</c:if>
-			<p>${boardRep.commentDetail }</p>
+				<div id="ex2" class="modal">
+					<p><a href="otherprofile.go?userID=${dto.userID}">프로필 보기</a></p>
+					<p><a href="reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}">프로필 신고하기</a></p>
+					<!-- <a href="#" rel="modal:close">닫기</a>-->
+				</div>
+				<p><a href="#ex2" rel="modal:open">
+				${boardRep.replyUser} </a>/ ${boardRep.commentWriteDate}
+				<c:if test="${boardRep.userID == userID}">
+					<input type ="button" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="삭제"/>
+					<input type ="button" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="수정"/>
+				</c:if></p>
+				<p>${boardRep.commentDetail }</p>
 		</div>	
 	</c:forEach>
 	
 		<!-- 댓글 수정 -->
     <form method="get" action="boardRepUpdate.do">
-	<div class="board_reply">
-		<input type="hidden" name="boardNum" value="${dto.boardNum}">
-		<input type="hidden" name="replyNum" value ="${replyNum}">
-        <input name = "content" id="boardReply_text" type="text" maxlength="100" oninput="checkLength();" value="${boardRep.commentDetail}">
-        <p id="boardReply_legnth">0/100</p>
-        <button type="submit">수정</button>
-	</div>  
+		<div class="board_reply">
+			<input type="hidden" name="boardNum" value="${dto.boardNum}">
+			<input type="hidden" name="replyNum" value ="${replyNum}">
+	        <input name = "content" id="boardReply_text" type="text" maxlength="100" oninput="checkLength();" value="${boardRep.commentDetail}">
+	        <p id="boardReply_legnth">0/100</p>
+	        <button type="submit">수정</button>
+		</div>  
     </form>
     
 </body>
