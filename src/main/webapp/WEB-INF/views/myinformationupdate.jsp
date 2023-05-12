@@ -394,9 +394,9 @@ $('#updateuserBirthdate').on('click', function(e){
 	if(year.length <= 3){	        	  
   	  $('#userBirthdatemsg').css({'font-size': '10px','color': 'red'});
   		$('#userBirthdatemsg').html('생년월일 중 년도 4자리를 입력해 주세요.');
-    }else if(day == ''){
+    }else if(day.toString().length<=1){
   	  $('#userBirthdatemsg').css({'font-size': '10px','color': 'red'});
-  		$('#userBirthdatemsg').html('생년월일 중 일(날짜)을 입력해 주세요.');
+  		$('#userBirthdatemsg').html('생년월일 중 날짜를 2자리 입력해 주세요!\r\n ex)01 or 02');
     }else{
     	
 	$.ajax({

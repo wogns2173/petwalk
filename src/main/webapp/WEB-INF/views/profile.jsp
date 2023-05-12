@@ -68,13 +68,130 @@
 			<tr>		
 		         <th colspan="2">
 		            <!-- <button onclick="location.href='petprofileWrite.go'"<c:if test="${pet.petNeutered eq '1' }">hidden</c:if>>반려견 정보 추가하기</button> -->
-		            <button onclick="location.href='petprofileUpdate.go'">수정하기</button>		            
-		            <button onclick="location.href='./'">돌아가기</button>
+		            <button onclick="location.href='petprofileUpdate.go'">수정하기</button>		            		            
 		         </th>
-	      	</tr>
+	      	</tr>	      	
 		</table>
-	</c:if>
+		</c:if>
 		
+		<hr>
+		
+		<h3>작성한 산책 경로</h3>
+		<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>
+		
+		<c:if test="${routeDraw == null}">
+		작성한 산책 경로가 없습니다.<br/>
+		<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>
+		</c:if>
+		<c:if test="${routeDraw != null}">		
+			<table class="table">
+				<colgroup>					
+					<col width="30%">
+					<col width="30%">
+					<col width="20%">
+					<col width="10%">
+				</colgroup>
+				<tbody id="tbody">					
+		   			<tr>						
+						<td>산책 경로 이름</td>
+						<td>산책 경로 설명</td>
+						<td>작성일자</td>
+					</tr>					
+					<c:forEach items="${routeDraw}" var="route">
+					<tr>
+						<td><a href="detail.do?idx=${route.walkNum}">${route.walkName}</a></td>
+						<td>${route.walkDetail}</td>
+						<td>${route.walkDate}</td>
+						<td><a href="del.do?idx=${route.walkNum}">삭제</a></td>						
+					</tr>				
+					</c:forEach>
+					
+				</tbody>
+			</table>
+		</c:if>
+		
+		<hr>
+		
+		<h3>즐겨찾기한 산책 경로</h3>
+		<c:if test="${bookmark == null}">
+		즐겨찾기한 산책 경로가 없습니다.<br/>
+		<button onclick="location.href='routeshare/list'">산책 경로 공유 게시판 가기</button>
+		</c:if>
+		<c:if test="${bookmark != null}">
+		<table>
+			<tr>		
+		         <th colspan="2">
+		            
+		         </th>
+	      	</tr>		
+		</table>
+		</c:if>
+		
+		<hr>
+		
+		<h3>산책 후기</h3>
+		<c:if test="${review == null}">
+		산책 후기가 없습니다.<br/>
+		<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>
+		</c:if>
+		<c:if test="${review != null}">
+		<table>
+			<tr>		
+		         <th colspan="2">
+		            
+		         </th>
+	      	</tr>		
+		</table>
+		</c:if>
+		
+		<hr>
+		
+		<h3>문의 내역</h3>
+		<button onclick="location.href='inquirywrite.go'">문의 하기</button>
+		<c:if test="${inquiry == null}">
+		문의 내역이 없습니다.<br/>		
+		</c:if>
+		<c:if test="${inquiry != null}">
+			<table class="inquirytable">
+				<colgroup>					
+					<col width="20%">
+					<col width="60%">
+					<col width="20%">
+				</colgroup>
+				<tbody id="inquirytbody">					
+		   			<tr>						
+						<td>문의 제목</td>
+						<td>문의 내용</td>
+						<td>문의 일자</td>
+					</tr>					
+					<c:forEach items="${inquiry}" var="inquiry">
+					<tr>
+						<td><a href="detail.do?idx=${inquiry.boardNum}">${inquiry.boardName}</a></td>
+						<td>${inquiry.boardDetail}</td>
+						<td>${inquiry.boardWriteDate}</td>											
+					</tr>				
+					</c:forEach>
+					
+				</tbody>
+			</table>
+		</c:if>
+		
+		<hr>
+		
+		<h3>신고 내역</h3>
+		<c:if test="${declaration == null}">
+		신고 내역이 없습니다.		
+		</c:if>
+		<c:if test="${declaration != null}">
+		<table>
+			<tr>		
+				<th colspan="2">
+		            		                        
+					<button onclick="location.href='./'">돌아가기</button>
+		        </th>
+	      	</tr>		
+		</table>
+		</c:if>	
 </body>
 <script>
 console.log('${pet.serPhotoname}');

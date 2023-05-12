@@ -20,7 +20,8 @@
 				<td>				
 					<input type="file" name="photo" id = "fileInput" onchange="checkExtension()"/>
                      <p id="filename">
-                     	현재 등록된 이미지: ${pet.serPhotoname}
+                     <img width="100" src="/photo/${pet.serPhotoname}"/>
+                      	현재 등록된 이미지: ${pet.serPhotoname}                      	
                       	<button id="deleteButton" onclick="delphoto()">삭제</button>                      	
                      </p>
                       <input type="hidden" name="deletePhoto" value="false" id="deletePhotoInput">
