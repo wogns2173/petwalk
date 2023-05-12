@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pet.walkroute.dto.MateListDetailDTO;
 import com.pet.walkroute.dto.RouteListDTO;
 import com.pet.walkroute.dto.RouteShareDTO;
 import com.pet.walkroute.service.RouteShareService;
@@ -79,8 +80,18 @@ public class RouteShareController {
 	
 	@RequestMapping(value = "/routeshare/listBring.ajax")
 	@ResponseBody
-	public ArrayList<RouteShareDTO> listBringAjax() {
-		logger.info("list : "+routeShareService.list().size());;
-		return routeShareService.list();
+	public HashMap<String, Object> listBringAjax(@RequestParam String page, @RequestParam String cnt) {
+		return routeShareService.list(Integer.parseInt(page),Integer.parseInt(cnt));
+	}
+	
+	@RequestMapping(value = "/routeshare/detail.go")
+	public String detailGo(@RequestParam String walkRouteNum, Model model) {
+		logger.info("walkRouteNum : " + walkRouteNum);
+		RouteShareDTO dto = routeShareService.detail(Integer.parseInt(walkRouteNum));
+		ArrayList<RouteListDTO> list = walkRouteService.routeBring(String.valueOf(dto.getWalkNum()));
+		
+		model.addAttribute("coordinate", list);
+		model.addAttribute("list", dto);
+		return "routeShareDetail";
 	}
 }

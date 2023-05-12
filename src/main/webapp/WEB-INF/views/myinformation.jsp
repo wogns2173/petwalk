@@ -58,12 +58,14 @@
 			<tr>			
 				<th>성별</th>
 				<td>
-					<input type="radio" name="userGender" value="남"
+				<c:if test="${member.userGender eq '남' }"><input value="남자"/></c:if>
+				<c:if test="${member.userGender eq '여' }"><input value="남자"/></c:if>
+					<!-- <input type="radio" name="userGender" value="남"
 					<c:if test="${member.userGender eq '남' }">checked</c:if>
 					/>남자 &nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="userGender" value="여"
 					<c:if test="${member.userGender eq '여' }">checked</c:if>
-					/>여자
+					/>여자 -->
 				</td>				
 			</tr>	
 			<tr>		

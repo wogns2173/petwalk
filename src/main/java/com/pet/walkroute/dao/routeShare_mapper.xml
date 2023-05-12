@@ -30,6 +30,18 @@
    </select>
    
    <select id="list" resultType="com.pet.walkroute.dto.RouteShareDTO">
-   		select * from routeboard where walkRouteType = '공유';  
-   </select>
+		SELECT walkRouteNum, userID, walkNum, siID, guID, dongID,
+				walkRouteName, walkRouteDetail, walkRoutebHit, 
+				walkRouteWriteDate,walkRouteType, walkRouteBlind, recommendation
+		FROM routeboard ORDER BY walkRouteNum DESC 
+		LIMIT #{param1} OFFSET #{param2}
+	</select>
+	
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(walkRouteNum) FROM routeboard
+	</select>
+	
+	<select id="detail" resultType="com.pet.walkroute.dto.RouteShareDTO">
+		SELECT * FROM routeboard where walkRouteNum = #{walkRouteNum}
+	</select>
 </mapper>
