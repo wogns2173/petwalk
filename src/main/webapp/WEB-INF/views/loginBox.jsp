@@ -61,8 +61,5 @@ console.log(Role);
 		content +=	'<hr>';
 		$("#loginBox").html(content);
 	}
-	
 
-
-	
 </script>

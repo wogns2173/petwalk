@@ -106,4 +106,19 @@ public class MyPageController {
 		   
 		   return service.petprofileUpdate(params, photo, session);      
 	   }
+	
+	@RequestMapping(value="/otherprofile.go")
+	   public String otherprofile(@RequestParam String userID, Model model) {
+		
+			String page = "otherprofile";	
+					 
+			 MyPageDTO dto = service.findprofileAndphoto(userID);				 
+			 model.addAttribute("pet", dto);
+			 
+			 ArrayList<MyPageDTO> findrouteShareList = service.findrouteShareList(userID);
+			 model.addAttribute("routeShare", findrouteShareList);
+
+		  		  
+	      return page;      
+	   }
 }
