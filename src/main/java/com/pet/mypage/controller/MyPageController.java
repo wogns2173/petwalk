@@ -116,7 +116,7 @@ public class MyPageController {
 			 model.addAttribute("pet", dto);
 			 
 			 ArrayList<MyPageDTO> findrouteShareList = service.findrouteShareList(userID);
-			 model.addAttribute("routeDraw", findrouteShareList);
+			 model.addAttribute("routeShare", findrouteShareList);
 
 		  		  
 	      return page;      

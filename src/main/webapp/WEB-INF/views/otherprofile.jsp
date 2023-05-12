@@ -47,15 +47,19 @@
 			<tr>					
 				<th>성별</th>
 				<td>
-					<input type="radio" name="petGender" value="남"<c:if test="${pet.petGender eq '남' }">checked</c:if>/>남아 &nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="petGender" value="여"<c:if test="${pet.petGender eq '여' }">checked</c:if>/>여아
+					<c:if test="${pet.petGender eq '남' }">남아</c:if>
+					<c:if test="${pet.petGender eq '여' }">여아</c:if>
+					<!-- <input type="radio" name="petGender" value="남"<c:if test="${pet.petGender eq '남' }">checked</c:if>/>남아 &nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="petGender" value="여"<c:if test="${pet.petGender eq '여' }">checked</c:if>/>여아 -->
 				</td>				
 			</tr>
 			<tr>					
 				<th>중성화 여부</th>
 				<td>
-					<input type="radio" name="petNeutered" value="1"<c:if test="${pet.petNeutered eq '1' }">checked</c:if>/>O &nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="petNeutered" value="0"<c:if test="${pet.petNeutered eq '0' }">checked</c:if>/>X
+					<c:if test="${pet.petNeutered eq '1' }">O</c:if>
+					<c:if test="${pet.petNeutered eq '0' }">X</c:if>
+					<!-- <input type="radio" name="petNeutered" value="1"<c:if test="${pet.petNeutered eq '1' }">checked</c:if>/>O &nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="petNeutered" value="0"<c:if test="${pet.petNeutered eq '0' }">checked</c:if>/>X -->
 				</td>				
 			</tr>
 			<tr>					
@@ -71,10 +75,10 @@
 		
 		<h3>공유한 산책 경로</h3>
 		
-		<c:if test="${routeShare == null}">
+		<c:if test="${empty routeShare}">
 		공유한 산책 경로가 없습니다.<br/>		
 		</c:if>
-		<c:if test="${routeShare != null}">		
+		<c:if test="${!empty routeShare}">		
 			<table class="table">
 				<colgroup>					
 					<col width="40%">
@@ -83,17 +87,17 @@
 				</colgroup>
 				<tbody id="tbody">					
 		   			<tr>						
-						<td>공유한 산책 경로 제목</td>
+						<td>제목</td>
 						<td>작성일자</td>
 						<td>조회수</td>
 					</tr>					
 					<c:forEach items="${routeShare}" var="routeShare">
 					<tr>
-						<td><a href="detail.do?idx=${routeShare.walkNum}">${routeShare.walkName}</a></td>
-						<td>${routeShare.walkDate}</td>						
+						<td><a href="detail.do?idx=${routeShare.walkRouteNum}">${routeShare.walkRouteName}</a></td>
+						<td>${routeShare.walkRouteWriteDate}</td>
+						<td>${routeShare.walkRoutebHit}</td>							
 					</tr>				
-					</c:forEach>
-					
+					</c:forEach>					
 				</tbody>
 			</table>
 		</c:if>
