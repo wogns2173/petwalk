@@ -138,7 +138,7 @@
 		LEFT JOIN photo p ON b.boardNum = p.photoIdenNum AND p.photoBlindWhether  = false
 		WHERE b.boardBlindWhether = false AND b.categoryCode = #{param3}
 		GROUP BY b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname, p.serPhotoname
-		ORDER BY b.boardNum LIMIT #{param1} OFFSET #{param2}
+		ORDER BY b.boardNum DESC LIMIT #{param1} OFFSET #{param2}
 	</select>
 	
 	<!-- 페이징 -->

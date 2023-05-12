@@ -62,10 +62,10 @@
 		<c:if test="${dto.userID ne userID && userID ne null}">
 			<button onclick="./reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}">신고</button>
 		</c:if>
-		<c:if test="${dto.userID eq userID}">
+		<!--<c:if test="${dto.userID eq userID}">-->
 			<input id="updateButton" type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="삭제"/>
 			<input id="deleteButton"type= "button" onclick="location.href='./boardUpdate.go?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="수정"/>
-		</c:if>
+		<!--</c:if>-->
 			<input type="button" onclick="location.href='./boardList.go?categoryCode=${dto.categoryCode}'" value="목록"/>
 	<!--</c:forEach>-->
 	
@@ -107,6 +107,13 @@
     
 </body>
 <script>
+
+	var loginID = "${sessionScope.userID}";
+	var adminID = "${sessionScope.Roll}";
+	if(loginID == '${dto.userID}' || adminID == 'admin') {
+		$('#updateButton').attr('type','hidden');
+		$('#deleteButton').attr('type','hidden');
+	}
 	function checkLength() {
 		var maxLength = 100;
 		var length = document.getElementById("boardReply_text").value.length;

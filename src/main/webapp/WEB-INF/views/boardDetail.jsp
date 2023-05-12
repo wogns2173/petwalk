@@ -71,12 +71,12 @@
 		</c:if>
 		<h2>${dto.boardDetail}</h2>
 		<c:if test="${dto.userID ne userID && userID ne null}">
-			<button onclick="./reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}">신고</button>
-		</c:if>
-		<c:if test="${dto.userID eq userID}">
+			<input type="button"  id= "reportButton" onclick="./reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}" value="신고"/>
+		</c:if> 
+		
 			<input id="updateButton" type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="삭제"/>
 			<input id="deleteButton"type= "button" onclick="location.href='./boardUpdate.go?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="수정"/>
-		</c:if>
+
 			<input type="button" onclick="location.href='./boardList.go?categoryCode=${dto.categoryCode}'" value="목록"/>
 	<!--</c:forEach>-->
 	
@@ -102,8 +102,8 @@
 				<p><a href="#ex2" rel="modal:open">
 				${boardRep.replyUser} </a>/ ${boardRep.commentWriteDate}
 				<c:if test="${boardRep.userID == userID}">
-					<input type ="button" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="삭제"/>
-					<input type ="button" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="수정"/>
+					<input type ="button" id="repUpdateButton" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="삭제"/>
+					<input type ="button" id="repReportButton" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="수정"/>
 				</c:if></p>
 				<p>${boardRep.commentDetail }</p>
 			</div>	
@@ -124,11 +124,15 @@
 </body>
 <script>
 
-	var loginID = "${sessionScope.loginID}";
-	var adminID = "${sessionScope.Roll}";
-	if(loginID == '${dto.userID}') {
-		$('#updateButton').attr('type','hidden');
-		$('#deleteButton').attr('type','hidden');
+	var loginID = "${sessionScope.userID}";
+	var Role = "${sessionScope.Role}";
+	if(loginID == "${dto.userID}" || Role == "admin") {
+		 $('#updateButton').attr('type', 'button');
+		    $('#deleteButton').attr('type', 'button');
+	} else {
+	    // 버튼을 숨기도록 설정
+	    $('#updateButton').attr('type', 'hidden');
+	    $('#deleteButton').attr('type', 'hidden');
 	}
 	
 	/* 댓글 작성 글자 수 표시 */
