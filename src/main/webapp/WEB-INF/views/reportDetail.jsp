@@ -79,7 +79,7 @@
         </tr>      
         <tr>
             <td>${rep.reportDetail}</td>
-            <c:if test="${rep.serPhotoname ne null}">
+            <c:if test="${rep.serPhotoname != null}">
 			<tr>
 				<td><img width="300" src="/photo/${rep.serPhotoname}"/></td>
 			</tr>

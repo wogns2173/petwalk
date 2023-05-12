@@ -32,13 +32,18 @@
 	#title{
 	 	color:#87d1bf;
 	 }
+	 
+	 #thead{
+	 	color:#87d1bf;
+	 	background-color: #E3EDEB;
+	 }
 </style>
 </head>
 <body>
 
 <h3 id="title"> 공지사항 </h3>
 
-	<input type="text" id="noticeInput" placeholder="내용을 입력 해 주세요">
+	<input type="text" id="noticeInput" placeholder="제목을 입력 해 주세요">
     <button id="searchButton">검색</button>
    
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -54,6 +59,13 @@
 	
 		<table>
 		<thead>
+			<tr id="thead">
+				<th>제목</th>
+				<th>ID</th>
+				<th>조회수</th>
+				<th>작성날짜</th>
+				<th>처리여부</th>
+			</tr>
 		</thead>
 		<tbody id = "noticelist">
 		<!-- 리스트가 출력될 영역 -->
@@ -150,7 +162,6 @@ function listPrint(noticelist){
 		noticelist.forEach(function(item,noticelist){
 		
       content +='<tr>';
-      content +='<td>'+item.boardNum+'</td>';
       content +='<td id="boardName"><a href="noticedetail.do?boardNum='+ item.boardNum+'">'+item.boardName+'</a></td>';
       content +='<td id="userID">'+item.userID +'</td>';
       content +='<td>'+item.boardbHit +'</td>';

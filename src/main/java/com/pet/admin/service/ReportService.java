@@ -166,7 +166,7 @@ public class ReportService {
 
 	public String repWrite(MultipartFile photo, HashMap<String, String> params) {
 		
-		String page = "redirect:";
+		String page = "redirect:/";
 
 		//1. 게시글만 작성
 		ReportDTO repdto = new ReportDTO();
@@ -181,7 +181,7 @@ public class ReportService {
 		logger.info("writeupdate row:"+row);
 		int reportNum = repdto.getReportNum();
 		String categoryCode = repdto.getCategoryCode();
-		logger.info("방금 inset한 categoryCode: "+categoryCode+"/"+reportNum);
+		logger.info("categoryCode: "+categoryCode+"/"+"reportNum :"+reportNum);
 				
 	
 		//첨부파일 같이 업로드 
@@ -210,6 +210,17 @@ public class ReportService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public String processupdate(Boolean selectedValue, int reportNum) {
+		logger.info("Report Process Update Service");	
+	    logger.info("selectedValue :"+selectedValue+"/"+"reportNum :"+reportNum);
+	    
+		int row = repdao.repprocessupdate(selectedValue,reportNum);
+		
+		logger.info("update row :"+row);
+		
+		return "redirect:/reportdetail.do?reportNum="+reportNum;	
 	}
 }
 	

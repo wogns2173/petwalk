@@ -20,6 +20,11 @@
 	#title{
 	 	color:#87d1bf;
 	 }
+	 
+	 #thead{
+	 	color:#87d1bf;
+	 	background-color: #E3EDEB;
+	 }
 </style>
 </head>
 <body>
@@ -73,6 +78,15 @@
 	</table> --%>
 		<table>
 		<thead>
+			<tr id="thead">
+				<th>문의 종류</th>
+				<th>제목</th>
+				<th>ID</th>
+				<th>조회수</th>
+				<th>작성날짜</th>
+				<th>처리여부</th>
+			</tr>
+		
 		</thead>
 		<tbody id = "inqlist">
 		<!-- 리스트가 출력될 영역 -->

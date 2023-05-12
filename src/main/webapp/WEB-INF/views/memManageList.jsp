@@ -32,6 +32,11 @@
 	#title{
 	 	color:#87d1bf;
 	 }
+	 
+	 #thead{
+	 	color:#87d1bf;
+	 	background-color: #E3EDEB;
+	 }
 </style>
 </head>
 <body>
@@ -65,8 +70,17 @@
 	
 	<hr>
 	
-		<table>
+	<table>
 		<thead>
+		<tr id="thead">
+			<th>이름</th>
+			<th>아이디</th>
+			<th>가입일자</th>
+			<th>블라인드 처리 여부</th>
+			<th>회원 상세보기</th>
+		</tr>
+
+
 		</thead>
 		<tbody id = "memlist">
 		<!-- 리스트가 출력될 영역 -->

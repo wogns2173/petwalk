@@ -136,4 +136,13 @@ public class ReportController {
 		
 		return repservice.repWrite(photo,params);
 	}
+	
+	@RequestMapping(value="/reportprocess.go", method = RequestMethod.POST)
+	public String reportprocessupdate(@RequestParam Boolean selectedValue, @RequestParam int reportNum) {
+		
+		logger.info("Report Process Update Call");
+		logger.info("selectedValue :"+selectedValue+"/"+"boardNum :"+reportNum);
+	
+		return repservice.processupdate(selectedValue,reportNum);
+	}
 }

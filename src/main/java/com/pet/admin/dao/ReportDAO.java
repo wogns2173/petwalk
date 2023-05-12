@@ -44,6 +44,8 @@ public interface ReportDAO {
 
 	int fileWrite(String categoryCode, String oriPhotoname, String serPhotoname, int reportNum);
 
+	int repprocessupdate(Boolean selectedValue, int reportNum);
+
 
 
 

@@ -49,11 +49,11 @@
 		</select>
 		
 		<select id="memIDTotalCount" parameterType="HashMap" resultType="java.lang.Integer">
-			SELECT COUNT(userID) FROM member
+			SELECT COUNT(userID) FROM member WHERE userID LIKE CONCAT('%', #{param3}, '%')
 		</select>
 		
 		<select id="memNameTotalCount" parameterType="HashMap" resultType="java.lang.Integer">
-			SELECT COUNT(userName) FROM member
+			SELECT COUNT(userName) FROM member WHERE userName LIKE CONCAT('%', #{param3}, '%')
 		</select>
 		
 		<select id="memTotalCountByProcess" parameterType="HashMap" resultType="java.lang.Integer">

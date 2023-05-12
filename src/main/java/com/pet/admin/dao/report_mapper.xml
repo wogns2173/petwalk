@@ -55,7 +55,8 @@
 		
 		
 		<select id="repDetail"  resultType="com.pet.admin.dto.ReportDTO">
-		SELECT* FROM report WHERE reportNum = #{param1}
+		SELECT r.*,p.SERPHOTONAME FROM REPORT R LEFT OUTER JOIN PHOTO P ON p.PHOTOIDENNUM = #{param1} WHERE r.REPORTNUM = #{param1} AND p.PHOTOBLINDWHETHER = FALSE
+		LIMIT 1
 		</select>
 		
 		<select id="repreplist" resultType="com.pet.admin.dto.ReportDTO">
@@ -92,6 +93,11 @@
 		<insert id="fileWrite" >
 		INSERT INTO photo(categoryCode,oriPhotoname,serPhotoname,photoBlindWhether,photoIdenNum)
 			VALUES(#{param1},#{param2},#{param3},false,#{param4})
+
 		</insert>
+		
+		<update id="repprocessupdate" parameterType="Hashmap">
+   			UPDATE board SET inqProcess = #{param1} WHERE boardNum = #{param2}
+   		</update>
 		
 </mapper>
