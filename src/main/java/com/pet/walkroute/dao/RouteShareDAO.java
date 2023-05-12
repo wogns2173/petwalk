@@ -17,6 +17,10 @@ public interface RouteShareDAO {
 
 	String dongID(String dongName);
 
-	ArrayList<RouteShareDTO> list();
+	int totalCount();
+
+	ArrayList<RouteShareDTO> list(int cnt, int offset);
+
+	RouteShareDTO detail(int walkRouteNum);
 
 }
