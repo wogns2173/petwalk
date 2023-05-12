@@ -80,19 +80,36 @@ public class BoardService {
 		
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
-		if(!categoryCode.equals("") && boardSearch.equals("default") && search.equals("default")) {
-			list = dao.list(cnt,offset,categoryCode,boardSearch,search);
-		}else if(boardSearch.equals("boardName") && !search.equals("default") && !search.equals("")) {
-			logger.info("boardName 으로 검색: "+search);
-			list = dao.boardNameSearch(cnt,offset,categoryCode,boardSearch,search);
-		}else if(boardSearch.equals("userNickname") && !search.equals("")) {
-			logger.info("userNickname 으로 검색: "+search);
-			list = dao.boardNicknamesearch(cnt,offset,categoryCode,boardSearch,search);
-		}else if(boardSearch.equals("userID") && !search.equals("")) {
-			logger.info("userID 으로 검색: "+search);
-			list = dao.boarduserIDsearch(cnt,offset,categoryCode,boardSearch,search);
-		}else if(!categoryCode.equals("") && boardSearch.equals("default") && search.equals("")){
-			list = dao.list(cnt,offset,categoryCode,boardSearch,search);
+		if(categoryCode.equals("B_01")) {
+			if(!categoryCode.equals("") && boardSearch.equals("default") && search.equals("default")) {
+				list= dao.boardPhotoList(cnt,offset,categoryCode,boardSearch,search);
+			}else if(boardSearch.equals("boardName") && !search.equals("default") && !search.equals("")) {
+				logger.info("boardName 으로 검색: "+search);
+				list = dao.boardPhotoNameSearch(cnt,offset,categoryCode,boardSearch,search);
+			}else if(boardSearch.equals("userNickname") && !search.equals("")) {
+				logger.info("userNickname 으로 검색: "+search);
+				list = dao.boardPhotoNicknamesearch(cnt,offset,categoryCode,boardSearch,search);
+			}else if(boardSearch.equals("userID") && !search.equals("")) {
+				logger.info("userID 으로 검색: "+search);
+				list = dao.boardPhotouserIDsearch(cnt,offset,categoryCode,boardSearch,search);
+			}else if(!categoryCode.equals("") && boardSearch.equals("default") && search.equals("")){
+				list= dao.boardPhotoList(cnt,offset,categoryCode,boardSearch,search);
+			}
+		}else {
+			if(!categoryCode.equals("") && boardSearch.equals("default") && search.equals("default")) {
+					list = dao.list(cnt,offset,categoryCode,boardSearch,search);
+			}else if(boardSearch.equals("boardName") && !search.equals("default") && !search.equals("")) {
+				logger.info("boardName 으로 검색: "+search);
+				list = dao.boardNameSearch(cnt,offset,categoryCode,boardSearch,search);
+			}else if(boardSearch.equals("userNickname") && !search.equals("")) {
+				logger.info("userNickname 으로 검색: "+search);
+				list = dao.boardNicknamesearch(cnt,offset,categoryCode,boardSearch,search);
+			}else if(boardSearch.equals("userID") && !search.equals("")) {
+				logger.info("userID 으로 검색: "+search);
+				list = dao.boarduserIDsearch(cnt,offset,categoryCode,boardSearch,search);
+			}else if(!categoryCode.equals("") && boardSearch.equals("default") && search.equals("")){
+				list = dao.list(cnt,offset,categoryCode,boardSearch,search);
+			}
 		}
 		logger.info("리스트담기 성공!");
 		map.put("list", list);

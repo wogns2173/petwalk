@@ -118,12 +118,6 @@
 	
 	<!-- ajax 리스트 -->
 	<select id="list" resultType="com.pet.board.dto.BoardDTO">
-		<!-- SELECT b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname
-		FROM board b 
-		LEFT OUTER JOIN member m ON b.userID = m.userID
-		WHERE b.boardBlindWhether =false
-		    AND b.categoryCode = #{param3}
-		ORDER BY b.boardNum DESC LIMIT #{param1} OFFSET #{param2}-->
 		SELECT b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname,
 	    COUNT(r.replyNum) AS replyCount FROM board b 
 		LEFT JOIN member m ON b.userID = m.userID
@@ -131,6 +125,19 @@
 		WHERE b.boardBlindWhether = false AND b.categoryCode = #{param3}
 		GROUP BY b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname
 		ORDER BY b.boardNum DESC LIMIT #{param1} OFFSET #{param2}
+	</select>
+	
+	<!-- ajax B_01 리스트 -->
+	<select id = "boardPhotoList" resultType="com.pet.board.dto.BoardDTO">
+		SELECT b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname,
+	   COUNT(r.replyNum) AS replyCount, p.serPhotoname
+		FROM board b 
+		LEFT JOIN member m ON b.userID = m.userID
+		LEFT JOIN reply r ON b.boardNum = r.boardNum
+		LEFT JOIN photo p ON b.boardNum = p.photoIdenNum AND p.photoBlindWhether  = false
+		WHERE b.boardBlindWhether = false AND b.categoryCode = #{param3}
+		GROUP BY b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname, p.serPhotoname
+		ORDER BY b.boardNum LIMIT #{param1} OFFSET #{param2}
 	</select>
 	
 	<!-- 페이징 -->
@@ -160,6 +167,19 @@
 		LIMIT #{param1} OFFSET #{param2}
 	</select>
 	
+	<!-- B_1 제목 조건 검색 -->
+	<select id = "boardPhotoNameSearch" resultType="com.pet.board.dto.BoardDTO">
+		SELECT b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname, p.serPhotoname
+		FROM board b 
+		LEFT OUTER JOIN member m ON b.userID = m.userID
+		LEFT JOIN photo p ON b.boardNum = p.photoIdenNum AND p.photoBlindWhether  = false
+		WHERE b.boardBlindWhether =false
+			AND b.categoryCode = #{param3} 
+			AND b.boardName LIKE CONCAT('%', #{param5}, '%')
+		ORDER BY b.boardNum DESC
+		LIMIT #{param1} OFFSET #{param2}
+	</select>
+	
 	<!-- 닉네임으로 조건 검색 페이징 -->
 	<select id="boardNicknamesearchTotal" resultType="int">
 		SELECT COUNT(BoardNum)
@@ -174,6 +194,18 @@
 	<select id="boardNicknamesearch" resultType="com.pet.board.dto.BoardDTO">
 		SELECT b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname
 		FROM board b LEFT OUTER JOIN member m ON b.userID = m.userID
+		WHERE b.boardBlindWhether ='false' 
+			AND b.categoryCode = #{param3} 
+			AND m.userNickname = #{param5}
+		ORDER BY b.boardNum DESC
+		LIMIT #{param1} OFFSET #{param2}
+	</select>
+	 
+	<!-- B_1 닉네임으로 조건 검색 -->
+	<select id="boardPhotoNicknamesearch" resultType="com.pet.board.dto.BoardDTO">
+		SELECT b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname,p.serPhotoname
+		FROM board b LEFT OUTER JOIN member m ON b.userID = m.userID
+		LEFT JOIN photo p ON b.boardNum = p.photoIdenNum AND p.photoBlindWhether  = false
 		WHERE b.boardBlindWhether ='false' 
 			AND b.categoryCode = #{param3} 
 			AND m.userNickname = #{param5}
@@ -195,6 +227,18 @@
 	<select id="boarduserIDsearch" resultType="com.pet.board.dto.BoardDTO">
 		SELECT b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname
 		FROM board b LEFT OUTER JOIN member m ON b.userID = m.userID 
+		WHERE b.boardBlindWhether ='false' 
+			AND b.categoryCode = #{param3} 
+			AND b.userID = #{param5}
+		ORDER BY b.boardNum DESC
+		LIMIT #{param1} OFFSET #{param2}
+	</select>
+	
+	<!-- B_1 아이디로 조건 검색 -->
+	<select id="boardPhotouserIDsearch" resultType="com.pet.board.dto.BoardDTO">
+		SELECT b.BoardNum, b.userID, b.categoryCode, b.boardName, b.boardbHit, b.boardWriteDate, b.boardBlindWhether, m.userNickname,p.serPhotoname
+		FROM board b LEFT OUTER JOIN member m ON b.userID = m.userID
+		LEFT JOIN photo p ON b.boardNum = p.photoIdenNum AND p.photoBlindWhether  = false
 		WHERE b.boardBlindWhether ='false' 
 			AND b.categoryCode = #{param3} 
 			AND b.userID = #{param5}

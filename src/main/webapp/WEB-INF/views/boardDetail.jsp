@@ -151,10 +151,6 @@
 	    });
 	});
 	
-</script>
-</html>
-</body>
-<script>
 	var mas = "${msg}";
 	if(msg != null){
 		alert(msg);
