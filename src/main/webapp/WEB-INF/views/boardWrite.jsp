@@ -22,11 +22,11 @@
     </div>
     <div>
         <label for="boardName">제목:</label>
-        <input type="text" name="boardName">
+        <input type="text" name="boardName" id="boardName">
     </div>
     <div>
         <label for="boardDetail">Content:</label>
-        <textarea name="boardDetail" ></textarea>
+        <textarea name="boardDetail" id="boardDetail"></textarea>
     </div>
     <div>
     	첨부파일
@@ -46,10 +46,10 @@
 	  var ext = fileName.slice(idx + 1).toLowerCase();
 	
 	  // 확장자명이 jsp인 경우 경고창 출력
-	  if (ext != "jsp" && ext != "png") {
-	    alert("확장자가 .jsp인 파일만 선택할 수 있습니다.");
-	    file.value = "";
-	    return false;
+	  if (ext != "jpg" && ext != "png") {
+			alert("확장자가 .jpg, .png인 파일만 선택할 수 있습니다.");
+			file.value = "";
+			return false;
 	  }
 	  
 	}
@@ -58,10 +58,21 @@
 		const categoryCode = document.getElementById('categoryCode').value;
 		const photoInput = document.getElementById('photo');
 		  
-		  if (categoryCode == 'B_01' && photoInput.value == '') {
-		    alert('반려견 갤러리는 사진 첨부가 필수입니다!');
-		    return false;
-		  }
+			if (categoryCode == 'B_01' && photoInput.value == '') {
+			  alert('반려견 갤러리는 사진 첨부가 필수입니다!');
+			  return false;
+			}
+		var boardName = document.getElementById('boardName').value;
+		var boardDetail = document.getElementById('boardDetail').value;
+		
+			if (!boardName || !boardDetail){
+				alert('제목, 내용을 입력해 주세요.');
+				return false;
+			}
+		  
+		 
+		  
+		  
 	}
 	
 	var categoryCode = '${param.categoryCode}';

@@ -51,6 +51,12 @@
 	ul{
 		list-style: none;
 	}
+	#paging{
+			text-align: center;
+	}
+	#pagePerNum{
+		display:none;
+	}
 </style>
 </head>
 <body>
@@ -66,36 +72,38 @@
    	<button id="searchButton">검색</button>
 	</div>
 	<div class="gallery-wrap">
-		<ul class="gallery-list">
+		<ul class="gallery-list" id="list">
 			<!-- 리스트를 출력할 영역-->
-	
-		    <li class="gallery-item">
+		    <!--  <li class="gallery-item">
 				<a href="#">
-		        	<img src="/photo/1682988733053.png" class="thumbnail">
+		        	<img src="${bbs.serPhotoname }" class="thumbnail">
 		      	</a>
-		      	<p class="date">제목</p>
-		      	<p class="view-count">작성자 / 댓글수 </p>
-		      	<p class="view-count">작성일자 / 조회수</p>
+		      	<p class="boardName">${bbs.boardName } [${bbs.replyNum}]</p>
+		      	<p class="board1">${bbs.userNickname }</p>
+		      	<p class="board2">${bbs.boardWriteDate} 조회 ${bbs.boardbHit}</p>
 			</li>
+			-->
 		</ul>
 	</div>
-		<button onclick="location.href='boardWrite.go?categoryCode=B_01'">글쓰기</button>
+	<button onclick="location.href='boardWrite.go?categoryCode=B_01'">글쓰기</button>
+	<div id="paging">	
+		<!-- 	플러그인 사용	(twbsPagination)	-->
+		<div class="container">									
+			<nav aria-label="Page navigation" style="text-align:center">
+				<ul class="pagination" id="pagination"></ul>
+			</nav>					
+		</div>
+	</div>
+		
 </body>
 <script>
-	
+	var cnt = 8;
 	var showPage = 1;
 	var selectedBoardSearch = 'default';
 	var categoryCode = 'B_01';
 	var searchText = 'default';
 	console.log(selectedBoardSearch);
 	listCall(showPage);
-	
-	$('#pagePerNum').change(function(){
-		listCall(showPage);
-		// 페이지처리 부분이 이미 만들어져 버려서 pagePerNum 이 변경되면 수정이 안된다.
-		// 그래서 pagePerNum 이 변경되면 부수고 다시 만들어야 한다.
-		$('#pagination').twbsPagination('destroy');
-	});
 
 	//검색어에 따른 출력
 	$('#searchButton').click(function(){
@@ -111,5 +119,63 @@
 	$('#boardSearch').change(function(){
 	    selectedBoardSearch = $(this).val();
 	});
+	
+	function listCall(page){
+		$.ajax({
+			type:'post',
+			url:'boardList.ajax',
+			data:{
+				'page':page,
+				'categoryCode':categoryCode,
+				'boardSearch':selectedBoardSearch,
+				'search':searchText,
+				'cnt': cnt
+			},
+			dataType:'json',
+			success:function(data){
+				console.log(data);
+				listPrint(data.list);			
+				
+				//paging plugin
+				$('#pagination').twbsPagination({
+		         startPage:data.currPage, // 시작 페이지
+		         totalPages:data.pages,// 총 페이지 수 
+		         visiblePages:4,// 보여줄 페이지
+		         onPageClick:function(event,page){ // 페이지 클릭시 동작되는 (콜백)함수
+		            console.log(page,showPage);
+		            if(page != showPage){
+		               showPage=page;
+		               listCall(page);				
+						}				
+					}
+				});	
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	}
+
+
+	function listPrint(list){
+		var content ='';
+		list.forEach(function(item,boardNum){
+			content += '<li class="gallery-item">';
+			content += '<input type="hidden" name="boardNum" value="'+item.boardNum+'"/>';
+			content += '<a href="boardDetail.do?boardNum='+item.boardNum+'">';
+			content += '<img class="tehumbnail" src="/photo/'+item.serPhotoname+'"> </a>';
+			content += '<p class ="boardName"><a href="boardDetail.do?boardNum='+item.boardNum+'">'
+					+item.boardName+'['+item['replyCount']+']'+'</a></p>';
+			content += '<p class ="userNickname">'+item.userNickname+'</p>';
+			
+			var date = new Date(item.boardWriteDate);
+			content += '<p>'+date.toLocaleDateString('ko-KR')+' 조회 '+item.boardbHit+'</p>'; //String('ko-KR')
+			content += '</li>';
+		});
+		console.log(content);
+		$('#list').empty();
+		$('#list').append(content);
+	}
 </script>
 </html>

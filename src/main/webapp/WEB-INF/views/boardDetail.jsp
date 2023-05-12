@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <style>
 	.board_reply {
       border : 1px solid lightgray;
@@ -39,14 +42,16 @@
 		<input type="hidden" name="boardNum" value="${dto.boardNum}"/>
 		</br>
 		<h1>${dto.boardName}</h1>
-		<div id="modal" style="display: none;">
-    		<div id="modal-container">
-    			<p>프로필 보기</p>
-    			<p>신고하기</p>
-    		</div>
+		<div id="ex1" class="modal">
+		  <p><a href="otherprofile.go?userID=${dto.userID}">프로필 보기</a></p>
+		  <p><a href="reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}">프로필 신고하기</a></p>
+		  <!-- <a href="#" rel="modal:close">닫기</a>-->
 		</div>
-		<p>작성자: <a href="#" class="username" data-user-id="${dto.userID}">${dto.userNickname }</a></p>
-		</br>
+		 
+		<p><a href="#ex1" rel="modal:open">
+			${dto.userNickname }
+		</a></p>
+		<!-- <p>작성자: <a href="#" class="username" data-user-id="${dto.userID}">${dto.userNickname }</a></p>  -->
 		<h3>${dto.boardWriteDate} 조회수: ${dto.boardbHit }</h3>
 		</br>
 		<c:if test="${dto.photoBlindWhether eq false }">
@@ -60,7 +65,7 @@
 		</c:if>
 		<h2>${dto.boardDetail}</h2>
 		<c:if test="${dto.userID ne userID && userID ne null}">
-			<button>신고</button>
+			<button onclick="./reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}">신고</button>
 		</c:if>
 		<c:if test="${dto.userID eq userID}">
 			<input id="updateButton" type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="삭제"/>
@@ -122,42 +127,13 @@
 	    lengthElement.innerHTML = length + "/" + maxLength;
 	}
 	
-	// 사용자 닉네임 클릭시 창띄우기
-	$(document).ready(function(){
-	    // 사용자 닉네임을 클릭하면 모달창 띄우기
-	    $('.username').click(function(){
-	        // 클릭한 사용자의 ID 가져오기
-	        var userID = $(this).attr('data-user-id');
-	        
-	        // 모달창을 띄웁니다.
-	        $.ajax({
-	            url: '/getUserProfile.do',
-	            type: 'post',
-	            data: { userID: userID },
-	            success: function(result){
-	                // 모달창 띄우기
-	                $('#modal-container').html(result);
-	                $('#modal').show();
-	            },
-	            error: function(){
-	                alert('오류가 발생하였습니다.');
-	            }
-	        });
-	    });
-	    
-	    // 모달창 닫기
-	    $('#modal-close-btn').click(function(){
-	        $('#modal').hide();
-	    });
-	});
 	
-</script>
-</html>
-</body>
-<script>
-	var mas = "${msg}";
+	/*
+	var mag = "${msg}";
 	if(msg != null){
 		alert(msg);
 	}
+	*/
+	
 </script>
 </html>

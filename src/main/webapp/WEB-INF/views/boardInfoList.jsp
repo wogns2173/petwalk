@@ -58,11 +58,11 @@
 				<th>조회수</th>
 			</tr>
 		</thead>
-		<tbody id="list">			
-		<!-- 리스트가 출력될 영역 -->
 		<c:if test="list.size() == 0">
 			<p>등록된 글이 없습니다.</p>
 		</c:if>
+		<tbody id="list">			
+		<!-- 리스트가 출력될 영역 -->
 		</tbody>
 		<tr>
 			<td colspan="5" id="paging">	
