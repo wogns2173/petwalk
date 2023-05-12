@@ -246,7 +246,7 @@ function join(){
 	var $ltphn = $('#ltphn');		
 	var $userEmail = $('#userEmail');
 	
-	
+	console.log($day.val().toString().length);
 	
 	
 	if($userID.val()==''){
@@ -287,8 +287,8 @@ function join(){
 	}else if($month.val()==null){
 		alert('태어난 월을 선택해 주세요!');
 		$month.focus();
-	}else if($day.val()==''){
-		alert('태어난 일(날짜) 을 입력해 주세요!');
+	}else if($day.val().toString().length<=1){
+		alert('태어난 일(날짜) 을 2자리 입력해 주세요!\r\n ex)01 or 02');
 		$day.focus();
 	}else if($userGender.val()==null){
 		alert('성별을 선택해 주세요!');			
@@ -345,9 +345,6 @@ function join(){
 		alert('모두 입력해주세요.');
 	}	
 }
-$('#userID').on('keydown', function(e){
-	overlayIdChk=false;	
-});
 
 $('#userID').on('keyup', function(e){
 
@@ -384,9 +381,6 @@ $('#userID').on('keyup', function(e){
 
  });
 
-$('#userNickname').on('keydown', function(e){
-	overlayNicknameChk=false;
-});
 
 $('#userNickname').on('keyup', function(e){
     var chkNickname = $('#userNickname').val();      
@@ -424,10 +418,6 @@ $('#userNickname').on('keyup', function(e){
 	}
  });
  
-$('#confirm').on('keydown',function(e){
-	pweq = false;
-});
-
 $('#confirm').on('keyup',function(e){
 	pweq = false;
 	if($('#userPW').val() == $(this).val()){

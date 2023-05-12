@@ -12,6 +12,19 @@ public class MyPageDTO {
 	private String petSize;
 	private String serPhotoname;
 	
+	private String walkNum;	
+	private String walkName;
+	private String walkDetail;
+	private String walkDate;
+	
+	private String boardNum;
+	private String boardName;
+	private String boardWriteDate;
+	private String inqProcess;
+	
+	
+	
+	
 	
 	
 	public int getProfileID() {
@@ -67,6 +80,54 @@ public class MyPageDTO {
 	}
 	public void setSerPhotoname(String serPhotoname) {
 		this.serPhotoname = serPhotoname;
+	}
+	public String getWalkNum() {
+		return walkNum;
+	}
+	public void setWalkNum(String walkNum) {
+		this.walkNum = walkNum;
+	}
+	public String getWalkName() {
+		return walkName;
+	}
+	public void setWalkName(String walkName) {
+		this.walkName = walkName;
+	}
+	public String getWalkDetail() {
+		return walkDetail;
+	}
+	public void setWalkDetail(String walkDetail) {
+		this.walkDetail = walkDetail;
+	}
+	public String getWalkDate() {
+		return walkDate;
+	}
+	public void setWalkDate(String walkDate) {
+		this.walkDate = walkDate;
+	}
+	public String getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(String boardNum) {
+		this.boardNum = boardNum;
+	}
+	public String getBoardName() {
+		return boardName;
+	}
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
+	}
+	public String getBoardWriteDate() {
+		return boardWriteDate;
+	}
+	public void setBoardWriteDate(String boardWriteDate) {
+		this.boardWriteDate = boardWriteDate;
+	}
+	public String getInqProcess() {
+		return inqProcess;
+	}
+	public void setInqProcess(String inqProcess) {
+		this.inqProcess = inqProcess;
 	}
 	
 	
