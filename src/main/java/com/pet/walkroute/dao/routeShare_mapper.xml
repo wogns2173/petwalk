@@ -44,4 +44,8 @@
 	<select id="detail" resultType="com.pet.walkroute.dto.RouteShareDTO">
 		SELECT * FROM routeboard where walkRouteNum = #{walkRouteNum}
 	</select>
+	
+	<insert id="bookmark">
+		INSERT INTO bookmark(userID,walkNum,bmBlindWhether)VALUES(#{param2}, #{param1},false)
+	</insert>
 </mapper>

@@ -23,4 +23,6 @@ public interface RouteShareDAO {
 
 	RouteShareDTO detail(int walkRouteNum);
 
+	int bookmark(String walkNum, String userID);
+
 }

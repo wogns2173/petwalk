@@ -41,5 +41,9 @@
 		SELECT * FROM routeboard WHERE userID = #{param1} ORDER BY walkRouteWriteDate DESC
 	</select>
 
+	<select id="bookmark" resultType="com.pet.mypage.dto.MyPageDTO">		
+		select * from routelist where walkNum = (SELECT walkNum FROM bookmark WHERE userID = #{param1}) 
+	</select>
+
    
 </mapper>
