@@ -189,13 +189,7 @@ public class MyPageService {
 		
 		return findrouteShareList;
 	}
-	public ArrayList<MyPageDTO> bookmark(String userID) {
-		
-		logger.info("즐겨찾기 산책 경로");
-		
-		ArrayList<MyPageDTO> bookmark = dao.bookmark(userID);
-		return bookmark;
-	}
+
 
 
 }

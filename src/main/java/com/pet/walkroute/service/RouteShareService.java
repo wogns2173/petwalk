@@ -78,11 +78,7 @@ public class RouteShareService {
 	}
 
 
-	public int bookmark(String walkNum, String userID) {
-		
-		return dao.bookmark(walkNum,userID);
-		
-	}
+	
 
 
 	

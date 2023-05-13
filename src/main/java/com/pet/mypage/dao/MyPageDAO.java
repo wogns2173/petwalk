@@ -23,7 +23,7 @@ public interface MyPageDAO {
 
 	ArrayList<MyPageDTO> findrouteShareList(String userID);
 
-	ArrayList<MyPageDTO> bookmark(String userID);
+	
 
 	
 

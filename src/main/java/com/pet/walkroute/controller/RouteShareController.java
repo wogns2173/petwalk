@@ -95,14 +95,4 @@ public class RouteShareController {
 		return "routeShareDetail";
 	}
 	
-	@RequestMapping(value = "/routeshare/bookmark.do")
-	public String bookmark(@RequestParam String walkNum, HttpSession session, Model model) {
-		
-		logger.info("walkNum : " + walkNum);
-		String userID = (String) session.getAttribute("userID");
-		
-		int success = routeShareService.bookmark(walkNum, userID);
-		model.addAttribute("success",success);
-		return "routeShareDetail";
-	}
 }
