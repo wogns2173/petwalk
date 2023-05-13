@@ -114,7 +114,7 @@ public class MemberController {
 		   
 		   logger.info(userID+"/"+userPW);
 		   
-		   MemberDTO dto = service.findloginpw(userID);
+		   MemberDTO dto = service.login(userID);
 		   
 		   logger.info(dto.getUserPW());
 		   		   
@@ -125,20 +125,22 @@ public class MemberController {
 		   boolean isMatched = encoder.matches(userPW, encodedPassword);
 		   
 		   logger.info("똑같에?" +isMatched);
-
+  
 		   HashMap<String, Object> map = new HashMap<String, Object>();
 		   
-		   if(isMatched == true) {
-			   dto = service.login(userID);
+		   if(isMatched == true && dto.getUserBlindWhether() == false) {
+
 			   logger.info("dto :" + dto.getUserNickname());			   
-			   		   		   
+			   		   	
 			   session.setAttribute("userNickname", dto.getUserNickname());
 			   session.setAttribute("userID", dto.getUserID());
 			   session.setAttribute("Role", dto.getRole());
 			   logger.info("nicik : " +session.getAttribute("userNickname"));
 			   logger.info("userID : " +session.getAttribute("userID"));
 			   logger.info("Role : " +session.getAttribute("Role"));
-			   map.put("member", dto);
+			   map.put("success", 1);
+		   }else{
+			   map.put("blind", 1);
 		   }
 		   return map;
 	   }		   	  

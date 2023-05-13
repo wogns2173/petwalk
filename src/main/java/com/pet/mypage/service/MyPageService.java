@@ -173,14 +173,16 @@ public class MyPageService {
 	
 		return findrouteDrawList;
 	}
-	public ArrayList<MyPageDTO> myinquiryList(String userID) {
- 
-		logger.info("내가 문의한 글 리스트");
+	
+	public ArrayList<MyPageDTO> mybookmark(String userID) {
 		
-		ArrayList<MyPageDTO> myinquiryList = dao.myinquiryList(userID);
+		logger.info("내가 즐겨찾기한 산책 경로 리스트");
 		
-		return myinquiryList;
+		ArrayList<MyPageDTO> bookmark = dao.mybookmark(userID);
+		
+		return bookmark;
 	}
+	
 	public ArrayList<MyPageDTO> findrouteShareList(String userID) {
 
 		logger.info("산책경로 공유글 리스트");
@@ -189,6 +191,26 @@ public class MyPageService {
 		
 		return findrouteShareList;
 	}
+	
+	public ArrayList<MyPageDTO> myinquiryList(String userID) {
+		 
+		logger.info("내가 문의한 글 리스트");
+		
+		ArrayList<MyPageDTO> myinquiryList = dao.myinquiryList(userID);
+		
+		return myinquiryList;
+	}
+	
+	public ArrayList<MyPageDTO> report(String userID) {
+		
+		logger.info("내가 신고한 글 리스트");
+		
+		ArrayList<MyPageDTO> report = dao.report(userID);
+		
+		return report;
+	}
+
+
 
 
 

@@ -165,7 +165,7 @@
 			<tr>
 				<th>생년월일</th>	
 					<td>	
-					<input type="number" id="year" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4"/>
+					<input type="number" id="year" min="1900" max="2050" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4"/>
 					<!-- <select id="year">
 						<option value="2005">2005</option>
 						<option value="2004">2004</option>
@@ -208,7 +208,7 @@
 						<option value="11">11</option>
 						<option value="12">12</option>											
 					</select>
-					<input type="number" id="day" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" />
+					<input type="number" id="day" min="1" max="31" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" />
 					<!-- <select id="day">
 						<option value="01">01</option>
 						<option value="02">02</option>
@@ -329,17 +329,14 @@ function join(){
 	}else if($userAge.val()==''){
 		alert('나이를 입력해 주세요!');
 		$userAge.focus();
-	}else if($year.val().length<=3){
-		alert('태어난 년도 4자리를 입력해 주세요!');
-		$year.focus();
-	}else if($year.val()==''){
-		alert('태어난 년도 4자리를 입력해 주세요!');
+	}else if($year.val().length<=3 && $year.val()<'1900' || $year.val()>'2023'){
+		alert('태어난 년도를 4자리를 정확히 입력해 주세요!');
 		$year.focus();
 	}else if($month.val()==null){
 		alert('태어난 월을 선택해 주세요!');
 		$month.focus();
-	}else if($day.val().toString().length<=1){
-		alert('태어난 일(날짜) 을 2자리 입력해 주세요!\r\n ex)01 or 02');
+	}else if($day.val().toString().length<=1 && $day.val() <=0 || $day.val() >31){
+		alert('태어난 일(날짜) 을 2자리 정확히 입력해 주세요!\r\n ex)01 or 02');
 		$day.focus();
 	}else if($userGender.val()==null){
 		alert('성별을 선택해 주세요!');			

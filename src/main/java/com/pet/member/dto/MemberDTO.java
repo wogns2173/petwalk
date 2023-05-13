@@ -18,9 +18,15 @@ public class MemberDTO {
 	private String userContact;
 	private String userEmail;	
 	private String Role;
+	private Boolean userBlindWhether;
 	
-
-
+	
+	public Boolean getUserBlindWhether() {
+		return userBlindWhether;
+	}
+	public void setUserBlindWhether(Boolean userBlindWhether) {
+		this.userBlindWhether = userBlindWhether;
+	}
 	public String getRole() {
 		return Role;
 	}

@@ -65,57 +65,69 @@
 		<br/>
 	<h3>회원정보</h3>
 		<table class="table">
+		<colgroup>					
+					<col width="20%">
+					<col width="80%">
+				</colgroup>
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" id="userID" value="${member.userID}" readonly/>									
+					${member.userID}									
 				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
 				<td>
-					<input type="text" id="userName" value="${member.userName}" readonly/>					
+					${member.userName}				
 				</td>				
 			</tr>
 			<tr>
 				<th>닉네임</th>
 				<td>
-					<input type="text" id="userNickname" value="${member.userNickname}" readonly/>										
+					${member.userNickname}										
 				</td>
 			</tr>
 			<tr>
 				<th>E-MAIL</th>
-				<td><input type="email" id="userEmail" value="${member.userEmail}" readonly/></td>
+				<td>
+					${member.userEmail}
+				</td>
 			</tr>	
 			<tr>
 				<th>연락처</th>
-				<td><input type="text" id="userContact" value="${member.userContact}" readonly/></td>
+				<td>
+					${member.userContact}
+				</td>
 			</tr>										
 			<tr>
 				<th>나이</th>
-				<td><input type="text" id="userAge" value="${member.userAge}" readonly/></td>
+				<td>
+					${member.userAge}
+				</td>
 			</tr>
 			<tr>
 				<th>생년월일</th>					
-				<td><input type="text" id = userBirthdate value="${member.userBirthdate}"/></td>
+				<td>
+					${member.userBirthdate}
+				</td>
 			<tr>	
 			<tr>
 			<th>주소</th>
 				<td>
-					<input type="text" id = siName value="${member.siName} ${member.guName} ${member.dongName}"/>
+					${member.siName} ${member.guName} ${member.dongName}
 				</td>
 			</tr>
 			<tr>			
 				<th>성별</th>
 				<td>
-				<c:if test="${member.userGender eq '남' }"><input value="남자"/></c:if>
-				<c:if test="${member.userGender eq '여' }"><input value="남자"/></c:if>
-					<!-- <input type="radio" name="userGender" value="남"
-					<c:if test="${member.userGender eq '남' }">checked</c:if>
-					/>남자 &nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="userGender" value="여"
-					<c:if test="${member.userGender eq '여' }">checked</c:if>
-					/>여자 -->
+				<c:if test="${member.userGender eq '남' }">남자</c:if>
+				<c:if test="${member.userGender eq '여' }">여자</c:if>				
+										<!-- <input type="radio" name="userGender" value="남"
+										<c:if test="${member.userGender eq '남' }">checked</c:if>
+										/>남자 &nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="userGender" value="여"
+										<c:if test="${member.userGender eq '여' }">checked</c:if>
+										/>여자 -->
 				</td>				
 			</tr>	
 			<tr>		
