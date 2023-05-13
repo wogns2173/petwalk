@@ -33,7 +33,9 @@
 		<button onclick="location.href=''">삭제</button>
 		<button onclick="location.href=''">수정</button>
 		<button onclick="location.href='./recommend.do?walkRouteNum=${list.walkRouteNum}'">추천</button>
-		<button onclick="location.href='./bookmark.do?walkNum=${list.walkNum}'">즐겨찾기</button>
+		<c:if test="${list.userID} != ${sessionScope.userID}">
+			<button onclick="location.href='./bookmark.do?walkNum=${list.walkNum}'">즐겨찾기</button>
+		</c:if>				
 	</div>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>

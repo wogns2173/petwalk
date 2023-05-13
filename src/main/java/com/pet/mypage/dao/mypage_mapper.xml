@@ -41,5 +41,7 @@
 		SELECT * FROM routeboard WHERE userID = #{param1} ORDER BY walkRouteWriteDate DESC
 	</select>
 
+	
+
    
 </mapper>

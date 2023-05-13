@@ -41,19 +41,11 @@ public class MyPageController {
 			 
 			 ArrayList<MyPageDTO> findrouteDrawList = service.findrouteDrawList(userID);
 			 model.addAttribute("routeDraw", findrouteDrawList);
-			 
+			 	
 			 ArrayList<MyPageDTO> myinquiryList = service.myinquiryList(userID);
 			 model.addAttribute("inquiry", myinquiryList);
 			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-			 
+ 
 			 
 			 page = "profile";
 		 }
