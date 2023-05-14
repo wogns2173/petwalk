@@ -46,9 +46,9 @@
 		keyProperty="boardNum"
 		
 		id="noticeWrite" parameterType="com.pet.admin.dto.NoticeDTO">
-		INSERT INTO board(categoryCode,boardName,boardDetail,noticeWhether,
+		INSERT INTO board(userID,categoryCode,boardName,boardDetail,noticeWhether,
    		boardBlindWhether,boardbHit,inqProcess)
-   		VALUES('B_05',#{boardName},#{boardDetail},false,false,false,false)
+   		VALUES(#{userID},'B_05',#{boardName},#{boardDetail},false,false,false,false)
 		</insert>
 	
 		<insert id="fileWrite" >
@@ -58,7 +58,7 @@
 		
 		<insert id="noticerepwrite">
    			INSERT INTO reply(userID,boardNum,commentDetail,commentBlindWhether)
-   			VALUES ('adminJH',#{param1},#{param2},0)
+   			VALUES (#{param3},#{param1},#{param2},0)
 		</insert>
 	
 		<select id="noticereplist" resultType="com.pet.admin.dto.NoticeDTO">
@@ -76,4 +76,9 @@
 		<update id="noticerepupdate" parameterType="Hashmap">
    			UPDATE reply SET commentDetail = #{content} WHERE replyNum = #{replyNum}
    		</update>
+   		
+   		<update id="noticeBlindUpdate" parameterType="int">
+   			UPDATE board SET boardBlindWhether = #{param2} WHERE boardNum = #{param1}
+   		</update>
+   		
 </mapper>
