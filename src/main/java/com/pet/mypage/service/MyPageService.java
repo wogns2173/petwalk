@@ -136,7 +136,7 @@ public class MyPageService {
 		String petGender = params.get("petGender");
 		int petNeutered = Integer.parseInt(params.get("petNeutered"));
 		String petIntroduce = params.get("petIntroduce");
-		boolean deletePhoto = params.get("deletePhoto") != null;
+		boolean deletePhoto = "true".equals(params.get("deletePhoto"));
 		
 		int success = dao.petprofileUpdate(userID, petSize, petName, petAge, petGender, petNeutered, petIntroduce);
 		
@@ -168,50 +168,7 @@ public class MyPageService {
 		}
 		return map;
 	}
-	public ArrayList<MyPageDTO> findrouteDrawList(String userID) {
-		
-		logger.info("내가 작성한 산책 경로 리스트");
 	
-		ArrayList<MyPageDTO> findrouteDrawList = dao.findrouteDrawList(userID);
-	
-		return findrouteDrawList;
-	}
-	
-	public ArrayList<MyPageDTO> mybookmark(String userID) {
-		
-		logger.info("내가 즐겨찾기한 산책 경로 리스트");
-		
-		ArrayList<MyPageDTO> bookmark = dao.mybookmark(userID);
-		
-		return bookmark;
-	}
-	
-	public ArrayList<MyPageDTO> findrouteShareList(String userID) {
-
-		logger.info("산책경로 공유글 리스트");
-		
-		ArrayList<MyPageDTO> findrouteShareList = dao.findrouteShareList(userID);
-		
-		return findrouteShareList;
-	}
-	
-	public ArrayList<MyPageDTO> myinquiryList(String userID) {
-		 
-		logger.info("내가 문의한 글 리스트");
-		
-		ArrayList<MyPageDTO> myinquiryList = dao.myinquiryList(userID);
-		
-		return myinquiryList;
-	}
-	
-	public ArrayList<MyPageDTO> report(String userID) {
-		
-		logger.info("내가 신고한 글 리스트");
-		
-		ArrayList<MyPageDTO> report = dao.report(userID);
-		
-		return report;
-	}
 	public HashMap<String, Object> petphoto(MultipartFile photo, HttpSession session) {
 
 		logger.info("파일 업로드 중");
@@ -243,6 +200,137 @@ public class MyPageService {
 		
 		return map;
 	}
+	public HashMap<String, Object> myroutlistCall(int page, int cnt,HttpSession session) {
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//1page = offset : 0
+		//2page = offset : 5
+		//3page = offset : 10
+		int offset = (page-1)*cnt;
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		
+		String userID =  (String) session.getAttribute("userID");
+		int total = dao.totalCount(userID);
+		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
+		logger.info("전체 게시물  수 : "+total);
+		logger.info("총 페이지 수 : "+range);
+		
+		page = page > range ? range : page;
+		map.put("currPage", page);
+		map.put("pages", range);
+		
+		ArrayList<BoardDTO> myroutlistCall = dao.myroutlistCalllist(cnt, offset, userID);
+		map.put("myroutlistCall", myroutlistCall);
+		return map;
+	}
+	public HashMap<String, Object> mybookmarklistCall(int page, int cnt, HttpSession session) {
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//1page = offset : 0
+		//2page = offset : 5
+		//3page = offset : 10
+		int offset = (page-1)*cnt;
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		
+		String userID =  (String) session.getAttribute("userID");
+		int total = dao.mybookmarktotalCount(userID);
+		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
+		logger.info("전체 게시물  수 : "+total);
+		logger.info("총 페이지 수 : "+range);
+		
+		page = page > range ? range : page;
+		map.put("mybookmarkcurrPage", page);
+		map.put("mybookmarkpages", range);
+		
+		ArrayList<BoardDTO> mybookmarklistCall = dao.mybookmarklistCall(cnt, offset, userID);
+		map.put("mybookmarklistCall", mybookmarklistCall);
+		return map;
+	}
+	public HashMap<String, Object> myinquirylistCall(int page, int cnt, HttpSession session) {
+		
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//1page = offset : 0
+		//2page = offset : 5
+		//3page = offset : 10
+		int offset = (page-1)*cnt;
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		
+		String userID =  (String) session.getAttribute("userID");
+		int total = dao.myinquirytotalCount(userID);
+		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
+		logger.info("전체 게시물  수 : "+total);
+		logger.info("총 페이지 수 : "+range);
+		
+		page = page > range ? range : page;
+		map.put("myinquirycurrPage", page);
+		map.put("myinquirypages", range);
+		
+		ArrayList<BoardDTO> myinquirylistCall = dao.myinquirylistCall(cnt, offset, userID);
+		map.put("myinquirylistCall", myinquirylistCall);
+		
+		return map;
+	}
+	public HashMap<String, Object> myreportlistCall(int page, int cnt, HttpSession session) {
+		
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//1page = offset : 0
+		//2page = offset : 5
+		//3page = offset : 10
+		int offset = (page-1)*cnt;
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		
+		String userID =  (String) session.getAttribute("userID");
+		int total = dao.myreporttotalCount(userID);
+		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
+		logger.info("전체 게시물  수 : "+total);
+		logger.info("총 페이지 수 : "+range);
+		
+		page = page > range ? range : page;
+		map.put("myreportcurrPage", page);
+		map.put("myreportpages", range);
+		
+		ArrayList<BoardDTO> myreportlistCall = dao.myreportlistCall(cnt, offset, userID);
+		map.put("myreportlistCall", myreportlistCall);
+		
+		return null;
+	}
+	
+	public ArrayList<MyPageDTO> myinquiryList(String userID) {
+		
+		ArrayList<MyPageDTO> myinquiryList = dao.myinquiryList(userID);
+		
+		return myinquiryList;
+	}
+	
+	public ArrayList<MyPageDTO> findrouteShareList(String userID) {
+		
+		ArrayList<MyPageDTO> findrouteShareList = dao.findrouteShareList(userID);
+		
+		return findrouteShareList;
+	}
+
 
 
 

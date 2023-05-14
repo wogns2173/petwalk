@@ -1,7 +1,7 @@
 package com.pet.mypage.dto;
 
 public class MyPageDTO {
-
+	
 	private int profileID;
 	private String userID;
 	private int petAge;
@@ -30,9 +30,17 @@ public class MyPageDTO {
 	private String reportNum;
 	private String reportName;
 	private String reportDate;
+	private String repProcess;
 	
 
 	
+
+	public String getRepProcess() {
+		return repProcess;
+	}
+	public void setRepProcess(String repProcess) {
+		this.repProcess = repProcess;
+	}
 	public String getReportNum() {
 		return reportNum;
 	}

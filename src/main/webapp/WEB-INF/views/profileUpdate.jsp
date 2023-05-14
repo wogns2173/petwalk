@@ -74,7 +74,7 @@
 	                      	<button id="deleteButton" onclick="delphoto()">삭제</button>                      	
 	                     </p>                     
                      <input type="file" name="photo" id = "fileInput" onchange="checkExtension()"/>
-                     
+                                          
                       <input type="hidden" name="deletePhoto" value="false" id="deletePhotoInput">
                       <input type="hidden" id="serPhotoname" value="${pet.serPhotoname}">
 				</td>
@@ -158,7 +158,6 @@ function petprofileupdate() {
 	  var petIntroduce = $('#petIntroduce');
 	  var deletePhoto = $('#deletePhotoInput');
 	  var serPhotoname = $('#serPhotoname');
-	  
 		  
 	  var file = document.getElementById("fileInput");
 	  var fileName = file.value;
@@ -169,7 +168,7 @@ function petprofileupdate() {
 	  console.log(photo);
 	  console.log(ext);
 	  
-	if (deletePhoto.val() == true || photo == undefined) { // 파일이 첨부되지 않았거나 파일을 삭제했을 경우
+	if (deletePhoto.val() == true && photo == undefined) { // 파일이 첨부되지 않았거나 파일을 삭제했을 경우
 	    alert('반려견 사진을 첨부해 주세요!');
 	  } else if (deletePhoto.val() == true && ext != 'jpg' && ext != 'png') { // 첨부한 파일의 확장자가 jpg또는 png가 아니거나 파일을 삭제했을 경우
 		alert('사진만 첨부해 주세요.');
