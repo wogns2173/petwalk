@@ -73,82 +73,14 @@
 				</td>
 			</tr>
 			<tr>
-			<th>주소</th>
-				<td>
-					<select id="siID">
-						<option value="">시를 선택하세요</option>
-						<option value="1">서울 특별시</option>
-		<!--  			  	<option value="부산 광역시">부산 광역시</option>
-					  	<option value="인천 광역시">인천 광역시</option>
-					  	<option value="대구 광역시">대구 광역시</option>
-					  	<option value="광주 광역시">광주 광역시</option>
-					  	<option value="대전 광역시">대전 광역시</option>
-					  	<option value="울산 광역시">울산 광역시</option>-->
-					</select>
-					<select id="guID">
-						  <option value="">구를 선택하세요</option>					  
-						 <!-- <option value="종로구">종로구</option>
-						  <option value="중구">중구</option>
-						  <option value="용산구">용산구</option>
-						  <option value="성동구">성동구</option>
-						  <option value="광진구">광진구</option>
-						  <option value="동대문구">동대문구</option>
-						  <option value="중랑구">중랑구</option>
-						  <option value="성북구">성북구</option>
-						  <option value="강북구">강북구</option>
-						  <option value="도봉구">도봉구</option>
-						  <option value="노원구">노원구</option>
-						  <option value="은평구">은평구</option>
-						  <option value="서대문구">서대문구</option>
-						  <option value="마포구">마포구</option>
-						  <option value="양천구">양천구</option>
-						  <option value="강서구">강서구</option>
-						  <option value="구로구">구로구</option>
-						  <option value="금천구">금천구</option>
-						  <option value="영등포구">영등포구</option>
-						  <option value="동작구">동작구</option>
-						  <option value="관악구">관악구</option>
-						  <option value="서초구">서초구</option>-->
-						  <option value="3">강남구</option>
-						 <!-- <option value="송파구">송파구</option>
-						  <option value="강동구">강동구</option>-->
-					</select>
-					<select id ="dongID">
-					  	<option value="">동을 선택하세요</option>
-					      <!--  <option value="개포동">개포동</option>-->
-					      <option value="2">논현동</option>
-					      <!-- <option value="대치동">대치동</option>
-					      <option value="도곡동">도곡동</option>
-					      <option value="삼성동">삼성동</option>
-					      <option value="세곡동">세곡동</option>
-					      <option value="수서동">수서동</option>
-					      <option value="신사동">신사동</option>
-					      <option value="압구정동">압구정동</option>
-					      <option value="역삼동">역삼동</option>
-					      <option value="일원동">일원동</option>
-					      <option value="청담동">청담동</option> -->
-					</select>
-				</td>
-			</tr>						
-			<tr>
 				<th>비밀번호</th>
 				<td><input type="password" id="userPW"/></td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
 				<td>
-
 					<input type="password" id ="confirm"/><br/>
 					<span id="pwmsg"></span>
-
-				</td>
-			</tr>
-			<tr>
-				<th>닉네임</th>
-
-				<td>
-					<input type="text" id="userNickname"/>					
-					<span id="nicknamemsg"></span>
 				</td>
 			</tr>
 			<tr>
@@ -157,7 +89,36 @@
 					<input type="text" id="userName"/>					
 				</td>
 				
+			</tr>								
+			<tr>
+				<th>닉네임</th>
+				<td>
+					<input type="text" id="userNickname"/>					
+					<span id="nicknamemsg"></span>
+				</td>
 			</tr>
+			<tr>
+				<th>연락처</th>
+				<td>
+					<input type="number" id="ftphn" maxlength="3" value="010" readonly="readonly"/>
+					<input type="number" id="mdphn" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
+					<input type="number" id="ltphn" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
+				</td>
+			</tr>	
+			<tr>
+				<th>이메일</th>
+				<td>
+					<input type="email" id="userEmail"/>
+				</td>
+			</tr>	
+			<tr>			
+				<th>성별</th>
+				<td>
+					<input type="radio" name="userGender" value="남"/>남자 
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="userGender" value="여"/>여자
+				</td>				
+			</tr>	
 			<tr>
 				<th>나이</th>
 				<td><input type="text" id="userAge"/></td>
@@ -243,30 +204,69 @@
 						<option value="31">31</option>
 					</select> -->
 				</td>
-			<tr>			
-				<th>성별</th>
-				<td>
-					<input type="radio" name="userGender" value="남"/>남자 
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="userGender" value="여"/>여자
-				</td>				
 			</tr>
 			<tr>
-				<th>연락처</th>
+			<th>주소</th>
 				<td>
-					<input type="number" id="ftphn" maxlength="3" value="010" readonly="readonly"/>
-					<input type="number" id="mdphn" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
-					<input type="number" id="ltphn" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
+					<select id="siID">
+						<option value="">시를 선택하세요</option>
+						<option value="1">서울 특별시</option>
+		<!--  			  	<option value="부산 광역시">부산 광역시</option>
+					  	<option value="인천 광역시">인천 광역시</option>
+					  	<option value="대구 광역시">대구 광역시</option>
+					  	<option value="광주 광역시">광주 광역시</option>
+					  	<option value="대전 광역시">대전 광역시</option>
+					  	<option value="울산 광역시">울산 광역시</option>-->
+					</select>
+					<select id="guID">
+						  <option value="">구를 선택하세요</option>					  
+						 <!-- <option value="종로구">종로구</option>
+						  <option value="중구">중구</option>
+						  <option value="용산구">용산구</option>
+						  <option value="성동구">성동구</option>
+						  <option value="광진구">광진구</option>
+						  <option value="동대문구">동대문구</option>
+						  <option value="중랑구">중랑구</option>
+						  <option value="성북구">성북구</option>
+						  <option value="강북구">강북구</option>
+						  <option value="도봉구">도봉구</option>
+						  <option value="노원구">노원구</option>
+						  <option value="은평구">은평구</option>
+						  <option value="서대문구">서대문구</option>
+						  <option value="마포구">마포구</option>
+						  <option value="양천구">양천구</option>
+						  <option value="강서구">강서구</option>
+						  <option value="구로구">구로구</option>
+						  <option value="금천구">금천구</option>
+						  <option value="영등포구">영등포구</option>
+						  <option value="동작구">동작구</option>
+						  <option value="관악구">관악구</option>
+						  <option value="서초구">서초구</option>-->
+						  <option value="3">강남구</option>
+						 <!-- <option value="송파구">송파구</option>
+						  <option value="강동구">강동구</option>-->
+					</select>
+					<select id ="dongID">
+					  	<option value="">동을 선택하세요</option>
+					      <!--  <option value="개포동">개포동</option>-->
+					      <option value="2">논현동</option>
+					      <!-- <option value="대치동">대치동</option>
+					      <option value="도곡동">도곡동</option>
+					      <option value="삼성동">삼성동</option>
+					      <option value="세곡동">세곡동</option>
+					      <option value="수서동">수서동</option>
+					      <option value="신사동">신사동</option>
+					      <option value="압구정동">압구정동</option>
+					      <option value="역삼동">역삼동</option>
+					      <option value="일원동">일원동</option>
+					      <option value="청담동">청담동</option> -->
+					</select>
 				</td>
-			</tr>		
-			<tr>
-				<th>E-MAIL</th>
-				<td><input type="email" id="userEmail"/></td>
-			</tr>			
+			</tr>	
 			<tr>
          		<th colspan="2">
-            		<button onclick="join()">가입</button>
-            		<button onclick="location.href='./'">돌아가기</button>
+            		<button onclick="join()">확인</button>
+            		<button onclick="location.href='./'">취소</button>
          		</th>
       		</tr>
 		</table>
@@ -281,22 +281,22 @@ var overlayNicknameChk = false;
 function join(){
 	
 	var $userID = $('#userID');
-	var $siID = $('#siID').val();
-	var $guID = $('#guID').val();
-	var $dongID = $('#dongID').val();
 	var $userPW = $('#userPW');
-	var $userNickname = $('#userNickname');
 	var $userName = $('#userName');
-	var $userAge = $('#userAge');
-	var $year = $('#year');
-	var $month = $('#month');
-	var $day = $('#day');		
-	var $userGender = $('input[name="userGender"]:checked');
+	var $userNickname = $('#userNickname');
 	var $ftphn = $('#ftphn');
 	var $mdphn = $('#mdphn');
 	var $ltphn = $('#ltphn');		
 	var $userEmail = $('#userEmail');
-	
+	var $userGender = $('input[name="userGender"]:checked');
+	var $userAge = $('#userAge');
+	var $year = $('#year');
+	var $month = $('#month');
+	var $day = $('#day');	
+	var $siID = $('#siID').val();
+	var $guID = $('#guID').val();
+	var $dongID = $('#dongID').val();
+
 	console.log($day.val().toString().length);
 	
 	
@@ -305,41 +305,21 @@ function join(){
 		$userID.focus();
 	}else if($('#userID').val().length <=4){
 		alert('아이디를 5자리 이상 입력해 주세요!'); 		
-	}else if($siID==''){
-		alert('시를 선택해 주세요!');
-	}else if($guID==''){
-		alert('구를 선택해 주세요!');
-	}else if($dongID==''){
-		alert('동을 선택해 주세요!');
 	}else if($userPW.val()==''){
 		alert('비밀번호를 입력해 주세요!');			
 		$userPW.focus();			
 	}else if($userPW.val().length <= 7){
 		alert('비밀번호를 8자리 이상 입력해 주세요!');
 		$userPW.focus();
+	}else if($userName.val()==''){
+		alert('이름을 입력해 주세요!');
+		$userName.focus();
 	}else if($userNickname.val()==''){
 		alert('닉네임를 입력해 주세요!');
 		$userNickname.focus();			
 	}else if($('#userNickname').val().length <=1 || $('#userNickname').val().length >=11){			
   		alert('닉네임을 2글자 이상  10글자 이하로입력해주세요.');
   		$userNickname.focus();
-	}else if($userName.val()==''){
-		alert('이름을 입력해 주세요!');
-		$userName.focus();
-	}else if($userAge.val()==''){
-		alert('나이를 입력해 주세요!');
-		$userAge.focus();
-	}else if($year.val().length<=3 && $year.val()<'1900' || $year.val()>'2023'){
-		alert('태어난 년도를 4자리를 정확히 입력해 주세요!');
-		$year.focus();
-	}else if($month.val()==null){
-		alert('태어난 월을 선택해 주세요!');
-		$month.focus();
-	}else if($day.val().toString().length<=1 && $day.val() <=0 || $day.val() >31){
-		alert('태어난 일(날짜) 을 2자리 정확히 입력해 주세요!\r\n ex)01 or 02');
-		$day.focus();
-	}else if($userGender.val()==null){
-		alert('성별을 선택해 주세요!');			
 	}else if($ftphn.val()==''){
 		alert('연락처 첫 3자리를 입력해 주세요!');	
 		$ftphn.focus();
@@ -352,6 +332,26 @@ function join(){
 	}else if($userEmail.val()==''){
 		alert('이메일을 입력해 주세요!');
 		$userEmail.focus();
+	}else if($userGender.val()==null){
+		alert('성별을 선택해 주세요!');			
+	}else if($userAge.val()==''){
+		alert('나이를 입력해 주세요!');
+		$userAge.focus();
+	}else if($year.val().length<=3 && $year.val()<'1900' || $year.val()>'2023'){
+		alert('태어난 년도를 4자리를 정확히 입력해 주세요!');
+		$year.focus();
+	}else if($month.val()==null){
+		alert('태어난 월을 선택해 주세요!');
+		$month.focus();
+	}else if($day.val().toString().length<=1 && $day.val() <=0 || $day.val() >31){
+		alert('태어난 일(날짜) 을 2자리 정확히 입력해 주세요!\r\n ex)01 or 02');
+		$day.focus();
+	}else if($siID==''){
+		alert('시를 선택해 주세요!');
+	}else if($guID==''){
+		alert('구를 선택해 주세요!');
+	}else if($dongID==''){
+		alert('동을 선택해 주세요!');
 	}else if(pweq && overlayIdChk && overlayNicknameChk){
 
 			var param = {};

@@ -88,7 +88,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>E-MAIL</th>
+				<th>이메일</th>
 				<td>
 					${member.userEmail}
 				</td>

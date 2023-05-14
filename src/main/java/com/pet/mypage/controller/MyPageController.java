@@ -110,6 +110,15 @@ public class MyPageController {
 		   return service.petprofileUpdate(params, photo, session);      
 	   }
 	
+	@RequestMapping(value="/petphoto.ajax")
+	@ResponseBody
+	   public HashMap<String, Object> petphoto(MultipartFile photo, HttpSession session){		
+				   
+		   logger.info("{}",photo);		   
+		   
+		   return service.petphoto(photo, session);      
+	   }
+	
 	@RequestMapping(value="/otherprofile.go")
 	   public String otherprofile(@RequestParam String userID, Model model) {
 		
