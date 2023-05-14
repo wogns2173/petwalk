@@ -60,22 +60,6 @@
 	
 	<hr>
 	
-<%-- 	<!-- 문의 게시판 리스트  -->
-	<table>
-		<c:if test="${inqlist.size() eq 0}">
-			<tr><th colspan="10">게시물이 없습니다.</th></tr>	
-		</c:if>
-			<c:forEach items="${inqlist}" var="inq">
-				<tr>
-					<td>문의 종류 : ${inq.categoryCode }</td>
-					<td><a href="inquirydetail.do?boardNum=${inq.boardNum}">${inq.boardName}</a></td>
-					<td>작성자 : ${inq.userID }</td>
-					<td>조회수 : ${inq.boardbHit }</td>
-					<td>작성일자 : ${inq.boardWriteDate }</td>
-					<td>처리 여부 : ${inq.process }</td>
-				</tr>	
-			</c:forEach>
-	</table> --%>
 		<table>
 		<thead>
 			<tr id="thead">

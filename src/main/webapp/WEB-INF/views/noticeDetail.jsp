@@ -64,7 +64,7 @@
 </head>
 
 	<!-- 글 번호 -->
-	<input type="text" name="notice" value="${notice.boardNum}">
+	<input type="hidden" name="notice" value="${notice.boardNum}">
 	
 	<!-- 공지 사항 디테일 가져오기  -->
 	<table>
@@ -75,7 +75,7 @@
             <td>${notice.userID} </td>
         </tr>
         <tr>         
-            <td>${notice.boardWriteDate}</td>
+            <td>${notice.boardWriteDate} 조회수 : ${notice.boardbHit }</td>
         </tr>      
         <tr>
             <td>${notice.boardDetail}</td>
@@ -92,7 +92,7 @@
       
    <hr>
    
-   <p>답변</p>         
+   <p>댓글</p>         
    
 	<!-- 문의글 댓글 리스트 가져오기 -->
     <c:if test="${noticelist.size() eq 0}">
@@ -102,8 +102,10 @@
 	<c:forEach items="${noticereplist}" var="noticerep">
 		<div class="inqrep">
 			${noticerep.userID} / ${noticerep.commentWriteDate}
-			<input type ="button" onclick='location.href="noticerepdel.do?replyNum=${noticerep.replyNum}&boardNum=${notice.boardNum}"' value="삭제"/>
-			<input type ="button" onclick='location.href="noticerepupdate.go?replyNum=${noticerep.replyNum}&boardNum=${notice.boardNum}&commentDetail=${noticerep.commentDetail }"' value="수정"/>
+			<c:if test="${noticerep.userID eq sessionScope.userID}">
+				<input type ="button" onclick='location.href="noticerepdel.do?replyNum=${noticerep.replyNum}&boardNum=${notice.boardNum}"' value="삭제"/>
+				<input type ="button" onclick='location.href="noticerepupdate.go?replyNum=${noticerep.replyNum}&boardNum=${notice.boardNum}&commentDetail=${noticerep.commentDetail }"' value="수정"/>
+			</c:if>
 			<p>${noticerep.commentDetail }</p>
 		</div>	
 	</c:forEach>

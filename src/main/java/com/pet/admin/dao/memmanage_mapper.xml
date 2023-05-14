@@ -9,24 +9,28 @@
    
 		<select id="memTotalList" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
 			SELECT userName, userID, userSignup, userBlindWhether FROM member
+			ORDER BY userSignup DESC
 			LIMIT #{param2} OFFSET #{param3}
 		</select>
 		
 		<select id="memIDTotalList" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
 			SELECT userName, userID, userSignup, userBlindWhether
 			FROM member WHERE userID LIKE CONCAT ('%',#{param3},'%')
+			ORDER BY userSignup DESC
 			LIMIT #{param4} OFFSET #{param5}
 		</select>
 		
 		<select id="memNameTotalList" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
 			SELECT userName, userID, userSignup, userBlindWhether
 			FROM member WHERE userName LIKE CONCAT ('%',#{param3},'%')
+			ORDER BY userSignup DESC
 			LIMIT #{param4} OFFSET #{param5}
 		</select>
 		
 		<select id="memTotalListByProcess" parameterType="HashMap" resultType="com.pet.admin.dto.MemManageDTO">
 			SELECT userName, userID, userSignup, userBlindWhether
 			FROM member WHERE userBlindWhether = #{param2}
+			ORDER BY userSignup DESC
 			LIMIT #{param3} OFFSET #{param4}
 		</select>
 		

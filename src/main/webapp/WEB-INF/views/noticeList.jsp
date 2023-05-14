@@ -64,11 +64,14 @@
 				<th>ID</th>
 				<th>조회수</th>
 				<th>작성날짜</th>
-				<th>처리여부</th>
+				<c:if test="${Role eq 'admin'}">
+					<th>처리여부</th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody id = "noticelist">
 		<!-- 리스트가 출력될 영역 -->
+
 		</tbody>
 		<tr>
 			<td colspan="6" id="paging">	
@@ -81,11 +84,11 @@
 			</td>
 		</tr>
 	</table>
-	
-	<div>
-		<input type="button" name="noticeWirte" value="글쓰기" onclick="location.href='noticewrite.go'">
-	</div>
-	
+	<c:if test="${Role eq 'admin'}">
+		<div>
+			<input type="button" name="noticeWirte" value="공지사항 작성" onclick="location.href='noticewrite.go'">
+		</div>
+	</c:if>
 </body>
 <script>
 
@@ -160,33 +163,50 @@ function listPrint(noticelist){
 	
 	if(noticelist && Array.isArray(noticelist)){
 		noticelist.forEach(function(item,noticelist){
-		
+	
       content +='<tr>';
-      content +='<td id="boardName"><a href="noticedetail.do?boardNum='+ item.boardNum+'">'+item.boardName+'</a></td>';
+      content += '<td id="boardName">';
+      if (item.boardBlindWhether) {
+          content += '<a href="javascript:void(0)" onclick="showBlindWarning()">' + item.boardName + '</a>';
+      } else {
+          content += '<a href="noticedetail.do?boardNum=' + item.boardNum + '">' + item.boardName + '</a>';
+      }
       content +='<td id="userID">'+item.userID +'</td>';
       content +='<td>'+item.boardbHit +'</td>';
       var date = new Date(item.boardWriteDate);
 		// 기본값은 en-US
 	  content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';
      /*  content +='<td>'+item.boardWriteDate +'</td>'; */
+     <c:if test="${Role eq 'admin'}">
       content +='<td>';
       content += '<input type="checkbox" ';
 	  if (item.boardBlindWhether) {
-      content += 'checked';
+      	content += 'checked';
 	  }
       content += ' onclick="toggleBlind(this, '+ item.boardNum +')" />';
 	  content +='</td>';
+	 </c:if>
       content +='</tr>';
       
       
   	 });
+	}else{
+    	
+	  content += '<tr>';
+	  content += '<td colspan="6" style="text-align: center;">검색한 정보가 없습니다.</td>';
+	  content += '</tr>';
+		
 	}
    $('#noticelist').empty();
    $('#noticelist').append(content);
 }
 
+function showBlindWarning() {
+    alert('이 게시물은 블라인드 처리되었습니다.');
+}
+
 function toggleBlind(checkbox, boardNum) {
-    var blind = !checkbox.checked;
+	var blind = checkbox.checked ? 1 : 0;
     // Ajax 요청 등을 통해 서버로 블라인드 처리 여부를 전달하고, 서버에서 처리합니다.
     // 예를 들어, 'noticelist.ajax' 요청에 블라인드 처리 여부를 전달하여 서버에서 업데이트할 수 있습니다.
     $.ajax({
@@ -205,8 +225,5 @@ function toggleBlind(checkbox, boardNum) {
         }
     });
 }
-</script>
-</html>
-
 </script>
 </html>
