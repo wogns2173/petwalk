@@ -40,7 +40,7 @@
 	<!-- <c:forEach items="dto">-->
 		<input type="hidden" name="categoryCode">${dto.categoryName}</input>
 		<input type="hidden" name="boardNum" value="${dto.boardNum}"/>
-		</br>
+		<br>
 		<h1>${dto.boardName}</h1>
 		<c:if test="${userID != null}">
 			<div id="ex1" class="modal">

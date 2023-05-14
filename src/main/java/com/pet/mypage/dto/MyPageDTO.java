@@ -27,8 +27,30 @@ public class MyPageDTO {
 	private String walkRoutebHit;
 	private String walkRouteWriteDate;
 	
+	private String reportNum;
+	private String reportName;
+	private String reportDate;
+	
 
 	
+	public String getReportNum() {
+		return reportNum;
+	}
+	public void setReportNum(String reportNum) {
+		this.reportNum = reportNum;
+	}
+	public String getReportName() {
+		return reportName;
+	}
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
+	}
+	public String getReportDate() {
+		return reportDate;
+	}
+	public void setReportDate(String reportDate) {
+		this.reportDate = reportDate;
+	}
 	public int getProfileID() {
 		return profileID;
 	}

@@ -82,7 +82,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>E-MAIL</th>
+				<th>이메일</th>
 				<td>
 					<input type="email" id="userEmail" value="${member.userEmail}"/>
 					<button id="updateuseremail">수정</button>
