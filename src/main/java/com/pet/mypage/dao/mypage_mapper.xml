@@ -40,6 +40,14 @@
 	<select id="findrouteShareList" resultType="com.pet.mypage.dto.MyPageDTO">
 		SELECT * FROM routeboard WHERE userID = #{param1} ORDER BY walkRouteWriteDate DESC
 	</select>
+	
+	<select id="mybookmark" resultType="com.pet.mypage.dto.MyPageDTO">
+		SELECT * FROM routelist WHERE walkNum = (SELECT walknum FROM bookmark WHERE userID = #{param1})
+	</select>
+	
+	<select id="report" resultType="com.pet.mypage.dto.MyPageDTO">
+		SELECT * FROM report WHERE userID = #{param1} ORDER BY reportDate DESC
+	</select>
 
 	
 

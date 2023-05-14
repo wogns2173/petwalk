@@ -178,6 +178,7 @@
 				<col width="70%">
 				<col width="30%">
 			</colgroup>
+			<tbody id="tbody">
 			<tr>						
 				<td>제목</td>
 				<td>작성일자</td>
@@ -189,7 +190,8 @@
 				<td>${bookmark.walkDate}</td>						
 			</tr>				
 				</c:if>
-				</c:forEach>		
+				</c:forEach>	
+			</tbody>	
 		</table>
 		</c:if>
 		
@@ -203,11 +205,22 @@
 		<c:if test="${!empty review}">
 		<button>더 보기</button>
 		<table  class="table">
+			<colgroup>					
+				<col width="80%">
+				<col width="20%">
+			</colgroup>
+			<tbody id="tbody">
 			<tr>		
-		         <th colspan="2">
-		            
-		         </th>
-	      	</tr>		
+				<td>제목</td>
+				<td>문의일자</td>
+	      	</tr>
+	      	<c:forEach items="${inquiry}" var="inquiry">
+			<tr>
+				<td><a href="inquirydetail.do?boardNum=${inquiry.boardNum}">${inquiry.boardName}</a></td>						
+				<td>${inquiry.boardWriteDate}</td>											
+			</tr>				
+			</c:forEach>
+	      </tbody>
 		</table>
 		</c:if>
 		
@@ -219,13 +232,13 @@
 		문의 내역이 없습니다.<br/>		
 		</c:if>
 		<c:if test="${!empty inquiry }">
-		<button>더 보기</button>
+		<button onclick="location.href='inquiryListme.go'">더 보기</button>
 			<table class="table">
 				<colgroup>					
 					<col width="80%">
 					<col width="20%">
 				</colgroup>
-				<tbody id="inquirytbody">					
+				<tbody id="tbody">					
 		   			<tr>						
 						<td>제목</td>
 						<td>문의일자</td>
@@ -235,8 +248,7 @@
 						<td><a href="inquirydetail.do?boardNum=${inquiry.boardNum}">${inquiry.boardName}</a></td>						
 						<td>${inquiry.boardWriteDate}</td>											
 					</tr>				
-					</c:forEach>
-					
+					</c:forEach>					
 				</tbody>
 			</table>
 		</c:if>
@@ -244,19 +256,33 @@
 		<hr>
 		
 		<h3>신고 내역</h3>
-		<c:if test="${empty declaration}">
+		<button onclick="location.href='reportwrite.go'">신고 하기</button>
+		<c:if test="${empty report}">
 		신고 내역이 없습니다.		
 		</c:if>
-		<c:if test="${!empty declaration}">
-		<button>더 보기</button>
+		<c:if test="${!empty report}">
+		<button>더 보기</button>		
 		<table class="table">
-			<tr>		
-				<th colspan="2">		            		                       
-					<button onclick="location.href='./'">돌아가기</button>
-		        </th>
-	      	</tr>		
-		</table>
-		</c:if>	
+				<colgroup>					
+					<col width="80%">
+					<col width="20%">
+				</colgroup>
+				<tbody id="tbody">					
+		   			<tr>						
+						<td>제목</td>
+						<td>신고일자</td>
+					</tr>					
+					<c:forEach items="${report}" var="report">
+					<tr>
+						<td><a href="reportdetail?reportNum=${report.reportNum}">${report.reportName}</a></td>						
+						<td>${report.reportDate}</td>											
+					</tr>	
+					</c:forEach>					
+				</tbody>
+			</table>
+		</c:if> 
+		<br>
+		<button onclick="location.href='./'">돌아가기</button>	
 		</div>
 </body>
 <script>

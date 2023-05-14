@@ -36,15 +36,26 @@ public class MyPageController {
 		
 		 if(session.getAttribute("userID") != null) {
 			 String userID = (String) session.getAttribute("userID");
+			 
+			 // 반려견 정보
 			 MyPageDTO dto = service.findprofileAndphoto(userID);				 
 			 model.addAttribute("pet", dto);
 			 
+			 // 내가 그린 산책경로
 			 ArrayList<MyPageDTO> findrouteDrawList = service.findrouteDrawList(userID);
 			 model.addAttribute("routeDraw", findrouteDrawList);
+			 
+			 // 내가 즐겨찾기한 산책경로
+			 ArrayList<MyPageDTO> mybookmark = service.mybookmark(userID);
+			 model.addAttribute("bookmark", mybookmark);
 			 	
+			 // 내 문의 내역
 			 ArrayList<MyPageDTO> myinquiryList = service.myinquiryList(userID);
 			 model.addAttribute("inquiry", myinquiryList);
 			 
+			 // 내 신고 내역
+			 ArrayList<MyPageDTO> report = service.report(userID);
+			 model.addAttribute("report", report);
  
 			 
 			 page = "profile";
@@ -113,4 +124,21 @@ public class MyPageController {
 		  		  
 	      return page;      
 	   }
+	
+	@RequestMapping(value="/inquiryListme.go")
+	   public String inquirylistme(HttpSession session, Model model) {
+		   		
+		String page = "redirect:/";	
+		
+		 if(session.getAttribute("userID") != null) {
+			 
+			 String userID = (String) session.getAttribute("userID");
+			 
+			 ArrayList<MyPageDTO> inquiryListme = service.myinquiryList(userID);
+			 model.addAttribute("inquiryListme", inquiryListme);
+			 page= "inquiryListme";
+		 }
+	      return page;      
+	   }
+	
 }

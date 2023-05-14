@@ -89,6 +89,7 @@
 <script>
 function login(){		
 	console.log(userID,userPW);
+	
 	$.ajax({
 		type:'post'
 			,url:'login.ajax'
@@ -100,9 +101,10 @@ function login(){
 			,success:function(data){
 				console.log(data);
 
-				if(data.member != null){
+				if(data.blind == 1){
+					alert('정지된 계정입니다.')
+				}else if(data.success == 1) {
 					alert('로그인에 성공 했습니다.');				
-
 					location.href='main.go';
 				}else{
 					alert('아이디 또는 비밀번호를 확인해 주세요!');
