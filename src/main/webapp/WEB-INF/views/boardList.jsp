@@ -30,32 +30,46 @@
 </head>
 <body>
 	<div class="main">
-		<div class = "topMenu">
+				<div class = "topMenu">
 			<div class="logo">
-				<a href="#">
-					<img src="resources/img/logo.png" alt="logo">
-				</a>
-				<img src="resources/img/logoaname.png" alt="logoname">
-			</div>
-	
-			<div class="link">
-				<a href="#">회원가입</a>
-				<a href="#">로그인</a>
-				<a href="#">fewqtr</a>
-				<a href="#">fewqtr</a>
-				<a href="#">fewqtr</a>
-			</div>
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
 		</div>
-		</br>
-		</br>
-		</br>
-		</br>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 		<h3>반려견 갤러리</h3>
 		<a href="boardList.go?categoryCode=B_01" class="right-align">더보기></a>
-		</br>
-		</br>
-		</br>
-		</br>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_01'}">
 				<div class="board-item">
