@@ -65,6 +65,10 @@
 		<br/>
 
 <h3>아이디 찾기</h3>
+<div>아이디가 생각나지 않으세요?</div>
+<div>회원정보에 등록하신 이름과 이메일 주소를 입력해주세요</div>
+<div>아래 입력하신 이름과 이메일 정보는 회원정보에 등록된 정보와 반드시 같아야 합니다.</div>
+<hr/>
 	<table>
 		<tr>
 			<th>이름</th>				
@@ -76,8 +80,8 @@
 		</tr>
 		<tr>
        		<th colspan="2">
-          		<button onclick="findmemberid()">아이디 찾기</button>
-          		<button onclick="location.href='login.go'">돌아가기</button>
+          		<button onclick="findmemberid()">확인</button>
+          		<button onclick="location.href='login.go'">취소</button>
        		</th>
    		</tr>
 	</table>

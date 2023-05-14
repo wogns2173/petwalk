@@ -63,7 +63,8 @@
 		<br/>
 		<br/>
 		<br/>
-   <h3>로그인</h3>
+	<div>반려견인 '너' 와 반려인인 '나'</div>
+   <h3>너 나 들 이</h3>
    <table>
       <tr>
          <th>아이디</th>
@@ -90,31 +91,38 @@
 function login(){		
 	console.log(userID,userPW);
 	
-	$.ajax({
-		type:'post'
-			,url:'login.ajax'
-			,data:{
-				userID:$('#userID').val()
-				,userPW:$('#userPW').val()
-			}
-			,dataType:'json'
-			,success:function(data){
-				console.log(data);
+	if($('#userID').val()==''){
+		alert('아이디를 입력해 주세요.')
+	}else if($('#userPW').val()==''){
+		alert('비밀번호를 입력해 주세요.')
+	}else{
 
-				if(data.blind == 1){
-					alert('정지된 계정입니다.')
-				}else if(data.success == 1) {
-					alert('로그인에 성공 했습니다.');				
-					location.href='main.go';
-				}else{
-					alert('아이디 또는 비밀번호를 확인해 주세요!');
+		$.ajax({
+			type:'post'
+				,url:'login.ajax'
+				,data:{
+					userID:$('#userID').val()
+					,userPW:$('#userPW').val()
 				}
-			}
-			,error:function(e){
-				console.log(e);
-				alert('아이디 또는 비밀번호를 확인해 주세요!');
-			}		
-	});	
+				,dataType:'json'
+				,success:function(data){
+					console.log(data);
+	
+					if(data.blind == 1){
+						alert('정지된 계정입니다.')
+					}else if(data.success == 1) {
+						alert('로그인에 성공 했습니다.');				
+						location.href='main.go';
+					}else{
+						alert('아이디 또는 비밀번호를 잘못 입력했습니다.\r\n입력하신 내용을 다시 확인해주세요.');
+					}
+				}
+				,error:function(e){
+					console.log(e);
+					alert('아이디 또는 비밀번호를 잘못 입력했습니다.\r\n입력하신 내용을 다시 확인해주세요.');
+				}		
+		});
+	}
 }
 </script>
 </html>

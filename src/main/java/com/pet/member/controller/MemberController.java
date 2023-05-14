@@ -139,8 +139,11 @@ public class MemberController {
 			   logger.info("userID : " +session.getAttribute("userID"));
 			   logger.info("Role : " +session.getAttribute("Role"));
 			   map.put("success", 1);
-		   }else{
+			   
+		   }else if(isMatched == true && dto.getUserBlindWhether()){
+			   
 			   map.put("blind", 1);
+			   
 		   }
 		   return map;
 	   }		   	  

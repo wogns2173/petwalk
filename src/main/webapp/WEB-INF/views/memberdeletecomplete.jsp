@@ -61,11 +61,23 @@
 		<br/>
 		<br/>
 		<br/>
-
+<h2>회원 탈퇴 완료</h2>
+<br/>
+<br/>
+<br/>
+<br/>
 <div>안녕하세요 너나들이 입니다.</div>
 <div>서비스를 이용하시면서 불편함을 드렸다면 죄송합니다.</div>
 <div>더 나은 서비스를 제공하기 위해 노력하는 너나들이가 되겠습니다.</div>
-<button onclick="location.href='main.go'">메인으로 돌아가기</button>
+<hr>
+<h2>이용해주셔서 감사합니다.</h2>
+<br/>
+<br/>
+<br/>
+<br/>
+<div>- 회원 탈퇴 후 3일 동안은 재가입이 불가능 합니다.</div>
+<div>- 탈퇴 시 계정의 모든 정보는 삭제되며, 재가입 시에는 복귀되지 않습니다.</div>
+<button onclick="location.href='main.go'">확인</button>
 </div>
 </body>
 <script></script>

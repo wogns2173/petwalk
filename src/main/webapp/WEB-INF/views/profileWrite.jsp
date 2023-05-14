@@ -67,21 +67,16 @@
 		<table class="table">
 			<tr>
 				<th>사진</th>
-				<td>				
-					<input id="photo" type="file"/>					
+				<td>					
+						<p id="filename">					
+	                     <img width="100" src="/photo/${pet.serPhotoname}"/>                      	
+	                      	<button id="deleteButton" onclick="delphoto()">삭제</button>                      	
+	                     </p>                    
+                     <input type="file" name="photo" id = "fileInput" onchange="checkExtension()"/>
+                     <input type="hidden" name="deletePhoto" value="false" id="deletePhotoInput">
+                     <input type="hidden" id="serPhotoname" value="${pet.serPhotoname}">		
 				</td>
 			</tr>
-			<tr>
-				<th>견종 사이즈</th>
-				<td>
-					<select id ="petSize">
-						<option value="">사이즈를 선택해 주세요.</option>
-						<option value="대형견">대형견</option>
-						<option value="중형견">중형견</option>
-						<option value="소형견">소형견</option>
-					</select>					
-				</td>				
-			</tr>				
 			<tr>
 				<th>이름</th>
 				<td>
@@ -89,7 +84,7 @@
 				</td>				
 			</tr>
 			<tr>
-				<th>나이</th>
+				<th>나이</th> 
 				<td>
 					<input type="number" id="petAge" />										
 				</td>
@@ -108,6 +103,17 @@
 					<input type="radio" name="petNeutered" value="0"/>X
 				</td>				
 			</tr>
+			<tr>
+				<th>견종 사이즈</th>
+				<td>
+					<select id ="petSize">
+						<option value="">사이즈를 선택해 주세요.</option>
+						<option value="대형견">대형견</option>
+						<option value="중형견">중형견</option>
+						<option value="소형견">소형견</option>
+					</select>					
+				</td>				
+			</tr>				
 			<tr>					
 				<th>반려견 소개</th>
 				<td>					
@@ -116,7 +122,7 @@
 			</tr>		
 			<tr>		
 		         <th colspan="2">
-		            <button onclick="petprofilecreate()">등록</button>		            
+		            <button onclick="petprofilecreate()">확인</button>		            
 		            <button onclick="location.href='./'">취소</button>
 		         </th>
 	      	</tr>
@@ -124,41 +130,95 @@
 	</div>
 </body>
 <script>
+
+
+function delphoto(){
+	document.getElementById("filename").remove();    
+    document.getElementById("deletePhotoInput").value = "true";
+    
+}
+
+function checkExtension() {
+    var file = document.getElementById("fileInput");
+    var photo = $('#fileInput')[0].files[0]; // 파일 객체 가져오기
+    console.log(file);
+    
+    if(document.getElementById("filename")) {
+            alert("이미 등록된 이미지가 있습니다. 새로운 이미지를 등록하려면 삭제 버튼을 눌러주세요.");
+            file.value = "";
+	}else{
+		
+		var formData = new FormData(); // FormData 객체 생성
+		formData.append('photo', photo); // 파일 추가
+		var file = document.getElementById("fileInput");
+		var fileName = file.value;
+		var idx = fileName.lastIndexOf(".");	  
+		var ext = fileName.slice(idx + 1).toLowerCase();
+		
+		if (ext != 'jpg' && ext != 'png') {
+			alert('jpg 또는 png 파일만 첨부해 주세요.');
+		}else{
+			
+			$.ajax({
+			      type: 'post',
+			      url: 'petphoto.ajax',
+			      data: formData, // FormData 객체 전송
+			      processData: false, // 데이터를 처리하지 않음
+			      contentType: false, // 컨텐츠 타입을 설정하지 않음
+			      success: function (data) {
+			        console.log(data);
+			        if (data.success == 1) {
+			          alert('사진이 업로드 되었습니다.');
+			        }else {
+			          alert('사진 업로드에 실패했습니다.\r\n 다시 시도해 주세요.');
+			        }
+			      },
+			      error: function (e) {
+			        console.log(e);
+			        alert('사진 업로드중 오류가 발생했습니다.\r\n 다시 시도해 주세요');
+			      }
+			    });
+		}
+	}    
+}
+
 function petprofilecreate() {
 	  var photo = $('#photo')[0].files[0]; // 파일 객체 가져오기
-	  var petSize = $('#petSize');
 	  var petName = $('#petName');
 	  var petAge = $('#petAge');
 	  var petGender = $('input[name="petGender"]:checked');
+	  var petSize = $('#petSize');	  
 	  var petNeutered = $('input[name="petNeutered"]:checked');
 	  var petIntroduce = $('#petIntroduce');
+	  var deletePhoto = $('#deletePhotoInput');
+	  var serPhotoname = $('#serPhotoname');
 	  
-	  var file = document.getElementById("photo");
+	  var file = document.getElementById("fileInput");
 	  var fileName = file.value;
 	  var idx = fileName.lastIndexOf(".");	  
 	  var ext = fileName.slice(idx + 1).toLowerCase();
 	  
-	if (photo === undefined) { // 파일이 첨부되지 않았으면
+		if (photo === undefined) { // 파일이 첨부되지 않았으면
 	    alert('반려견 사진을 첨부해 주세요!');
-	  } else if (ext != 'jpg' && ext != 'png') {
+	  }else if (ext != 'jpg' && ext != 'png') {
 		alert('사진만 첨부해 주세요.');
-	  } else if (petSize.val() == '') {
-	    alert('반려견 사이즈를 선택해 주세요!');
-	    petSize.focus();
-	  } else if (petName.val() == '') {
+	  }else if (petName.val() == '') {
 	    alert('반려견 이름을 입력해 주세요!');
 	    petName.focus();
-	  } else if (petAge.val() == '') {
+	  }else if (petAge.val() == '') {
 	    alert('반려견 나이를 입력해 주세요!');
 	    petAge.focus();
-	  } else if (petGender.val() == '') {
+	  }else if (petGender.val() == '') {
 	    alert('반려견 성별을 선택해 주세요!');
-	  } else if (petNeutered.val() == '') {
+	  }else if (petNeutered.val() == '') {
 	    alert('반려견 중성화여부를 선택해 주세요!');
-	  } else if (petIntroduce.val() == '') {
+	  }else if (petSize.val() == '') {
+	    alert('반려견 사이즈를 선택해 주세요!');
+	    petSize.focus();
+	  }else if (petIntroduce.val() == '') {
 	    alert('반려견 소개를 입력해 주세요!');
 	    petSize.focus();
-	  } else {
+	  }else {
 	    var formData = new FormData(); // FormData 객체 생성
 	    formData.append('photo', photo); // 파일 추가
 	    formData.append('petSize', petSize.val()); // 나머지 필드 추가
