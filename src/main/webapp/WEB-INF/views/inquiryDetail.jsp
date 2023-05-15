@@ -120,7 +120,7 @@
 	<c:forEach items="${inqreplist}" var="inqrep">
 		<div class="inqrep">
 			${inqrep.userID} / ${inqrep.commentWriteDate}
-			<c:if test="${Role eq 'admin'}">
+		<c:if test="${Role eq 'admin'}">
             <c:if test="${inqrep.userID eq sessionScope.userID}">
                 <input type="button" onclick='location.href="inqrepdel.do?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}"' value="삭제"/>
                 <input type="button" onclick='location.href="inqrepupdate.go?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}&commentDetail=${inqrep.commentDetail }"' value="수정"/>
@@ -131,16 +131,16 @@
 	</c:forEach>
 	
 	<c:if test="${Role eq 'admin'}">
-	<!-- 댓글 작성 -->
-    <form method="post" action="inquiryreplywrite.do">
-    <input type="hidden" name="boardNum" value="${inq.boardNum}">
-    
-	<div class="inquiry_reply">
-        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="${inqreply }">
-        <p id="inquiryreply_legnth">0/100</p>
-        <button type="submit">등록</button>
-	</div>  
-    </form>
+		<!-- 댓글 작성 -->
+	    <form method="post" action="inquiryreplywrite.do">
+	    <input type="hidden" name="boardNum" value="${inq.boardNum}">
+	    
+		<div class="inquiry_reply">
+	        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="${inqreply }">
+	        <p id="inquiryreply_legnth">0/100</p>
+	        <button type="submit">등록</button>
+		</div>  
+	    </form>
     </c:if>
 </body>
 <script>
