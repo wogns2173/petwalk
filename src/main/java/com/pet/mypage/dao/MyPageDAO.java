@@ -26,6 +26,8 @@ public interface MyPageDAO {
 	
 
 	
+
+	
 	
 	
 	

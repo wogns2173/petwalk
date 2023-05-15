@@ -18,7 +18,7 @@ console.log(Role);
 		content += '<button onclick="location.href=\'matefind/list\'">산책 메이트 찾기</button>';
 		content += '<button id = "board" onclick="location.href=\'board\'">커뮤니티</button>';
 /*		content += '<button id = "board" class="panel">미아견 게시판</button>';
-		content += '<button id = "board" class="panel">지식 공유 게시판</button>';
+		content += '<button id = "boa0rd" class="panel">지식 공유 게시판</button>';
 		content += '<button id = "board" class="panel">반려견 질문 게시판</button>';		
 		content += '<button id = "board" class="panel">반려견 갤러리 게시판</button>';*/
 		content +=	'<hr>';

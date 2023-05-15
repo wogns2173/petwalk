@@ -116,7 +116,7 @@
    		
    		<insert id="inqrepwrite">
    			INSERT INTO reply(userID,boardNum,commentDetail,commentBlindWhether)
-   			VALUES ('adminJH',#{param1},#{param2},0)
+   			VALUES (#{param3},#{param1},#{param2},0)
 		</insert>
 		
 		<delete id="inqrepdel">
@@ -137,9 +137,9 @@
 		keyProperty="boardNum"
 		
 		id="boardWrite" parameterType="com.pet.admin.dto.InquiryDTO">
-		INSERT INTO board(categoryCode,boardName,boardDetail,noticeWhether,
+		INSERT INTO board(userID,categoryCode,boardName,boardDetail,noticeWhether,
    		boardBlindWhether,boardbHit,inqProcess)
-   		VALUES(#{categoryCode},#{boardName},#{boardDetail},false,false,false,false)
+   		VALUES (#{userID},#{categoryCode},#{boardName},#{boardDetail},false,false,false,false)
 		</insert>
 	
 		<insert id="fileWrite" >

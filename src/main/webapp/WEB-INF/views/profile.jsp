@@ -6,21 +6,72 @@
 <head>
 <meta charset="UTF-8">
 <title>너나들이 프로필</title>
-<script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>  
+<script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="resources/css/common.css">  
 <style>
-		
+.board-item {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  .board-item img {
+    width: 117px;
+    height: 117px;
+    
+  }
+  .right-align{
+  	float: right;
+  }		
 </style>
 </head>
 <body>
-	<jsp:include page="loginBox.jsp"></jsp:include>
+<div class="main">
+		<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<hr>					
+				</div>															
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+
 	<c:if test="${pet.petSize == null}">
 	등록된 반려견 정보가 없습니다.
 	<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
 	</c:if>
 	
-	<c:if test="${pet.petSize != null }">
+	<c:if test="${pet.petSize != null}">
 	<h3>반려견 프로필</h3>
-		<table>
+		<table class="table">
 			<tr>
 				<th>사진</th>
 				<td>
@@ -84,11 +135,10 @@
 		
 		<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>
 		
-		<c:if test="${routeDraw == null}">
-		작성한 산책 경로가 없습니다.<br/>
-		<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>
+		<c:if test="${empty routeDraw}">
+		작성한 산책 경로가 없습니다.<br/>		
 		</c:if>
-		<c:if test="${routeDraw != null}">
+		<c:if test="${!empty routeDraw}">
 		<button onclick="location.href='routeshare/bring.go'">더 보기</button>		
 			<table class="table">
 				<colgroup>					
@@ -117,18 +167,29 @@
 		
 		<h3>즐겨찾기한 산책 경로</h3>
 		
-		<c:if test="${bookmark == null}">
+		<c:if test="${empty bookmark}">
 		즐겨찾기한 산책 경로가 없습니다.<br/>
 		<button onclick="location.href='routeshare/list'">산책 경로 공유 게시판 가기</button>
 		</c:if>
-		<c:if test="${bookmark != null}">
+		<c:if test="${!empty bookmark}">
 		<button>더 보기</button>
-		<table>
-			<tr>		
-		         <th colspan="2">
-		            
-		         </th>
-	      	</tr>		
+		<table  class="table">
+			<colgroup>					
+				<col width="70%">
+				<col width="30%">
+			</colgroup>
+			<tr>						
+				<td>제목</td>
+				<td>작성일자</td>
+			</tr>					
+				<c:forEach items="${bookmark}" var="bookmark" varStatus="loop">
+				<c:if test="${loop.index < 5}">
+			<tr>
+				<td>${bookmark.walkName}</td>
+				<td>${bookmark.walkDate}</td>						
+			</tr>				
+				</c:if>
+				</c:forEach>		
 		</table>
 		</c:if>
 		
@@ -141,7 +202,7 @@
 		</c:if>
 		<c:if test="${!empty review}">
 		<button>더 보기</button>
-		<table>
+		<table  class="table">
 			<tr>		
 		         <th colspan="2">
 		            
@@ -159,7 +220,7 @@
 		</c:if>
 		<c:if test="${!empty inquiry }">
 		<button>더 보기</button>
-			<table class="inquirytable">
+			<table class="table">
 				<colgroup>					
 					<col width="80%">
 					<col width="20%">
@@ -188,7 +249,7 @@
 		</c:if>
 		<c:if test="${!empty declaration}">
 		<button>더 보기</button>
-		<table>
+		<table class="table">
 			<tr>		
 				<th colspan="2">		            		                       
 					<button onclick="location.href='./'">돌아가기</button>
@@ -196,6 +257,7 @@
 	      	</tr>		
 		</table>
 		</c:if>	
+		</div>
 </body>
 <script>
 

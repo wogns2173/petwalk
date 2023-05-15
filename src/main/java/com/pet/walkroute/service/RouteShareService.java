@@ -76,5 +76,10 @@ public class RouteShareService {
 	public RouteShareDTO detail(int walkRouteNum) {
 		return dao.detail(walkRouteNum);
 	}
+
+
+	
+
+
 	
 }

@@ -82,7 +82,7 @@
 
 
 		</thead>
-		<tbody id = "memlist">
+		<tbody id = "memlist">			
 		<!-- 리스트가 출력될 영역 -->
 		</tbody>
 		<tr>
@@ -183,8 +183,8 @@ function listPrint(memlist){
 	console.log("listPrint Call");
 	var content ='';
 	
-	if(memlist && Array.isArray(memlist)){
-		memlist.forEach(function(item,memlist){
+	if (memlist && Array.isArray(memlist) && memlist.length > 0) {
+        memlist.forEach(function (item, memlist) {
 		
       content +='<tr>';
       content +='<td id="userName">'+item.userName+'</td>';
@@ -200,7 +200,13 @@ function listPrint(memlist){
       
       
   	 });
+    }else{
+    	
+    content += '<tr>';
+    content += '<td colspan="6" style="text-align: center;">검색한 정보가 없습니다.</td>';
+    content += '</tr>';
 	}
+	
    $('#memlist').empty();
    $('#memlist').append(content);
 }

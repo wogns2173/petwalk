@@ -15,7 +15,7 @@ public interface InquiryDAO {
 
 	InquiryDTO inqreplist(int boardNum, int replyNum, String commentDetail);
 
-	int inqrepwrite(int boardNum, String content);
+	int inqrepwrite(int boardNum, String content, String userID);
 
 	int inqrepdel(int replyNum);
 

@@ -94,4 +94,5 @@ public class RouteShareController {
 		model.addAttribute("list", dto);
 		return "routeShareDetail";
 	}
+	
 }

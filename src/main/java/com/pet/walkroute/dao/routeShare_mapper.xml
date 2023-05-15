@@ -44,4 +44,5 @@
 	<select id="detail" resultType="com.pet.walkroute.dto.RouteShareDTO">
 		SELECT * FROM routeboard where walkRouteNum = #{walkRouteNum}
 	</select>
+		
 </mapper>
