@@ -135,7 +135,6 @@
 		
 		<h3>작성한 산책 경로</h3>
 		<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>		
-		<button onclick="location.href='routeshare/bring.go'">더 보기</button>
 		
 		<table class="table">
 		<thead id="myroutehead">
@@ -167,7 +166,6 @@
 
 		<h3>즐겨찾기한 산책 경로</h3>
 		<button onclick="location.href='routeshare/list'">산책 경로 공유 게시판 가기</button>				
-		<button>더 보기</button>
 		
 		<table  class="table">
 		<thead id="mybookmarkhead">
@@ -201,7 +199,6 @@
 		
 		<h3>산책 후기</h3>
 		<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>				
-		<button>더 보기</button>
 		
 		<table  class="table">
 		<thead id="myreviewhead">
@@ -234,8 +231,7 @@
 		<hr>	
 		
 		<h3>문의 내역</h3>
-		<button onclick="location.href='inquirywrite.go'">문의 하기</button>				
-		<button onclick="location.href='inquiryListme.go'">더 보기</button>
+			<button onclick="location.href='inquirywrite.go'">문의 하기</button>				
 		
 		<table  class="table">
 		<thead id="myinquiryhead">
@@ -268,8 +264,7 @@
 		<hr>
 		
 		<h3>신고 내역</h3>
-				<button onclick="location.href='reportwrite.go'">신고 하기</button>				
-		<button onclick="location.href=''">더 보기</button>
+			<button onclick="location.href='reportwrite.go'">신고 하기</button>				
 		
 		<table  class="table">
 		<thead id="myreporthead">
@@ -358,19 +353,26 @@ function myroutlistCall(page){
 }
 
 function myroutlistPrint(list){
+	console.log(list);
 	var content='';
 	// java.sql.Date 는 js 에서 읽지 못해 밀리세컨드로 반환한다.
 	// 해결방법 1. DTO 에서 Date 를 String 으로 반환
 	// 해결방법 2. js 에서 변환
+	if (list.length > 0){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
 		content +='<td>'+item.walkName+'</td>';
 		content +='<td>'+item.walkDate+'</td>';		
 		content +='</tr>';
 	});
+	}else{
+		content = '<tr><td colspan="2">작성한 산책 경로가 없습니다.</td></tr>';
+	}
 	$('#myroutebody').empty();
 	$('#myroutebody').append(content);
+	
 }
+
 
 function mybookmarklistCall(page){
 	$.ajax({
@@ -409,10 +411,12 @@ function mybookmarklistCall(page){
 }
 
 function mybookmarkPrint(list){
+	console.log(list);
 	var content='';
 	// java.sql.Date 는 js 에서 읽지 못해 밀리세컨드로 반환한다.
 	// 해결방법 1. DTO 에서 Date 를 String 으로 반환
 	// 해결방법 2. js 에서 변환
+	if (list.length > 0){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
 		content +='<td>'+item.walkName+'</td>';
@@ -420,6 +424,9 @@ function mybookmarkPrint(list){
 		content +='<td>'+item.walkDate+'</td>';		
 		content +='</tr>';
 	});
+	}else{
+		content = '<tr><td colspan="2">즐겨찾기한 산책 경로가 없습니다.</td></tr>';
+	}
 	$('#mybookmarkbody').empty();
 	$('#mybookmarkbody').append(content);
 }
@@ -461,10 +468,12 @@ function myreviewlistCall(page){
 }
 
 function myreviewlistPrint(list){
+	console.log(list);
 	var content='';
 	// java.sql.Date 는 js 에서 읽지 못해 밀리세컨드로 반환한다.
 	// 해결방법 1. DTO 에서 Date 를 String 으로 반환
 	// 해결방법 2. js 에서 변환
+	if (list.length > 0){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
 		content +='<td>'+item.reviewName+'</td>';
@@ -472,6 +481,9 @@ function myreviewlistPrint(list){
 		content +='<td>'+item.reviewDate+'</td>';		
 		content +='</tr>';
 	});
+	}else{
+		content = '<tr><td colspan="2">작성된 산책 후기가 없습니다.</td></tr>';
+	}
 	$('#myreviewbody').empty();
 	$('#myreviewbody').append(content);
 }
@@ -513,17 +525,28 @@ function myinquirylistCall(page){
 }
 
 function myinquirylistPrint(list){
+	console.log(list);
 	var content='';
 	// java.sql.Date 는 js 에서 읽지 못해 밀리세컨드로 반환한다.
 	// 해결방법 1. DTO 에서 Date 를 String 으로 반환
 	// 해결방법 2. js 에서 변환
+	if (list.length > 0){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
 		content +='<td>'+item.boardName+'</td>';
 		content +='<td>'+item.boardWriteDate+'</td>';
-		content +='<td>'+item.inqProcess+'</td>';	
+		if(item.inqProcess == 1){
+		    content += '<td>처리완료</td>'
+		}else{
+		    content += '<td>미처리</td>'
+		}
 		content +='</tr>';
+		
+
 	});
+	}else{
+		content = '<tr><td colspan="2">문의 내역이 없습니다.</td></tr>';
+	}
 	$('#myinquirybody').empty();
 	$('#myinquirybody').append(content);
 }
@@ -565,10 +588,12 @@ function myreportlistCall(page){
 }
 
 function myreportlistPrint(list){
+	console.log(list);
 	var content='';
 	// java.sql.Date 는 js 에서 읽지 못해 밀리세컨드로 반환한다.
 	// 해결방법 1. DTO 에서 Date 를 String 으로 반환
 	// 해결방법 2. js 에서 변환
+	if (list.length > 0){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
 		content +='<td>'+item.reportName+'</td>';		
@@ -576,6 +601,9 @@ function myreportlistPrint(list){
 		content +='<td>'+item.repProcess+'</td>';	
 		content +='</tr>';
 	});
+	}else{
+		content = '<tr><td colspan="2">신고 내역이 없습니다.</td></tr>';
+	}
 	$('#myreportbody').empty();
 	$('#myreportbody').append(content);
 }

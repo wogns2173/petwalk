@@ -2,7 +2,9 @@ package com.pet.mypage.dao;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.pet.admin.dto.InquiryDTO;
 import com.pet.board.dto.BoardDTO;
 import com.pet.mypage.dto.MyPageDTO;
 
@@ -37,6 +39,30 @@ public interface MyPageDAO {
 	ArrayList<MyPageDTO> myinquiryList(String userID);
 
 	ArrayList<MyPageDTO> findrouteShareList(String userID);
+
+	int metotalCount(HashMap<String, Object> params, String categoryCode, Object storedValue, String userID);
+
+	int metotalCountprocess(HashMap<String, Object> params, Object storedValue, String categoryCode, String userID);
+
+	int metotalCountinquiry(HashMap<String, Object> params, String categoryCode, String userID);
+
+	int metotalCountAll(HashMap<String, Object> params, String categoryCode, Object storedValue, String userID);
+
+	ArrayList<InquiryDTO> meinquirylist(HashMap<String, Object> map, int cnt, int offset, String categoryCode,
+			Object storedValue, String userID);
+
+	ArrayList<InquiryDTO> melistinquiry(HashMap<String, Object> params, String categoryCode, int cnt, int offset,
+			String userID);
+
+	ArrayList<InquiryDTO> melistinqAll(HashMap<String, Object> params, String categoryCode, Object storedValue, int cnt,
+			int offset, String userID);
+
+	ArrayList<InquiryDTO> melistinqprocess(HashMap<String, Object> params, Object storedValue, int cnt, int offset,
+			String categoryCode, String userID);
+
+	
+
+	
 
 	
 

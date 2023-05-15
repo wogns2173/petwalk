@@ -74,13 +74,13 @@
 			<tr>
 				<th>이름</th>
 				<td>
-					<input type="text" id="petName" />					
+					<input type="text" id="petName"/>					
 				</td>				
 			</tr>
 			<tr>
 				<th>나이</th> 
 				<td>
-					<input type="number" id="petAge" />										
+					<input type="number" id="petAge"/>										
 				</td>
 			</tr>
 			<tr>					
@@ -111,7 +111,7 @@
 			<tr>					
 				<th>반려견 소개</th>
 				<td>					
-					<textarea id="petIntroduce"></textarea>
+					<textarea id="petIntroduce" placeholder="반려견에 대한 소개를 입력 해주세요."></textarea>
 				</td>				
 			</tr>		
 			<tr>		

@@ -29,7 +29,7 @@
 </head>
 <body>
 
-<h3 id="title">내 문의 리스트 </h3>
+<h3 id="title">문의 리스트 </h3>
 
 	<!-- 문의 필터링  -->
 	<select id="categoryCode">

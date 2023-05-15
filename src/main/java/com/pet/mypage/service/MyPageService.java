@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pet.admin.dto.InquiryDTO;
 import com.pet.board.dao.BoardDAO;
 import com.pet.board.dto.BoardDTO;
 import com.pet.mypage.dao.MyPageDAO;
@@ -256,6 +257,38 @@ public class MyPageService {
 		map.put("mybookmarklistCall", mybookmarklistCall);
 		return map;
 	}
+	
+/*	public HashMap<String, Object> myreviewlistCall(int page, int cnt, HttpSession session) {
+
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//1page = offset : 0
+		//2page = offset : 5
+		//3page = offset : 10
+		int offset = (page-1)*cnt;
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		
+		String userID =  (String) session.getAttribute("userID");
+		int total = dao.mybookmarktotalCount(userID);
+		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
+		logger.info("전체 게시물  수 : "+total);
+		logger.info("총 페이지 수 : "+range);
+		
+		page = page > range ? range : page;
+		map.put("mybookmarkcurrPage", page);
+		map.put("mybookmarkpages", range);
+		
+		ArrayList<BoardDTO> mybookmarklistCall = dao.mybookmarklistCall(cnt, offset, userID);
+		map.put("mybookmarklistCall", mybookmarklistCall);
+		return map;
+	}
+	*/
+	
 	public HashMap<String, Object> myinquirylistCall(int page, int cnt, HttpSession session) {
 		
 		logger.info(page+"페이지 보여줘");
@@ -314,7 +347,7 @@ public class MyPageService {
 		ArrayList<BoardDTO> myreportlistCall = dao.myreportlistCall(cnt, offset, userID);
 		map.put("myreportlistCall", myreportlistCall);
 		
-		return null;
+		return map;
 	}
 	
 	public ArrayList<MyPageDTO> myinquiryList(String userID) {
@@ -330,6 +363,116 @@ public class MyPageService {
 		
 		return findrouteShareList;
 	}
+	public HashMap<String, Object> inqlistme(HashMap<String, Object> params, HttpSession session) {
+
+		logger.info("params :"+params);
+		String userID = (String) session.getAttribute("userID");
+		int page = Integer.parseInt(String.valueOf(params.get("page")));
+	      
+		String categoryCode = String.valueOf(params.get("categoryCode"));
+      
+		int cnt = Integer.parseInt(String.valueOf(params.get("cnt")));
+		
+		String inqProcess = String.valueOf(params.get("inqProcess"));
+		Object storedValue;
+
+		if (inqProcess.equals("default")) {
+		    storedValue = inqProcess; // "default"를 문자열로 저장합니다.
+		} else {
+		    storedValue = inqProcess.equals("true") ? 1 : 0; // "true"일 때는 1로, "false"일 때는 0으로 저장합니다.
+		}
+		
+		logger.info("storedValue :"+storedValue);
+		
+		
+		logger.info("categoryCode :"+categoryCode+"/"+"storedValue :"+storedValue);
+		logger.info(page + "페이지를 선택된 문의 방식이 " +categoryCode+" 때만 보여준다.");
+		logger.info("한 페이지에 " + cnt +" 개씩 보여줄 것 ");
+      
+		HashMap<String, Object> map = new HashMap<String, Object>();
+	      
+	      // 1페이지  offset 0
+	      // 2페이지 offset 5
+	      // 3 페이지 offset 10
+	    int offset = cnt * (page-1);
+	      
+	    logger.info("offset : " + offset);
+	      
+	    // 만들 수 있는 총 페이지 수 : 전체 게시글의 수 / 페이지당 보여줄 수 있는 수
+	    int total = 0;
+
+	    if (categoryCode.equals("default")) {
+	        if (inqProcess.equals("default")) {
+	            total = dao.metotalCount(params, categoryCode,storedValue, userID);
+	            logger.info("전체 문의 리스트 / totalCount");
+	        } else {
+	            total = dao.metotalCountprocess(params, storedValue, categoryCode, userID);
+	            logger.info("처리 여부 리스트 / totalCountprocess" + storedValue);
+	        }
+	    } else {
+	        if (inqProcess.equals("default")) {
+	            total = dao.metotalCountinquiry(params, categoryCode,userID);
+	            logger.info("선택한 문의 리스트 / totalCountinquiry" + categoryCode);
+	        } else {
+	            total = dao.metotalCountAll(params, categoryCode, storedValue, userID);
+	            logger.info("선택한 문의, 처리여부 리스트 / totalCountAll" + categoryCode + storedValue,userID);
+	        }
+	    }
+
+      
+      int range = total%cnt  == 0 ? total/cnt : (total/cnt)+1;
+      
+      logger.info("총게시글 수 : "+ total);
+      logger.info("총 페이지 수 : "+ range);
+      
+      page = page>range ? range:page;
+      
+      map.put("currPage", page);
+      map.put("pages", range);
+      
+      ArrayList<InquiryDTO> inqlist = null;
+           
+      params.put("offset", offset);
+      
+      // if(categoryCode.equals("default")){
+      //  && (inqProcess.equals(Boolean.valueOf("default")))
+		/*
+		 * if(categoryCode.equals("default") && (inqProcess.equals("default"))){ inqlist
+		 * = inqdao.inquirylist(map, cnt, offset, categoryCode);
+		 * logger.info("전체 문의 리스트 / inquirylist"); }else
+		 * if(!(categoryCode.equals("default") && (inqProcess.equals("default")))) {
+		 * inqlist = inqdao.listinquiry(params, categoryCode, cnt, offset);
+		 * logger.info("선택한 문의 리스트 / listinquiry"+categoryCode); }else
+		 * if(categoryCode.equals("default") && !(inqProcess.equals("default"))) {
+		 * inqlist = inqdao.listinqprocess(params, storedValue, cnt, offset,
+		 * categoryCode); logger.info("처리 여부 리스트 / listinqprocess"+storedValue); }else {
+		 * inqlist = inqdao.listinqAll(params, categoryCode, storedValue, cnt, offset);
+		 * logger.info("선택한 문의, 처리여부 리스트 / listinqAll"+categoryCode+storedValue); }
+		 */
+      if (categoryCode.equals("default")) {
+    	    if (inqProcess.equals("default")) {
+    	    	inqlist = dao.meinquirylist(map, cnt, offset, categoryCode,storedValue,userID);
+    	        logger.info("전체 문의 리스트 / inquirylist");
+    	    } else {
+    	    	inqlist = dao.melistinqprocess(params, storedValue, cnt, offset,categoryCode,userID);
+    	        logger.info("처리 여부 리스트 / listinqprocess" + storedValue);
+    	    }
+    	} else {
+    	    if (inqProcess.equals("default")) {
+    	    	inqlist = dao.melistinquiry(params, categoryCode, cnt, offset,userID);
+    	        logger.info("선택한 문의 리스트 / listinquiry" + categoryCode);
+    	    } else {
+    	    	inqlist = dao.melistinqAll(params, categoryCode, storedValue, cnt, offset,userID);
+    	        logger.info("선택한 문의, 처리여부 리스트 / listinqAll" + categoryCode + storedValue);
+    	    }
+    	}
+
+         
+         map.put("inqlist", inqlist);
+         logger.info("inqlist :"+inqlist);
+         return map;
+	}
+	
 
 
 

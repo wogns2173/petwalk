@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>너나들이 프로필</title>
+<title>너나들이 회원정보 수정</title>
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -102,7 +102,7 @@
 			<tr>
 				<th>나이</th>
 				<td>
-					<input type="text" id="userAge" value="${member.userAge}"/>
+					<input type="number" id="userAge" value="${member.userAge}"/>
 					<button id="updateuserAge">수정</button>
 					<span id="userAgemsg"></span> 
 				</td>
@@ -110,7 +110,7 @@
 			<tr>
 				<th>생년월일</th>					
 				<td>					
-					<input type="number" id="year" value="${year}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
+					<input type="number" id="year" min="1900" max="2023" value="${year}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
 					<select id="month">
 						<option value="01"<c:if test="${month eq '1' }">selected</c:if>>1</option>
 						<option value="02"<c:if test="${month eq '2' }">selected</c:if>>2</option>
@@ -125,7 +125,7 @@
 						<option value="11"<c:if test="${month eq '11' }">selected</c:if>>11</option>
 						<option value="12"<c:if test="${month eq '12' }">selected</c:if>>12</option>											
 					</select>
-					<input type="number" id="day" value="${day}"oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" />
+					<input type="number" id="day" min="1" max="31" value="${day}"oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" />
 					
 					<button id="updateuserBirthdate">수정</button>
 					<span id="userBirthdatemsg"></span>
@@ -439,15 +439,25 @@ $('#updateuserAge').on('click', function(e){
 $('#updateuserBirthdate').on('click', function(e){
 	console.log('생년월일 변경 요청');
 	
-	var year = $('#year').val();
-	var month = $('#month').val();
-	var day = $('#day').val();
-	var userBirthdate = year+month+day;
+	var year = $('#year');
+	var month = $('#month');
+	var day = $('#day');
+	var userBirthdate = year.val()+month.val()+day.val();
 	
-	if(year.length <= 3){	        	  
+	console.log(year);
+	console.log(month);
+	console.log(day);
+	
+	if(year.val().toString().length <= 3){	        	  
   	  $('#userBirthdatemsg').css({'font-size': '10px','color': 'red'});
-  		$('#userBirthdatemsg').html('생년월일 중 년도 4자리를 입력해 주세요.');
-    }else if(day.toString().length<=1){
+  		$('#userBirthdatemsg').html('태어난 년도 4자리를 입력해 주세요.');
+    }else if(year.val() <= 1900  || year.val() > 2023){
+		alert('태어난 년도를 4자리를 정확히 입력해 주세요!');
+		year.focus();
+	}else if(day.toString().length<=1 || day <=0 || day >31){
+		alert('태어난 일(날짜) 을 2자리 정확히 입력해 주세요!\r\n ex)01 or 02');
+		day.focus();
+	}else if(day.val().toString().length<=1){
   	  $('#userBirthdatemsg').css({'font-size': '10px','color': 'red'});
   		$('#userBirthdatemsg').html('생년월일 중 날짜를 2자리 입력해 주세요!\r\n ex)01 or 02');
     }else{

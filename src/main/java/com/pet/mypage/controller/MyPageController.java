@@ -118,22 +118,6 @@ public class MyPageController {
 	      return page;      
 	   }
 	
-	@RequestMapping(value="/inquiryListme.go")
-	   public String inquirylistme(HttpSession session, Model model) {
-		   		
-		String page = "redirect:/";	
-		
-		 if(session.getAttribute("userID") != null) {
-			 
-			 String userID = (String) session.getAttribute("userID");
-			 
-			 ArrayList<MyPageDTO> inquiryListme = service.myinquiryList(userID);
-			 model.addAttribute("inquiryListme", inquiryListme);
-			 page= "inquiryListme";
-		 }
-	      return page;      
-	   }
-	
 	@RequestMapping(value="/myroutlistCall.ajax", method= RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object>myroutlistCall(
@@ -155,6 +139,18 @@ public class MyPageController {
 		
 		return service.mybookmarklistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
 	}
+	/*
+	@RequestMapping(value="/myreviewlistCall.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>myreviewlistCall(
+			HttpSession session,
+			@RequestParam String page,
+			@RequestParam String cnt){
+		logger.info("옴?");
+		
+		return service.myreviewlistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
+	}
+	*/
 	
 	@RequestMapping(value="/myinquirylistCall.ajax", method= RequestMethod.POST)
 	@ResponseBody
@@ -176,6 +172,14 @@ public class MyPageController {
 		logger.info("옴?");
 		
 		return service.myreportlistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
+	}
+	
+	@RequestMapping(value="/inqlistme.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>inqlistme(HttpSession session, @RequestParam HashMap<String,Object> params){
+		logger.info("옴?");
+		
+		return service.inqlistme(params,session);
 	}
 	
 }

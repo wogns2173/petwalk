@@ -69,14 +69,89 @@
 	</select>
 	
 	<select id="myreporttotalCount" resultType="int">		
-		SELECT COUNT(boardNum) FROM report WHERE userID = #{param3} 		
+		SELECT COUNT(repReplyNum) FROM report WHERE userID = #{param3} 		
 	</select>
 	
 	<select id="myreportlistCall" resultType="com.pet.mypage.dto.MyPageDTO">		
 		SELECT * FROM report WHERE userID = #{parma1} 
 		ORDER BY reportDate DESC LIMIT #{param1} OFFSET #{param2}
 	</select>
-
+	
+	<select id="metotalCount" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(boardNum) FROM board 
+		WHERE
+			<choose>
+				<when test="param2 == 'default' ">
+					categoryCode IN ('B_06','B_07','B_08','B_09','B_10','B_11')
+				</when>	
+				<otherwise>
+                categoryCode = #{param5} AND inqProcess = #{param3} AND userID = #{param4}
+                </otherwise>
+			</choose>
+		</select>
+		
+	<select id="metotalCountprocess" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(boardNum) FROM board 
+		WHERE
+				<choose>
+				<when test="param3 == 'default' ">
+					categoryCode IN ('B_06','B_07','B_08','B_09','B_10','B_11')
+				</when>	
+				</choose>
+		AND inqProcess = #{param2} AND userID = #{param4}
+	</select>
+		
+	<select id="metotalCountinquiry" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(boardNum) FROM board WHERE categoryCode = #{param2} AND userID = #{param3}
+	</select>
+	
+	<select id="metotalCountAll" parameterType="HashMap" resultType="java.lang.Integer">
+		SELECT COUNT(boardNum) FROM board WHERE categoryCode = #{param2} AND inqProcess = #{param3} AND userID = #{param4}
+	</select>	
+	
+	<!-- 아작스는 * 쓰면 안됨 -->
+	<select id="meinquirylist" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
+		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether, boardBlindWhether, inqProcess 
+		FROM board 
+		WHERE
+			<choose>
+				<when test="param4 == 'default' ">
+					categoryCode IN ('B_06','B_07','B_08','B_09','B_10','B_11')
+				</when>	
+				<otherwise>
+	               categoryCode = #{param4} AND inqProcess = #{param3} AND userID = #{param6}
+	               </otherwise>
+			</choose>
+		ORDER BY boardNum DESC
+		LIMIT #{param2} OFFSET #{param3} 
+	</select>
+	
+	<select id="melistinquiry" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
+		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether,boardBlindWhether,inqProcess 
+		FROM board WHERE categoryCode = #{param2} AND userID = #{param5} ORDER BY boardNum DESC
+		LIMIT #{param3} OFFSET #{param4}
+	</select>
+	
+	<select id="melistinqAll" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
+		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether,boardBlindWhether,inqProcess 
+		FROM board WHERE categoryCode = #{param2} AND inqProcess = #{param3, jdbcType=BOOLEAN} AND userID = #{param6} ORDER BY boardNum DESC
+		LIMIT #{param4} OFFSET #{param5}
+	</select>
+	
+	<select id="melistinqprocess" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
+		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether,boardBlindWhether,inqProcess 
+		FROM board 
+		WHERE
+		<choose>
+				<when test="param5 == 'default' ">
+					categoryCode IN ('B_06','B_07','B_08','B_09','B_10','B_11')
+				</when>	
+				</choose>
+		AND inqProcess = #{param2} AND userID = #{param6}ORDER BY boardNum DESC
+		LIMIT #{param3} OFFSET #{param4}
+	</select>
+	
+	
 	
 
    

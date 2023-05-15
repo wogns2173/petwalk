@@ -20,8 +20,10 @@ public class MyPageDTO {
 	private String boardNum;
 	private String boardName;
 	private String boardWriteDate;
+	private String categoryCode;
 	private String inqProcess;
-	
+	private String boardbHit;
+		
 	private String walkRouteNum;	
 	private String walkRouteName;
 	private String walkRoutebHit;
@@ -184,6 +186,18 @@ public class MyPageDTO {
 	}
 	public void setWalkRouteWriteDate(String walkRouteWriteDate) {
 		this.walkRouteWriteDate = walkRouteWriteDate;
+	}
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+	public String getBoardbHit() {
+		return boardbHit;
+	}
+	public void setBoardbHit(String boardbHit) {
+		this.boardbHit = boardbHit;
 	}
 	
 	
