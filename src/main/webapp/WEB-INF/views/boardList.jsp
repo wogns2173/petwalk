@@ -14,7 +14,7 @@
     display: inline-block;
     vertical-align: top;
     text-align: center;
-    margin-right: 10px;
+    margin-right: 18px;
     margin-bottom: 10px;
   }
   .board-item img {
@@ -25,6 +25,14 @@
   .right-align{
   	float: right;
   }
+  #title{
+		 	color:#87d1bf;
+		 }
+	.hit {
+	  float: right;
+	  font-size: 14px;
+	  color: #555;
+}
   
 </style>
 </head>
@@ -64,7 +72,7 @@
 		<br/>
 		<br/>
 		<br/>
-		<h3>반려견 갤러리</h3>
+		<h3 id="title">&nbsp &nbsp반려견 갤러리</h3>
 		<a href="boardList.go?categoryCode=B_01" class="right-align">더보기></a>
 		<br>
 		<br>
@@ -80,19 +88,19 @@
 			</c:if>
 		</c:forEach>
 		<hr>
-		<h3>반려견 지식 공유 게시판</h3>
-		<a href="boardList.go?categoryCode=B_02" class="right-align">더보기></a>
+		<p><h3 id="title">&nbsp &nbsp반려견 지식 공유 게시판</h3>
+		<a href="boardList.go?categoryCode=B_02" class="right-align">더보기></a></p>
 		</br>
 		</br>
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_02'}">
 				<ul>
-					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount}]</a> 조회수: ${bbs.boardbHit }</li>
+					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount}]</a><span class="hit">조회 ${bbs.boardbHit }</span></li>
 				</ul>
 			</c:if>
 		</c:forEach>
 		<hr>
-		<h3>반려견 질문 게시판</h3>
+		<h3 id="title">&nbsp &nbsp반려견 질문 게시판</h3>
 		<input type="hidden" name="categoryCode" value="B_03"/>
 		<a href="boardList.go?categoryCode=B_03" class="right-align">더보기></a>
 		</br>
@@ -100,12 +108,12 @@
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_03'}">
 				<ul>
-					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount }]</a> 조회수: ${bbs.boardbHit }</li>
+					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount }]</a> <span class="hit">조회 ${bbs.boardbHit }</span></li>
 				</ul>
 			</c:if>
 		</c:forEach>
 		<hr>
-		<h3>미아견 게시판</h3>
+		<h3 id="title">&nbsp &nbsp미아견 게시판</h3>
 		<input type="hidden" name="categoryCode" value="B_04"/>
 		<a href="boardList.go?categoryCode=B_04" class="right-align">더보기></a>
 		</br>
@@ -114,7 +122,7 @@
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_04'}">
 				<ul>
-					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount }]</a> 조회수: ${bbs.boardbHit }</li>
+					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}">${bbs.boardName} [${bbs.replyCount }]</a><span class="hit">조회 ${bbs.boardbHit }</span></li>
 				</ul>
 			</c:if>
 		</c:forEach>
