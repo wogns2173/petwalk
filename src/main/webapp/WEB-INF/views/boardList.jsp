@@ -66,17 +66,10 @@
 		<br/>
 		<h3>반려견 갤러리</h3>
 		<a href="boardList.go?categoryCode=B_01" class="right-align">더보기></a>
-<<<<<<< HEAD
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-=======
 		<br>
 		<br>
 		<br>
 		<br>
->>>>>>> origin/master
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_01'}">
 				<div class="board-item">
@@ -128,7 +121,6 @@
 	</div>
 </body>
 <script>
-</script>
 
 </script>
 </html>

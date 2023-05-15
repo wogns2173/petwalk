@@ -9,7 +9,6 @@
 <style></style>
 </head>
 <body>
-	<jsp:include page="loginBox.jsp"/>
 	<form method="post" action="boardWrite.do"  enctype="multipart/form-data" onsubmit="return checkPhoto()">
 	<input type="hidden" name="userID" value="${userID}"/>
 	<div>
@@ -19,14 +18,13 @@
             <option value="B_03">반려견 질문 게시판</option>
             <option value="B_04">미아견 게시판</option>
         </select>
-    </div>
-    <div>
         <label for="boardName">제목:</label>
-        <input type="text" name="boardName" id="boardName">
+        <input type="text" name="boardName" id="boardName" >
     </div>
+    <hr/>
     <div>
-        <label for="boardDetail">Content:</label>
-        <textarea name="boardDetail" id="boardDetail"></textarea>
+        <label for="boardDetail"></label>
+        <textarea name="boardDetail" id="boardDetail" style="width : 619px; height: 342px;"></textarea>
     </div>
     <div>
     	첨부파일

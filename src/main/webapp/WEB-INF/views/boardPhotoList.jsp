@@ -9,6 +9,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="resources/css/common.css">
 <style>
 	.gallery-wrap {
 		max-width: 1200px; 
@@ -60,6 +61,41 @@
 </style>
 </head>
 <body>
+	<div class="main">
+				<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 	<h1>반려견 갤러리</h1>
    <div id = "boardSearchForm">
 	<select id="boardSearch">
