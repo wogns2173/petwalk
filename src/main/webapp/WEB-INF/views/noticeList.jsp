@@ -207,6 +207,3 @@ function toggleBlind(checkbox, boardNum) {
 }
 </script>
 </html>
-
-</script>
-</html>
