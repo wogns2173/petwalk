@@ -90,14 +90,17 @@ public class NoticeService {
 		return notdao.noticeDetail(boardNum);
 	}
 
-	public String noticeWrite(MultipartFile photo, HashMap<String, String> params) {
+	public String noticeWrite(MultipartFile photo, HashMap<String, String> params, String userID) {
+		
 		String page = "redirect:/noticelist.go";
 
 		//1. 게시글만 작성
 		NoticeDTO noticedto = new NoticeDTO();		
-	
+		logger.info("userID :"+userID);
+		
 		noticedto.setBoardName(params.get("boardName"));
 		noticedto.setBoardDetail(params.get("boardDetail"));
+		noticedto.setUserID(userID);
 		
 		String categoryCode = "B_05";
 		
@@ -137,10 +140,11 @@ public class NoticeService {
 		
 	}
 
-	public int noticereplywrite(int boardNum, String content) {
+	public int noticereplywrite(int boardNum, String content, String userID) {
 		logger.info("Notice Reply Write Service");
+		logger.info("userID :"+userID);
 
-		return notdao.noticerepwrite(boardNum, content);
+		return notdao.noticerepwrite(boardNum, content, userID);
 	}
 
 	public ArrayList<NoticeDTO> noticereplist2(int boardNum) {
@@ -156,6 +160,7 @@ public class NoticeService {
 
 	public NoticeDTO noticereplist(int boardNum, int replyNum, String commentDetail) {
 		logger.info("Notice Reply List Service");
+		
 		return notdao.noticereplist(boardNum, replyNum, commentDetail);
 	}
 
@@ -169,6 +174,11 @@ public class NoticeService {
 		
 		return "redirect:/noticedetail.do?boardNum="+params.get("boardNum");	
 		
+	}
+
+	public int noticeBlindUpdate(int boardNum, int blind) {
+		logger.info("Notice Process Update Service");
+		return notdao.noticeBlindUpdate(boardNum, blind);
 	}
 
 

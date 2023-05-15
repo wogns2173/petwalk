@@ -23,7 +23,7 @@ public interface NoticeDAO {
 
 	void upHit(int boardNum);
 
-	int noticerepwrite(int boardNum, String content);
+	int noticerepwrite(int boardNum, String content, String userID);
 
 	ArrayList<NoticeDTO> noticereplist2(int boardNum);
 
@@ -32,5 +32,7 @@ public interface NoticeDAO {
 	NoticeDTO noticereplist(int boardNum, int replyNum, String commentDetail);
 
 	int noticerepupdate(HashMap<String, String> params);
+
+	int noticeBlindUpdate(int boardNum, int blind);
 
 }

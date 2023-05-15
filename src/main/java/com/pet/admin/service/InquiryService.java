@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +48,11 @@ public class InquiryService {
 		return inqdao.inqreplist(boardNum, replyNum, commentDetail);
 	}
 
-	public int inqreplywrite(int boardNum, String content) {
+	public int inqreplywrite(int boardNum, String content, String userID) {
 		logger.info("Inquiry Reply Write Service");
+		logger.info("userID :"+userID);
 
-		return inqdao.inqrepwrite(boardNum, content);
+		return inqdao.inqrepwrite(boardNum, content, userID);
 	}
 
 	public int inqrepdel(int replyNum) {
@@ -74,18 +77,20 @@ public class InquiryService {
 		return inqdao.inqreplist2(boardNum);
 	}
 
-	public String boardWrite(MultipartFile photo, HashMap<String, String> params) {
-		String page = "redirect:/inquirylist.go";
-
+	public String boardWrite(MultipartFile photo, HashMap<String, String> params, String userID) {
+		
+		String page = "redirect:/profile.go";	
+			
 		//1. 게시글만 작성
 		InquiryDTO inqdto = new InquiryDTO();
-		
-		
+		logger.info("userID :"+userID);
+
 		inqdto.setCategoryCode(params.get("categoryCode"));
 		inqdto.setBoardName(params.get("boardName"));
 		inqdto.setBoardDetail(params.get("boardDetail"));
+		inqdto.setUserID(userID);
 		
-		logger.info(inqdto.getBoardDetail() + "/" + inqdto.getCategoryCode() + "/" + inqdto.getBoardName());
+		logger.info(inqdto.getUserID()+"/"+inqdto.getBoardDetail() + "/" + inqdto.getCategoryCode() + "/" + inqdto.getBoardName());
 		int row = inqdao.boardWrite(inqdto);
 		logger.info("writeupdate row:"+row);
 		int boardNum = inqdto.getBoardNum();
