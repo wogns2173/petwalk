@@ -64,6 +64,9 @@
 		<br/>
 		<br/>
 <h3>비밀번호 찾기</h3>
+<div>비밀번호가 생각나지 않으세요?</div>
+<div>회원정보에 등록하신 이메일 주소로 임시 비밀번호를 발송해 드립니다.</div>
+<div>아래 입력하신 이름과 아이디, 이메일 정보는 회원정보에 정보와 반드시 같아야 합니다.</div>
 		<table>
 			<tr>
 				<th>이름</th>
@@ -85,8 +88,8 @@
 			</tr>
 			<tr>
          		<th colspan="2">
-            		<button onclick="findmemberpw()">비밀번호 찾기</button>
-            		<button onclick="location.href='login.go'">돌아가기</button>
+            		<button onclick="findmemberpw()">확인</button>
+            		<button onclick="location.href='login.go'">취소</button>
          		</th>
       		</tr>
 		</table>

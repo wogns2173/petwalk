@@ -88,6 +88,7 @@ public class MyPageService {
 			logger.info(serPhotoname+" save OK");
 			bdao.fileWrite("P_1", oriPhotoname, serPhotoname, profileID);
 			logger.info("사진 저장 완료");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -114,6 +115,8 @@ public class MyPageService {
 	
 	public HashMap<String, Object> petprofileUpdate(HashMap<String, String> params, MultipartFile photo,
 			HttpSession session) {
+		
+		logger.info("내가 작성한 반려견 프로필");
 		
 		String userID = (String) session.getAttribute("userID");
 		HashMap<String, Object> map = new HashMap<>();
@@ -173,14 +176,16 @@ public class MyPageService {
 	
 		return findrouteDrawList;
 	}
-	public ArrayList<MyPageDTO> myinquiryList(String userID) {
- 
-		logger.info("내가 문의한 글 리스트");
+	
+	public ArrayList<MyPageDTO> mybookmark(String userID) {
 		
-		ArrayList<MyPageDTO> myinquiryList = dao.myinquiryList(userID);
+		logger.info("내가 즐겨찾기한 산책 경로 리스트");
 		
-		return myinquiryList;
+		ArrayList<MyPageDTO> bookmark = dao.mybookmark(userID);
+		
+		return bookmark;
 	}
+	
 	public ArrayList<MyPageDTO> findrouteShareList(String userID) {
 
 		logger.info("산책경로 공유글 리스트");
@@ -189,6 +194,57 @@ public class MyPageService {
 		
 		return findrouteShareList;
 	}
+	
+	public ArrayList<MyPageDTO> myinquiryList(String userID) {
+		 
+		logger.info("내가 문의한 글 리스트");
+		
+		ArrayList<MyPageDTO> myinquiryList = dao.myinquiryList(userID);
+		
+		return myinquiryList;
+	}
+	
+	public ArrayList<MyPageDTO> report(String userID) {
+		
+		logger.info("내가 신고한 글 리스트");
+		
+		ArrayList<MyPageDTO> report = dao.report(userID);
+		
+		return report;
+	}
+	public HashMap<String, Object> petphoto(MultipartFile photo, HttpSession session) {
+
+		logger.info("파일 업로드 중");
+		
+		HashMap<String, Object> map = new HashMap<>();
+				
+		if(photo != null && !photo.getOriginalFilename().equals("")) {
+	
+			String oriPhotoname = photo.getOriginalFilename();
+			String ext = oriPhotoname.substring(oriPhotoname.lastIndexOf("."));
+			String serPhotoname = System.currentTimeMillis()+ext;
+			logger.info(oriPhotoname+"->"+serPhotoname);
+			
+			try {
+				byte[] bytes = photo.getBytes();
+				Path path = Paths.get("C:/img/petwork/"+serPhotoname);
+				Files.write(path, bytes);
+				logger.info(serPhotoname+" save OK");
+				bdao.fileWrite("P_1", oriPhotoname, serPhotoname, 10);
+				logger.info("사진 저장 완료");
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			logger.info("파일 업로드 완?료");
+			map.put("success", 1);
+		}
+		
+		return map;
+	}
+
+
 
 
 

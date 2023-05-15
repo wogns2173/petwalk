@@ -19,9 +19,15 @@ public interface MyPageDAO {
 
 	ArrayList<MyPageDTO> findrouteDrawList(String userID);
 
+	ArrayList<MyPageDTO> mybookmark(String userID);
+	
 	ArrayList<MyPageDTO> myinquiryList(String userID);
 
 	ArrayList<MyPageDTO> findrouteShareList(String userID);
+
+	ArrayList<MyPageDTO> report(String userID);
+
+	
 
 	
 

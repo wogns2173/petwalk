@@ -64,12 +64,12 @@
 		<br/>
 		<br/>
 
-	<c:if test="${pet.petSize == null}">
+	<c:if test="${empty pet}">
 	등록된 반려견 정보가 없습니다.
 	<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
 	</c:if>
 	
-	<c:if test="${pet.petSize != null}">
+	<c:if test="${not empty pet}">
 	<h3>반려견 프로필</h3>
 		<table class="table">
 			<tr>
@@ -77,13 +77,7 @@
 				<td>
 					<img width="100" src="/photo/${pet.serPhotoname}"/>					
 				</td>				
-			</tr>			
-			<tr>
-				<th>견종 사이즈</th>
-				<td>
-					${pet.petSize}										
-				</td>				
-			</tr>				
+			</tr>	
 			<tr>
 				<th>이름</th>
 				<td>
@@ -113,7 +107,13 @@
 <!-- 				<input type="radio" name="petNeutered" value="1"<c:if test="${pet.petNeutered eq '1' }">checked</c:if>/>O &nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="petNeutered" value="0"<c:if test="${pet.petNeutered eq '0' }">checked</c:if>/>X -->
 				</td>				
-			</tr>
+			</tr>		
+			<tr>
+				<th>견종 사이즈</th>
+				<td>
+					${pet.petSize}										
+				</td>				
+			</tr>							
 			<tr>					
 				<th>반려견 소개</th>
 				<td>
@@ -138,7 +138,7 @@
 		<c:if test="${empty routeDraw}">
 		작성한 산책 경로가 없습니다.<br/>		
 		</c:if>
-		<c:if test="${!empty routeDraw}">
+		<c:if test="${not empty routeDraw}">
 		<button onclick="location.href='routeshare/bring.go'">더 보기</button>		
 			<table class="table">
 				<colgroup>					
@@ -171,13 +171,14 @@
 		즐겨찾기한 산책 경로가 없습니다.<br/>
 		<button onclick="location.href='routeshare/list'">산책 경로 공유 게시판 가기</button>
 		</c:if>
-		<c:if test="${!empty bookmark}">
+		<c:if test="${not empty bookmark}">
 		<button>더 보기</button>
 		<table  class="table">
 			<colgroup>					
 				<col width="70%">
 				<col width="30%">
 			</colgroup>
+			<tbody id="tbody">
 			<tr>						
 				<td>제목</td>
 				<td>작성일자</td>
@@ -189,7 +190,8 @@
 				<td>${bookmark.walkDate}</td>						
 			</tr>				
 				</c:if>
-				</c:forEach>		
+				</c:forEach>	
+			</tbody>	
 		</table>
 		</c:if>
 		
@@ -200,14 +202,25 @@
 		산책 후기가 없습니다.<br/>
 		<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>
 		</c:if>
-		<c:if test="${!empty review}">
+		<c:if test="${not empty review}">
 		<button>더 보기</button>
 		<table  class="table">
+			<colgroup>					
+				<col width="80%">
+				<col width="20%">
+			</colgroup>
+			<tbody id="tbody">
 			<tr>		
-		         <th colspan="2">
-		            
-		         </th>
-	      	</tr>		
+				<td>제목</td>
+				<td>문의일자</td>
+	      	</tr>
+	      	<c:forEach items="${inquiry}" var="inquiry">
+			<tr>
+				<td><a href="inquirydetail.do?boardNum=${inquiry.boardNum}">${inquiry.boardName}</a></td>						
+				<td>${inquiry.boardWriteDate}</td>											
+			</tr>				
+			</c:forEach>
+	      </tbody>
 		</table>
 		</c:if>
 		
@@ -218,14 +231,14 @@
 		<c:if test="${empty inquiry}">
 		문의 내역이 없습니다.<br/>		
 		</c:if>
-		<c:if test="${!empty inquiry }">
-		<button>더 보기</button>
+		<c:if test="${not empty inquiry }">
+		<button onclick="location.href='inquiryListme.go'">더 보기</button>
 			<table class="table">
 				<colgroup>					
 					<col width="80%">
 					<col width="20%">
 				</colgroup>
-				<tbody id="inquirytbody">					
+				<tbody id="tbody">					
 		   			<tr>						
 						<td>제목</td>
 						<td>문의일자</td>
@@ -235,8 +248,7 @@
 						<td><a href="inquirydetail.do?boardNum=${inquiry.boardNum}">${inquiry.boardName}</a></td>						
 						<td>${inquiry.boardWriteDate}</td>											
 					</tr>				
-					</c:forEach>
-					
+					</c:forEach>					
 				</tbody>
 			</table>
 		</c:if>
@@ -244,22 +256,109 @@
 		<hr>
 		
 		<h3>신고 내역</h3>
-		<c:if test="${empty declaration}">
+		<button onclick="location.href='reportwrite.go'">신고 하기</button>
+		<c:if test="${empty report}">
 		신고 내역이 없습니다.		
 		</c:if>
-		<c:if test="${!empty declaration}">
-		<button>더 보기</button>
+		<c:if test="${not empty report}">
+		<button>더 보기</button>		
 		<table class="table">
-			<tr>		
-				<th colspan="2">		            		                       
-					<button onclick="location.href='./'">돌아가기</button>
-		        </th>
-	      	</tr>		
-		</table>
-		</c:if>	
+				<colgroup>					
+					<col width="80%">
+					<col width="20%">
+				</colgroup>
+				<tbody id="tbody">					
+		   			<tr>						
+						<td>제목</td>
+						<td>신고일자</td>
+					</tr>					
+					<c:forEach items="${report}" var="report">
+					<tr>
+						<td><a href="reportdetail?reportNum=${report.reportNum}">${report.reportName}</a></td>						
+						<td>${report.reportDate}</td>											
+					</tr>	
+					</c:forEach>					
+				</tbody>
+			</table>
+		</c:if> 
+		<br>
+		<button onclick="location.href='./'">돌아가기</button>	
 		</div>
 </body>
 <script>
+var cnt = 5;
+var routeshowPage = 1;
+var bookmarkshowPage = 1;
+
+var inquiryshowPage = 1;
+var reportshowPage = 1;
+
+routeistCall(routeshowPage);
+bookmarklistCall(bookmarkshowPage);
+
+inquirylistCall(inquiryshowPage);
+reportlistCall(reportshowPage);
+
+function routeistCall(page){
+   $.ajax({
+      type:'post',
+      url:'routeistCall.ajax',
+      data:{
+         'page':page, //현재페이지
+         'cnt':cnt	 //5개씩
+      },
+      dataType:'json',
+      success:function(data){
+         console.log(data);
+         listPrint(data.list);         
+         
+         //paging plugin
+         $('#pagination').twbsPagination({
+            startPage:data.currPage,   //시작페이지
+            totalPages:data.pages,//총 페이지 수
+            visiblePages:5, //보여줄 페이지 [1][2][3][4][5]
+            onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
+               console.log(page, reportshowPage);
+               if(page != reportshowPage){  
+            	   reportshowPage = page;    
+                  routeistCall(routeshowPage);                     
+               }            
+            }
+         });   
+         
+      },
+      error:function(e){
+         console.log(e);
+      }
+   });
+}
+
+function listPrint(list){
+   var content = '';
+   //java.sql.Date 는 js 에서 읽지 못해 밀리세컨드로 반환한다.
+   // 해결방법 1. DTO 에서 Date 를 String 으로 반환
+   // 해결방법 2. js 에서 변환
+   list.forEach(function(board, board_id){
+      content +='<tr>';
+      content +='<td>'+board.board_id+'</td>';
+      content +='<td><a href="magazineDetail.do?board_id='+board.board_id+'">'+board.board_title+'</td>';
+      
+      content +='<td>'+board.user_id+'</td>';
+      content +='<td>'+board.board_views+'</td>';
+      
+      //content +='<td>'+item.reg_date+'</td>';
+      var date = new Date(board.board_date);
+      content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';//en-US
+      content +='</tr>';
+   });
+
+   
+   $('#list').empty();
+   $('#list').append(content);
+}
+
+
+
 
 </script>
 </html>
