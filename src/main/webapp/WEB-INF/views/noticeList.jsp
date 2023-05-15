@@ -10,11 +10,15 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
+<link rel="stylesheet" href="resources/css/common.css" type="text/css">
 <style>
 	table, th, td{
 		border : 1px solid lightgray;
 		border-collapse: collapse;
 		padding : 10px 5px;
+		text-align: center;
+		
 	}
 	
 	input[type="button"]{
@@ -31,64 +35,132 @@
 	
 	#title{
 	 	color:#87d1bf;
+	 	margin-left: 20px;
 	 }
 	 
 	 #thead{
 	 	color:#87d1bf;
 	 	background-color: #E3EDEB;
 	 }
+	 
+	 
+/* 	 #noticehead{
+
+   		max-width: 710px;
+	 	margin : 0 auto;
+	 	box-sizing : border-box;
+	 	
+	 } */
+	 
+	 .container{
+	 	width : 710px;
+	 }
+	 
+	 .search{
+		display: flex;
+		justify-content: center;
+		margin-bottom: 10px;
+	 }
+	 
+	 #pagePerNum{
+	 	float: right;
+	 }
+	 
+
 </style>
 </head>
 <body>
-
-<h3 id="title"> 공지사항 </h3>
-
-	<input type="text" id="noticeInput" placeholder="제목을 입력 해 주세요">
-    <button id="searchButton">검색</button>
-   
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 
-	<select id="pagePerNum">
-		<option value="5">5</option>
-		<option value="10">10</option>
-		<option value="15">15</option>
-		<option value="20">20</option>
-	</select>
-	
-	<hr>
-	
-		<table>
-		<thead>
-			<tr id="thead">
-				<th>제목</th>
-				<th>ID</th>
-				<th>조회수</th>
-				<th>작성날짜</th>
-				<c:if test="${Role eq 'admin'}">
-					<th>처리여부</th>
-				</c:if>
-			</tr>
-		</thead>
-		<tbody id = "noticelist">
-		<!-- 리스트가 출력될 영역 -->
-
-		</tbody>
-		<tr>
-			<td colspan="6" id="paging">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
-				<div class="container">									
-					<nav aria-label="Page navigation" style="text-align:center">
-						<ul class="pagination" id="pagination"></ul>
-					</nav>					
-				</div>
-			</td>
-		</tr>
-	</table>
-	<c:if test="${Role eq 'admin'}">
-		<div>
-			<input type="button" name="noticeWirte" value="공지사항 작성" onclick="location.href='noticewrite.go'">
+<div class="main">
+	<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
 		</div>
-	</c:if>
+		
+		<br>
+		<br>
+		<br>
+		<br>
+		
+	<div class="content" >	
+		
+	<h3 id="title"> 공지사항 </h3>
+		<div class="search">	
+			<input type="text" id="noticeInput" placeholder="제목을 입력 해 주세요">
+	    	<button id="searchButton">검색</button>
+	   	</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 
+			<select id="pagePerNum">
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="15">15</option>
+				<option value="20">20</option>
+			</select>
+		
+		<c:if test="${Role eq 'admin'}">
+			<div>
+				<input type="button" name="noticeWirte" value="공지사항 작성" onclick="location.href='noticewrite.go'">
+			</div>
+		</c:if>
+		
+		<hr>
+		
+		<table id=noticehead>
+			<thead>
+				<tr id="thead">
+					<th>제목</th>
+					<th>ID</th>
+					<th>조회수</th>
+					<th>작성날짜</th>
+					<c:if test="${Role eq 'admin'}">
+						<th>처리여부</th>
+					</c:if>
+				</tr>
+			</thead>
+			<tbody id = "noticelist">
+			<!-- 리스트가 출력될 영역 -->
+	
+			</tbody>
+			<tr>
+				<td colspan="6" id="paging" style="border: none";>	
+					<!-- 	플러그인 사용	(twbsPagination)	-->
+					<div class="container">									
+						<nav aria-label="Page navigation" style="text-align:center">
+							<ul class="pagination" id="pagination"></ul>
+							
+						</nav>					
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
 </body>
 <script>
 
@@ -140,7 +212,12 @@ function listCall(page,cnt){
 	         $('#pagination').twbsPagination({
 	         startPage:data.currPage, // 시작 페이지
 	         totalPages:data.pages,// 총 페이지 수 
-	         visiblePages:5,// 보여줄 페이지
+	         visiblePages:5,// 보여줄 페이지         
+	         next : '<span style="color: #87d1bf;">></span>', 
+	         last : '<span style="color: #87d1bf;">>></span>',
+	         first : '<span style="color: #87d1bf;"><<</span>',
+	 		 prev : '<span style="color: #87d1bf;"><</span>',
+	        
 	         onPageClick:function(event,page){ // 페이지 클릭시 동작되는 (콜백)함수
 	            console.log(page,showPage);
 	            if(page != showPage){
@@ -161,7 +238,7 @@ function listPrint(noticelist){
 	console.log("noticelist Call");
 	var content ='';
 	
-	if(noticelist && Array.isArray(noticelist)){
+	if(noticelist && Array.isArray(noticelist) &&  noticelist.length > 0){
 		noticelist.forEach(function(item,noticelist){
 	
       content +='<tr>';
@@ -227,3 +304,4 @@ function toggleBlind(checkbox, boardNum) {
 }
 </script>
 </html>
+

@@ -119,13 +119,13 @@
 	
 	<!-- 댓글 수정 -->
     <form method="get" action="inquiryreplyupdate.do">
-	<div class="inquiry_reply">
-		<input type="hidden" name="boardNum" value="${inq.boardNum}">
-		<input type="hidden" name="replyNum" value ="${replyNum}">
-        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();"  placeholder="${inqreply }">
-        <p id="inquiryreply_legnth">0/100</p>
-        <button type="submit">수정</button>
-	</div>  
+		<div class="inquiry_reply">
+			<input type="hidden" name="boardNum" value="${inq.boardNum}">
+			<input type="hidden" name="replyNum" value ="${inqreplist2.replyNum}">
+	        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();"  placeholder="${inqreply }">
+	        <p id="inquiryreply_legnth">0/100</p>
+	        <button type="submit">수정</button>
+		</div>  
     </form>
     
 </body>

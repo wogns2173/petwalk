@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
 <style>
    .notice_reply {
       border : 1px solid lightgray;
@@ -99,26 +100,33 @@
 		<tr><th colspan="10">등록된 답변이 없습니다.</th></tr>	
 	</c:if>
 	
-	<c:forEach items="${noticereplist}" var="noticerep">
-		<div class="inqrep">
-			${noticerep.userID} / ${noticerep.commentWriteDate}
-			<c:if test="${noticerep.userID eq sessionScope.userID}">
-				<input type ="button" onclick='location.href="noticerepdel.do?replyNum=${noticerep.replyNum}&boardNum=${notice.boardNum}"' value="삭제"/>
-				<input type ="button" onclick='location.href="noticerepupdate.go?replyNum=${noticerep.replyNum}&boardNum=${notice.boardNum}&commentDetail=${noticerep.commentDetail }"' value="수정"/>
-			</c:if>
-			<p>${noticerep.commentDetail }</p>
-		</div>	
-	</c:forEach>
+	<c:if test="${userID ne null}">
+		<c:forEach items="${noticereplist}" var="noticerep">
+			<div class="inqrep">
+				${noticerep.userID} / ${noticerep.commentWriteDate}
+				<c:if test="${noticerep.userID eq sessionScope.userID}">
+					<input type ="button" onclick='location.href="noticerepdel.do?replyNum=${noticerep.replyNum}&boardNum=${notice.boardNum}"' value="삭제"/>
+					<input type ="button" onclick='location.href="noticerepupdate.go?replyNum=${noticerep.replyNum}&boardNum=${notice.boardNum}&commentDetail=${noticerep.commentDetail }"' value="수정"/>
+				</c:if>
+				<p>${noticerep.commentDetail }</p>
+			</div>	
+		</c:forEach>
+	</c:if>
+	
+	<c:if test="${userID eq null}">
+		<p>댓글을 작성하시거나 등록된 댓글을 확인하시려면 로그인 해주세요.</p>
+	</c:if>
 	
 	<!-- 댓글 작성 -->
     <form method="post" action="noticereplywrite.do">
-    <input type="hidden" name="boardNum" value="${notice.boardNum}">
-    
-	<div class="notice_reply">
-        <input name = "content" id="noticereply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="${noticereply }">
-        <p id="noticereply_legnth">0/100</p>
-        <button type="submit">등록</button>
-	</div>  
+    	<input type="hidden" name="boardNum" value="${notice.boardNum}">
+			    <c:if test="${userID ne null}">
+				<div class="notice_reply">
+			        <input name = "content" id="noticereply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="${noticereply }">
+			        <p id="noticereply_legnth">0/100</p>
+			        <button type="submit">등록</button>
+				</div>  
+			</c:if>
     </form>
     
 </body>

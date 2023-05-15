@@ -121,13 +121,13 @@
 	
 	<!-- 댓글 수정 -->
     <form method="post" action="reportreplyupdate.do">
-    <input type="hidden" name="reportNum" value="${rep.reportNum}">
-    <input type="hidden" name="repReplyNum" value ="${rep.repReplyNum}">
-	<div class="report_reply">
-        <input name = "reportProcess" id="reportreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder= "${reportreply}">
-        <p id="reportreply_legnth">0/100</p>
-        <button type="submit">수정</button>
-	</div>  
+		<div class="report_reply">
+		    <input type="hidden" name="reportNum" value="${rep.reportNum}">
+		    <input type="hidden" name="repReplyNum" value ="${repreplist2.repReplyNum}">
+	        <input name = "reportProcess" id="reportreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder= "${reportreply}">
+	        <p id="reportreply_legnth">0/100</p>
+	        <button type="submit">수정</button>
+		</div>  
     </form>
     
 </body>

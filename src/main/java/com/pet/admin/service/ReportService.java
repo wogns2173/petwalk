@@ -130,10 +130,11 @@ public class ReportService {
 		return repdao.repreplist2(reportNum);
 	}
 
-	public int reportreplywrite(int reportNum, String reportProcess) {
-
+	public int reportreplywrite(int reportNum, String reportProcess, String userID) {
 		logger.info("Report Reply Write Service Call");
-		return repdao.reprepwrite(reportNum,reportProcess);
+		logger.info("userID :"+userID);
+		
+		return repdao.reprepwrite(reportNum,reportProcess, userID);
 	}
 
 	public int reprepdel(int repReplyNum) {
@@ -164,17 +165,19 @@ public class ReportService {
 		return "redirect:/reportdetail.do?reportNum=" + params.get("reportNum"); 
 	}
 
-	public String repWrite(MultipartFile photo, HashMap<String, String> params) {
+	public String repWrite(MultipartFile photo, HashMap<String, String> params, String userID, int boardNum) {
 		
-		String page = "redirect:/";
+		String page = "redirect:/boardDetail.do?boardNum="+boardNum;
 
 		//1. 게시글만 작성
 		ReportDTO repdto = new ReportDTO();
-		
+		logger.info("userID :"+userID);
+		logger.info("boardNum :"+boardNum);
 		
 		repdto.setCategoryCode(params.get("categoryCode"));
 		repdto.setReportName(params.get("reportName"));
 		repdto.setReportDetail(params.get("reportDetail"));
+		repdto.setUserID(userID);
 		
 		logger.info(repdto.getReportDetail() + "/" + repdto.getCategoryCode() + "/" + repdto.getReportName());
 		int row = repdao.reportWrite(repdto);
@@ -212,11 +215,11 @@ public class ReportService {
 		}
 	}
 
-	public String processupdate(Boolean selectedValue, int reportNum) {
+	public String processupdate(int processValue, int reportNum) {
 		logger.info("Report Process Update Service");	
-	    logger.info("selectedValue :"+selectedValue+"/"+"reportNum :"+reportNum);
+	    logger.info("processValue :"+processValue+"/"+"reportNum :"+reportNum);
 	    
-		int row = repdao.repprocessupdate(selectedValue,reportNum);
+		int row = repdao.repprocessupdate(processValue,reportNum);
 		
 		logger.info("update row :"+row);
 		
