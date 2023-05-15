@@ -3,6 +3,9 @@ package com.pet.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.admin.dto.InquiryDTO;
 import com.pet.admin.dto.ReportDTO;
@@ -26,11 +30,23 @@ public class ReportController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping(value = "/reportList.go")
-	public String ReportListCall(Model model) {
+	public ModelAndView ReportListCall(Model model,HttpSession session) {
 		
 		logger.info("Report List Page 이동");
 		
-		return "reportList";
+		ModelAndView modelAndView = new ModelAndView();
+
+	    String role = (String) session.getAttribute("Role");
+	    if (role != null && role.equals("admin")) {
+	        modelAndView.setViewName("reportList");
+	        return modelAndView; 
+	    } else {
+	        String errorMessage = "관리자만 입장 가능합니다.";
+	        String script = String.format("<script>alert('%s'); history.go(-1); </script>", errorMessage);
+	        modelAndView.setViewName("inlineScript");
+	        modelAndView.addObject("script", script);
+	        return modelAndView; 
+	    }
 	}
 	
 	@RequestMapping(value="/replist.ajax")
@@ -45,7 +61,7 @@ public class ReportController {
 	}
 	
 	@RequestMapping(value="/reportdetail.do")
-	public String inquirydetail(Model model , @RequestParam int reportNum) {
+	public String inquirydetail(Model model , @RequestParam int reportNum, HttpServletRequest request) {
 		logger.info("Report Detail Call");
 		
 		
@@ -55,21 +71,30 @@ public class ReportController {
 		model.addAttribute("rep",reqdto);
 		
 		
-		 ArrayList<ReportDTO> repreplist = repservice.inqreplist2(reportNum);
-		 logger.info("repreplist Call"); 
-		 model.addAttribute("repreplist",repreplist);
+		ArrayList<ReportDTO> repreplist = repservice.inqreplist2(reportNum);
+	    logger.info("repreplist Call"); 
+		model.addAttribute("repreplist",repreplist);
 		 
+		HttpSession session = request.getSession();
+		String role = (String) session.getAttribute("Role");
+		model.addAttribute("Role", role);
+			
+		String userID = (String) session.getAttribute("userID");
+		model.addAttribute("userID", userID);
 		
 		return "reportDetail";
 	}
 	
 	@RequestMapping(value="/reportreplywrite.do", method = RequestMethod.POST)
-	public String reportreplywrite(Model model,@RequestParam int reportNum, @RequestParam String reportProcess) {
+	public String reportreplywrite(Model model,@RequestParam int reportNum, @RequestParam String reportProcess, HttpSession session) {
 		logger.info("Report Write Reply Call");
 		
+		String userID = (String) session.getAttribute("userID");
+		
+		logger.info("userID :"+userID);	
 		logger.info("reportNum :"+reportNum);
 		logger.info("reportProcess :"+reportProcess);
-		int reportreplywrite = repservice.reportreplywrite(reportNum,reportProcess);
+		int reportreplywrite = repservice.reportreplywrite(reportNum,reportProcess,userID);
 		model.addAttribute("reportreplywrite",reportreplywrite);
 		
 		return "redirect:/reportdetail.do?reportNum=" + reportNum;
@@ -106,13 +131,14 @@ public class ReportController {
 		logger.info("Report Update List Call");
 		logger.info("reportNum : " + repreplist.getReportNum());
 		logger.info("reportProcess :" +repreplist.getReportProcess());
+		logger.info("repReplyNum :" +repreplist.getRepReplyNum());
 		model.addAttribute("reportreply",repreplist.getReportProcess());
 		model.addAttribute("repreplist2",repreplist);
 		
 		return "reportrepUpdate";		
 	}
 
-	@RequestMapping(value="/reportreplyupdate.do", method = RequestMethod.POST)
+	@RequestMapping(value="/reportreplyupdate.do")
 	public String inquiryrepupdate(Model model,@RequestParam HashMap<String, String> params) {
 		
 		logger.info("Report Update Reply Call");
@@ -122,27 +148,46 @@ public class ReportController {
 	}
 	
 	@RequestMapping(value="/reportwrite.go")
-	public String reportwriteform() {
+	public ModelAndView reportwriteform(HttpSession session) {
 		logger.info("Report Write Page 이동");
-		
-		return"reportWrite";
+			
+		String userID = (String) session.getAttribute("userID");
+
+	    ModelAndView modelAndView = new ModelAndView();
+
+	    if (userID == null) {
+	        String alertMessage = "로그인이 필요합니다.";
+	        String script = String.format("<script>alert('%s'); history.go(-1);</script>", alertMessage);
+	        modelAndView.setViewName("inlineScript");
+	        modelAndView.addObject("script", script);
+	    } else {
+	        modelAndView.setViewName("reportWrite");
+	    }
+	    
+	    return modelAndView;
 	}
 	
 	@RequestMapping(value = "/reportwrite.do", method = RequestMethod.POST)
-	public String reportWrite(MultipartFile photo, @RequestParam HashMap<String, String> params) {
-			
-		logger.info("params:{}",params);
-	
+	public String reportWrite(MultipartFile photo, @RequestParam HashMap<String, String> params, HttpSession session) {
 		
-		return repservice.repWrite(photo,params);
+		String userID = (String) session.getAttribute("userID");
+		int boardNum = (int) session.getAttribute("boardNum");
+		
+		logger.info("params:{}",params);
+		logger.info("userID :"+userID);
+		logger.info("boardNum :"+boardNum);
+		
+		return repservice.repWrite(photo,params,userID,boardNum);
 	}
 	
 	@RequestMapping(value="/reportprocess.go", method = RequestMethod.POST)
-	public String reportprocessupdate(@RequestParam Boolean selectedValue, @RequestParam int reportNum) {
+	public String reportprocessupdate(@RequestParam boolean selectedValue, @RequestParam int reportNum) {
 		
 		logger.info("Report Process Update Call");
 		logger.info("selectedValue :"+selectedValue+"/"+"boardNum :"+reportNum);
+		
+		int processValue = selectedValue ? 1 : 0;
 	
-		return repservice.processupdate(selectedValue,reportNum);
+		return repservice.processupdate(processValue,reportNum);
 	}
 }
