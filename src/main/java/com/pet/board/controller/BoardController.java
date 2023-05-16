@@ -103,6 +103,7 @@ public class BoardController {
 	public String boardWrite(MultipartFile photo, 
 			@RequestParam HashMap<String, String> params, HttpSession session,@RequestParam String userID) {
 		logger.info("params:{}",params);
+		logger.info("photo : " + photo);
 		return service.boardWrite(photo,params,session,userID);
 	}
 	

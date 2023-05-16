@@ -161,7 +161,7 @@ public class ReportController {
 	        modelAndView.setViewName("inlineScript");
 	        modelAndView.addObject("script", script);
 	    } else {
-	        modelAndView.setViewName("reportWrite");
+	        modelAndView.setViewName("redirect:/reportwrite.do");
 	    }
 	    
 	    return modelAndView;
@@ -171,13 +171,11 @@ public class ReportController {
 	public String reportWrite(MultipartFile photo, @RequestParam HashMap<String, String> params, HttpSession session) {
 		
 		String userID = (String) session.getAttribute("userID");
-		int boardNum = (int) session.getAttribute("boardNum");
 		
 		logger.info("params:{}",params);
 		logger.info("userID :"+userID);
-		logger.info("boardNum :"+boardNum);
 		
-		return repservice.repWrite(photo,params,userID,boardNum);
+		return repservice.repWrite(photo,params,userID);
 	}
 	
 	@RequestMapping(value="/reportprocess.go", method = RequestMethod.POST)

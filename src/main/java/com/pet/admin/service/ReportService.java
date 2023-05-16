@@ -165,14 +165,13 @@ public class ReportService {
 		return "redirect:/reportdetail.do?reportNum=" + params.get("reportNum"); 
 	}
 
-	public String repWrite(MultipartFile photo, HashMap<String, String> params, String userID, int boardNum) {
+	public String repWrite(MultipartFile photo, HashMap<String, String> params, String userID) {
 		
-		String page = "redirect:/boardDetail.do?boardNum="+boardNum;
+		String page = "redirect:/";
 
 		//1. 게시글만 작성
 		ReportDTO repdto = new ReportDTO();
 		logger.info("userID :"+userID);
-		logger.info("boardNum :"+boardNum);
 		
 		repdto.setCategoryCode(params.get("categoryCode"));
 		repdto.setReportName(params.get("reportName"));

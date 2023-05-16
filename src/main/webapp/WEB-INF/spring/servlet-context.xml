@@ -29,7 +29,11 @@
 	      <beans:property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
 	      
 	      <!-- url 의 value(값)을  jdbc:mariadb://localhost:3306/mydb 로 설정-->
+<<<<<<< HEAD
 	      <beans:property name="url" value="jdbc:mariadb://192.168.12.188:3306/mydb"/>
+=======
+	      <beans:property name="url" value="jdbc:mariadb://192.168.12.188:3306:3306/mydb"/>
+>>>>>>> 9c8cb5ee4c7376000e1e501a9ef5fb8ef43dc8e9
 	      
 	      <!-- username 의 value(값)을 web_user 로 설정-->
 	      <beans:property name="username" value="web_user"/>

@@ -10,28 +10,28 @@
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 	<style>
-		b{
-			color:red;
-		}
-	
-		table{
-			width:100%;
-		}
-		
-		table, td, th{
-			border : 1px solid;
-			border-collapse : collapse;
-			padding: 5px;
-		}
-		
 		#paging{
 			text-align: center;
 		}
+		table, th, td{
+			border : 1px solid lightgray;
+			border-collapse: collapse;
+			padding : 10px 5px;
+		}
+		
+		#title{
+		 	color:#87d1bf;
+		 }
+		 
+		 #thead{
+		 	color:#87d1bf;
+		 	background-color: #E3EDEB;
+		 }
 		
 	</style>
 </head>
 <body>
-	<h1>미아견 게시판</h1>
+	<h3 id ="title">미아견 게시판</h3>
    <div id = "boardSearchForm">
 	<select id="boardSearch">
      	<option value="default">검색조건</option>
@@ -50,7 +50,7 @@
 	</select>
 	<table>
 		<thead>
-			<tr>
+			<tr id="thead">
 				<th>번호</th>					
 				<th>제목</th>
 				<th>작성자</th>
@@ -148,20 +148,27 @@
 
 	function listPrint(list){
 		var content;
-		list.forEach(function(item,boardNum){
-			content += '<tr>';
-			content += '<td id="boardNum">'+item.boardNum+'</td>';
-			content += '<td id ="boardName"><a href="boardDetail.do?boardNum='+item.boardNum+'">'
-				+item.boardName+'['+item['replyCount']+']'+'</td>';
-			content += '<td id ="userNickname">'+item.userNickname+'</td>';
+		if (list.length > 0){
 			
-			var date = new Date(item.boardWriteDate);
-			content += '<td>'+date.toLocaleDateString('ko-KR')+'</td>'; //String('ko-KR')
-			content += '<td>'+item.boardbHit+'</td>';
-			content += '</tr>';
-		});
-		$('#list').empty();
-		$('#list').append(content);
+			list.forEach(function(item,boardNum){
+				content += '<tr>';
+				content += '<td id="boardNum">'+item.boardNum+'</td>';
+				content += '<td id ="boardName"><a href="boardDetail.do?boardNum='+item.boardNum+'">'
+					+item.boardName+'['+item['replyCount']+']'+'</td>';
+				content += '<td id ="userNickname">'+item.userNickname+'</td>';
+				
+				var date = new Date(item.boardWriteDate);
+				content += '<td>'+date.toLocaleDateString('ko-KR')+'</td>'; //String('ko-KR')
+				content += '<td>'+item.boardbHit+'</td>';
+				content += '</tr>';
+			});
+			}else{
+				content += '<tr>';
+				content += '<td colspan="6" style="text-align: center;">등록된 글이 없습니다.<td>';
+				content += '</tr>';
+			}
+			$('#list').empty();
+			$('#list').append(content);
 	}
 
 </script>
