@@ -45,7 +45,7 @@
 		<c:if test="${userID != null}">
 			<div id="ex1" class="modal">
 			  <p><a href="otherprofile.go?userID=${dto.userID}">프로필 보기</a></p>
-			  <p><a href="reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}">프로필 신고하기</a></p>
+			  <p><a href="reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}">프로필 신고하기</a></p>
 			  <!-- <a href="#" rel="modal:close">닫기</a>-->
 			</div>
 			<p><a href="#ex1" rel="modal:open">
@@ -71,7 +71,7 @@
 		</c:if>
 		<h2>${dto.boardDetail}</h2>
 		<c:if test="${dto.userID ne userID && userID ne null}">
-			<input type="button"  id= "reportButton" onclick="./reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}" value="신고"/>
+			<input type="button"  id= "reportButton" onclick="location.href='./reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}'" value="신고"/>
 		</c:if> 
 		
 			<input id="updateButton" type= "button" onclick="location.href='./boardDelete.do?boardNum=${dto.boardNum}&categoryCode=${dto.categoryCode}'" value="삭제"/>
