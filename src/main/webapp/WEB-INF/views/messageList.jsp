@@ -30,6 +30,10 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 <script>
+	var isWriter = false;
+	if('${sessionScope.userID}' == '${receiveID}'){
+		isWriter = true;
+	}
 	var websocket;
 	var sendID='';
 	//입장 버튼을 눌렀을 때 호출되는 함수
@@ -78,7 +82,7 @@
 			success:function(data){
 				console.log(data);
 				console.log(data.length);
-				if(data.length == 0) {
+				if(data.length == 0 && isWriter) {
 					console.log('if문 실행');
 					var content1 = '<div class="receiver"><a onclick="bringMessage(\''+${mateWalkNum}+'\')">${receiveID}님과의 메시지</a></div>';
 					$('#room').html(content1);
