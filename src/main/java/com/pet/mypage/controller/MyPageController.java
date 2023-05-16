@@ -139,7 +139,7 @@ public class MyPageController {
 		
 		return service.mybookmarklistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
 	}
-	/*
+	
 	@RequestMapping(value="/myreviewlistCall.ajax", method= RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object>myreviewlistCall(
@@ -150,7 +150,7 @@ public class MyPageController {
 		
 		return service.myreviewlistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
 	}
-	*/
+	
 	
 	@RequestMapping(value="/myinquirylistCall.ajax", method= RequestMethod.POST)
 	@ResponseBody
@@ -173,7 +173,7 @@ public class MyPageController {
 		
 		return service.myreportlistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
 	}
-	
+	/*
 	@RequestMapping(value="/inqlistme.ajax", method= RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object>inqlistme(HttpSession session, @RequestParam HashMap<String,Object> params){
@@ -181,5 +181,5 @@ public class MyPageController {
 		
 		return service.inqlistme(params,session);
 	}
-	
+	*/
 }

@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>너나들이</title>
+<link rel="icon" href="./resources/img/favicon.ico">
+
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -25,7 +27,18 @@
   }
   .right-align{
   	float: right;
-  }	
+}	
+.image-wrapper,
+.link-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.image-wrapper {
+	margin : 5px 34px;
+}
+
+  
+
 </style>
 </head>
 <body>	
@@ -65,11 +78,53 @@
 		<br/>
 		<br/>
 		<br/>
-	<button onclick="location.href=''">추천 경로</button>
-	<button onclick="location.href='routeshare/list'">산책 경로 공유</button>
-	<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>
-	<button onclick="location.href='board'">커뮤니티</button>
-	<a href="noticelist.go">공지사항</a>
+		<table style="margin-left: 20px; margin-right: 20px;">
+		    <tr>						
+		        <td>
+		            <div class="image-wrapper">
+		                <img alt="recommend" src="resources/img/recommend.png" width="100" height="100" onclick="location.href=''">
+		            </div>
+		        </td>
+		        <td>
+		            <div class="image-wrapper">
+		                <img alt="walkmate" src="resources/img/walkmate.png" width="100" height="100" onclick="location.href='matefind/list'">
+		            </div>
+		        </td>
+		        <td>
+		            <div class="image-wrapper">
+		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list'">
+		            </div>
+		        </td>
+		        <td>
+		            <div class="image-wrapper">
+		                <img alt="community" src="resources/img/community.png" width="100" height="100" onclick="location.href='board'">
+		            </div>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		            <div class="link-wrapper">
+		                <a href="">추천 경로</a>
+		            </div>
+		        </td>
+		        <td>
+		            <div class="link-wrapper">
+		                <a href="matefind/list">산책 메이트 찾기</a>
+		            </div>
+		        </td>
+		        <td>
+		            <div class="link-wrapper">
+		            	<a href="routeshare/list">산책 경로 공유</a>                
+		            </div>
+		        </td>
+		        <td>
+		            <div class="link-wrapper">
+		                <a href="board">커뮤니티</a>
+		            </div>
+		        </td>
+		    </tr>
+		</table>
+
 	<hr>
 	<h3>이런곳은 어떠세요?</h3>	
 	<button onclick="location.href=''">더 알아보기</button>

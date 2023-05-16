@@ -33,7 +33,7 @@
 		ORDER BY boardWriteDate DESC	
 	</select>
 	
-	<select id="findrouteShareList">
+	<select id="findrouteShareList" resultType="com.pet.mypage.dto.MyPageDTO">
 		SELECT * FROM routeboard WHERE userID = #{param1}
 	</select>
 	
@@ -77,6 +77,14 @@
 		ORDER BY reportDate DESC LIMIT #{param1} OFFSET #{param2}
 	</select>
 	
+	<select id="myreviewlistCall" resultType="com.pet.mypage.dto.MyPageDTO">		
+		SELECT * FROM review WHERE userID = #{param3} 
+		ORDER BY reviewDate DESC LIMIT #{param1} OFFSET #{param2}
+	</select>
+	
+	
+	
+	<!-- 
 	<select id="metotalCount" parameterType="HashMap" resultType="java.lang.Integer">
 		SELECT COUNT(boardNum) FROM board 
 		WHERE
@@ -109,7 +117,7 @@
 		SELECT COUNT(boardNum) FROM board WHERE categoryCode = #{param2} AND inqProcess = #{param3} AND userID = #{param4}
 	</select>	
 	
-	<!-- 아작스는 * 쓰면 안됨 -->
+	
 	<select id="meinquirylist" parameterType="HashMap" resultType="com.pet.admin.dto.InquiryDTO">
 		SELECT boardNum, categoryCode, userID, boardName, boardDetail, boardbHit, boardWriteDate, noticeWhether, boardBlindWhether, inqProcess 
 		FROM board 
@@ -150,7 +158,7 @@
 		AND inqProcess = #{param2} AND userID = #{param6}ORDER BY boardNum DESC
 		LIMIT #{param3} OFFSET #{param4}
 	</select>
-	
+	 -->
 	
 	
 

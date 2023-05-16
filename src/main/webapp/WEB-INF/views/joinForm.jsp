@@ -392,9 +392,13 @@ function join(){
 					alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요');
 				}
 			});
-		}else{
-		alert('모두 입력해주세요.');
-	}	
+		}else if(!overlayIdChk){
+			alert('중복된 아이디 입니다.');
+			$userID.focus();
+		}else if(!overlayNicknameChk){
+			alert('중복된 닉네임 입니다.');
+			$userNickname.focus();
+		}	
 }
 
 $('#userID').on('keyup', function(e){

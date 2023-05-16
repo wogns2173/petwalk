@@ -533,7 +533,7 @@ function myinquirylistPrint(list){
 	if (list.length > 0){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
-		content +='<td>'+item.boardName+'</td>';
+		content +='<td><a href="inquirydetail.do?boardNum='+ item.boardNum+'">'+item.boardName+'</a></td>';
 		content +='<td>'+item.boardWriteDate+'</td>';
 		if(item.inqProcess == 1){
 		    content += '<td>처리완료</td>'
@@ -596,7 +596,7 @@ function myreportlistPrint(list){
 	if (list.length > 0){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
-		content +='<td>'+item.reportName+'</td>';		
+		content +='<td><a href="reportdetail.do?reportNum='+ item.reportNum+'">'+item.reportName+'</a></td>';
 		content +='<td>'+item.reportDate+'</td>';
 		if(item.repProcess == 1){
 		    content += '<td>처리완료</td>'

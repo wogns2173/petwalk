@@ -34,6 +34,9 @@ public class MyPageDTO {
 	private String reportDate;
 	private String repProcess;
 	
+	private String reviewName;
+	private String reviewDetail;
+	private String reviewDate;
 
 	
 
@@ -198,6 +201,24 @@ public class MyPageDTO {
 	}
 	public void setBoardbHit(String boardbHit) {
 		this.boardbHit = boardbHit;
+	}
+	public String getReviewName() {
+		return reviewName;
+	}
+	public void setReviewName(String reviewName) {
+		this.reviewName = reviewName;
+	}
+	public String getReviewDetail() {
+		return reviewDetail;
+	}
+	public void setReviewDetail(String reviewDetail) {
+		this.reviewDetail = reviewDetail;
+	}
+	public String getReviewDate() {
+		return reviewDate;
+	}
+	public void setReviewDate(String reviewDate) {
+		this.reviewDate = reviewDate;
 	}
 	
 	

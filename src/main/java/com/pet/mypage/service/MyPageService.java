@@ -1,5 +1,6 @@
 package com.pet.mypage.service;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -363,6 +364,7 @@ public class MyPageService {
 		
 		return findrouteShareList;
 	}
+	/*
 	public HashMap<String, Object> inqlistme(HashMap<String, Object> params, HttpSession session) {
 
 		logger.info("params :"+params);
@@ -436,7 +438,7 @@ public class MyPageService {
       
       // if(categoryCode.equals("default")){
       //  && (inqProcess.equals(Boolean.valueOf("default")))
-		/*
+		
 		 * if(categoryCode.equals("default") && (inqProcess.equals("default"))){ inqlist
 		 * = inqdao.inquirylist(map, cnt, offset, categoryCode);
 		 * logger.info("전체 문의 리스트 / inquirylist"); }else
@@ -448,7 +450,7 @@ public class MyPageService {
 		 * categoryCode); logger.info("처리 여부 리스트 / listinqprocess"+storedValue); }else {
 		 * inqlist = inqdao.listinqAll(params, categoryCode, storedValue, cnt, offset);
 		 * logger.info("선택한 문의, 처리여부 리스트 / listinqAll"+categoryCode+storedValue); }
-		 */
+		 
       if (categoryCode.equals("default")) {
     	    if (inqProcess.equals("default")) {
     	    	inqlist = dao.meinquirylist(map, cnt, offset, categoryCode,storedValue,userID);
@@ -471,6 +473,38 @@ public class MyPageService {
          map.put("inqlist", inqlist);
          logger.info("inqlist :"+inqlist);
          return map;
+	}
+*/
+	public HashMap<String, Object> myreviewlistCall(int page, int cnt, HttpSession session) {
+
+		logger.info(page+"페이지 보여줘");
+		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//1page = offset : 0
+		//2page = offset : 5
+		//3page = offset : 10
+		int offset = (page-1)*cnt;
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		
+		String userID =  (String) session.getAttribute("userID");
+		int total = dao.myreporttotalCount(userID);
+		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
+		logger.info("전체 게시물  수 : "+total);
+		logger.info("총 페이지 수 : "+range);
+		
+		page = page > range ? range : page;
+		map.put("myreviewcurrPage", page);
+		map.put("myreviewpages", range);
+		
+		ArrayList<BoardDTO> myreviewlistCall = dao.myreviewlistCall(cnt, offset, userID);
+		map.put("myreviewlistCall", myreviewlistCall);
+		
+		return map;
+
 	}
 	
 

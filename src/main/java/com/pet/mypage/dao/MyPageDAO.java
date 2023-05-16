@@ -39,7 +39,7 @@ public interface MyPageDAO {
 	ArrayList<MyPageDTO> myinquiryList(String userID);
 
 	ArrayList<MyPageDTO> findrouteShareList(String userID);
-
+/*
 	int metotalCount(HashMap<String, Object> params, String categoryCode, Object storedValue, String userID);
 
 	int metotalCountprocess(HashMap<String, Object> params, Object storedValue, String categoryCode, String userID);
@@ -59,6 +59,8 @@ public interface MyPageDAO {
 
 	ArrayList<InquiryDTO> melistinqprocess(HashMap<String, Object> params, Object storedValue, int cnt, int offset,
 			String categoryCode, String userID);
+*/
+	ArrayList<BoardDTO> myreviewlistCall(int cnt, int offset, String userID);
 
 	
 
