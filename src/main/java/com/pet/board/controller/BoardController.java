@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.pet.board.dto.BoardDTO;
 import com.pet.board.service.BoardService;
@@ -76,14 +77,12 @@ public class BoardController {
 	
 	// 글쓰기 페이지 이동
 	@RequestMapping(value = "/boardWrite.go", method=RequestMethod.GET)
-	public String boardWriteForm(Model model,@RequestParam String categoryCode, HttpSession session) {
+	public ModelAndView boardWriteForm(Model model,@RequestParam String categoryCode, HttpSession session) {
 		logger.info("writeForm");
-		String page = "redirect:/boardList.go?categoryCode="+categoryCode;
+		//String page = "redirect:/boardList.go?categoryCode="+categoryCode;
 		logger.info("write categoryCode: "+categoryCode);
 		
-		model.addAttribute("categoryCode", categoryCode);
-		page = "boardWrite";
-		
+		ModelAndView modelAndView = new ModelAndView();
 		
 		logger.info("{}",session.getAttribute("userID"));
 		String userID = (String) session.getAttribute("userID");
@@ -91,11 +90,17 @@ public class BoardController {
 		if(session.getAttribute("userID") != null) {
 			model.addAttribute("categoryCode", categoryCode);
 			model.addAttribute("userID",userID);
-			page = "boardWrite";
+			modelAndView.setViewName("boardWrite");
+		}else {
+			String alertMessage = "로그인이 필요합니다.";
+			String script = String.format("<script>alert('%s'); history.go(-1);</script>", alertMessage);
+			modelAndView.setViewName("inlineScript");
+			modelAndView.addObject("script", script);
+
 		}
 		
 		
-		return page;
+		return modelAndView;
 	}
 
 	// 글 작성하기
@@ -165,13 +170,9 @@ public class BoardController {
 
 		String userID = (String) session.getAttribute("userID");
 		
-		if(dto != null && userID.equals(dto.getUserID())) { //작성자와 로그인한 사용자가 같은 경우
+		if(dto != null/* || userID.equals(dto.getUserID())*/) { //작성자와 로그인한 사용자가 같은 경우
 			page ="boardUpdate";
 			model.addAttribute("dto",dto);
-		}else {  //작성자와 로그인한 사용자가 다른 경우
-			String msg = "글 수정 권한이 없습니다.";
-	        model.addAttribute("msg", msg);
-	        page = "redirect:/boardList";
 		}
 
 		return page;
@@ -254,26 +255,5 @@ public class BoardController {
 		service.boardRepDel(replyNum);
 		return "redirect:/boardDetail.do?boardNum="+boardNum;
 	}
-	
-	@RequestMapping(value="/test")
-	public String test() {
-		return "test";
-	}
-	
-	// 모달창
-	/*
-	@Controller
-	public class UserController {
-	    @Autowired
-	    private UserService userService;
-
-	    @RequestMapping(value = "/getUserProfile", method = RequestMethod.GET)
-	    public String getUserProfile(@RequestParam("userId") String userId, Model model) {
-	        User user = userService.getUserById(userId);
-	        model.addAttribute("user", user);
-	        return "userProfile";
-	    }
-	}
-	*/
 	
 }
