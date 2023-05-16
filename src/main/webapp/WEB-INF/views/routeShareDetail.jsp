@@ -41,7 +41,6 @@
 			<button onclick="recommend()">추천</button>
 			<button onclick="bookmark()">즐겨찾기</button>
 		</c:if>
-
 	</div>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
