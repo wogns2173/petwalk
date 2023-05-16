@@ -32,6 +32,7 @@
 </head>
 <body>
 	<form action="./routeShareInsert.do">
+		<input type="hidden" name="flag" value="insert"/>
 		<input type="hidden" name="walkNum" value="${list.get(0).walkNum}"/>
 		<input type="hidden" name="siID" value=""/>
 		<input type="hidden" name="guID" value=""/>

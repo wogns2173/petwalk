@@ -33,7 +33,8 @@ public class RouteShareController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping(value = "/routeshare/list") 
-	public String list() {
+	public String list(@RequestParam String walkRouteType, Model model) {
+		model.addAttribute("walkRouteType", walkRouteType);
 		return "routeShareList";
 	}
 	
@@ -61,6 +62,7 @@ public class RouteShareController {
 	public String routeShareInsertDo(@RequestParam HashMap<String, Object> params, HttpSession session) {
 		logger.info("params : " + params);
 		logger.info("userID : " + session.getAttribute("userID"));
+		logger.info("flag : " + params.get("flag"));
 		String userID = String.valueOf(session.getAttribute("userID"));
 		params.put("userID", userID);
 		routeShareService.write(userID, params);
@@ -78,10 +80,12 @@ public class RouteShareController {
 		return routeShareService.sigudong(params);
 	}
 	
-	@RequestMapping(value = "/routeshare/listBring.ajax")
+	@RequestMapping(value = "/routeshare/listBring.ajax" )
 	@ResponseBody
-	public HashMap<String, Object> listBringAjax(@RequestParam String page, @RequestParam String cnt) {
-		return routeShareService.list(Integer.parseInt(page),Integer.parseInt(cnt));
+	public HashMap<String, Object> listBringAjax(
+			@RequestParam String page, @RequestParam String cnt, @RequestParam String walkRouteType, HttpSession session) {
+		logger.info("role : " + String.valueOf(session.getAttribute("Role")));
+		return routeShareService.list(Integer.parseInt(page),Integer.parseInt(cnt), walkRouteType);
 	}
 	
 	@RequestMapping(value = "/routeshare/detail.go")
@@ -92,7 +96,56 @@ public class RouteShareController {
 		
 		model.addAttribute("coordinate", list);
 		model.addAttribute("list", dto);
+		
+		logger.info("dto : " + dto);
+		logger.info("list : " + list);
 		return "routeShareDetail";
 	}
 	
+	@RequestMapping(value = "/routeshare/recommend.ajax", produces="application/text; charset=UTF-8")
+	@ResponseBody
+	public String rocommendAjax(@RequestParam String walkRouteNum, HttpSession session) {
+		String userID = String.valueOf(session.getAttribute("userID"));
+		return routeShareService.recommend(walkRouteNum, userID);
+	}
+	
+	@RequestMapping(value = "/routeshare/bookmark.ajax", produces="application/text; charset=UTF-8")
+	@ResponseBody
+	public String bookrmarkAjax(@RequestParam String walkNum, HttpSession session) {
+		String userID = String.valueOf(session.getAttribute("userID"));
+		return routeShareService.bookmark(walkNum, userID);
+	}
+	
+	@RequestMapping(value = "/routeshare/delete.do")
+	public String deleteDo(@RequestParam String walkRouteNum, Model model) {
+		routeShareService.delete(walkRouteNum);
+		return "redirect:/routeshare/list";
+	}
+	
+	@RequestMapping(value = "/routeshare/update.go")
+	public String updateDo(@RequestParam String walkRouteNum, Model model) {
+		logger.info("walkRouteNum : " + walkRouteNum);
+		RouteShareDTO dto = routeShareService.detail(Integer.parseInt(walkRouteNum));
+		ArrayList<RouteListDTO> list = walkRouteService.routeBring(String.valueOf(dto.getWalkNum()));
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("list", list);
+		logger.info("dto : " + dto);
+		logger.info("list : " + list);
+		return "routeShareUpdate";
+	}
+	
+	@RequestMapping(value = "/routeshare/addressFilter.ajax")
+	@ResponseBody
+	public HashMap<String, Object> addressFilterAjax(@RequestParam HashMap<String, Object> params) {
+		logger.info("params: " + params);
+		return routeShareService.addressFilter(params);
+	}
+	
+	@RequestMapping(value = "/routeshare/subjectOrIdFilter.ajax")
+	@ResponseBody
+	public HashMap<String, Object> subjectOrIdFilterAjax(@RequestParam HashMap<String, Object> params) {
+		logger.info("params: " + params);
+		return routeShareService.subjectOrIdFilter(params);
+	}
 }

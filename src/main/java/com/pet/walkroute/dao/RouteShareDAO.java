@@ -3,6 +3,8 @@ package com.pet.walkroute.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.pet.walkroute.dto.RouteShareDTO;
 
 public interface RouteShareDAO {
@@ -19,10 +21,36 @@ public interface RouteShareDAO {
 
 	int totalCount();
 
-	ArrayList<RouteShareDTO> list(int cnt, int offset);
+	ArrayList<RouteShareDTO> list(String walkRouteType, int cnt, int offset);
 
 	RouteShareDTO detail(int walkRouteNum);
 
-	
+	String isRecommend(String walkRouteNum);
+
+	String isBookmark(String walkNum);
+
+	int recommendDo(@Param("walkRouteNum")String walkRouteNum, @Param("userID")String userID);
+
+	int bookmarkDo(@Param("walkNum")String walkNum, @Param("userID")String userID);
+
+	int recommendCancel(@Param("walkRouteNum")String walkRouteNum, @Param("userID")String userID);
+
+	int bookmarkCancel(@Param("walkNum")String walkNum, @Param("userID")String userID);
+
+	int delete(String walkRouteNum);
+
+	int addressFiterCount(HashMap<String, Object> params);
+
+	ArrayList<RouteShareDTO> addressFilterlist(HashMap<String, Object> params);
+
+	int idFiterCount(HashMap<String, Object> params);
+
+	int subjectFiterCount(HashMap<String, Object> params);
+
+	ArrayList<RouteShareDTO> idFilterlist(HashMap<String, Object> params);
+
+	ArrayList<RouteShareDTO> subjectFilterlist(HashMap<String, Object> params);
+
+	int update(HashMap<String, Object> params);
 
 }

@@ -19,6 +19,7 @@
 </style>
 </head>
 <body>
+	<c:set var="userID" value="${sessionScope.userID}"/>
 	<p>상세보기 페이지입니다</p>
 	<h1>${list.mateName}</h1>
 	<p>${list.userID}</p>
@@ -26,7 +27,9 @@
 	<div id="map" style="width: 700px; height: 700px;">
 		
 	</div>
-	
+	<c:if test="${list.userID ne userID}">
+		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>
+	</c:if>
 	<p>${list.mateDetail}</p>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
