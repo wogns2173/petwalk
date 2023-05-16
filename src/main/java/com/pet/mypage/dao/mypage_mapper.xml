@@ -69,11 +69,11 @@
 	</select>
 	
 	<select id="myreporttotalCount" resultType="int">		
-		SELECT COUNT(repReplyNum) FROM report WHERE userID = #{param3} 		
+		SELECT COUNT(reportNum) FROM report WHERE userID = #{param3} 		
 	</select>
 	
 	<select id="myreportlistCall" resultType="com.pet.mypage.dto.MyPageDTO">		
-		SELECT * FROM report WHERE userID = #{parma1} 
+		SELECT * FROM report WHERE userID = #{param3} 
 		ORDER BY reportDate DESC LIMIT #{param1} OFFSET #{param2}
 	</select>
 	

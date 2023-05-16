@@ -598,7 +598,11 @@ function myreportlistPrint(list){
 		content +='<tr>';		
 		content +='<td>'+item.reportName+'</td>';		
 		content +='<td>'+item.reportDate+'</td>';
-		content +='<td>'+item.repProcess+'</td>';	
+		if(item.repProcess == 1){
+		    content += '<td>처리완료</td>'
+		}else{
+		    content += '<td>미처리</td>'
+		}	
 		content +='</tr>';
 	});
 	}else{
