@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>너나들이 프로필</title>
+<title>너나들이 내 프로필</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"/>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
@@ -27,7 +28,21 @@
   }
   .right-align{
   	float: right;
-  }		
+  }	
+  
+  #title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+	}	
+	
+	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
+    .inner {
+    	position : relative;
+    }
 </style>
 </head>
 <body>
@@ -55,7 +70,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<hr>					
@@ -65,239 +80,239 @@
 		<br/>
 		<br/>
 		<br/>
-
-	<c:if test="${empty pet}">
-	등록된 반려견 정보가 없습니다.
-	<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
-	</c:if>
-	
-	<c:if test="${not empty pet}">
-	<h3>반려견 프로필</h3>
-		<table class="table">
-			<tr>
-				<th>사진</th>
-				<td>
-					<img width="100" src="/photo/${pet.serPhotoname}"/>					
-				</td>				
-			</tr>	
-			<tr>
-				<th>이름</th>
-				<td>
-					${pet.petName}					
-				</td>				
-			</tr>
-			<tr>
-				<th>나이</th>
-				<td>
-					${pet.petAge} 살										
-				</td>
-			</tr>
-			<tr>					
-				<th>성별</th>
-				<td>
-					<c:if test="${pet.petGender eq '남' }">남아</c:if>
-					<c:if test="${pet.petGender eq '여' }">여아</c:if>
-<!-- 				<input type="radio" name="petGender" value="남"<c:if test="${pet.petGender eq '남' }">checked</c:if>/>남아 &nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="petGender" value="여"<c:if test="${pet.petGender eq '여' }">checked</c:if>/>여아 -->
-				</td>				
-			</tr>
-			<tr>					
-				<th>중성화 여부</th>
-				<td>
-					<c:if test="${pet.petNeutered eq '1' }">O</c:if>
-					<c:if test="${pet.petNeutered eq '0' }">X</c:if>
-<!-- 				<input type="radio" name="petNeutered" value="1"<c:if test="${pet.petNeutered eq '1' }">checked</c:if>/>O &nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="radio" name="petNeutered" value="0"<c:if test="${pet.petNeutered eq '0' }">checked</c:if>/>X -->
-				</td>				
-			</tr>		
-			<tr>
-				<th>견종 사이즈</th>
-				<td>
-					${pet.petSize}										
-				</td>				
-			</tr>							
-			<tr>					
-				<th>반려견 소개</th>
-				<td>
-					${pet.petIntroduce}
-				</td>				
-			</tr>		
-			<tr>		
-		         <th colspan="2">
-		            <!-- <button onclick="location.href='petprofileWrite.go'"<c:if test="${pet.petNeutered eq '1' }">hidden</c:if>>반려견 정보 추가하기</button> -->
-		            <button onclick="location.href='petprofileUpdate.go'">수정하기</button>		            		            
-		         </th>
-	      	</tr>	      	
-		</table>
+		
+		<div class="inner">
+		<c:if test="${empty pet}">
+		등록된 반려견 정보가 없습니다.
+		<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
 		</c:if>
 		
-		<hr>
-		
-		<h3>작성한 산책 경로</h3>
-		<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>		
-		
-		<table class="table">
-		<thead id="myroutehead">
-			<colgroup>					
-				<col width="70%">
-				<col width="30%">
-			</colgroup>								
-   			<tr>						
-				<td>제목</td>
-				<td>작성일자</td>
-			</tr>
-		</thead>		
-		<tbody id="myroutebody">
+		<c:if test="${not empty pet}">
+		<h3 id="title">반려견 프로필</h3>
+			<table class="table">
+				<tr>
+					<th>사진</th>
+					<td>
+						<img width="100" src="/photo/${pet.serPhotoname}"/>					
+					</td>				
+				</tr>	
+				<tr>
+					<th>이름</th>
+					<td>
+						${pet.petName}					
+					</td>				
+				</tr>
+				<tr>
+					<th>나이</th>
+					<td>
+						${pet.petAge} 살										
+					</td>
+				</tr>
+				<tr>					
+					<th>성별</th>
+					<td>
+						<c:if test="${pet.petGender eq '남' }">남아</c:if>
+						<c:if test="${pet.petGender eq '여' }">여아</c:if>
+	<!-- 				<input type="radio" name="petGender" value="남"<c:if test="${pet.petGender eq '남' }">checked</c:if>/>남아 &nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="petGender" value="여"<c:if test="${pet.petGender eq '여' }">checked</c:if>/>여아 -->
+					</td>				
+				</tr>
+				<tr>					
+					<th>중성화 여부</th>
+					<td>
+						<c:if test="${pet.petNeutered eq '1' }">O</c:if>
+						<c:if test="${pet.petNeutered eq '0' }">X</c:if>
+	<!-- 				<input type="radio" name="petNeutered" value="1"<c:if test="${pet.petNeutered eq '1' }">checked</c:if>/>O &nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="petNeutered" value="0"<c:if test="${pet.petNeutered eq '0' }">checked</c:if>/>X -->
+					</td>				
+				</tr>		
+				<tr>
+					<th>견종 사이즈</th>
+					<td>
+						${pet.petSize}										
+					</td>				
+				</tr>							
+				<tr>					
+					<th>반려견 소개</th>
+					<td>
+						${pet.petIntroduce}
+					</td>				
+				</tr>		
+				<tr>		
+			         <th colspan="2">
+			            <!-- <button onclick="location.href='petprofileWrite.go'"<c:if test="${pet.petNeutered eq '1' }">hidden</c:if>>반려견 정보 추가하기</button> -->
+			            <button onclick="location.href='petprofileUpdate.go'">수정하기</button>		            		            
+			         </th>
+		      	</tr>	      	
+			</table>
+			</c:if>
 			
-		</tbody>						
-			<tr>
-				<td colspan="2" id="paging">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
-					<div class="container">									
-						<nav aria-label="Page navigation" style="text-align:center">
-							<ul class="pagination" id="pagination1"></ul>
-						</nav>					
-					</div>
-				</td>
-			</tr>			
-		</table>		
-		
-		<hr>
-
-		<h3>즐겨찾기한 산책 경로</h3>
-		<button onclick="location.href='routeshare/list'">산책 경로 공유 게시판 가기</button>				
-		
-		<table  class="table">
-		<thead id="mybookmarkhead">
-			<colgroup>					
-				<col width="50%">
-				<col width="25%">
-				<col width="25%">
-			</colgroup>					
-			<tr>						
-				<td>제목</td>
-				<td>작성자</td>
-				<td>작성일자</td>
-			</tr>
-		</thead>										
-		<tbody id="mybookmarkbody">
-		
-		</tbody>
-			<tr>
-				<td colspan="3">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
-					<div class="container">									
-						<nav aria-label="Page navigation" style="text-align:center">
-							<ul class="pagination" id="pagination2"></ul>
-						</nav>					
-					</div>
-				</td>
-			</tr>		
-		</table>
-		
-		<hr>
-		
-		<h3>산책 후기</h3>
-		<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>				
-		
-		<table  class="table">
-		<thead id="myreviewhead">
-			<colgroup>					
-				<col width="40%">
-				<col width="40%">
-				<col width="20%">
-			</colgroup>					
-			<tr>						
-				<td>제목</td>
-				<td>내용</td>
-				<td>작성일자</td>
-			</tr>
-		</thead>										
-		<tbody id="myreviewbody">
-		
-		</tbody>
-			<tr>
-				<td colspan="3">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
-					<div class="container">									
-						<nav aria-label="Page navigation" style="text-align:center">
-							<ul class="pagination" id="pagination3"></ul>
-						</nav>					
-					</div>
-				</td>
-			</tr>		
-		</table>
-		
-		<hr>	
-		
-		<h3>문의 내역</h3>
-			<button onclick="location.href='inquirywrite.go'">문의 하기</button>				
-		
-		<table  class="table">
-		<thead id="myinquiryhead">
-			<colgroup>					
-				<col width="50%">				
-				<col width="25%">
-				<col width="25%">
-			</colgroup>					
-			<tr>						
-				<td>제목</td>
-				<td>문의일자</td>
-				<td>처리여부</td>
-			</tr>
-		</thead>										
-		<tbody id="myinquirybody">
-		
-		</tbody>
-			<tr> 
-				<td colspan="3">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
-					<div class="container">									
-						<nav aria-label="Page navigation" style="text-align:center">
-							<ul class="pagination" id="pagination4"></ul>
-						</nav>					
-					</div>
-				</td>
-			</tr>		
-		</table>
-		
-		<hr>
-		
-		<h3>신고 내역</h3>
-			<button onclick="location.href='reportwrite.go'">신고 하기</button>				
-		
-		<table  class="table">
-		<thead id="myreporthead">
-			<colgroup>					
-				<col width="50%">				
-				<col width="25%">
-				<col width="25%">
-			</colgroup>					
-			<tr>						
-				<td>제목</td>
-				<td>문의일자</td>
-				<td>처리여부</td>
-			</tr>
-		</thead>										
-		<tbody id="myreportbody">
-		
-		</tbody>
-			<tr> 
-				<td colspan="3">	
-				<!-- 	플러그인 사용	(twbsPagination)	-->
-					<div class="container">									
-						<nav aria-label="Page navigation" style="text-align:center">
-							<ul class="pagination" id="pagination5"></ul>
-						</nav>					
-					</div>
-				</td>
-			</tr>		
-		</table>
-		
-		<hr>			
-		
-		
-
+			<hr>
+			
+			<h3 id="title">작성한 산책 경로</h3>
+			<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>		
+			
+			<table class="table">
+			<thead id="myroutehead">
+				<colgroup>					
+					<col width="70%">
+					<col width="30%">
+				</colgroup>								
+	   			<tr>						
+					<td>제목</td>
+					<td>작성일자</td>
+				</tr>
+			</thead>		
+			<tbody id="myroutebody">
+				
+			</tbody>						
+				<tr>
+					<td colspan="2" id="paging">	
+					<!-- 	플러그인 사용	(twbsPagination)	-->
+						<div class="container">									
+							<nav aria-label="Page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination1"></ul>
+							</nav>					
+						</div>
+					</td>
+				</tr>			
+			</table>		
+			
+			<hr>
+	
+			<h3 id="title">즐겨찾기한 산책 경로</h3>
+			<button onclick="location.href='routeshare/list'">산책 경로 공유 게시판 가기</button>				
+			
+			<table  class="table">
+			<thead id="mybookmarkhead">
+				<colgroup>					
+					<col width="50%">
+					<col width="25%">
+					<col width="25%">
+				</colgroup>					
+				<tr>						
+					<td>제목</td>
+					<td>작성자</td>
+					<td>작성일자</td>
+				</tr>
+			</thead>										
+			<tbody id="mybookmarkbody">
+			
+			</tbody>
+				<tr>
+					<td colspan="3">	
+					<!-- 	플러그인 사용	(twbsPagination)	-->
+						<div class="container">									
+							<nav aria-label="Page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination2"></ul>
+							</nav>					
+						</div>
+					</td>
+				</tr>		
+			</table>
+			
+			<hr>
+			
+			<h3 id="title">산책 후기</h3>
+			<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>				
+			
+			<table  class="table">
+			<thead id="myreviewhead">
+				<colgroup>					
+					<col width="40%">
+					<col width="40%">
+					<col width="20%">
+				</colgroup>					
+				<tr>						
+					<td>제목</td>
+					<td>내용</td>
+					<td>작성일자</td>
+				</tr>
+			</thead>										
+			<tbody id="myreviewbody">
+			
+			</tbody>
+				<tr>
+					<td colspan="3">	
+					<!-- 	플러그인 사용	(twbsPagination)	-->
+						<div class="container">									
+							<nav aria-label="Page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination3"></ul>
+							</nav>					
+						</div>
+					</td>
+				</tr>		
+			</table>
+			
+			<hr>	
+			
+			<h3 id="title">문의 내역</h3>
+				<button onclick="location.href='inquirywrite.go'">문의 하기</button>				
+			
+			<table  class="table">
+			<thead id="myinquiryhead">
+				<colgroup>					
+					<col width="50%">				
+					<col width="25%">
+					<col width="25%">
+				</colgroup>					
+				<tr>						
+					<td>제목</td>
+					<td>문의일자</td>
+					<td>처리여부</td>
+				</tr>
+			</thead>										
+			<tbody id="myinquirybody">
+			
+			</tbody>
+				<tr> 
+					<td colspan="3">	
+					<!-- 	플러그인 사용	(twbsPagination)	-->
+						<div class="container">									
+							<nav aria-label="Page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination4"></ul>
+							</nav>					
+						</div>
+					</td>
+				</tr>		
+			</table>
+			
+			<hr>
+			
+			<h3 id="title">신고 내역</h3>				
+			
+			<table  class="table">
+			<thead id="myreporthead">
+				<colgroup>					
+					<col width="50%">				
+					<col width="25%">
+					<col width="25%">
+				</colgroup>					
+				<tr>						
+					<td>제목</td>
+					<td>문의일자</td>
+					<td>처리여부</td>
+				</tr>
+			</thead>										
+			<tbody id="myreportbody">
+			
+			</tbody>
+				<tr> 
+					<td colspan="3">	
+					<!-- 	플러그인 사용	(twbsPagination)	-->
+						<div class="container">									
+							<nav aria-label="Page navigation" style="text-align:center">
+								<ul class="pagination" id="pagination5"></ul>
+							</nav>					
+						</div>
+					</td>
+				</tr>		
+			</table>
+			
+			<hr>			
+			
+			
+		</div>
 	</div>
 </body>
 <script>
@@ -337,6 +352,10 @@ function myroutlistCall(page){
 				startPage:data.currPage,		// 시작페이지
 				totalPages:data.pages,	// 총 페이지 수
 				visiblePages:5,	// 보여줄 페이지[1][2][3][4][5]
+				next : '<span style="color: #87d1bf;">></span>', 
+	            last : '<span style="color: #87d1bf;">>></span>',
+	            first : '<span style="color: #87d1bf;"><<</span>',
+	           prev : '<span style="color: #87d1bf;"><</span>',
 				onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
 					console.log(page, myrouteshowPage);
 					if (page != myrouteshowPage) {
@@ -395,6 +414,10 @@ function mybookmarklistCall(page){
 				startPage:data.mybookmarkcurrPage,		// 시작페이지
 				totalPages:data.mybookmarkpages,	// 총 페이지 수
 				visiblePages:5,	// 보여줄 페이지[1][2][3][4][5]
+				next : '<span style="color: #87d1bf;">></span>', 
+	            last : '<span style="color: #87d1bf;">>></span>',
+	            first : '<span style="color: #87d1bf;"><<</span>',
+	           prev : '<span style="color: #87d1bf;"><</span>',
 				onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
 					console.log(page, mybookmarkshowPage);
 					if (page != mybookmarkshowPage) {
@@ -452,6 +475,10 @@ function myreviewlistCall(page){
 				startPage:data.myreviewcurrPage,		// 시작페이지
 				totalPages:data.myreviewpages,	// 총 페이지 수
 				visiblePages:5,	// 보여줄 페이지[1][2][3][4][5]
+				next : '<span style="color: #87d1bf;">></span>', 
+	            last : '<span style="color: #87d1bf;">>></span>',
+	            first : '<span style="color: #87d1bf;"><<</span>',
+	           prev : '<span style="color: #87d1bf;"><</span>',
 				onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
 					console.log(page, myreviewshowPage);
 					if (page != myreviewshowPage) {
@@ -509,6 +536,10 @@ function myinquirylistCall(page){
 				startPage:data.myinquirycurrPage,		// 시작페이지
 				totalPages:data.myinquirypages,	// 총 페이지 수
 				visiblePages:5,	// 보여줄 페이지[1][2][3][4][5]
+				next : '<span style="color: #87d1bf;">></span>', 
+	            last : '<span style="color: #87d1bf;">>></span>',
+	            first : '<span style="color: #87d1bf;"><<</span>',
+	           prev : '<span style="color: #87d1bf;"><</span>',
 				onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
 					console.log(page, myrouteshowPage);
 					if (page != myrouteshowPage) {
@@ -572,6 +603,10 @@ function myreportlistCall(page){
 				startPage:data.myreportcurrPage,		// 시작페이지
 				totalPages:data.myreportpages,	// 총 페이지 수
 				visiblePages:5,	// 보여줄 페이지[1][2][3][4][5]
+				next : '<span style="color: #87d1bf;">></span>', 
+	            last : '<span style="color: #87d1bf;">>></span>',
+	            first : '<span style="color: #87d1bf;"><<</span>',
+	           prev : '<span style="color: #87d1bf;"><</span>',
 				onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
 					console.log(page, myreportshowPage);
 					if (page != myreportshowPage) {

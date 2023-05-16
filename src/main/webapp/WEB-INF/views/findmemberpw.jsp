@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>너나들이 비밀번호 찾기</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -26,6 +27,15 @@
   .right-align{
   	float: right;
   }
+  	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
+    #title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+	}	    
 </style>
 </head>
 <body>
@@ -53,7 +63,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<hr>					
@@ -63,31 +73,31 @@
 		<br/>
 		<br/>
 		<br/>
-<h3>비밀번호 찾기</h3>
-<div>비밀번호가 생각나지 않으세요?</div>
-<div>회원정보에 등록하신 이메일 주소로 임시 비밀번호를 발송해 드립니다.</div>
-<div>아래 입력하신 이름과 아이디, 이메일 정보는 회원정보에 정보와 반드시 같아야 합니다.</div>
-		<table>
+<h3 id="title" style="text-align: center;">비밀번호 찾기</h3>
+<div id="title" style="text-align: center;">비밀번호가 생각나지 않으세요?</div>
+<div style="text-align: center;">회원정보에 등록하신 이메일 주소로 임시 비밀번호를 발송해 드립니다.</div>
+<div style="text-align: center;">아래 입력하신 이름과 아이디, 이메일 정보는 회원정보에 정보와 반드시 같아야 합니다.</div>
+		<table style="margin-left: auto; margin-right: auto;">
 			<tr>
-				<th>이름</th>
-				<td>
+				<th id="title" style="text-align: center;">이름</th>
+				<td id="title" style="text-align: center;">
 					<input type="text" id="userName"/>					
 				</td>
 			</tr>
 			<tr>
-				<th>아이디</th>
-				<td>
+				<th id="title" style="text-align: center;">아이디</th>
+				<td id="title" style="text-align: center;">
 					<input type="text" id="userID"/>					
 				</td>
 			</tr>			
 			<tr>
-				<th>이메일</th>
-				<td>
+				<th id="title" style="text-align: center;">이메일</th>
+				<td id="title" style="text-align: center;">
 					<input type="text" id="userEmail"/>					
 				</td>
 			</tr>
 			<tr>
-         		<th colspan="2">
+         		<th colspan="2" id="title" style="text-align: center;">
             		<button onclick="findmemberpw()">확인</button>
             		<button onclick="location.href='login.go'">취소</button>
          		</th>
