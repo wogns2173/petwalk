@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <title>너나들이</title>
+=======
+<title>Insert title here</title>
+>>>>>>> origin/master
 <link rel="icon" href="./resources/img/favicon.ico">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">

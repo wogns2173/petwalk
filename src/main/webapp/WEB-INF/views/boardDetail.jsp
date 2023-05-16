@@ -5,11 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<link rel="stylesheet" href="resources/css/common.css">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="resources/css/common.css">
+	<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 <style>
 	.board_reply {
       border : 1px solid lightgray;
@@ -110,7 +111,7 @@
 							<a href="memberdelete.go">회원탈퇴</a>
 						</c:if>
 						<br>				
-						<a href="routeshare/list">산책 경로 공유</a>
+						<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 						<a href="matefind/list">산책 메이트</a>
 						<a href="board">커뮤니티</a>
 						<a href="noticelist.go">공지사항</a>
@@ -194,7 +195,7 @@
 					<input type ="button" id="repUpdateButton" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="삭제"/>
 					<input type ="button" id="repReportButton" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="수정"/>
 				</p>
-				<p>&nbsp&nbsp ${boardRep.commentDetail }</p>
+				<p>&nbsp&nbsp&nbsp ${boardRep.commentDetail }</p>
 			</div>	
 		</c:forEach>
 		

@@ -36,7 +36,15 @@
 .image-wrapper {
 	margin : 5px 34px;
 }
-
+	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
+    #title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+	}
   
 
 </style>
@@ -67,7 +75,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a href="routeshare/list">산책 경로 공유</a>
+					<a onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<a href="noticelist.go">공지사항</a>
@@ -78,12 +86,17 @@
 		<br/>
 		<br/>
 		<br/>
+		<br/>
+		<br/>
+		<br/>
+
+		
 
 		<table style="margin-left: 20px; margin-right: 20px;">
 		    <tr>						
 		        <td>
 		            <div class="image-wrapper">
-		                <img alt="recommend" src="resources/img/recommend.png" width="100" height="100" onclick="location.href=''">
+		                <img alt="recommend" src="resources/img/recommend.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=추천'">
 		            </div>
 		        </td>
 		        <td>
@@ -93,7 +106,7 @@
 		        </td>
 		        <td>
 		            <div class="image-wrapper">
-		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list'">
+		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=공유'">
 		            </div>
 		        </td>
 		        <td>
@@ -105,34 +118,38 @@
 		    <tr>
 		        <td>
 		            <div class="link-wrapper">
-		                <a href="">추천 경로</a>
+		                <button onclick="location.href='routeshare/list?walkRouteType=추천'">추천 경로</button>
 		            </div>
 		        </td>
 		        <td>
 		            <div class="link-wrapper">
-		                <a href="matefind/list">산책 메이트 찾기</a>
+		                <button onclick="location.href='matefind/list'">산책 메이트 찾기</button>
 		            </div>
 		        </td>
 		        <td>
 		            <div class="link-wrapper">
-		            	<a href="routeshare/list">산책 경로 공유</a>                
+<<<<<<< HEAD
+		            	<a onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</a>                
+=======
+		            	<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</button>            
+>>>>>>> origin/master
 		            </div>
 		        </td>
 		        <td>
 		            <div class="link-wrapper">
-		                <a href="board">커뮤니티</a>
+		                <button onclick="location.href='board'">커뮤니티</button>
 		            </div>
 		        </td>
 		    </tr>
 		</table>
 
-	<button onclick="location.href='routeshare/list?walkRouteType=추천'">추천 경로</button>
-	<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</button>
-	<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>
-	<button onclick="location.href='board'">커뮤니티</button>
+	
+	
+	
+	
 
 	<hr>
-	<h3>이런곳은 어떠세요?</h3>	
+	<h3 id="title">이런곳은 어떠세요?</h3>	
 	<button onclick="location.href=''">더 알아보기</button>
 	</div>	
 </body>

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>너나들이 회원정보 수정</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -26,6 +27,15 @@
   .right-align{
   	float: right;
   }		
+  	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
+    #title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+	}	
 </style>
 </head>
 <body>
@@ -53,7 +63,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<hr>					
@@ -63,10 +73,10 @@
 		<br/>
 		<br/>
 		<br/>
-	<h3>회원정보 수정</h3>
-		<table class="table">			
+	<h3 id="title" style="text-align: center;">회원정보 수정</h3>
+		<table class="table" style="margin-left: auto; margin-right: auto;">			
 			<tr>
-				<th>이름</th>
+				<th id="title">이름</th>
 				<td>
 					<input type="text" id="userName" value="${member.userName}"/>						
 					<button id="updateusername">수정</button>			
@@ -74,7 +84,7 @@
 				</td>				
 			</tr>
 			<tr>
-				<th>닉네임</th>
+				<th id="title">닉네임</th>
 				<td>
 					<input type="text" id="userNickname" value="${member.userNickname}"/>	
 					<button id="updateusernickname">수정</button>
@@ -82,7 +92,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>이메일</th>
+				<th id="title">이메일</th>
 				<td>
 					<input type="email" id="userEmail" value="${member.userEmail}"/>
 					<button id="updateuseremail">수정</button>
@@ -90,7 +100,7 @@
 				</td>
 			</tr>	
 			<tr>
-				<th>연락처</th>
+				<th id="title">연락처</th>
 				<td>								
 					<input type="number" id="ftphn" maxlength="3" value="010" readonly="readonly"/>
 					<input type="number" id="mdphn" value="${mdphn}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
@@ -100,7 +110,7 @@
 				</td>
 			</tr>										
 			<tr>
-				<th>나이</th>
+				<th id="title">나이</th>
 				<td>
 					<input type="number" id="userAge" value="${member.userAge}"/>
 					<button id="updateuserAge">수정</button>
@@ -108,7 +118,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>생년월일</th>					
+				<th id="title">생년월일</th>					
 				<td>					
 					<input type="number" id="year" min="1900" max="2023" value="${year}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
 					<select id="month">
@@ -130,9 +140,9 @@
 					<button id="updateuserBirthdate">수정</button>
 					<span id="userBirthdatemsg"></span>
 				</td>
-			<tr>	
+			</tr>	
 			<tr>
-				<th>주소</th>
+				<th id="title">주소</th>
 				<td>
 					<select id="siID">
 						<option value="">시를 선택하세요</option>																					
@@ -192,7 +202,7 @@
 				</td>
 			</tr>		
 			<tr>	
-				<th>성별</th>
+				<th id="title">성별</th>
 				<td>
 					<input type="radio" name="userGender" value="남"
 					<c:if test="${member.userGender eq '남' }">checked</c:if>
@@ -204,7 +214,7 @@
 					<span id="usergendermsg"></span>
 				</td>				
 			</tr>		
-			<tr>	
+			<tr style="text-align: center;">	
 	         <th colspan="2">	            
 	            <button onclick="location.href='./'">돌아가기</button>
 	         </th>

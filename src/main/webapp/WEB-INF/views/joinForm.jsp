@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>너나들이 회원가입</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -26,6 +27,16 @@
   .right-align{
   	float: right;
   }	
+  	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
+    
+      #title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+	}
 </style>
 </head>
 <body>
@@ -53,7 +64,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<hr>					
@@ -63,72 +74,94 @@
 		<br/>
 		<br/>
 		<br/>
-<h3>회원가입</h3>
-		<table>
+<h3 id="title" style="text-align: center;">회원가입</h3>
+		<table style="margin-left: auto; margin-right: auto;">
 			<tr>
-				<th>아이디</th>
-				<td>
+				<th id="title" style="text-align: center;">아이디</th>
+			</tr>
+			<tr>
+				<td id="title" style="text-align: center;">
 					<input type="text" id="userID" placeholder="아이디를 입력 해주세요."/>					
 					<span id="idmsg"></span>
 				</td>
 			</tr>
 			<tr>
-				<th>비밀번호</th>
-				<td>
+				<th id="title" style="text-align: center;">비밀번호</th>
+			</tr>
+			<tr>
+				<td id="title" style="text-align: center;">
 					<input type="password" id="userPW"/>
 					<span id="upwmsg"></span>	
 				</td>
 			</tr>
 			<tr>
-				<th>비밀번호 확인</th>
-				<td>
+				<th id="title" style="text-align: center;">비밀번호 확인</th>
+				</td>
+			</tr>
+			<tr>
+				<td id="title" style="text-align: center;">
 					<input type="password" id ="confirm"/>
 					<span id="pwmsg"></span>
 				</td>
 			</tr>
 			<tr>
-				<th>이름</th>
-				<td>
+				<th id="title" style="text-align: center;">이름</th>				
+				</td>				
+			</tr>
+			<tr>
+				<td id="title" style="text-align: center;">
 					<input type="text" id="userName"/>					
-				</td>
-				
+				</td>				
 			</tr>								
 			<tr>
-				<th>닉네임</th>
-				<td>
+				<th id="title" style="text-align: center;">닉네임</th>
+				</td>
+			</tr>
+			<tr>
+				<td id="title" style="text-align: center;">
 					<input type="text" id="userNickname"/>					
 					<span id="nicknamemsg"></span>
 				</td>
 			</tr>
 			<tr>
-				<th>연락처</th>
-				<td>
+				<th id="title" style="text-align: center;">연락처</th>				
+			</tr>	
+			<tr>
+				<td id="title" style="text-align: center;">
 					<input type="number" id="ftphn" maxlength="3" value="010" readonly="readonly"/>
 					<input type="number" id="mdphn" placeholder="휴대폰 중간(4자리)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
 					<input type="number" id="ltphn" placeholder="휴대폰 마지막(4자리)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
 				</td>
 			</tr>	
 			<tr>
-				<th>이메일</th>
-				<td>
+				<th id="title" style="text-align: center;">이메일</th>
+			</tr>	
+			<tr>
+				<td id="title" style="text-align: center;">
 					<input type="email" id="userEmail"/>
 				</td>
 			</tr>	
 			<tr>			
-				<th>성별</th>
-				<td>
+				<th id="title" style="text-align: center;">성별</th>				
+			</tr>	
+			<tr>			
+				<td id="title" style="text-align: center;">
 					<input type="radio" name="userGender" value="남"/>남자 
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="userGender" value="여"/>여자
 				</td>				
 			</tr>	
 			<tr>
-				<th>나이</th>
-				<td><input type="number" id="userAge"/></td>
+				<th id="title" style="text-align: center;">나이</th>
 			</tr>
 			<tr>
-				<th>생년월일</th>	
-					<td>	
+				<td id="title" style="text-align: center;"><input type="number" id="userAge"/></td>
+			</tr>
+			<tr>
+				<th id="title" style="text-align: center;">생년월일</th>						
+			</tr>
+			<tr>
+					<td id="title" style="text-align: center;">	
 					<input type="number" id="year" placeholder="년(4자)" min="1900" max="2023" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4"/>
 					<!-- <select id="year">
 						<option value="2005">2005</option>
@@ -209,8 +242,10 @@
 				</td>
 			</tr>
 			<tr>
-			<th>주소</th>
-				<td>
+				<th id="title" style="text-align: center;">주소</th>
+			</tr>	
+			<tr>
+				<td id="title" style="text-align: center;">
 					<select id="siID">
 						<option value="">시를 선택하세요</option>
 						<option value="1">서울 특별시</option>
@@ -267,7 +302,7 @@
 				</td>
 			</tr>	
 			<tr>
-         		<th colspan="2">
+         		<th colspan="2" id="title" style="text-align: center;">
             		<button onclick="join()">확인</button>
             		<button onclick="location.href='./'">취소</button>
          		</th>
