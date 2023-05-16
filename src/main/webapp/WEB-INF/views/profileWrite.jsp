@@ -67,26 +67,20 @@
 		<table class="table">
 			<tr>
 				<th>사진</th>
-				<td>					
-						<p id="filename">					
-	                     <img width="100" src="/photo/${pet.serPhotoname}"/>                      	
-	                      	<button id="deleteButton" onclick="delphoto()">삭제</button>                      	
-	                     </p>                    
-                     <input type="file" name="photo" id = "fileInput" onchange="checkExtension()"/>
-                     <input type="hidden" name="deletePhoto" value="false" id="deletePhotoInput">
-                     <input type="hidden" id="serPhotoname" value="${pet.serPhotoname}">		
+				<td>					                    
+                     <input type="file" name="photo" id = "photo"/>
 				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
 				<td>
-					<input type="text" id="petName" />					
+					<input type="text" id="petName"/>					
 				</td>				
 			</tr>
 			<tr>
 				<th>나이</th> 
 				<td>
-					<input type="number" id="petAge" />										
+					<input type="number" id="petAge"/>										
 				</td>
 			</tr>
 			<tr>					
@@ -117,7 +111,7 @@
 			<tr>					
 				<th>반려견 소개</th>
 				<td>					
-					<textarea id="petIntroduce"></textarea>
+					<textarea id="petIntroduce" placeholder="반려견에 대한 소개를 입력 해주세요."></textarea>
 				</td>				
 			</tr>		
 			<tr>		
@@ -131,57 +125,6 @@
 </body>
 <script>
 
-
-function delphoto(){
-	document.getElementById("filename").remove();    
-    document.getElementById("deletePhotoInput").value = "true";
-    
-}
-
-function checkExtension() {
-    var file = document.getElementById("fileInput");
-    var photo = $('#fileInput')[0].files[0]; // 파일 객체 가져오기
-    console.log(file);
-    
-    if(document.getElementById("filename")) {
-            alert("이미 등록된 이미지가 있습니다. 새로운 이미지를 등록하려면 삭제 버튼을 눌러주세요.");
-            file.value = "";
-	}else{
-		
-		var formData = new FormData(); // FormData 객체 생성
-		formData.append('photo', photo); // 파일 추가
-		var file = document.getElementById("fileInput");
-		var fileName = file.value;
-		var idx = fileName.lastIndexOf(".");	  
-		var ext = fileName.slice(idx + 1).toLowerCase();
-		
-		if (ext != 'jpg' && ext != 'png') {
-			alert('jpg 또는 png 파일만 첨부해 주세요.');
-		}else{
-			
-			$.ajax({
-			      type: 'post',
-			      url: 'petphoto.ajax',
-			      data: formData, // FormData 객체 전송
-			      processData: false, // 데이터를 처리하지 않음
-			      contentType: false, // 컨텐츠 타입을 설정하지 않음
-			      success: function (data) {
-			        console.log(data);
-			        if (data.success == 1) {
-			          alert('사진이 업로드 되었습니다.');
-			        }else {
-			          alert('사진 업로드에 실패했습니다.\r\n 다시 시도해 주세요.');
-			        }
-			      },
-			      error: function (e) {
-			        console.log(e);
-			        alert('사진 업로드중 오류가 발생했습니다.\r\n 다시 시도해 주세요');
-			      }
-			    });
-		}
-	}    
-}
-
 function petprofilecreate() {
 	  var photo = $('#photo')[0].files[0]; // 파일 객체 가져오기
 	  var petName = $('#petName');
@@ -193,7 +136,7 @@ function petprofilecreate() {
 	  var deletePhoto = $('#deletePhotoInput');
 	  var serPhotoname = $('#serPhotoname');
 	  
-	  var file = document.getElementById("fileInput");
+	  var file = document.getElementById("photo");
 	  var fileName = file.value;
 	  var idx = fileName.lastIndexOf(".");	  
 	  var ext = fileName.slice(idx + 1).toLowerCase();

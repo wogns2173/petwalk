@@ -103,8 +103,8 @@
 		<h3 id="title">&nbsp &nbsp반려견 질문 게시판</h3>
 		<input type="hidden" name="categoryCode" value="B_03"/>
 		<a href="boardList.go?categoryCode=B_03" class="right-align">더보기></a>
-		</br>
-		</br>
+		<br>
+		<br>
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_03'}">
 				<ul>
@@ -116,9 +116,9 @@
 		<h3 id="title">&nbsp &nbsp미아견 게시판</h3>
 		<input type="hidden" name="categoryCode" value="B_04"/>
 		<a href="boardList.go?categoryCode=B_04" class="right-align">더보기></a>
-		</br>
-		</br>
-		</br>
+		<br>
+		<br>
+		<br>
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_04'}">
 				<ul>

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,23 +41,6 @@ public class MyPageController {
 			 // 반려견 정보
 			 MyPageDTO dto = service.findprofileAndphoto(userID);				 
 			 model.addAttribute("pet", dto);
-			 
-			 // 내가 그린 산책경로
-			 ArrayList<MyPageDTO> findrouteDrawList = service.findrouteDrawList(userID);
-			 model.addAttribute("routeDraw", findrouteDrawList);
-			 
-			 // 내가 즐겨찾기한 산책경로
-			 ArrayList<MyPageDTO> mybookmark = service.mybookmark(userID);
-			 model.addAttribute("bookmark", mybookmark);
-			 	
-			 // 내 문의 내역
-			 ArrayList<MyPageDTO> myinquiryList = service.myinquiryList(userID);
-			 model.addAttribute("inquiry", myinquiryList);
-			 
-			 // 내 신고 내역
-			 ArrayList<MyPageDTO> report = service.report(userID);
-			 model.addAttribute("report", report);
- 
 			 
 			 page = "profile";
 		 }
@@ -134,20 +118,68 @@ public class MyPageController {
 	      return page;      
 	   }
 	
-	@RequestMapping(value="/inquiryListme.go")
-	   public String inquirylistme(HttpSession session, Model model) {
-		   		
-		String page = "redirect:/";	
+	@RequestMapping(value="/myroutlistCall.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>myroutlistCall(
+			HttpSession session,
+			@RequestParam String page,
+			@RequestParam String cnt){
+		logger.info("옴?");
 		
-		 if(session.getAttribute("userID") != null) {
-			 
-			 String userID = (String) session.getAttribute("userID");
-			 
-			 ArrayList<MyPageDTO> inquiryListme = service.myinquiryList(userID);
-			 model.addAttribute("inquiryListme", inquiryListme);
-			 page= "inquiryListme";
-		 }
-	      return page;      
-	   }
+		return service.myroutlistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
+	}
 	
+	@RequestMapping(value="/mybookmarklistCall.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>mybookmarklistCall(
+			HttpSession session,
+			@RequestParam String page,
+			@RequestParam String cnt){
+		logger.info("옴?");
+		
+		return service.mybookmarklistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
+	}
+	
+	@RequestMapping(value="/myreviewlistCall.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>myreviewlistCall(
+			HttpSession session,
+			@RequestParam String page,
+			@RequestParam String cnt){
+		logger.info("옴?");
+		
+		return service.myreviewlistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
+	}
+	
+	
+	@RequestMapping(value="/myinquirylistCall.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>myinquirylistCall(
+			HttpSession session,
+			@RequestParam String page,
+			@RequestParam String cnt){
+		logger.info("옴?");
+		
+		return service.myinquirylistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
+	}
+	
+	@RequestMapping(value="/myreportlistCall.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>myreportlistCall(
+			HttpSession session,
+			@RequestParam String page,
+			@RequestParam String cnt){
+		logger.info("옴?");
+		
+		return service.myreportlistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
+	}
+	/*
+	@RequestMapping(value="/inqlistme.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>inqlistme(HttpSession session, @RequestParam HashMap<String,Object> params){
+		logger.info("옴?");
+		
+		return service.inqlistme(params,session);
+	}
+	*/
 }

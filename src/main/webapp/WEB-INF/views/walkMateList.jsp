@@ -46,6 +46,19 @@
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
 <script>
+openPopup()
+
+function openPopup() {
+    var screenWidth = window.screen.availWidth;
+    var screenHeight = window.screen.availHeight;
+    var popupWidth = 500;
+    var popupHeight = 850;
+    var left = (screenWidth - popupWidth) / 2;
+    var top = (screenHeight - popupHeight) / 2;    
+
+    window.open('popup', 'popup', 'width=515, height=821,left=' + left + ',top=' + top);
+}
+
 	var list = [];
 	<c:forEach items="${list}" var="item">
 	

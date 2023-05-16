@@ -1,7 +1,7 @@
 package com.pet.mypage.dto;
 
 public class MyPageDTO {
-
+	
 	private int profileID;
 	private String userID;
 	private int petAge;
@@ -20,8 +20,10 @@ public class MyPageDTO {
 	private String boardNum;
 	private String boardName;
 	private String boardWriteDate;
+	private String categoryCode;
 	private String inqProcess;
-	
+	private String boardbHit;
+		
 	private String walkRouteNum;	
 	private String walkRouteName;
 	private String walkRoutebHit;
@@ -30,9 +32,20 @@ public class MyPageDTO {
 	private String reportNum;
 	private String reportName;
 	private String reportDate;
+	private String repProcess;
 	
+	private String reviewName;
+	private String reviewDetail;
+	private String reviewDate;
 
 	
+
+	public String getRepProcess() {
+		return repProcess;
+	}
+	public void setRepProcess(String repProcess) {
+		this.repProcess = repProcess;
+	}
 	public String getReportNum() {
 		return reportNum;
 	}
@@ -176,6 +189,36 @@ public class MyPageDTO {
 	}
 	public void setWalkRouteWriteDate(String walkRouteWriteDate) {
 		this.walkRouteWriteDate = walkRouteWriteDate;
+	}
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+	public String getBoardbHit() {
+		return boardbHit;
+	}
+	public void setBoardbHit(String boardbHit) {
+		this.boardbHit = boardbHit;
+	}
+	public String getReviewName() {
+		return reviewName;
+	}
+	public void setReviewName(String reviewName) {
+		this.reviewName = reviewName;
+	}
+	public String getReviewDetail() {
+		return reviewDetail;
+	}
+	public void setReviewDetail(String reviewDetail) {
+		this.reviewDetail = reviewDetail;
+	}
+	public String getReviewDate() {
+		return reviewDate;
+	}
+	public void setReviewDate(String reviewDate) {
+		this.reviewDate = reviewDate;
 	}
 	
 	

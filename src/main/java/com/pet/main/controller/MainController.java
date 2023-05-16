@@ -40,4 +40,10 @@ public class MainController {
 		
 		return page;
 	}
+	
+	@RequestMapping(value = "/matefind/popup", method = RequestMethod.GET)
+	public String popup(Locale locale, Model model) {		
+				
+		return "popup";
+	}
 }
