@@ -31,6 +31,7 @@
 	
 	<p>${list.walkRouteDetail}</p>
 	<div>
+
 		<c:if test="${list.userID eq userID}">
 			<button onclick="del()">삭제</button>
 			<button onclick="location.href='./update.go?walkRouteNum=${list.walkRouteNum}'">수정</button>

@@ -68,18 +68,21 @@
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" id="userID"/>					
+					<input type="text" id="userID" placeholder="아이디를 입력 해주세요."/>					
 					<span id="idmsg"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="password" id="userPW"/></td>
+				<td>
+					<input type="password" id="userPW"/>
+					<span id="upwmsg"></span>	
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
 				<td>
-					<input type="password" id ="confirm"/><br/>
+					<input type="password" id ="confirm"/>
 					<span id="pwmsg"></span>
 				</td>
 			</tr>
@@ -101,8 +104,8 @@
 				<th>연락처</th>
 				<td>
 					<input type="number" id="ftphn" maxlength="3" value="010" readonly="readonly"/>
-					<input type="number" id="mdphn" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
-					<input type="number" id="ltphn" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
+					<input type="number" id="mdphn" placeholder="휴대폰 중간(4자리)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
+					<input type="number" id="ltphn" placeholder="휴대폰 마지막(4자리)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
 				</td>
 			</tr>	
 			<tr>
@@ -121,12 +124,12 @@
 			</tr>	
 			<tr>
 				<th>나이</th>
-				<td><input type="text" id="userAge"/></td>
+				<td><input type="number" id="userAge"/></td>
 			</tr>
 			<tr>
 				<th>생년월일</th>	
 					<td>	
-					<input type="number" id="year" min="1900" max="2050" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4"/>
+					<input type="number" id="year" placeholder="년(4자)" min="1900" max="2023" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4"/>
 					<!-- <select id="year">
 						<option value="2005">2005</option>
 						<option value="2004">2004</option>
@@ -156,20 +159,20 @@
 						<option value="1980">1980</option>						
 					</select> -->
 					<select id="month">
-						<option value="01">01</option>
-						<option value="02">02</option>
-						<option value="03">03</option>
-						<option value="04">04</option>
-						<option value="05">05</option>
-						<option value="06">06</option>
-						<option value="07">07</option>
-						<option value="08">08</option>
-						<option value="09">09</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="12">12</option>											
+						<option value="01">1월</option>
+						<option value="02">2월</option>
+						<option value="03">3월</option>
+						<option value="04">4월</option>
+						<option value="05">5월</option>
+						<option value="06">6월</option>
+						<option value="07">7월</option>
+						<option value="08">8월</option>
+						<option value="09">9월</option>
+						<option value="10">10월</option>
+						<option value="11">11월</option>
+						<option value="12">12월</option>											
 					</select>
-					<input type="number" id="day" min="1" max="31" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" />
+					<input type="number" id="day" placeholder="일(01)"min="1" max="31" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" />
 					<!-- <select id="day">
 						<option value="01">01</option>
 						<option value="02">02</option>
@@ -337,13 +340,13 @@ function join(){
 	}else if($userAge.val()==''){
 		alert('나이를 입력해 주세요!');
 		$userAge.focus();
-	}else if($year.val().length<=3 && $year.val()<'1900' || $year.val()>'2023'){
+	}else if($year.val().length<=3 || $year.val() <= 1900  || $year.val() > 2023){
 		alert('태어난 년도를 4자리를 정확히 입력해 주세요!');
 		$year.focus();
 	}else if($month.val()==null){
 		alert('태어난 월을 선택해 주세요!');
 		$month.focus();
-	}else if($day.val().toString().length<=1 && $day.val() <=0 || $day.val() >31){
+	}else if($day.val().length<=1 || $day.val() <=0 || $day.val() >31){
 		alert('태어난 일(날짜) 을 2자리 정확히 입력해 주세요!\r\n ex)01 or 02');
 		$day.focus();
 	}else if($siID==''){
@@ -389,9 +392,13 @@ function join(){
 					alert('회원가입에 실패 했습니다.\r\n 다시 시도해 주세요');
 				}
 			});
-		}else{
-		alert('모두 입력해주세요.');
-	}	
+		}else if(!overlayIdChk){
+			alert('중복된 아이디 입니다.');
+			$userID.focus();
+		}else if(!overlayNicknameChk){
+			alert('중복된 닉네임 입니다.');
+			$userNickname.focus();
+		}	
 }
 
 $('#userID').on('keyup', function(e){
@@ -465,6 +472,18 @@ $('#userNickname').on('keyup', function(e){
     });     
 	}
  });
+ 
+$('#userPW').on('keyup',function(e){
+
+	if($('#userPW').val().length <=7){
+		$('#upwmsg').css({'font-size': '10px','color': 'red'});
+		$('#upwmsg').html('비밀번호를 8자리 이상 입력해주세요');
+	}else{
+		$('#upwmsg').css({'font-size': '10px','color': 'darkgreen'});
+		$('#upwmsg').html('사용 가능한 비밀번호 입니다.');
+	}
+});
+
  
 $('#confirm').on('keyup',function(e){
 	pweq = false;
