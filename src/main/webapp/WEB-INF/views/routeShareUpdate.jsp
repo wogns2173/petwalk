@@ -16,79 +16,42 @@
 	.distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
 	.distanceInfo .label {display:inline-block;width:50px;}
 	.distanceInfo:after {content:none;}
+	
+	#reBringbtn {
+		display : block;
+		margin : 10px auto;
+	}
+	
+	#exampleFormControlInput1 {
+		width : 700px;
+		display : inline;
+	}
 </style>
 </head>
 <body>
-	<c:set var="userID" value="${sessionScope.userID}"/>
-	${list}
-	<p>산책경로 공유 페이지</p>
-	<h1>${list.walkRouteName}</h1>
-	<p>${list.userID}</p>
-	<p>날짜입니당 : ${list.walkRouteWriteDate}   조회쉬 입니당 : ${list.walkRoutebHit}</p>
-	<div id="map" style="width: 700px; height: 700px;">
+	<form action="./routeShareInsert.do">
+		<input type="hidden" name="walkRouteNum" value="${dto.walkRouteNum}"/>
+		<input type="hidden" name="flag" value="update"/>
+		<input type="hidden" name="walkNum" value="${list.get(0).walkNum}"/>
+		<input type="hidden" name="siID" value=""/>
+		<input type="hidden" name="guID" value=""/>
+		<input type="hidden" name="dongID" value=""/>
+		<div id="map" style="width:100%;height:400px;"></div>
+		<button type="button" onclick="location.href='./bring.go'" id="reBringbtn">다시 불러오기</button>
+		<div class="subject">제목: <input type="text" name="walkRouteName" class="form-control" id="exampleFormControlInput1" value="${dto.walkRouteName}"/></div>
 		
-	</div>
-	
-	<p>${list.walkRouteDetail}</p>
-	<div>
-		<c:if test="${list.userID eq userID}">
-			<button onclick="del()">삭제</button>
-			<button onclick="location.href='./update.go?walkRouteNum=${list.walkRouteNum}'">수정</button>
-		</c:if>
-		
-		<c:if test="${list.userID ne userID}"> 
-			<button onclick="recommend()">추천</button>
-			<button onclick="bookmark()">즐겨찾기</button>
-		</c:if>
-	</div>
+		<div class="mb-3">
+		 	<label for="exampleFormControlTextarea1" class="form-label">내용</label>
+		 	<textarea class="form-control" name="walkRouteDetail" id="exampleFormControlTextarea1" rows="3">${dto.walkRouteDetail}</textarea>
+		</div>
+		<button>수정하기</button>
+	</form>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
 <script>
-	function del() {
-		if (!confirm("삭제하시겠습니까?")) {
-	        
-	    } else {
-	    	location.href='./delete.do?walkRouteNum=${list.walkRouteNum}';
-	    }
-		
-	}
-	function recommend() {
-		$.ajax({
-			type:'post',
-			url:'./recommend.ajax',
-			data: {walkRouteNum : ${list.walkRouteNum}},
-			dataType:'text',
-			success:function(data){
-				console.log(data);
-			},
-			error:function(e){
-				console.log(e);
-			}		
-		});
-	}
-	
-	function bookmark() {
-		$.ajax({
-			type:'post',
-			url:'./bookmark.ajax',
-			data: {walkNum : ${list.walkNum}},
-			dataType:'text',
-			success:function(data){
-				console.log(data);
-			},
-			error:function(e){
-				console.log(e);
-			}		
-		});
-	}
-	console.log('${list}');
-	console.log('${coordinate.get(0).getLat()}');
-	console.log('${coordinate.get(0).getLng()}');
-	console.log('${coordinate.size()}');
-	
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center: new kakao.maps.LatLng(${coordinate.get(0).getLat()}, ${coordinate.get(0).getLng()}), //지도의 중심좌표.
+		center: new kakao.maps.LatLng(${list.get(0).getLat()}, ${list.get(0).getLng()}), //지도의 중심좌표.
 		level: 3 //지도의 레벨(확대, 축소 정도)
 	};
 	
@@ -110,7 +73,46 @@
 	    strokeStyle: 'solid' // 선의 스타일입니다
 	});
 	
-	<c:forEach items="${coordinate}" var="item">
+	searchDetailAddrFromCoords(new kakao.maps.LatLng(${list.get(0).getLat()}, ${list.get(0).getLng()}), function(result, status) {
+	    if (status === kakao.maps.services.Status.OK) {
+	    	console.log(result[0]);
+	    	console.log(result[0].address);
+	        console.log(result[0].address.region_1depth_name);
+	        console.log(result[0].address.region_2depth_name);
+	        console.log(result[0].address.region_3depth_name);
+	        
+	        var siName = result[0].address.region_1depth_name;
+	        
+	        if(siName == '서울') {
+	        	siName += '특별시';
+	        }
+	        else {
+	        	siName += '광역시';
+	        }
+	        var siGuDong = {'siName' : siName, 
+	        		'guName' : result[0].address.region_2depth_name,
+	        		'dongName' : result[0].address.region_3depth_name};
+	        $.ajax({
+				type:'post',
+				url:'./sigudong.ajax',
+				data:{siGuDong},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					$('input[name="siID"]').val(data.siID);
+		            $('input[name="guID"]').val(data.guID);
+		            $('input[name="dongID"]').val(data.dongID);
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+	        
+	    }   
+	});
+	
+	<c:forEach items="${list}" var="item">
+		console.log('${item}');
 		console.log('${item.getLat()}');
 		console.log('${item.getLng()}');
 		console.log('${item.getMapOrder()}');
@@ -230,6 +232,11 @@
 	            zIndex: 3  
 	        });      
 	    }
+	}
+
+	function searchDetailAddrFromCoords(coords, callback) {
+	    // 좌표로 법정동 상세 주소 정보를 요청합니다
+	    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 	}
 </script>
 </html>

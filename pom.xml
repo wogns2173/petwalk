@@ -124,6 +124,13 @@
 		</dependency>
 		
 		
+		<!-- 채팅 위한 socket -->
+        <dependency> 
+            <groupId>org.springframework</groupId> 
+            <artifactId>spring-websocket</artifactId> 
+            <version>${org.springframework-version}</version> 
+        </dependency>
+		
 		
 		<!-- AspectJ -->
 		<dependency>

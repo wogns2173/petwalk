@@ -47,8 +47,8 @@
 		<br/>
 		<br/>
 		<br/>
-	<button onclick="location.href=''">추천 경로</button>
-	<button onclick="location.href='routeshare/list'">산책 경로 공유</button>
+	<button onclick="location.href='routeshare/list?walkRouteType=추천'">추천 경로</button>
+	<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</button>
 	<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>
 	<button onclick="location.href='board'">커뮤니티</button>
 	<hr>

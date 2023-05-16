@@ -46,4 +46,18 @@
 					  ,matebHit,petWalkDate,state,mateBlindWhether) 
 		VALUES(#{userID},#{walkNum},#{siID},#{guID},#{dongID},#{mateName},#{mateDetail},0,#{petWalkDate},'모집중',false);
 	</insert>
+	
+	<select id="messageList" resultType="com.pet.walkroute.dto.MessageDTO">
+		SELECT * FROM message WHERE sendID = #{param1}
+		GROUP BY mateWalkNum 	
+	</select>
+	
+	<select id="messageHistory" resultType="com.pet.walkroute.dto.MessageDTO">
+		SELECT * FROM message WHERE mateWalkNum = #{param1}	
+	</select>
+	
+	<insert id="messageSend" parameterType="hashmap">
+		INSERT INTO message(receiveID,sendID,mateWalkNum,messageDetail) 
+		VALUES(#{receiveID},#{sendID},#{mateWalkNum},#{messageDetail});
+	</insert>
 </mapper>

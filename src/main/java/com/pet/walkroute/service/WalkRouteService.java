@@ -70,6 +70,7 @@ public class WalkRouteService {
 		for(int i=0; i<list.size(); i++) {
 			logger.info("lat : " + list.get(i).getLat());
 		}
+		logger.info("list size() : " + list.size());
 		return list;
 	}
 }

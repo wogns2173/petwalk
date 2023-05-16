@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.pet.walkroute.dao.MateFindDAO;
 import com.pet.walkroute.dto.MateFindDTO;
 import com.pet.walkroute.dto.MateListDetailDTO;
+import com.pet.walkroute.dto.MessageDTO;
 
 @Service
 public class MateFindService {
@@ -53,6 +54,18 @@ public class MateFindService {
 
 	public int mateInsert(HashMap<String, Object> params) {
 		return dao.mateInsert(params);
+	}
+
+	public ArrayList<MessageDTO> messageList(String sendID) {
+		return dao.messageList(sendID);
+	}
+
+	public ArrayList<MessageDTO> messageHistory(String mateWalkNum) {
+		return dao.messageHistory(mateWalkNum);
+	}
+
+	public int messageSend(HashMap<String, Object> params) {
+		return dao.messageSend(params);
 	}
 
 }
