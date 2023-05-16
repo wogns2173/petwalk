@@ -67,7 +67,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a href="routeshare/list">산책 경로 공유</a>
+					<a onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<a href="noticelist.go">공지사항</a>
@@ -83,7 +83,7 @@
 		    <tr>						
 		        <td>
 		            <div class="image-wrapper">
-		                <img alt="recommend" src="resources/img/recommend.png" width="100" height="100" onclick="location.href=''">
+		                <img alt="recommend" src="resources/img/recommend.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=추천'">
 		            </div>
 		        </td>
 		        <td>
@@ -93,7 +93,7 @@
 		        </td>
 		        <td>
 		            <div class="image-wrapper">
-		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list'">
+		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=공유'">
 		            </div>
 		        </td>
 		        <td>
@@ -115,7 +115,7 @@
 		        </td>
 		        <td>
 		            <div class="link-wrapper">
-		            	<a href="routeshare/list">산책 경로 공유</a>                
+		            	<a onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</a>                
 		            </div>
 		        </td>
 		        <td>

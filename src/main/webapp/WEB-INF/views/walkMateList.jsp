@@ -7,42 +7,92 @@
 <title>KaKaoMap Study : olrlobt</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-<script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<!--  
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+
+-->
+<link rel="stylesheet" href="../resources/css/common.css">
+<link rel= "stylesheet" href="../resources/css/paging.css" type="text/css">
 
 <style type="text/css">
 	#list {
 		border-top: 1px solid black;
 		border-bottom: 1px solid black;
 	}
+	div#map {
+		margin-top : 100px;
+	}
+	inner {
+		postion : relative;
+		witdh: 100px;
+		height: 100px;
+	}
 </style>
 </head>
 <body>
+	<div class="main">
+			<div class = "topMenu">
+				<div class="logo">
+					<a href="./">
+						<img src="../resources/img/logo.png" alt="logo">				
+						<img src="../resources/img/logoaname.png" alt="logoname">
+					</a>	
+				</div>			
+					<div class="link">																		
+						<c:if test="${empty sessionScope.userID}">
+							<a href="../login.go">로그인</a>
+							<a href="../join.go">회원가입</a>
+						</c:if>
+						
+						<c:if test="${not empty sessionScope.userID}">
+							<a href="../myinformation.go">${sessionScope.userNickname} 님</a>
+							<c:if test="${sessionScope.Role eq 'admin'}">
+								<a href="../adminPage.go">관리자 페이지</a>
+							</c:if>
+							<a href="../logout">로그아웃</a>
+							<a href="../profile.go">프로필</a>
+							<a href="../memberdelete.go">회원탈퇴</a>
+						</c:if>
+						<br>				
+						<a onclick="location.href='/main/routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
+						<a onclick="location.href='/main/matefind/list'">산책 메이트</a>
+						<a href="../board">커뮤니티</a>
+						<a href="../noticelist.go">공지사항</a>
+						<hr>					
+				</div>															
+			</div>
 	<p>ㅎㅇ요</p>
-	<div id="map" style="width: 700px; height: 700px;">
+	<div class="inner">
+		<div id="map" style="width: 700px; height: 700px;">
+			
+		</div> 
+		<div>
+			<input type="text" id="text1">
+			<button onclick="search()">검색</button>
+			<button>목록</button>
+			<button onclick="location.href='./write.go'">작성하기</button>
+		</div>
 		
-	</div> 
-	<div>
-		<input type="text" id="text1">
-		<button onclick="search()">검색</button>
-		<button>목록</button>
-		<button onclick="location.href='./write.go'">작성하기</button>
+		<table class="table">
+	 		<thead>
+	    		<tr>
+			      <th scope="col">제목</th>
+			      <th scope="col">내용</th>
+			      <th scope="col">작성자</th>
+			      <th scope="col">작성일자</th>
+			      <th scope="col">모집여부</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+	   	
+			</tbody>
+		</table>
+		</div>
 	</div>
-	
-	<table class="table">
- 		<thead>
-    		<tr>
-		      <th scope="col">제목</th>
-		      <th scope="col">내용</th>
-		      <th scope="col">작성자</th>
-		      <th scope="col">작성일자</th>
-		      <th scope="col">모집여부</th>
-			</tr>
-		</thead>
-		<tbody id="tbody">
-   	
-		</tbody>
-	</table>
-	
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
 <script>
