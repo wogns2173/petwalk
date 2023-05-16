@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>너나들이 회원정보</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -26,6 +27,15 @@
   .right-align{
   	float: right;
   }	
+  	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
+    #title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+	}	
 </style>
 </head>
 <body>
@@ -53,7 +63,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<hr>					
@@ -63,62 +73,58 @@
 		<br/>
 		<br/>
 		<br/>
-	<h3>회원정보</h3>
-		<table class="table">
-		<colgroup>					
-					<col width="20%">
-					<col width="80%">
-				</colgroup>
-			<tr>
-				<th>아이디</th>
+	<h3 id="title" style="text-align: center;">내 정보</h3>
+		<table class="table" style="margin-left: auto; margin-right: auto;">
+			<tr style="text-align: center;">
+				<th id="title">아이디</th>
 				<td>
 					${member.userID}									
 				</td>
 			</tr>
-			<tr>
-				<th>이름</th>
+			<tr style="text-align: center;">
+				<th id="title">이름</th>
 				<td>
 					${member.userName}				
 				</td>				
 			</tr>
-			<tr>
-				<th>닉네임</th>
+			<tr style="text-align: center;">
+				<th id="title">닉네임</th>
 				<td>
 					${member.userNickname}										
 				</td>
 			</tr>
-			<tr>
-				<th>이메일</th>
+			<tr style="text-align: center;">
+				<th id="title">이메일</th>
 				<td>
 					${member.userEmail}
 				</td>
 			</tr>	
-			<tr>
-				<th>연락처</th>
+			<tr style="text-align: center;">
+				<th id="title">연락처</th>
 				<td>
 					${member.userContact}
 				</td>
 			</tr>										
-			<tr>
-				<th>나이</th>
+			<tr style="text-align: center;">
+				<th id="title">나이</th>
 				<td>
 					${member.userAge}
 				</td>
 			</tr>
-			<tr>
-				<th>생년월일</th>					
+			<tr style="text-align: center;">
+				<th id="title">생년월일</th>					
 				<td>
 					${member.userBirthdate}
 				</td>
-			<tr>	
-			<tr>
-			<th>주소</th>
+			</tr>	
+			<tr style="text-align: center;">
+				<th id="title">주소</th>
 				<td>
 					${member.siName} ${member.guName} ${member.dongName}
 				</td>
 			</tr>
-			<tr>			
-				<th>성별</th>
+			<tr style="text-align: center;">			
+				<th id="title">성별</th>
 				<td>
 				<c:if test="${member.userGender eq '남' }">남자</c:if>
 				<c:if test="${member.userGender eq '여' }">여자</c:if>				
@@ -130,7 +136,7 @@
 										/>여자 -->
 				</td>				
 			</tr>	
-			<tr>		
+			<tr style="text-align: center;">		
 		         <th colspan="2">
 		            <button onclick="location.href='myinformationupdate.go'">회원정보 수정</button>
 		            <button onclick="location.href='changememberpw.go'">비밀번호 변경</button>

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <style>
    .notice_reply {

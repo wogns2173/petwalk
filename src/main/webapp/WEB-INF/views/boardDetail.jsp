@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -110,7 +111,7 @@
 							<a href="memberdelete.go">회원탈퇴</a>
 						</c:if>
 						<br>				
-						<a href="routeshare/list">산책 경로 공유</a>
+						<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 						<a href="matefind/list">산책 메이트</a>
 						<a href="board">커뮤니티</a>
 						<a href="noticelist.go">공지사항</a>
