@@ -139,6 +139,10 @@
 		<a href="boardList.go?categoryCode=B_03" class="right-align">더보기></a>
 
 		<hr id="boardLine"/>
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_03'}">
 				<ul>

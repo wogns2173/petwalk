@@ -11,11 +11,13 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
+<link rel="stylesheet" href="resources/css/common.css" type="text/css">
 <style>
 	table, th, td{
 		border : 1px solid lightgray;
 		border-collapse: collapse;
 		padding : 10px 5px;
+		text-align: center;
 	}
 	
 	input[type="button"]{
@@ -32,15 +34,79 @@
 	
 	#title{
 	 	color:#87d1bf;
+	 	margin-left: 20px;
+	 	margin-bottom: 70px;
 	 }
 	 
 	 #thead{
 	 	color:#87d1bf;
 	 	background-color: #E3EDEB;
 	 }
+	 
+	  .container{
+	 	width : 710px;
+	 }
+	 
+	 #memManage{
+		margin-bottom: 10px;
+		margin-left: 10px;
+	 }
+	 
+	 #memProcess{
+	 	float: right;
+	 	margin-right: 10px;
+	 }
+	 
+	 #pagePerNum{
+	 	float: right;
+	 	margin-right: 10px;
+	 }
+	 
+	  
+	 
+	 
+	 
+	
 </style>
 </head>
 <body>
+<div class="main">
+	<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
+		</div>
+		
+		<br>
+		<br>
+		<br>
+		<br>
+
 
 <h3 id="title"> 회원 리스트 </h3>
 
@@ -55,12 +121,12 @@
     <button id="searchButton">검색</button>
    
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	
 	<select id="memProcess">
 		<option value="default">블라인드 처리 여부</option>
 		<option value="false">false</option>
 		<option value="true">true</option>
 	</select>
-	 
 	 
 	<select id="pagePerNum">
 		<option value="5">5</option>
@@ -97,7 +163,7 @@
 			</td>
 		</tr>
 	</table>
-
+</div>
 </body>
 <script>
 

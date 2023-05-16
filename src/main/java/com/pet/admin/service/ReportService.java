@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.admin.dao.ReportDAO;
-import com.pet.admin.dto.InquiryDTO;
 import com.pet.admin.dto.ReportDTO;
 
 @Service
@@ -172,7 +171,6 @@ public class ReportService {
 		//1. 게시글만 작성
 		ReportDTO repdto = new ReportDTO();
 		logger.info("userID :"+userID);
-		logger.info("boardNum :"+boardNum);
 		
 		repdto.setCategoryCode(params.get("categoryCode"));
 		repdto.setReportName(params.get("reportName"));
