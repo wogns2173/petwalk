@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>너나들이</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
@@ -37,16 +38,23 @@
     
     }
     
+    input[type="submit"]{
+  		
+        background-color: #87d1bf;
+        color: white;
+        border:none;
+    }
+    
     button{
         float: right;
         background-color: #87d1bf;
         color: white;
         border:none;
-        margin-left:10px;
+        
         
      }
      
-     #inquiryreply_legnth {
+     #inquiryreply_text {
        float: right;
         border:none;
         font-size: 14px;
@@ -66,17 +74,19 @@
      	padding : 10px 5px;
      }
      
-     #noticereply_legnth{
-     	margin-left: 10px;
+     #inquiryreply_legnth{
+     	margin-left: 22px;
      }
      
      #list {
-     	margin-top: 8px;
+     	margin-top: 20px;
      }
      
      .content{
      	width : 720px;
      }
+     
+    
 </style>
 </head>
 <body>
@@ -139,7 +149,7 @@
 		            <td>${inq.boardDetail}</td>
 		            <c:if test="${inq.serPhotoname ne null}">
 					<tr>
-						<td><img width="710" src="/photo/${inq.serPhotoname}"/></td>
+						<td><img width="600" src="/photo/${inq.serPhotoname}" style="margin-left: 50px;"//></td>
 					</tr>
 					</c:if>
 		    	 </tr>            
@@ -157,6 +167,7 @@
 				   	</div>
 			   	</form>
 		   	</c:if>
+		   	
 		  <div id="list">
 			   	<c:if test="${Role eq 'admin'}">
 					<!-- 관리자 문의글 목록으로 돌아가기 -->

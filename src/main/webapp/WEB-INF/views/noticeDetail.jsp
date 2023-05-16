@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>너나들이</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
@@ -70,7 +71,7 @@
      }
      
      #list {
-     	margin-top: 8px;
+     	margin-top: 10px;
      }
      
      .content{
@@ -138,21 +139,21 @@
 	            <td>${notice.boardDetail}</td>
 	            <c:if test="${notice.serPhotoname ne null}">
 				<tr>
-					<td><img width="710" src="/photo/${notice.serPhotoname}"/></td>
+					<td><img width="600" src="/photo/${notice.serPhotoname}" style="margin-left: 50px;"//></td>
 				</tr>
 				</c:if>
 	    	 </tr>            
 	   </table>
-	     	
+	     <div id="list">
 			<!-- 공지사항 목록으로 돌아가기 -->
 	        <input id="list" type="button" onclick='location.href="./noticelist.go"' value="목록">
-	      
+	      </div>
 	   <hr>
 	   
 	   <p>댓글</p>         
 	   
 		<!-- 문의글 댓글 리스트 가져오기 -->
-	    <c:if test="${noticelist.size() eq 0}">
+	    <c:if test="${noticereplist.size() eq 0}">
 			<tr><th colspan="10">등록된 답변이 없습니다.</th></tr>	
 		</c:if>
 		

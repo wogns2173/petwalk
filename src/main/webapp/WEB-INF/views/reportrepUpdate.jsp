@@ -4,14 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>너나들이</title>
+<link rel="icon" href="./resources/img/favicon.ico">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<link rel="stylesheet" href="resources/css/common.css" type="text/css">
 <style>
    .report_reply {
       border : 1px solid lightgray;
       border-radius: 5px;
       height: 30px;
-      width : 800px;
+      width : 720px;
       display: inline-flex;
    }
    
@@ -21,7 +26,7 @@
    }
    
     input[type="text"]{
-       width : 500px;
+       width : 621px;
        border : none;
     }
     
@@ -31,6 +36,13 @@
         color: white;
         border:none;
     
+    }
+    
+    input[type="submit"]{
+  		
+        background-color: #87d1bf;
+        color: white;
+        border:none;
     }
     
     button{
@@ -56,13 +68,66 @@
      }
      
      table, th, td{
-     	border : 1px solid lightgray;
+     	border : none;
      	border-collapse: collapse;
      	padding : 10px 5px;
      }
+     
+     #reportreply_legnth{
+     	margin-left: 22px;
+     }
+     
+     #list {
+     	margin-top: 20px;
+     }
+     
+     .content{
+     	width : 720px;
+     }
 </style>
 </head>
-
+<body>
+<div class="main">
+	<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
+		</div>
+		
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
+	<div class="content">
 	<!-- 글 번호 -->
 	<input type="hidden" name="inquiry" value="${rep.reportNum}">
 	
@@ -81,12 +146,13 @@
             <td>${rep.reportDetail}</td>
             <c:if test="${rep.serPhotoname ne null}">
 			<tr>
-				<td><img width="300" src="/photo/${rep.serPhotoname}"/></td>
+				<td><img width="600" src="/photo/${rep.serPhotoname}" style="margin-left: 50px;"/></td>
 			</tr>
 			</c:if>
     	 </tr>            
    </table>
    
+   <c:if test="${Role eq 'admin'}">
    <form id="reportprocess" action="reportprocess.go" method="POST">
 	   <div>
 		   <select name="selectedValue" id="${rep.reportNum}">
@@ -97,10 +163,17 @@
 		   <input type="submit" value="저장">
 	   	</div>
    	</form>
-   	
-		<!-- 신고글 목록으로 돌아가기 -->
-        <input type="button" onclick='location.href="./reportList.go"' value="목록">
-      
+   	</c:if>
+		<div id="list">
+		   	<c:if test="${Role eq 'admin'}">
+				<!-- 관리자 신고글 목록으로 돌아가기 -->
+		        <input type="button" onclick='location.href="./reportList.go"' value="목록">
+			</c:if>        
+		      <c:if test="${Role eq 'user'}">
+		    	<!-- 내 프로필 돌아가기 -->
+		        <input type="button" onclick='location.href="./profile.go"' value="뒤로가기">
+		   </c:if>
+		 </div>
    <hr>
    
    <p>답변</p>         
@@ -113,12 +186,16 @@
 	<c:forEach items="${repreplist}" var="report">
 		<div class="report">
 			${report.userID}
-			<input type ="button" onclick='location.href="reprepdel.do?repReplyNum=${report.repReplyNum}&reportNum=${rep.reportNum}"' value="삭제"/>
-			<input type ="button" onclick='location.href="reprepupdate.go?repReplyNum=${report.repReplyNum}&reportNum=${rep.reportNum}&reportProcess=${report.reportProcess }"' value="수정"/>
-			<p>${report.reportProcess }</p>
+			<c:if test="${Role eq 'admin'}">
+				<c:if test="${report.userID eq sessionScope.userID}">
+					<input type ="button" onclick='location.href="reprepdel.do?repReplyNum=${report.repReplyNum}&reportNum=${rep.reportNum}"' value="삭제"/>
+					<input type ="button" onclick='location.href="reprepupdate.go?repReplyNum=${report.repReplyNum}&reportNum=${rep.reportNum}&reportProcess=${report.reportProcess }"' value="수정"/>
+					<p>${report.reportProcess }</p>
+				</c:if>
+			</c:if>
 		</div>	
 	</c:forEach>
-	
+	<c:if test="${Role eq 'admin'}">
 	<!-- 댓글 수정 -->
     <form method="post" action="reportreplyupdate.do">
 		<div class="report_reply">
@@ -129,7 +206,9 @@
 	        <button type="submit">수정</button>
 		</div>  
     </form>
-    
+    </c:if>
+</div>
+</div>
 </body>
 <script>
 
