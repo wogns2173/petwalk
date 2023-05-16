@@ -7,10 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="resources/css/common.css">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="resources/css/common.css">
+	<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 <style>
 	.board-item {
 		display: inline-block;
@@ -106,6 +108,8 @@
 		<br/>
 		<br/>
 		<br/>
+		<br/>
+		<br/>
 		<div>
 			<h3 id="title">&nbsp &nbsp반려견 갤러리</h3>
 			<a href="boardList.go?categoryCode=B_01" class="right-align">더보기></a>
@@ -128,7 +132,7 @@
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_02'}">
 				<ul>
-					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}"id="boardName">${bbs.boardName} [${bbs.replyCount}]</a><span class="hit"> ${bbs.boardbHit }&nbsp &nbsp&nbsp &nbsp</span></li>
+					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}"id="boardName">${bbs.boardName} [${bbs.replyCount}]</a><span class="hit">${bbs.boardbHit }&nbsp &nbsp&nbsp &nbsp</span></li>
 				</ul>
 			</c:if>
 		</c:forEach>
@@ -139,14 +143,10 @@
 		<a href="boardList.go?categoryCode=B_03" class="right-align">더보기></a>
 
 		<hr id="boardLine"/>
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_03'}">
 				<ul>
-					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}" id="boardName">${bbs.boardName} [${bbs.replyCount }]</a> <span class="hit">조회 ${bbs.boardbHit }&nbsp &nbsp&nbsp &nbsp</span></li>
+					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}" id="boardName">${bbs.boardName} [${bbs.replyCount }]</a> <span class="hit">${bbs.boardbHit }&nbsp &nbsp&nbsp &nbsp</span></li>
 				</ul>
 			</c:if>
 		</c:forEach>
@@ -162,7 +162,7 @@
 		<c:forEach items="${boardList}" var="bbs">
 			<c:if test="${bbs.categoryCode=='B_04'}">
 				<ul>
-					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}" id="boardName">${bbs.boardName} [${bbs.replyCount }]</a><span class="hit">조회 ${bbs.boardbHit }&nbsp &nbsp&nbsp &nbsp</span></li>
+					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}" id="boardName">${bbs.boardName} [${bbs.replyCount }]</a><span class="hit">${bbs.boardbHit }&nbsp &nbsp&nbsp &nbsp</span></li>
 				</ul>
 			</c:if>
 		</c:forEach>

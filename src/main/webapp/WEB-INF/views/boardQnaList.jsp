@@ -98,15 +98,15 @@
 	<input type="text" id="searchInput" placeholder="검색 조건을 입력해주세요.">
    	<button id="searchButton">검색</button>
 	</div>
-	게시물 갯수 : 
 	<select id="pagePerNum">
 		<option value="5">5</option>
 		<option value="10">10</option>
 		<option value="15">15</option>
 	</select>
+	<div class="infolist">
 	<table>
 		<thead>
-			<tr>
+			<tr id="thead">
 				<th>번호</th>					
 				<th>제목</th>
 				<th>작성자</th>
