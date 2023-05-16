@@ -89,27 +89,29 @@
 		
 		<c:if test="${not empty pet}">
 		<h3 id="title">반려견 프로필</h3>
-			<table class="table">
+			<table class="table" style="margin-left: auto; margin-right: auto;">
+				<tr style="text-align: center;">
+					<th colspan="2" id="title" >반려견 사진</th>			
+				</tr>
 				<tr>
-					<th>사진</th>
-					<td>
+					<td style="text-align: center;" colspan="2">
 						<img width="100" src="/photo/${pet.serPhotoname}"/>					
 					</td>				
 				</tr>	
-				<tr>
-					<th>이름</th>
+				<tr style="text-align: center;">
+					<th id="title">이름</th>
 					<td>
 						${pet.petName}					
 					</td>				
 				</tr>
-				<tr>
-					<th>나이</th>
+				<tr style="text-align: center;">
+					<th id="title">나이</th>
 					<td>
 						${pet.petAge} 살										
 					</td>
 				</tr>
-				<tr>					
-					<th>성별</th>
+				<tr style="text-align: center;">					
+					<th id="title">성별</th>
 					<td>
 						<c:if test="${pet.petGender eq '남' }">남아</c:if>
 						<c:if test="${pet.petGender eq '여' }">여아</c:if>
@@ -117,8 +119,8 @@
 						<input type="radio" name="petGender" value="여"<c:if test="${pet.petGender eq '여' }">checked</c:if>/>여아 -->
 					</td>				
 				</tr>
-				<tr>					
-					<th>중성화 여부</th>
+				<tr style="text-align: center;">					
+					<th id="title">중성화 여부</th>
 					<td>
 						<c:if test="${pet.petNeutered eq '1' }">O</c:if>
 						<c:if test="${pet.petNeutered eq '0' }">X</c:if>
@@ -126,19 +128,19 @@
 						<input type="radio" name="petNeutered" value="0"<c:if test="${pet.petNeutered eq '0' }">checked</c:if>/>X -->
 					</td>				
 				</tr>		
-				<tr>
-					<th>견종 사이즈</th>
+				<tr style="text-align: center;">
+					<th id="title">견종 사이즈</th>
 					<td>
 						${pet.petSize}										
 					</td>				
 				</tr>							
-				<tr>					
-					<th>반려견 소개</th>
+				<tr style="text-align: center;">					
+					<th id="title">반려견 소개</th>
 					<td>
 						${pet.petIntroduce}
 					</td>				
 				</tr>		
-				<tr>		
+				<tr style="text-align: center;">		
 			         <th colspan="2">
 			            <!-- <button onclick="location.href='petprofileWrite.go'"<c:if test="${pet.petNeutered eq '1' }">hidden</c:if>>반려견 정보 추가하기</button> -->
 			            <button onclick="location.href='petprofileUpdate.go'">수정하기</button>		            		            
@@ -159,8 +161,8 @@
 					<col width="30%">
 				</colgroup>								
 	   			<tr>						
-					<td>제목</td>
-					<td>작성일자</td>
+					<td id="title">제목</td>
+					<td id="title">작성일자</td>
 				</tr>
 			</thead>		
 			<tbody id="myroutebody">
@@ -181,7 +183,7 @@
 			<hr>
 	
 			<h3 id="title">즐겨찾기한 산책 경로</h3>
-			<button onclick="location.href='routeshare/list'">산책 경로 공유 게시판 가기</button>				
+			<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유 게시판 가기</button>				
 			
 			<table  class="table">
 			<thead id="mybookmarkhead">
@@ -191,9 +193,9 @@
 					<col width="25%">
 				</colgroup>					
 				<tr>						
-					<td>제목</td>
-					<td>작성자</td>
-					<td>작성일자</td>
+					<td id="title">제목</td>
+					<td id="title">작성자</td>
+					<td id="title">작성일자</td>
 				</tr>
 			</thead>										
 			<tbody id="mybookmarkbody">
@@ -224,9 +226,9 @@
 					<col width="20%">
 				</colgroup>					
 				<tr>						
-					<td>제목</td>
-					<td>내용</td>
-					<td>작성일자</td>
+					<td id="title">제목</td>
+					<td id="title">내용</td>
+					<td id="title">작성일자</td>
 				</tr>
 			</thead>										
 			<tbody id="myreviewbody">
@@ -257,9 +259,9 @@
 					<col width="25%">
 				</colgroup>					
 				<tr>						
-					<td>제목</td>
-					<td>문의일자</td>
-					<td>처리여부</td>
+					<td id="title">제목</td>
+					<td id="title">문의일자</td>
+					<td id="title">처리여부</td>
 				</tr>
 			</thead>										
 			<tbody id="myinquirybody">
@@ -289,9 +291,9 @@
 					<col width="25%">
 				</colgroup>					
 				<tr>						
-					<td>제목</td>
-					<td>문의일자</td>
-					<td>처리여부</td>
+					<td id="title">제목</td>
+					<td id="title">문의일자</td>
+					<td id="title">처리여부</td>
 				</tr>
 			</thead>										
 			<tbody id="myreportbody">

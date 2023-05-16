@@ -81,7 +81,7 @@
 			</tr>
 			<tr>
 				<td id="title" style="text-align: center;">
-					<input type="text" id="userID" placeholder="아이디를 입력 해주세요."/>					
+					<input type="text" id="userID" placeholder="아이디를 입력 해주세요."/><br/>					
 					<span id="idmsg"></span>
 				</td>
 			</tr>
@@ -90,7 +90,7 @@
 			</tr>
 			<tr>
 				<td id="title" style="text-align: center;">
-					<input type="password" id="userPW"/>
+					<input type="password" id="userPW"/><br/>
 					<span id="upwmsg"></span>	
 				</td>
 			</tr>
@@ -100,7 +100,7 @@
 			</tr>
 			<tr>
 				<td id="title" style="text-align: center;">
-					<input type="password" id ="confirm"/>
+					<input type="password" id ="confirm"/><br/>
 					<span id="pwmsg"></span>
 				</td>
 			</tr>
@@ -119,7 +119,7 @@
 			</tr>
 			<tr>
 				<td id="title" style="text-align: center;">
-					<input type="text" id="userNickname"/>					
+					<input type="text" id="userNickname"/><br/>					
 					<span id="nicknamemsg"></span>
 				</td>
 			</tr>

@@ -74,12 +74,15 @@
 		<br/>
 		<br/>
 	<h3 id="title" style="text-align: center;">회원정보 수정</h3>
+		<br/>
+		<br/>
+
 		<table class="table" style="margin-left: auto; margin-right: auto;">			
 			<tr>
 				<th id="title">이름</th>
 				<td>
 					<input type="text" id="userName" value="${member.userName}"/>						
-					<button id="updateusername">수정</button>			
+					<button id="updateusername">수정</button><br/>			
 					<span id="namemsg"></span>
 				</td>				
 			</tr>
@@ -87,7 +90,7 @@
 				<th id="title">닉네임</th>
 				<td>
 					<input type="text" id="userNickname" value="${member.userNickname}"/>	
-					<button id="updateusernickname">수정</button>
+					<button id="updateusernickname">수정</button><br/>
 					<span id="nicknamechkmsg"></span>								
 				</td>
 			</tr>
@@ -95,7 +98,7 @@
 				<th id="title">이메일</th>
 				<td>
 					<input type="email" id="userEmail" value="${member.userEmail}"/>
-					<button id="updateuseremail">수정</button>
+					<button id="updateuseremail">수정</button><br/>
 					<span id="useremailmsg"></span>
 				</td>
 			</tr>	
@@ -105,7 +108,7 @@
 					<input type="number" id="ftphn" maxlength="3" value="010" readonly="readonly"/>
 					<input type="number" id="mdphn" value="${mdphn}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
 					<input type="number" id="ltphn" value="${lstphn}" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />				
-					<button id="updateuserContact">수정</button>
+					<button id="updateuserContact">수정</button><br/>
 					<span id="userecontactmsg"></span>
 				</td>
 			</tr>										
@@ -113,7 +116,7 @@
 				<th id="title">나이</th>
 				<td>
 					<input type="number" id="userAge" value="${member.userAge}"/>
-					<button id="updateuserAge">수정</button>
+					<button id="updateuserAge">수정</button><br/>
 					<span id="userAgemsg"></span> 
 				</td>
 			</tr>
@@ -137,7 +140,7 @@
 					</select>
 					<input type="number" id="day" min="1" max="31" value="${day}"oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="2" />
 					
-					<button id="updateuserBirthdate">수정</button>
+					<button id="updateuserBirthdate">수정</button><br/>
 					<span id="userBirthdatemsg"></span>
 				</td>
 			</tr>	
@@ -197,7 +200,7 @@
 					      <option value="일원동">일원동</option>
 					      <option value="청담동">청담동</option> -->
 					</select>
-					<button id="updateuseraddress">수정</button>
+					<button id="updateuseraddress">수정</button><br/>
 					<span id="useraddressmsg"></span>
 				</td>
 			</tr>		
@@ -210,7 +213,7 @@
 					<input type="radio" name="userGender" value="여"
 					<c:if test="${member.userGender eq '여' }">checked</c:if>
 					/>여자
-					<button id="updateuserGender">수정</button>
+					<button id="updateuserGender">수정</button><br/>
 					<span id="usergendermsg"></span>
 				</td>				
 			</tr>		

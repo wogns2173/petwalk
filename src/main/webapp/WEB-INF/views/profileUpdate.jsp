@@ -74,13 +74,15 @@
 		<br/>
 		<br/>
 	<h3 id="title">반려견 정보 수정</h3>
-		<table class="table">
-			<tr>
-				<th>사진</th>
-				<td>									                     
+		<table class="table" style="margin-left: auto; margin-right: auto;">
+			<tr style="text-align: center;">
+				<th colspan="2" id="title">반려견 사진</th>			
+			</tr>
+			<tr style="text-align: center;">
+				<td colspan="2" >									                     
 						<p id="filename">					
-	                     <img width="100" src="/photo/${pet.serPhotoname}"/>
-	                      	<!-- 현재 등록된 이미지: ${pet.serPhotoname} -->                      	
+	                     <img width="100" src="/photo/${pet.serPhotoname}"/><br/>
+	                      	<br/>      	
 	                      	<button id="deleteButton" onclick="delphoto()">삭제</button>                      	
 	                     </p>                     
                      <input type="file" name="photo" id = "fileInput" onchange="checkExtension()"/>
@@ -89,8 +91,8 @@
                       <input type="hidden" id="serPhotoname" value="${pet.serPhotoname}">
 				</td>
 			</tr>
-			<tr>
-				<th>견종 사이즈</th>
+			<tr style="text-align: center;">
+				<th id="title">견종 사이즈</th>
 				<td>
 					<select id ="petSize">
 						<option value="">사이즈를 선택해 주세요.</option>
@@ -100,39 +102,39 @@
 					</select>					
 				</td>				
 			</tr>				
-			<tr>
-				<th>이름</th>
+			<tr style="text-align: center;">
+				<th id="title">이름</th>
 				<td>
 					<input type="text" id="petName" value="${pet.petName}"/>					
 				</td>				
 			</tr>
-			<tr>
-				<th>나이</th>
+			<tr style="text-align: center;">
+				<th id="title">나이</th>
 				<td>
 					<input type="number" id="petAge" value="${pet.petAge}"/>										
 				</td>
 			</tr>
-			<tr>					
-				<th>성별</th>
+			<tr style="text-align: center;">					
+				<th id="title">성별</th>
 				<td>
 					<input type="radio" name="petGender" value="남"<c:if test="${pet.petGender eq '남' }">checked</c:if>/>남아 &nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="petGender" value="여"<c:if test="${pet.petGender eq '여' }">checked</c:if>/>여아
 				</td>				
 			</tr>
-			<tr>					
-				<th>중성화 여부</th>
+			<tr style="text-align: center;">					
+				<th id="title">중성화 여부</th>
 				<td>
 					<input type="radio" name="petNeutered" value="1"<c:if test="${pet.petNeutered eq '1' }">checked</c:if>/>O &nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="petNeutered" value="0"<c:if test="${pet.petNeutered eq '0' }">checked</c:if>/>X
 				</td>				
 			</tr>
-			<tr>					
-				<th>반려견 소개</th>
+			<tr style="text-align: center;">					
+				<th id="title">반려견 소개</th>
 				<td>					
 					<textarea id="petIntroduce">${pet.petIntroduce}</textarea>
 				</td>				
 			</tr>		
-			<tr>		
+			<tr style="text-align: center;">		
 		         <th colspan="2">
 		            <button onclick="petprofileupdate()">수정</button>		            
 		            <button onclick="location.href='./'">돌아가기</button>

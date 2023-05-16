@@ -72,8 +72,10 @@
 		<br/>
 		<br/>
 		<br/>
-		<br/>
+		<br/>		
 	<h3 id="title" style="text-align: center;">내 정보</h3>
+		<br/>
+		<br/>
 		<table class="table" style="margin-left: auto; margin-right: auto;">
 			<tr style="text-align: center;">
 				<th id="title">아이디</th>

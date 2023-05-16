@@ -74,28 +74,28 @@
 			<br>
 			<br>
 <h3 id="title">비밀번호 수정</h3>
-	<table class="table">
-		<tr>
-			<th>현재 비밀번호</th>
+	<table class="table" style="margin-left: auto; margin-right: auto;">
+		<tr style="text-align: center;">
+			<th id="title">현재 비밀번호</th>
 			<td>
 				<input type="password" id="nowuserPW"/>							
 			</td>
 		</tr>
-		<tr>
-			<th>새 비밀번호</th>
+		<tr style="text-align: center;">
+			<th id="title">새 비밀번호</th>
 			<td>
 				<input type="password" id="changeuserPW"/></br>
 				<span id="pwchkmsg"></span>			
 			</td>
 		</tr>
-		<tr>
-			<th>새 비밀번호 확인</th>
+		<tr style="text-align: center;">
+			<th id="title">새 비밀번호 확인</th>
 			<td>
 				<input type="password" id="confirm"/></br>
 				<span id="pwmsg"></span>			
 			</td>
 		</tr>
-		<tr>
+		<tr style="text-align: center;">
        		<th colspan="2">
           		<button onclick="chguserpw()">확인</button>
           		<button onclick="location.href='./'">취소</button>
