@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pet.walkroute.dao.MateFindDAO;
 import com.pet.walkroute.dto.MateFindDTO;
 import com.pet.walkroute.dto.MateListDetailDTO;
+import com.pet.walkroute.dto.MessageDTO;
 import com.pet.walkroute.service.MateFindService;
 
 
@@ -113,5 +114,42 @@ public class MateFindController {
 		logger.info("lat : " + coordinate.get(0).getLat());
 		logger.info("lng : " + coordinate.get(0).getLng());
 		return "walkMateListDetail";
+	}
+	
+	@RequestMapping(value = "/matefind/message.go")
+	public String messageGo(@RequestParam String userID,@RequestParam String mateWalkNum, Model model) {
+		logger.info("receiveID : " + userID);
+		logger.info("mateWalkNum : " + mateWalkNum);
+		model.addAttribute("receiveID", userID);
+		model.addAttribute("mateWalkNum", mateWalkNum);
+		
+		return "messageList";
+	}
+	
+	@RequestMapping(value = "/matefind/messageList.ajax")
+	@ResponseBody
+	public ArrayList<MessageDTO> massageListAjax(@RequestParam String sendID) {
+		ArrayList<MessageDTO> messageList = service.messageList(sendID);
+		return messageList;
+
+	}
+	
+	@RequestMapping(value = "/matefind/messageHistory.ajax")
+	@ResponseBody
+	public ArrayList<MessageDTO> messageHistoryAjax(@RequestParam String mateWalkNum) {
+		logger.info("mateWalkNum : " + mateWalkNum);
+		ArrayList<MessageDTO> messageList = service.messageHistory(mateWalkNum);
+		return messageList;
+
+	}
+	
+	@RequestMapping(value = "/matefind/messageSend.ajax")
+	@ResponseBody
+	public String messageSendAjax(@RequestParam HashMap<String, Object> params, HttpSession session) {
+		logger.info("params : " + params);
+		String sendID = String.valueOf(session.getAttribute("userID"));
+		service.messageSend(params);
+		return "success";
+
 	}
 }
