@@ -78,6 +78,7 @@
 		<br/>
 		<br/>
 		<br/>
+
 		<table style="margin-left: 20px; margin-right: 20px;">
 		    <tr>						
 		        <td>
@@ -124,6 +125,11 @@
 		        </td>
 		    </tr>
 		</table>
+
+	<button onclick="location.href='routeshare/list?walkRouteType=추천'">추천 경로</button>
+	<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</button>
+	<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>
+	<button onclick="location.href='board'">커뮤니티</button>
 
 	<hr>
 	<h3>이런곳은 어떠세요?</h3>	

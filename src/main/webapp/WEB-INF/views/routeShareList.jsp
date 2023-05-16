@@ -41,15 +41,15 @@
 		<select class="form-select select siList" aria-label="Default select example" name="siID"></select>
 		<select class="form-select select guList" aria-label="Default select example" name="guID"></select>
 		<select class="form-select select dongList" aria-label="Default select example" name="dongID"></select>
-		<button>검색</button>
+		<button onclick="addressFilter()">검색</button>
 	</div>
 	<div>
-		<select class="form-select select search" aria-label="Default select example">
+		<select class="form-select select search" aria-label="Default select example" id="subejctOrId">
 			<option value="제목">제목</option>
 			<option value="아이디">아이디</option>
 		</select>
 		<input type="text" class="form-control search" id="exampleFormControlInput1"/>
-		<button class="search">검색</button>
+		<button class="search" onclick="subjectOrIdFilter()">검색</button>
 	</div>
 	
 	<select class="form-select paging" aria-label="Default select example" id="pagePerNum">
@@ -98,7 +98,14 @@
 			</td>
 		</tr>
 	</table>
-	<button onclick="location.href='./bring.go'">작성하기</button>
+	<c:if test="${walkRouteType eq '공유'}">
+		공유<button onclick="userClick()" id="userBtn">작성하기</button>
+	</c:if>
+		
+	<c:if test="${walkRouteType eq '추천'}">
+		추천<button onclick="adminClick()" id="adminBtn">작성하기</button>
+	</c:if>
+	
 </body>
 <script>
 	$.ajax({
@@ -115,7 +122,7 @@
 				content += ('<option value="'+list.siID+'">'+list.siName+'</option>');
 			});
 			console.log(content);
-			$('.siList').append(content);
+			$('.siList').html(content);
 			$('.dongList').show();
 		    $('.dongList').empty();
 		},
@@ -213,9 +220,19 @@
 	
 	var showPage = 1;
 	listCall(showPage);
+	var isAddress = false;
+	var isID = false;
 
 	$('#pagePerNum').change(function(){
-		listCall(showPage);
+		if(isAddress) {
+			addressFilter(showPage);
+		}
+		else if(isID) {
+			subjectOrIdFilter(showPage);
+		}else  {
+			listCall(showPage);	
+		}
+		
 		// 페이지처리 부분이 이미 만들어져 버려서 pagePerNum 이 변경되면 수정이 안된다.
 		// 그래서 pagePerNum 이 변경되면 부수고 다시 만들어야 한다.
 		$('#pagination').twbsPagination('destroy');
@@ -228,7 +245,8 @@
 			url:'./listBring.ajax',
 			data:{
 				'page':page,
-				'cnt':$('#pagePerNum').val()
+				'cnt':$('#pagePerNum').val(),
+				'walkRouteType' : '${walkRouteType}'
 			},
 			dataType:'json',
 			success:function(data){
@@ -275,6 +293,112 @@
 		});
 		$('#tbody').empty();
 		$('#tbody').append(content);
+	}
+	
+	function addressFilter() {
+		isAddress = true;
+		isID = false;
+		var sigudong = {
+			'siName' : $('select[name=siID] option:selected').val(),
+			'guName' : $('select[name=guID] option:selected').val(),
+			'dongName' : $('select[name=dongID] option:selected').val()
+		}
+		$.ajax({
+			type:'post',
+			url:'./addressFilter.ajax',
+			data:{
+				'page': showPage,
+				'cnt':$('#pagePerNum').val(),
+				'list' : sigudong,
+				'walkRouteType' : '${walkRouteType}'
+			},
+			dataType:'json',
+			success:function(data){
+				listPrint(data.list);			
+				//paging plugin
+				$('#pagination').twbsPagination({
+					startPage:data.currPage,	// 시작페이지
+					totalPages:data.pages,		// 총 페이지 수
+					visiblePages:5, 			// 보여줄 페이지 [1][2][3][4][5]
+					onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
+						console.log(page, showPage);
+						if(page != showPage){
+							showPage = page;	
+							listCall(page);							
+						}				
+					}
+				});
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	function subjectOrIdFilter() {
+		isAddress = false;
+		isID = true;
+		var fewqtr = {
+				'isID' : $('#subejctOrId option:selected').val(),
+				'input' : $('#exampleFormControlInput1').val()
+		}
+		$.ajax({
+			type:'post',
+			url:'./subjectOrIdFilter.ajax',
+			data:{
+				'page': showPage,
+				'cnt':$('#pagePerNum').val(),
+				'list' : fewqtr,
+				'walkRouteType' : '${walkRouteType}'
+			},
+			dataType:'json',
+			success:function(data){
+				listPrint(data.list);			
+				//paging plugin
+				$('#pagination').twbsPagination({
+					startPage:data.currPage,	// 시작페이지
+					totalPages:data.pages,		// 총 페이지 수
+					visiblePages:5, 			// 보여줄 페이지 [1][2][3][4][5]
+					onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
+						console.log(page, showPage);
+						if(page != showPage){
+							showPage = page;	
+							listCall(page);							
+						}				
+					}
+				});
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+	}
+	
+	function userClick() {
+		console.log('userClick() 호출');
+		var user = '${sessionScope.Role}';
+		if(user == 'user')  {
+			location.href='./bring.go';
+		}
+			
+		else {
+			console.log('유저아님');
+			alert('유저만 작성 가능합니당');
+			location.href='./list?walkRouteType=공유';
+		}
+	}
+	
+	function adminClick() {
+		console.log('adminClick() 호출');
+		var admin = '${sessionScope.Role}'; 
+		if(admin == 'admin') {
+			location.href='./bring.go';
+		} 
+		else  {
+			console.log('관리자아님');
+			alert('관리자만 작성 가능합니당');
+			location.href='./list?walkRouteType=추천';
+		}
 	}
 </script>
 </html>

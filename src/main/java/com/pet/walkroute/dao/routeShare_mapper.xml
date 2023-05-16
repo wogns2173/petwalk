@@ -17,6 +17,11 @@
    				,0,#{walkRouteType},false);  
    </insert>
    
+   <update id="update" parameterType="hashmap">
+   		UPDATE routeboard SET walkRouteName=#{walkRouteName}, walkRouteDetail=#{walkRouteDetail}
+   		WHERE walkRouteNum = #{walkRouteNum}
+   </update>
+   
    <select id="siID" resultType="String">
    		select siID from siDetail where siName = #{param1}  
    </select>
@@ -29,12 +34,15 @@
    		select dongID from dongDetail where dongName = #{param1}  
    </select>
    
-   <select id="list" resultType="com.pet.walkroute.dto.RouteShareDTO">
+   <select id="list" resultType="com.pet.walkroute.dto.RouteShareDTO" parameterType="hashmap">
 		SELECT walkRouteNum, userID, walkNum, siID, guID, dongID,
 				walkRouteName, walkRouteDetail, walkRoutebHit, 
 				walkRouteWriteDate,walkRouteType, walkRouteBlind, recommendation
-		FROM routeboard ORDER BY walkRouteNum DESC 
-		LIMIT #{param1} OFFSET #{param2}
+		FROM routeboard 
+		WHERE walkRouteBlind = false
+		AND  walkRouteType = #{param1}
+		ORDER BY walkRouteNum DESC 
+		LIMIT #{param2} OFFSET #{param3}
 	</select>
 	
 	<select id="totalCount" resultType="int">
@@ -44,5 +52,88 @@
 	<select id="detail" resultType="com.pet.walkroute.dto.RouteShareDTO">
 		SELECT * FROM routeboard where walkRouteNum = #{walkRouteNum}
 	</select>
-		
+	
+	<select id="isRecommend" resultType="String">
+		SELECT userID FROM recommend where walkRouteNum = #{param1}
+	</select>
+	
+	<select id="isBookmark" resultType="String">
+		SELECT userID FROM bookmark where walkNum = #{param1}
+	</select>
+	
+	<insert id="recommendDo" parameterType="map">
+		INSERT INTO recommend(userID, walkRouteNum) VALUES(#{userID},#{walkRouteNum}) 
+	</insert>
+	
+	<insert id="bookmarkDo" parameterType="map">
+		INSERT INTO bookmark(userID, walkNum) VALUES(#{userID},#{walkNum})
+	</insert>
+	
+	<delete id="recommendCancel" parameterType="map">
+		DELETE FROM recommend WHERE userID = #{userID} AND walkRouteNum = #{walkRouteNum}
+	</delete>
+	
+	<delete id="bookmarkCancel" parameterType="map"> 
+		DELETE FROM bookmark WHERE userID = #{userID} AND walkNum = #{walkNum}
+	</delete>
+	
+	<update id="delete">
+		UPDATE routeboard SET walkRouteBlind = true
+		WHERE walkRouteNum = #{param1}
+	</update>
+	
+	<select id="addressFiterCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(walkRouteNum) FROM routeboard
+		WHERE siID = #{siID}
+		AND guID = #{guID}
+		AND dongID = #{dongID}
+	</select>
+	 
+	<select id="addressFilterlist" resultType="com.pet.walkroute.dto.RouteShareDTO" parameterType="hashmap">
+		SELECT walkRouteNum, userID, walkNum, siID, guID, dongID,
+				walkRouteName, walkRouteDetail, walkRoutebHit, 
+				walkRouteWriteDate,walkRouteType, walkRouteBlind, recommendation
+		FROM routeboard 
+		WHERE walkRouteBlind = false
+		AND walkRouteType = #{walkRouteType}
+		AND siID = #{siID}
+		AND guID = #{guID}
+		AND dongID = #{dongID}
+		ORDER BY walkRouteNum DESC 
+		LIMIT #{cnt} OFFSET #{offset}
+	</select>
+	
+	<select id="subjectFiterCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(walkRouteNum) FROM routeboard
+		WHERE walkRouteName = #{walkRouteName}
+	</select>
+	
+	<select id="idFiterCount" resultType="int" parameterType="hashmap">
+		SELECT COUNT(walkRouteNum) FROM routeboard
+		WHERE userID = #{userID}
+	</select>
+	
+	<select id="subjectFilterlist" resultType="com.pet.walkroute.dto.RouteShareDTO" parameterType="hashmap">
+		SELECT walkRouteNum, userID, walkNum, siID, guID, dongID,
+				walkRouteName, walkRouteDetail, walkRoutebHit, 
+				walkRouteWriteDate,walkRouteType, walkRouteBlind, recommendation
+		FROM routeboard 
+		WHERE walkRouteBlind = false
+		AND walkRouteType = #{walkRouteType}
+		AND walkRouteName = #{walkRouteName}
+		ORDER BY walkRouteNum DESC 
+		LIMIT #{cnt} OFFSET #{offset}
+	</select>
+	
+	<select id="idFilterlist" resultType="com.pet.walkroute.dto.RouteShareDTO" parameterType="hashmap">
+		SELECT walkRouteNum, userID, walkNum, siID, guID, dongID,
+				walkRouteName, walkRouteDetail, walkRoutebHit, 
+				walkRouteWriteDate,walkRouteType, walkRouteBlind, recommendation
+		FROM routeboard 
+		WHERE walkRouteBlind = false
+		AND walkRouteType = #{walkRouteType}
+		AND userID = #{userID}
+		ORDER BY walkRouteNum DESC 
+		LIMIT #{cnt} OFFSET #{offset}
+	</select>
 </mapper>

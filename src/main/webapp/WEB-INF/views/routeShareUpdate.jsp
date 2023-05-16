@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <style>
 	.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
 	.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
@@ -32,20 +30,21 @@
 </head>
 <body>
 	<form action="./routeShareInsert.do">
-		<input type="hidden" name="flag" value="insert"/>
+		<input type="hidden" name="walkRouteNum" value="${dto.walkRouteNum}"/>
+		<input type="hidden" name="flag" value="update"/>
 		<input type="hidden" name="walkNum" value="${list.get(0).walkNum}"/>
 		<input type="hidden" name="siID" value=""/>
 		<input type="hidden" name="guID" value=""/>
 		<input type="hidden" name="dongID" value=""/>
 		<div id="map" style="width:100%;height:400px;"></div>
 		<button type="button" onclick="location.href='./bring.go'" id="reBringbtn">다시 불러오기</button>
-		<div class="subject">제목: <input type="text" name="walkRouteName" class="form-control" id="exampleFormControlInput1"></div>
+		<div class="subject">제목: <input type="text" name="walkRouteName" class="form-control" id="exampleFormControlInput1" value="${dto.walkRouteName}"/></div>
 		
 		<div class="mb-3">
 		 	<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-		 	<textarea class="form-control" name="walkRouteDetail" id="exampleFormControlTextarea1" rows="3"></textarea>
+		 	<textarea class="form-control" name="walkRouteDetail" id="exampleFormControlTextarea1" rows="3">${dto.walkRouteDetail}</textarea>
 		</div>
-		<button>작성하기</button>
+		<button>수정하기</button>
 	</form>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
@@ -65,55 +64,55 @@
 	var line;
 	
 	// 클릭한 위치를 기준으로 선을 생성하고 지도위에 표시합니다
-    line = new kakao.maps.Polyline({
-        map: map, // 선을 표시할 지도입니다 
-        path: [], // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
-        strokeWeight: 3, // 선의 두께입니다 
-        strokeColor: '#db4040', // 선의 색깔입니다
-        strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
-        strokeStyle: 'solid' // 선의 스타일입니다
-    });
+	line = new kakao.maps.Polyline({
+	    map: map, // 선을 표시할 지도입니다 
+	    path: [], // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
+	    strokeWeight: 3, // 선의 두께입니다 
+	    strokeColor: '#db4040', // 선의 색깔입니다
+	    strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+	    strokeStyle: 'solid' // 선의 스타일입니다
+	});
 	
-    searchDetailAddrFromCoords(new kakao.maps.LatLng(${list.get(0).getLat()}, ${list.get(0).getLng()}), function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-        	console.log(result[0]);
-        	console.log(result[0].address);
-            console.log(result[0].address.region_1depth_name);
-            console.log(result[0].address.region_2depth_name);
-            console.log(result[0].address.region_3depth_name);
-            
-            var siName = result[0].address.region_1depth_name;
-            
-            if(siName == '서울') {
-            	siName += '특별시';
-            }
-            else {
-            	siName += '광역시';
-            }
-            var siGuDong = {'siName' : siName, 
-            		'guName' : result[0].address.region_2depth_name,
-            		'dongName' : result[0].address.region_3depth_name};
-            $.ajax({
-    			type:'post',
-    			url:'./sigudong.ajax',
-    			data:{siGuDong},
-    			dataType:'json',
-    			success:function(data){
-    				console.log(data);
-    				$('input[name="siID"]').val(data.siID);
-    	            $('input[name="guID"]').val(data.guID);
-    	            $('input[name="dongID"]').val(data.dongID);
-    			},
-    			error:function(e){
-    				console.log(e);
-    			}
-    		});
-            
-        }   
-    });
-    
-    <c:forEach items="${list}" var="item">
-    	console.log('${item}');
+	searchDetailAddrFromCoords(new kakao.maps.LatLng(${list.get(0).getLat()}, ${list.get(0).getLng()}), function(result, status) {
+	    if (status === kakao.maps.services.Status.OK) {
+	    	console.log(result[0]);
+	    	console.log(result[0].address);
+	        console.log(result[0].address.region_1depth_name);
+	        console.log(result[0].address.region_2depth_name);
+	        console.log(result[0].address.region_3depth_name);
+	        
+	        var siName = result[0].address.region_1depth_name;
+	        
+	        if(siName == '서울') {
+	        	siName += '특별시';
+	        }
+	        else {
+	        	siName += '광역시';
+	        }
+	        var siGuDong = {'siName' : siName, 
+	        		'guName' : result[0].address.region_2depth_name,
+	        		'dongName' : result[0].address.region_3depth_name};
+	        $.ajax({
+				type:'post',
+				url:'./sigudong.ajax',
+				data:{siGuDong},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					$('input[name="siID"]').val(data.siID);
+		            $('input[name="guID"]').val(data.guID);
+		            $('input[name="dongID"]').val(data.dongID);
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+	        
+	    }   
+	});
+	
+	<c:forEach items="${list}" var="item">
+		console.log('${item}');
 		console.log('${item.getLat()}');
 		console.log('${item.getLng()}');
 		console.log('${item.getMapOrder()}');
@@ -125,20 +124,20 @@
 		line.setPath(path);
 		
 		var distance = Math.round(line.getLength());
-        console.log(distance);
-        displayCircleDot(latlng, distance);
+	    console.log(distance);
+	    displayCircleDot(latlng, distance);
 	</c:forEach>
 	
 	if (dots[dots.length-1].distance) {
-        dots[dots.length-1].distance.setMap(null);
-        dots[dots.length-1].distance = null;    
-    }
+	    dots[dots.length-1].distance.setMap(null);
+	    dots[dots.length-1].distance = null;    
+	}
 	
-    var distance = Math.round(line.getLength()), // 선의 총 거리를 계산합니다
-        content = getTimeHTML(distance); // 커스텀오버레이에 추가될 내용입니다
-        
-    // 그려진 선의 거리정보를 지도에 표시합니다
-    showDistance(content, path[path.length-1]);
+	var distance = Math.round(line.getLength()), // 선의 총 거리를 계산합니다
+	    content = getTimeHTML(distance); // 커스텀오버레이에 추가될 내용입니다
+	    
+	// 그려진 선의 거리정보를 지도에 표시합니다
+	showDistance(content, path[path.length-1]);
 	
 	// 선이 그려지고 있는 상태일 때 지도를 클릭하면 호출하여 
 	// 클릭 지점에 대한 정보 (동그라미와 클릭 지점까지의 총거리)를 표출하는 함수입니다
@@ -174,27 +173,27 @@
 	// 그려진 선의 총거리 정보와 거리에 대한 도보, 자전거 시간을 계산하여
 	// HTML Content를 만들어 리턴하는 함수입니다
 	function getTimeHTML(distance) {
-
+	
 	    // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
 	    var walkkTime = distance / 67 | 0;
 	    var walkHour = '', walkMin = '';
-
+	
 	    // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
 	    if (walkkTime > 60) {
 	        walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>시간 '
 	    }
 	    walkMin = '<span class="number">' + walkkTime % 60 + '</span>분'
-
+	
 	    // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
 	    var bycicleTime = distance / 227 | 0;
 	    var bycicleHour = '', bycicleMin = '';
-
+	
 	    // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
 	    if (bycicleTime > 60) {
 	        bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>시간 '
 	    }
 	    bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분'
-
+	
 	    // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
 	    var content = '<ul class="dotOverlay distanceInfo">';
 	    content += '    <li>';
@@ -207,7 +206,7 @@
 	    content += '        <span class="label">자전거</span>' + bycicleHour + bycicleMin;
 	    content += '    </li>';
 	    content += '</ul>'
-
+	
 	    return content;
 	}
 	 
@@ -234,7 +233,7 @@
 	        });      
 	    }
 	}
-	
+
 	function searchDetailAddrFromCoords(coords, callback) {
 	    // 좌표로 법정동 상세 주소 정보를 요청합니다
 	    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);

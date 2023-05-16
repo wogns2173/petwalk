@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.pet.walkroute.dto.MateFindDTO;
 import com.pet.walkroute.dto.MateListDetailDTO;
+import com.pet.walkroute.dto.MessageDTO;
 
 public interface MateFindDAO {
 
@@ -25,5 +26,11 @@ public interface MateFindDAO {
 	ArrayList<MateListDetailDTO> coordinate(int walkNum);
 
 	int mateInsert(HashMap<String, Object> params);
+
+	ArrayList<MessageDTO> messageList(String sendID);
+
+	ArrayList<MessageDTO> messageHistory(String mateWalkNum);
+
+	int messageSend(HashMap<String, Object> params);
 
 }
