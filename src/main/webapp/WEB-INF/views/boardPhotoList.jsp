@@ -9,58 +9,138 @@
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="resources/css/common.css">
 <style>
-	.gallery-wrap {
-		max-width: 1200px; 
-		margin: 0 auto; 
-	}
-	
-	.gallery-list {
-		display: flex; 
-		flex-wrap: wrap; 
-		justify-content: space-between; 
-		margin: 20px 0; 
-	}
-	
-	.gallery-item {
-		width: 23%; 
-		margin-bottom: 20px; 
-	}
-	
-	.thumbnail {
-		max-width: 100%; 
-		height: auto; 
-		display: block; 
-	}
-	
-	
-	.title {
-		font-size: 18px;
-		font-weight: bold;
-		margin-bottom: 10px;
-	}
-	
-	.author, .comment, .date, .view-count {
-		font-size: 14px;
-		margin: 5px 0;
-	}
-	img{
-		width: 300px;
-		hight: 300px;
-	}
-	ul{
-		list-style: none;
-	}
+		#boardSearchForm {
+		  display: flex;
+		  justify-content: center;
+		}
 	#paging{
 			text-align: center;
-	}
-	#pagePerNum{
-		display:none;
-	}
+			 margin-left: -227px;
+		}
+		
+		#title{
+		 	color:#87d1bf;
+		 }
+		 
+		 #thead{
+		 	color:#87d1bf;
+		 	background-color: #E3EDEB;
+		 }
+		.gallery-wrap {
+			max-width: 1200px; 
+			margin: 0 auto; 
+		}
+		
+		.gallery-list {
+			    display: flex;
+			    flex-wrap: wrap;
+			    justify-content: flex-start;
+			    margin: 20px 0;
+			    align-items: self-end;
+			    margin-left: -56px;
+			    margin-right: 25px;
+		}
+		
+		.gallery-item {
+			    width: 23%;
+    margin-bottom: 44px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 14px;
+    align-content: stretch;
+    align-items: flex-start;
+
+		}
+		
+		.thumbnail {
+			width: 150px;
+  height: 150px; /* width와 height를 동일하게 지정 */
+  max-width: 100%; 
+  height: auto; 
+  display: block; 
+  margin: 0 auto; /* 이미지를 가로 방향으로 가운데로 정렬 */
+		}
+		
+		
+		.title {
+			font-size: 18px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+		
+		.author, .comment, .date, .view-count {
+			font-size: 14px;
+			margin: 5px 0;
+		}
+		img{
+			width: 150px;
+			height: 150px;
+		}
+		ul{
+			list-style: none;
+		}
+		#paging{
+				text-align: center;
+		}
+		#pagePerNum{
+			display:none;
+		}
+		p {
+    margin: 0px 10px 5px;
+}
+		#boardDate{
+			font-size:12px;
+		}
+		#boardName{
+			margin-left: -6px;
+		}
+		#writeButton{
+			margin-left: 600px;
+			width: 86px;
+			height: 38px;
+		}
 </style>
 </head>
 <body>
-	<h1>반려견 갤러리</h1>
+	<div class="main">
+				<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	<h3 id="title">&nbsp &nbsp 반려견 갤러리</h3>
    <div id = "boardSearchForm">
 	<select id="boardSearch">
      	<option value="default">검색조건</option>
@@ -68,7 +148,9 @@
      	<option value="userNickname">닉네임</option>
      	<option value="userID">ID</option>
     </select> 
+    &nbsp
 	<input type="text" id="searchInput" placeholder="검색 조건을 입력해주세요.">
+	&nbsp
    	<button id="searchButton">검색</button>
 	</div>
 	<div class="gallery-wrap">
@@ -161,12 +243,12 @@
 			content += '<input type="hidden" name="boardNum" value="'+item.boardNum+'"/>';
 			content += '<a href="boardDetail.do?boardNum='+item.boardNum+'">';
 			content += '<img class="tehumbnail" src="/photo/'+item.serPhotoname+'"> </a>';
-			content += '<p class ="boardName"><a href="boardDetail.do?boardNum='+item.boardNum+'">'
+			content += '<p class ="boardName" id="boardName"><a href="boardDetail.do?boardNum='+item.boardNum+'">'
 					+item.boardName+'['+item['replyCount']+']'+'</a></p>';
 			content += '<p class ="userNickname">'+item.userNickname+'</p>';
 			
 			var date = new Date(item.boardWriteDate);
-			content += '<p>'+date.toLocaleDateString('ko-KR')+' 조회 '+item.boardbHit+'</p>'; //String('ko-KR')
+			content += '<p id="boardDate">'+date.toLocaleDateString('ko-KR')+' 조회 '+item.boardbHit+'</p>'; //String('ko-KR')
 			content += '</li>';
 		});
 		console.log(content);

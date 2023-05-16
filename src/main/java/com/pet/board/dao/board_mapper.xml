@@ -63,7 +63,7 @@
 		LEFT OUTER JOIN category c ON b.categoryCode = c.categoryCode
 		WHERE b.boardNum = #{param1}
 		  AND b.boardBlindWhether = 0 
-		  AND (p.photoBlindWhether = 0 OR p.photoBlindWhether IS NULL);
+		  AND (p.photoBlindWhether = 0 OR p.photoBlindWhether IS NULL) LIMIT 1
   </select> 
    
    <!-- 최초 등록 시 사진이 있는 게시물인지 없는 게시물인지 체크 -->

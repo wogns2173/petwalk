@@ -9,29 +9,86 @@
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="resources/css/common.css">
 	<style>
-		b{
-			color:red;
-		}
 	
-		table{
-			width:100%;
-		}
-		
-		table, td, th{
-			border : 1px solid;
-			border-collapse : collapse;
-			padding: 5px;
+		#boardSearchForm {
+		  display: flex;
+		  justify-content: center;
 		}
 		
 		#paging{
 			text-align: center;
+			border: none;
+		}
+		table{
+			width : 80%;
+		} 
+		
+		th, td{
+		border : 1px solid lightgray;
+		border-collapse: collapse;
+		padding : 5px;
+		}
+		
+		#title{
+		 	color:#87d1bf;
+		 	margin-left: 20px;
+		 }
+		 
+		 #thead{
+		 	color:#87d1bf;
+		 	background-color: #E3EDEB;
+		 }
+		
+		.container{
+		width : 710px; 
+		}
+		
+		#pagePerNum{
+			float: right;
 		}
 		
 	</style>
 </head>
 <body>
-	<h1>반려견 지식 공유 게시판</h1>
+	<div class="main">
+				<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	<h3 id="title">반려견 지식 공유 게시판</h3>
+	
    <div id = "boardSearchForm">
 	<select id="boardSearch">
      	<option value="default">검색조건</option>
@@ -42,15 +99,15 @@
 	<input type="text" id="searchInput" placeholder="검색 조건을 입력해주세요.">
    	<button id="searchButton">검색</button>
 	</div>
-	게시물 갯수 : 
 	<select id="pagePerNum">
 		<option value="5">5</option>
 		<option value="10">10</option>
 		<option value="15">15</option>
 	</select>
+	<div class="infolist">
 	<table>
 		<thead>
-			<tr>
+			<tr id="thead">
 				<th>번호</th>					
 				<th>제목</th>
 				<th>작성자</th>
@@ -76,6 +133,8 @@
 		</tr>
 		<input type="button" onclick="location.href='boardWrite.go?categoryCode=B_02'" id="writeButton" value="글쓰기"/>
 	</table>
+	</div>
+	</div>
 </body>
 <script>
 
@@ -153,6 +212,8 @@
 
 	function listPrint(list){
 		var content ='';
+		if (list.length > 0){
+			
 		list.forEach(function(item,boardNum){
 			content += '<tr>';
 			content += '<td id="boardNum">'+item.boardNum+'</td>';
@@ -165,6 +226,11 @@
 			content += '<td>'+item.boardbHit+'</td>';
 			content += '</tr>';
 		});
+		}else{
+			content += '<tr>';
+			content += '<td colspan="6" style="text-align: center;">등록된 글이 없습니다.<td>';
+			content += '</tr>';
+		}
 		$('#list').empty();
 		$('#list').append(content);
 	}
