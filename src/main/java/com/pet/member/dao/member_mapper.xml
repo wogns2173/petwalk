@@ -33,10 +33,9 @@
 	</insert>
 	
 	<select id="login" resultType="com.pet.member.dto.MemberDTO">
-		SELECT userID, userNickname, Role FROM member WHERE
-		userID = #{param1} AND userBlindWhether = false
+		SELECT * FROM member WHERE
+		userID = #{param1}
 	</select>
-
 	
 	<update id="memberdelete">
 		UPDATE member SET userBlindWhether = true  WHERE userNickname = #{param1}
@@ -63,12 +62,7 @@
 	<update id="RandomPassword">
 		UPDATE member SET userPW = #{param4} WHERE 
 		userName = #{param1} AND userID = #{param2} AND userEmail = #{param3}
-	</update>
-	
-	<select id="findloginpw" resultType="com.pet.member.dto.MemberDTO">
-		SELECT userPW FROM member WHERE
-		 userID = #{param1} AND userBlindWhether = false
-	</select>
+	</update>	
 	
 	<select id="chkpw" resultType="com.pet.member.dto.MemberDTO">
 		SELECT userPW FROM member WHERE

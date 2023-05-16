@@ -9,7 +9,6 @@
 <style></style>
 </head>
 <body>
-	<jsp:include page="loginBox.jsp"/>
 	<form method="post" action="boardWrite.do"  enctype="multipart/form-data" onsubmit="return checkPhoto()">
 	<input type="hidden" name="userID" value="${userID}"/>
 	<div>
@@ -19,19 +18,20 @@
             <option value="B_03">반려견 질문 게시판</option>
             <option value="B_04">미아견 게시판</option>
         </select>
-    </div>
-    <div>
         <label for="boardName">제목:</label>
-        <input type="text" name="boardName" id="boardName">
+        <input type="text" name="boardName" id="boardName" >
     </div>
+    <hr/>
     <div>
-        <label for="boardDetail">Content:</label>
-        <textarea name="boardDetail" id="boardDetail"></textarea>
+        <label for="boardDetail"></label>
+        <textarea name="boardDetail" id="boardDetail" style="width : 619px; height: 342px;"></textarea>
     </div>
     <div>
     	첨부파일
     	<input type="file" name="photo" id="photo" onchange="checkExtension()"/>
     </div>
+    <div id="selectedFiles"></div>
+    
     <input type="button" onclick="location.href='./boardList.go'" value="취소"/>
     <button type="submit">등록</button>
 </form>
@@ -51,29 +51,41 @@
 			file.value = "";
 			return false;
 	  }
+	  const output = document.getElementById('selectedFiles');
+	  output.innerHTML = '';
+
+	  var uploadFiles = document.getElementById("photo")
+	    for (var i = 0; i < uploadFiles.files.length; i++) {
+	        var file = uploadFiles.files[i];
+	        // 비동기 파일 업로드를 시작한다.
+	        var uploader = new Uploader(file);
+	        uploader.startUpload();
+	    }
+	    // 폼을 리셋해서 uploadFiles에 출력된 선택 파일을 초기화시킨다.
+	    document.getElementById("uploadForm").reset();
 	  
 	}
 	
 	function checkPhoto(){
-		const categoryCode = document.getElementById('categoryCode').value;
-		const photoInput = document.getElementById('photo');
+		  const categoryCode = document.getElementById('categoryCode').value;
+		  const photoInput = document.getElementById('photo');
+		    
+		  if (categoryCode == 'B_01' && photoInput.value == '') {
+		    alert('반려견 갤러리는 사진 첨부가 필수입니다.');
+		    return false;
+		  }
 		  
-			if (categoryCode == 'B_01' && photoInput.value == '') {
-			  alert('반려견 갤러리는 사진 첨부가 필수입니다!');
-			  return false;
-			}
-		var boardName = document.getElementById('boardName').value;
-		var boardDetail = document.getElementById('boardDetail').value;
-		
-			if (!boardName || !boardDetail){
-				alert('제목, 내용을 입력해 주세요.');
-				return false;
-			}
+		  const boardName = document.getElementById('boardName').value;
+		  const boardDetail = document.getElementById('boardDetail').value;
 		  
-		 
+		  if (!boardName || !boardDetail){
+		    alert('제목, 내용을 입력해 주세요.');
+		    return false;
+		  }
 		  
+
 		  
-	}
+		}
 	
 	var categoryCode = '${param.categoryCode}';
 	var categoryCodeSelect = document.getElementById('categoryCode');

@@ -17,10 +17,11 @@ a {
 .main .topMenu {
     width: 100%;
     max-width: 720px;
-    position : fixed;
+    position: fixed;
     padding: 19px;
     height: 94px;
     background-color: white;
+    
 }
 .main .topMenu .link {
     position : absolute;
@@ -32,3 +33,4 @@ a {
     width: 70px;
     height: 70px;
 }
+

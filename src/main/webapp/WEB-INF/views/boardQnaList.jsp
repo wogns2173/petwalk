@@ -28,10 +28,14 @@
 			text-align: center;
 		}
 		
+		#categoryname{
+			margin: 10px;
+		}
+		
 	</style>
 </head>
 <body>
-	<h1>반려견 질문 게시판</h1>
+	<h1 id="categoryname"> 반려견 질문 게시판</h1>
    <div id = "boardSearchForm">
 	<select id="boardSearch">
      	<option value="default">검색조건</option>
@@ -149,20 +153,27 @@
 
 	function listPrint(list){
 		var content;
-		list.forEach(function(item,boardNum){
-			content += '<tr>';
-			content += '<td id="boardNum">'+item.boardNum+'</td>';
-			content += '<td id ="boardName"><a href="boardDetail.do?boardNum='+item.boardNum+'">'
-				+item.boardName+'['+item['replyCount']+']'+'</td>';
-			content += '<td id ="userNickname">'+item.userNickname+'</td>';
+		if (list.length > 0){
 			
-			var date = new Date(item.boardWriteDate);
-			content += '<td>'+date.toLocaleDateString('ko-KR')+'</td>'; //String('ko-KR')
-			content += '<td>'+item.boardbHit+'</td>';
-			content += '</tr>';
-		});
-		$('#list').empty();
-		$('#list').append(content);
+			list.forEach(function(item,boardNum){
+				content += '<tr>';
+				content += '<td id="boardNum">'+item.boardNum+'</td>';
+				content += '<td id ="boardName"><a href="boardDetail.do?boardNum='+item.boardNum+'">'
+					+item.boardName+'['+item['replyCount']+']'+'</td>';
+				content += '<td id ="userNickname">'+item.userNickname+'</td>';
+				
+				var date = new Date(item.boardWriteDate);
+				content += '<td>'+date.toLocaleDateString('ko-KR')+'</td>'; //String('ko-KR')
+				content += '<td>'+item.boardbHit+'</td>';
+				content += '</tr>';
+			});
+			}else{
+				content += '<tr>';
+				content += '<td colspan="6" style="text-align: center;">등록된 글이 없습니다.<td>';
+				content += '</tr>';
+			}
+			$('#list').empty();
+			$('#list').append(content);
 	}
 	
 	var msg ="${msg}";

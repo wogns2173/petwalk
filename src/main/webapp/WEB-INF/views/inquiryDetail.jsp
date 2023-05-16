@@ -87,20 +87,27 @@
     	 </tr>            
    </table>
    
-   <form id="inquiryprocess" action="inquriyprocess.go" method="POST">
-	   <div>
-		   <select name="selectedValue" id="${inq.boardNum}">
-		      <option value="false">미처리</option>
-		      <option value="true">처리완료</option>
-		   </select>
-		   <input type="hidden" name="boardNum" value="${inq.boardNum}">
-		   <input type="submit" value="저장">
-	   	</div>
-   	</form>
+   <c:if test="${Role eq 'admin'}">
+	   <form id="inquiryprocess" action="inquriyprocess.go" method="POST">
+		   <div>
+			   <select name="selectedValue" id="${inq.boardNum}">
+			      <option value="false">미처리</option>
+			      <option value="true">처리완료</option>
+			   </select>
+			   <input type="hidden" name="boardNum" value="${inq.boardNum}">
+			   <input type="submit" value="저장">
+		   	</div>
+	   	</form>
+   	</c:if>
    	
-		<!-- 문의글 목록으로 돌아가기 -->
+   	<c:if test="${Role eq 'admin'}">
+		<!-- 관리자 문의글 목록으로 돌아가기 -->
         <input type="button" onclick='location.href="./inquirylist.go"' value="목록">
-      
+    </c:if>
+    <c:if test="${Role eq 'user'}">
+    	<!-- 내 프로필 돌아가기 -->
+        <input type="button" onclick='location.href="./profile.go"' value="뒤로가기">
+   </c:if>
    <hr>
    
    <p>답변</p>         
@@ -113,23 +120,28 @@
 	<c:forEach items="${inqreplist}" var="inqrep">
 		<div class="inqrep">
 			${inqrep.userID} / ${inqrep.commentWriteDate}
-			<input type ="button" onclick='location.href="inqrepdel.do?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}"' value="삭제"/>
-			<input type ="button" onclick='location.href="inqrepupdate.go?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}&commentDetail=${inqrep.commentDetail }"' value="수정"/>
+		<c:if test="${Role eq 'admin'}">
+            <c:if test="${inqrep.userID eq sessionScope.userID}">
+                <input type="button" onclick='location.href="inqrepdel.do?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}"' value="삭제"/>
+                <input type="button" onclick='location.href="inqrepupdate.go?replyNum=${inqrep.replyNum}&boardNum=${inq.boardNum}&commentDetail=${inqrep.commentDetail }"' value="수정"/>
+            </c:if>
+        </c:if>
 			<p>${inqrep.commentDetail }</p>
 		</div>	
 	</c:forEach>
 	
-	<!-- 댓글 작성 -->
-    <form method="post" action="inquiryreplywrite.do">
-    <input type="hidden" name="boardNum" value="${inq.boardNum}">
-    
-	<div class="inquiry_reply">
-        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="${inqreply }">
-        <p id="inquiryreply_legnth">0/100</p>
-        <button type="submit">등록</button>
-	</div>  
-    </form>
-    
+	<c:if test="${Role eq 'admin'}">
+		<!-- 댓글 작성 -->
+	    <form method="post" action="inquiryreplywrite.do">
+	    <input type="hidden" name="boardNum" value="${inq.boardNum}">
+	    
+		<div class="inquiry_reply">
+	        <input name = "content" id="inquiryreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="${inqreply }">
+	        <p id="inquiryreply_legnth">0/100</p>
+	        <button type="submit">등록</button>
+		</div>  
+	    </form>
+    </c:if>
 </body>
 <script>
 

@@ -5,12 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>너나들이 내 문의 리스트</title>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
-<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="resources/css/common.css">
 <style>
 	table, th, td{
 		border : 1px solid lightgray;
@@ -26,20 +28,75 @@
 	 	color:#87d1bf;
 	 	background-color: #E3EDEB;
 	 }
+	 .board-item {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  .board-item img {
+    width: 117px;
+    height: 117px;
+    
+  }
+  .right-align{
+  	float: right;
+  }	
 </style>
 </head>
 <body>
+<div class="main">
+		<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
+		</div>
 
-<h3 id="title">문의 리스트 </h3>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>		
+		<br/>
+		<br/>
+		<br/>
+		
+<h3 id="title">내 문의 리스트 </h3>
 
 	<!-- 문의 필터링  -->
 	<select id="categoryCode">
 		<option value="default">문의 필터링</option>
 		<option value="B_06">산책 경로 문의</option>
 		<option value="B_07">게시글 문의</option>
-		<option value="B_08">계정 문의</option>
-		<option value="B_09">광고 문의</option>
-		<option value="B_10">채팅 문의</option>
+		<option value="B_08">채팅 문의</option>
+		<option value="B_09">계정 문의</option>
+		<option value="B_10">광고 문의</option>
 		<option value="B_11">기타 문의</option>
 	</select>
 	
@@ -61,6 +118,22 @@
 	
 	<hr>
 	
+<%-- 	<!-- 문의 게시판 리스트  -->
+	<table>
+		<c:if test="${inqlist.size() eq 0}">
+			<tr><th colspan="10">게시물이 없습니다.</th></tr>	
+		</c:if>
+			<c:forEach items="${inqlist}" var="inq">
+				<tr>
+					<td>문의 종류 : ${inq.categoryCode }</td>
+					<td><a href="inquirydetail.do?boardNum=${inq.boardNum}">${inq.boardName}</a></td>
+					<td>작성자 : ${inq.userID }</td>
+					<td>조회수 : ${inq.boardbHit }</td>
+					<td>작성일자 : ${inq.boardWriteDate }</td>
+					<td>처리 여부 : ${inq.process }</td>
+				</tr>	
+			</c:forEach>
+	</table> --%>
 		<table>
 		<thead>
 			<tr id="thead">
@@ -87,7 +160,7 @@
 			</td>
 		</tr>
 	</table>
-
+	</div>
 </body>
 <script>
 
@@ -150,10 +223,6 @@ function listCall(page, cnt){
 	         startPage:data.currPage, // 시작 페이지
 	         totalPages:data.pages,// 총 페이지 수 
 	         visiblePages:5,// 보여줄 페이지
-	         next : '<span style="color: #87d1bf;">></span>', 
-	         last : '<span style="color: #87d1bf;">>></span>',
-	         first : '<span style="color: #87d1bf;"><<</span>',
-	 		 prev : '<span style="color: #87d1bf;"><</span>',
 	         onPageClick:function(event,page){ // 페이지 클릭시 동작되는 (콜백)함수
 	            console.log(page,showPage);
 	            if(page != showPage){

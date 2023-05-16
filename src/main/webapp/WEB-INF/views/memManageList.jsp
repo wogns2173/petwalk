@@ -10,6 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 <style>
 	table, th, td{
 		border : 1px solid lightgray;
@@ -82,7 +83,7 @@
 
 
 		</thead>
-		<tbody id = "memlist">
+		<tbody id = "memlist">			
 		<!-- 리스트가 출력될 영역 -->
 		</tbody>
 		<tr>
@@ -163,6 +164,10 @@ function listCall(page,cnt){
 	         startPage:data.currPage, // 시작 페이지
 	         totalPages:data.pages,// 총 페이지 수 
 	         visiblePages:5,// 보여줄 페이지
+	         next : '<span style="color: #87d1bf;">></span>', 
+	         last : '<span style="color: #87d1bf;">>></span>',
+	         first : '<span style="color: #87d1bf;"><<</span>',
+	 		 prev : '<span style="color: #87d1bf;"><</span>',
 	         onPageClick:function(event,page){ // 페이지 클릭시 동작되는 (콜백)함수
 	            console.log(page,showPage);
 	            if(page != showPage){
@@ -183,8 +188,8 @@ function listPrint(memlist){
 	console.log("listPrint Call");
 	var content ='';
 	
-	if(memlist && Array.isArray(memlist)){
-		memlist.forEach(function(item,memlist){
+	if (memlist && Array.isArray(memlist) && memlist.length > 0) {
+        memlist.forEach(function (item, memlist) {
 		
       content +='<tr>';
       content +='<td id="userName">'+item.userName+'</td>';
@@ -200,7 +205,13 @@ function listPrint(memlist){
       
       
   	 });
+    }else{
+    	
+    content += '<tr>';
+    content += '<td colspan="6" style="text-align: center;">검색한 정보가 없습니다.</td>';
+    content += '</tr>';
 	}
+	
    $('#memlist').empty();
    $('#memlist').append(content);
 }

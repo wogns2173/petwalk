@@ -32,7 +32,7 @@ public interface ReportDAO {
 
 	ArrayList<ReportDTO> repreplist2(int reportNum);
 
-	int reprepwrite(int reportNum, String reportProcess);
+	int reprepwrite(int reportNum, String reportProcess, String userID);
 
 	int reprepdelte(int repReplyNum);
 
@@ -44,7 +44,7 @@ public interface ReportDAO {
 
 	int fileWrite(String categoryCode, String oriPhotoname, String serPhotoname, int reportNum);
 
-	int repprocessupdate(Boolean selectedValue, int reportNum);
+	int repprocessupdate(int processValue, int reportNum);
 
 
 

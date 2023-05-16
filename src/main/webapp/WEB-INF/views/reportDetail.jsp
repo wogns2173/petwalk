@@ -87,20 +87,26 @@
     	 </tr>            
    </table>
    
-   <form id="reportprocess" action="reportprocess.go" method="POST">
-	   <div>
-		   <select name="selectedValue" id="${rep.reportNum}">
-		      <option value="false">미처리</option>
-		      <option value="true">처리완료</option>
-		   </select>
-		   <input type="hidden" name="reportNum" value="${rep.reportNum}">
-		   <input type="submit" value="저장">
-	   	</div>
-   	</form>
-   	
-		<!-- 신고글 목록으로 돌아가기 -->
+   <c:if test="${Role eq 'admin'}">
+	   <form id="reportprocess" action="reportprocess.go" method="POST">
+		   <div>
+			   <select name="selectedValue" id="${rep.reportNum}">
+			      <option value="false">미처리</option>
+			      <option value="true">처리완료</option>
+			   </select>
+			   <input type="hidden" name="reportNum" value="${rep.reportNum}">
+			   <input type="submit" value="저장">
+		   	</div>
+	   	</form>
+   	</c:if>
+   	<c:if test="${Role eq 'admin'}">
+		<!-- 관리자 신고글 목록으로 돌아가기 -->
         <input type="button" onclick='location.href="./reportList.go"' value="목록">
-      
+	</c:if>        
+      <c:if test="${Role eq 'user'}">
+    	<!-- 내 프로필 돌아가기 -->
+        <input type="button" onclick='location.href="./profile.go"' value="뒤로가기">
+   </c:if>
    <hr>
    
    <p>답변</p>         
@@ -113,23 +119,28 @@
 	<c:forEach items="${repreplist}" var="report">
 		<div class="report">
 			${report.userID}
+		<c:if test="${Role eq 'admin'}">
+            <c:if test="${report.userID eq sessionScope.userID}">
 			<input type ="button" onclick='location.href="reprepdel.do?repReplyNum=${report.repReplyNum}&reportNum=${rep.reportNum}"' value="삭제"/>
 			<input type ="button" onclick='location.href="reprepupdate.go?repReplyNum=${report.repReplyNum}&reportNum=${rep.reportNum}&reportProcess=${report.reportProcess }"' value="수정"/>
+			</c:if>
+        </c:if>
 			<p>${report.reportProcess }</p>
 		</div>	
 	</c:forEach>
 	
-	<!-- 댓글 작성 -->
-    <form method="post" action="reportreplywrite.do">
-    <input type="hidden" name="reportNum" value="${rep.reportNum}">
-    
-	<div class="report_reply">
-        <input name = "reportProcess" id="reportreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="내용을 입력 해 주세요.">
-        <p id="reportreply_legnth">0/100</p>
-        <button type="submit">등록</button>
-	</div>  
-    </form>
-    
+	<c:if test="${Role eq 'admin'}">
+		<!-- 댓글 작성 -->
+	    <form method="post" action="reportreplywrite.do">
+	    <input type="hidden" name="reportNum" value="${rep.reportNum}">
+	    
+		<div class="report_reply">
+	        <input name = "reportProcess" id="reportreply_text" type="text" maxlength="100" oninput="checkLength();" placeholder="내용을 입력 해 주세요.">
+	        <p id="reportreply_legnth">0/100</p>
+	        <button type="submit">등록</button>
+		</div>  
+	    </form>
+    </c:if>
 </body>
 <script>
 
