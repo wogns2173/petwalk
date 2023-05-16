@@ -6,6 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>선의 거리 계산하기</title>
+<link rel="icon" href="../resources/img/favicon.ico">
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 

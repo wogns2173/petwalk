@@ -1,8 +1,4 @@
 /* paging.css */
-.pagination {
-    background-color: #f2f2f2;
-}
-
 
 .page-item.active .page-link {
     background-color: #87d1bf;

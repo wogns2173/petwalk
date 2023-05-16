@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Want 사진자랑하기</title>
+<link rel="icon" href="./resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <style>
