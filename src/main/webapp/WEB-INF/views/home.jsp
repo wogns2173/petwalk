@@ -43,7 +43,7 @@
     }
     #title {
 		color: #87d1bf;
-		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+		margin-top: 10px;
 	}
   
 
@@ -128,11 +128,7 @@
 		        </td>
 		        <td>
 		            <div class="link-wrapper">
-<<<<<<< HEAD
-		            	<a onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</a>                
-=======
 		            	<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</button>            
->>>>>>> origin/master
 		            </div>
 		        </td>
 		        <td>
@@ -150,7 +146,7 @@
 
 	<hr>
 	<h3 id="title">이런곳은 어떠세요?</h3>	
-	<button onclick="location.href=''">더 알아보기</button>
+	<button onclick="location.href='routeshare/list?walkRouteType=추천'">더 알아보기</button>
 	</div>	
 </body>
 </html>
