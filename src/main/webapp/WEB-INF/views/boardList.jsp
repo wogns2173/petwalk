@@ -140,9 +140,6 @@
 
 		<hr id="boardLine"/>
 		<c:forEach items="${boardList}" var="bbs">
-			<c:if test="${bbs.categoryCode == 'B_03' && boardList.length == 0  }">
-				<p> 등록된 글이 없습니다. </p>
-			</c:if>
 			<c:if test="${bbs.categoryCode=='B_03'}">
 				<ul>
 					<li><a href="boardDetail.do?boardNum=${bbs.boardNum}" id="boardName">${bbs.boardName} [${bbs.replyCount }]</a> <span class="hit">조회 ${bbs.boardbHit }&nbsp &nbsp&nbsp &nbsp</span></li>
