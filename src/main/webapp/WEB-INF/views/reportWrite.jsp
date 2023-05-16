@@ -10,6 +10,11 @@
 </head>
 <body>
 <form method="post" action="reportwrite.do"  enctype="multipart/form-data">
+	
+	<input type="hidden" name="boardNum" value="${boardNum}">
+    <input type="hidden" name="reportID" value="${reportID}">
+    
+	<p> 신고 글 번호 : ${boardNum} / 신고 아이디 : ${reportID} <p>
 	<div>
         <select id="categoryCode" name="categoryCode">
             <option value="B_12">프로필 신고</option>

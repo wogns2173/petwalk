@@ -13,7 +13,16 @@
 <link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 <link rel="stylesheet" href="resources/css/common.css" type="text/css">
 <style>
-	table, th, td{
+
+	#noticelist th, #noticelist td, {
+		border : 1px solid lightgray;
+		border-collapse: collapse;
+		padding : 10px 5px;
+		text-align: center;
+		
+	}
+	
+	#noticehead th, #noticehead td{
 		border : 1px solid lightgray;
 		border-collapse: collapse;
 		padding : 10px 5px;
@@ -64,8 +73,17 @@
 	 
 	 #pagePerNum{
 	 	float: right;
+	 	margin-top: 20px;
+	 	margin-right: 10px;
 	 }
 	 
+	 input[name="noticeWirte"] {
+   		 margin-left: 10px;
+	}
+	
+	#paging{
+		border: none;
+	}
 
 </style>
 </head>
@@ -114,6 +132,7 @@
 			<input type="text" id="noticeInput" placeholder="제목을 입력 해 주세요">
 	    	<button id="searchButton">검색</button>
 	   	</div>
+	   	
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		 
 			<select id="pagePerNum">
@@ -148,7 +167,7 @@
 	
 			</tbody>
 			<tr>
-				<td colspan="6" id="paging" style="border: none";>	
+				<td colspan="6" id="paging">	
 					<!-- 	플러그인 사용	(twbsPagination)	-->
 					<div class="container">									
 						<nav aria-label="Page navigation" style="text-align:center">

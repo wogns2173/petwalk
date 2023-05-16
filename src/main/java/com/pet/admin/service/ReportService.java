@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pet.admin.dao.ReportDAO;
-import com.pet.admin.dto.InquiryDTO;
 import com.pet.admin.dto.ReportDTO;
 
 @Service
@@ -165,9 +164,9 @@ public class ReportService {
 		return "redirect:/reportdetail.do?reportNum=" + params.get("reportNum"); 
 	}
 
-	public String repWrite(MultipartFile photo, HashMap<String, String> params, String userID) {
+	public String repWrite(MultipartFile photo, HashMap<String, String> params, String userID, int boardNum) {
 		
-		String page = "redirect:/";
+		String page = "redirect:/boardDetail.do?boardNum="+boardNum;
 
 		//1. 게시글만 작성
 		ReportDTO repdto = new ReportDTO();

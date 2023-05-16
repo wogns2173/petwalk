@@ -61,7 +61,7 @@ public class ReportController {
 	}
 	
 	@RequestMapping(value="/reportdetail.do")
-	public String inquirydetail(Model model , @RequestParam int reportNum, HttpServletRequest request) {
+	public String inquirydetail(Model model ,@RequestParam int reportNum, HttpServletRequest request) {
 		logger.info("Report Detail Call");
 		
 		
@@ -147,12 +147,19 @@ public class ReportController {
 		return repservice.reprepupdate(params);
 	}
 	
-	@RequestMapping(value="/reportwrite.go")
-	public ModelAndView reportwriteform(HttpSession session) {
+	@RequestMapping(value="/reportwrite.go", method = RequestMethod.GET)
+	public ModelAndView reportwriteform(Model model, HttpSession session, @RequestParam HashMap<String, String> params) {
 		logger.info("Report Write Page 이동");
-			
+		logger.info("params :"+params);
+		
 		String userID = (String) session.getAttribute("userID");
-
+		String reportID = params.get("userID");
+		int boardNum =Integer.parseInt(params.get("boardNum"));
+		
+		logger.info("reportID :"+reportID+"/"+"boardNum :"+boardNum+"/"+"userID :"+userID);
+		
+		model.addAttribute("boardNum",boardNum);
+		model.addAttribute("reportID",reportID);
 	    ModelAndView modelAndView = new ModelAndView();
 
 	    if (userID == null) {
@@ -161,7 +168,7 @@ public class ReportController {
 	        modelAndView.setViewName("inlineScript");
 	        modelAndView.addObject("script", script);
 	    } else {
-	        modelAndView.setViewName("redirect:/reportwrite.do");
+	        modelAndView.setViewName("reportWrite");
 	    }
 	    
 	    return modelAndView;
@@ -175,7 +182,11 @@ public class ReportController {
 		logger.info("params:{}",params);
 		logger.info("userID :"+userID);
 		
-		return repservice.repWrite(photo,params,userID);
+		String reportID = params.get("reportID");
+		int boardNum = Integer.parseInt(params.get("boardNum"));
+		
+		logger.info("reportID :"+reportID+"/"+"boardNum :"+boardNum);
+		return repservice.repWrite(photo,params,userID,boardNum);
 	}
 	
 	@RequestMapping(value="/reportprocess.go", method = RequestMethod.POST)
