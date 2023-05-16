@@ -10,6 +10,7 @@
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="resources/css/common.css">
+	<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 <style>
 		#boardSearchForm {
 		  display: flex;
@@ -219,6 +220,10 @@
 		         startPage:data.currPage, // 시작 페이지
 		         totalPages:data.pages,// 총 페이지 수 
 		         visiblePages:4,// 보여줄 페이지
+		         next : '<span style="color: #87d1bf;">></span>', 
+				last : '<span style="color: #87d1bf;">>></span>',
+				first : '<span style="color: #87d1bf;"><<</span>',
+				prev : '<span style="color: #87d1bf;"><</span>',
 		         onPageClick:function(event,page){ // 페이지 클릭시 동작되는 (콜백)함수
 		            console.log(page,showPage);
 		            if(page != showPage){
@@ -244,7 +249,7 @@
 			content += '<a href="boardDetail.do?boardNum='+item.boardNum+'">';
 			content += '<img class="tehumbnail" src="/photo/'+item.serPhotoname+'"> </a>';
 			content += '<p class ="boardName" id="boardName"><a href="boardDetail.do?boardNum='+item.boardNum+'">'
-					+item.boardName+'['+item['replyCount']+']'+'</a></p>';
+					+escapeHtml(item.boardName.substring(0,6)) + (item.boardName.length > 6 ? '...' : '')+'['+item['replyCount']+']'+'</a></p>';
 			content += '<p class ="userNickname">'+item.userNickname+'</p>';
 			
 			var date = new Date(item.boardWriteDate);
@@ -254,6 +259,14 @@
 		console.log(content);
 		$('#list').empty();
 		$('#list').append(content);
+	}
+	function escapeHtml(unsafe) {
+	    return unsafe
+	         .replace(/&/g, "&amp;")
+	         .replace(/</g, "&lt;")
+	         .replace(/>/g, "&gt;")
+	         .replace(/"/g, "&quot;")
+	         .replace(/'/g, "&#039;");
 	}
 </script>
 </html>

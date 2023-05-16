@@ -74,6 +74,8 @@ public interface BoardDAO {
 	ArrayList<BoardDTO> boardPhotouserIDsearch(int cnt, int offset, String categoryCode, String boardSearch,
 			String search);
 
+	//void boardbHitDown(String boardNum);
+
 
 	//ArrayList<BoardDTO> photoboardList();
 

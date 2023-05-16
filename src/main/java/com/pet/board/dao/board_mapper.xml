@@ -278,4 +278,9 @@
    	<update id="boardRepDel">
    		UPDATE reply SET commentBlindWhether = 1 WHERE replyNum = #{param1}
    	</update>
+   	
+   	<!-- 댓글 수정 시 조회수 -1 -->
+   	<update id="boardbHitDown">
+   		UPDATE board SET boardbHit = boardbHit - 1 WHERE boardNum = #{param1}  	
+   	</update>
 </mapper>

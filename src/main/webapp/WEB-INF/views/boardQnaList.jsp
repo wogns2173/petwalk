@@ -9,32 +9,84 @@
 	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="resources/css/common.css">
+	<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 	<style>
-		b{
-			color:red;
-		}
-	
-		table{
-			width:100%;
-		}
-		
-		table, td, th{
-			border : 1px solid;
-			border-collapse : collapse;
-			padding: 5px;
+		#boardSearchForm {
+		  display: flex;
+		  justify-content: center;
 		}
 		
 		#paging{
 			text-align: center;
+			border: none;
+		}
+		table{
+			width : 80%;
+		} 
+		
+		th, td{
+		border : 1px solid lightgray;
+		border-collapse: collapse;
+		padding : 5px;
 		}
 		
-		#categoryname{
-			margin: 10px;
+		#title{
+		 	color:#87d1bf;
+		 	margin-left: 20px;
+		 }
+		 
+		 #thead{
+		 	color:#87d1bf;
+		 	background-color: #E3EDEB;
+		 }
+		
+		.container{
+		width : 710px; 
+		}
+		
+		#pagePerNum{
+			float: right;
 		}
 		
 	</style>
 </head>
 <body>
+<div class="main">
+				<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="resources/img/logo.png" alt="logo">				
+					<img src="resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 	<h1 id="categoryname"> 반려견 질문 게시판</h1>
    <div id = "boardSearchForm">
 	<select id="boardSearch">
@@ -77,6 +129,8 @@
 		</tr>
 		<input type="button" onclick="location.href='boardWrite.go?categoryCode=B_03'" id="writeButton" value="글쓰기"/>
 	</table>
+	</div>
+	</div>
 </body>
 <script>
 	var loginID = "${sessionScope.userID}";
@@ -134,6 +188,10 @@
 		         startPage:data.currPage, // 시작 페이지
 		         totalPages:data.pages,// 총 페이지 수 
 		         visiblePages:4,// 보여줄 페이지
+		         next : '<span style="color: #87d1bf;">></span>', 
+					last : '<span style="color: #87d1bf;">>></span>',
+					first : '<span style="color: #87d1bf;"><<</span>',
+					prev : '<span style="color: #87d1bf;"><</span>',
 		         onPageClick:function(event,page){ // 페이지 클릭시 동작되는 (콜백)함수
 		            console.log(page,showPage);
 		            if(page != showPage){

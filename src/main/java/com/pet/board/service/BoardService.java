@@ -275,7 +275,8 @@ public class BoardService {
 	}
 	
 	// 댓글 리스트 2
-	public ArrayList<BoardDTO> boardRepList2(String boardNum) {		
+	public ArrayList<BoardDTO> boardRepList2(String boardNum) {
+		//dao.boardbHitDown(boardNum);
 		return dao.boardRepList2(boardNum);
 	}
 
