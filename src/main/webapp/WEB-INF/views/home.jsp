@@ -93,7 +93,7 @@
 		        </td>
 		        <td>
 		            <div class="image-wrapper">
-		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list'">
+		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=공유'">
 		            </div>
 		        </td>
 		        <td>
