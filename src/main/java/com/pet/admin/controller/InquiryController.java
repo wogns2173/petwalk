@@ -39,9 +39,9 @@ public class InquiryController {
 	    logger.info("inquiry list page 이동");
 
 	    ModelAndView modelAndView = new ModelAndView();
-
+	    String userID = (String) session.getAttribute("userID");
 	    String role = (String) session.getAttribute("Role");
-	    if (role != null && role.equals("admin")) {
+	    if (role != null && role.equals("admin") && userID != null){
 	        modelAndView.setViewName("inquiryList");
 	        return modelAndView; 
 	    } else {

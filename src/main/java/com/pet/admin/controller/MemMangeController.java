@@ -31,8 +31,9 @@ public class MemMangeController {
 		ModelAndView modelAndView = new ModelAndView();
 		logger.info("memManageList page 이동");
 		
+	    String userID = (String) session.getAttribute("userID");
 		String role = (String) session.getAttribute("Role");
-	    if (role != null && role.equals("admin")) {
+	    if (role != null && role.equals("admin")  && userID != null) {
 	        modelAndView.setViewName("memManageList");
 	        return modelAndView; // 수정된 부분: inquiryList로 이동하고 메서드 종료
 	    } else {

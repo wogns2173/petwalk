@@ -16,13 +16,13 @@
 	</select>
 	
 	<select id="noticeAllList" parameterType="HashMap" resultType="com.pet.admin.dto.NoticeDTO">
-			SELECT boardNum,boardName, userID, boardWriteDate, boardBlindWhether FROM board WHERE categoryCode = 'B_05'
+			SELECT boardNum,boardName, userID, boardWriteDate, boardBlindWhether, boardbHit FROM board WHERE categoryCode = 'B_05'
 			ORDER BY boardNum DESC
 			LIMIT #{param2} OFFSET #{param3}
 	</select>
 	
 	<select id="noticeSearchList" parameterType="HashMap" resultType="com.pet.admin.dto.NoticeDTO">
-			SELECT boardName, userID, boardWriteDate, boardBlindWhether
+			SELECT boardName, userID, boardWriteDate, boardBlindWhether, boardbHit
 			FROM board WHERE boardName LIKE CONCAT ('%',#{param2},'%') AND categoryCode = 'B_05'
 			ORDER BY boardNum DESC
 			LIMIT #{param3} OFFSET #{param4}
