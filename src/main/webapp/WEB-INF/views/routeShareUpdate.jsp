@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 <link rel="icon" href="../resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../resources/css/common.css">
+<link rel= "stylesheet" href="../resources/css/paging.css" type="text/css">
 <style>
 	.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
 	.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
@@ -24,12 +29,58 @@
 	}
 	
 	#exampleFormControlInput1 {
-		width : 700px;
+		width : 721px;
 		display : inline;
 	}
+	
+	button{
+     	background-color: #87d1bf;
+        color: white;
+        border:none;
+  		width: 116px;
+    	height: 36px;
+    	display : block;
+		margin : 10px auto;
+     }
 </style>
 </head>
 <body>
+	<div class="main">
+			<div class = "topMenu">
+				<div class="logo">
+					<a href="../">
+						<img src="../resources/img/logo.png" alt="logo">				
+						<img src="../resources/img/logoaname.png" alt="logoname">
+					</a>	
+				</div>			
+					<div class="link">																		
+						<c:if test="${empty sessionScope.userID}">
+							<a href="../login.go">로그인</a>
+							<a href="../join.go">회원가입</a>
+						</c:if>
+						
+						<c:if test="${not empty sessionScope.userID}">
+							<a href="../myinformation.go">${sessionScope.userNickname} 님</a>
+							<c:if test="${sessionScope.Role eq 'admin'}">
+								<a href="../adminPage.go">관리자 페이지</a>
+							</c:if>
+							<a href="../logout">로그아웃</a>
+							<a href="../profile.go">프로필</a>
+							<a href="../memberdelete.go">회원탈퇴</a>
+						</c:if>
+						<br>				
+						<a onclick="location.href='/main/routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
+						<a onclick="location.href='/main/matefind/list'">산책 메이트</a>
+						<a href="../board">커뮤니티</a>
+						<a href="../noticelist.go">공지사항</a>
+						<hr>					
+				</div>															
+			</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 	<form action="./routeShareInsert.do">
 		<input type="hidden" name="walkRouteNum" value="${dto.walkRouteNum}"/>
 		<input type="hidden" name="flag" value="update"/>
@@ -39,14 +90,15 @@
 		<input type="hidden" name="dongID" value=""/>
 		<div id="map" style="width:100%;height:400px;"></div>
 		<button type="button" onclick="location.href='./bring.go'" id="reBringbtn">다시 불러오기</button>
-		<div class="subject">제목: <input type="text" name="walkRouteName" class="form-control" id="exampleFormControlInput1" value="${dto.walkRouteName}"/></div>
+		<div class="subject">제목 <input type="text" name="walkRouteName" class="form-control" id="exampleFormControlInput1" value="${dto.walkRouteName}"/></div>
 		
 		<div class="mb-3">
 		 	<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-		 	<textarea class="form-control" name="walkRouteDetail" id="exampleFormControlTextarea1" rows="3">${dto.walkRouteDetail}</textarea>
+		 	<textarea class="form-control" name="walkRouteDetail" id="exampleFormControlTextarea1" rows="3" style="height: 284px;">${dto.walkRouteDetail}</textarea>
 		</div>
 		<button>수정하기</button>
 	</form>
+	</div>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
 <script>

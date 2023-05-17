@@ -26,7 +26,29 @@
   }
   .right-align{
   	float: right;
-  }
+}	
+.image-wrapper,
+.link-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.image-wrapper {
+	margin : 5px 34px;
+}
+	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
+    #title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+	}
+	table{
+		margin-left: 2px; 
+		margin-right: 20px;
+		margin-top: 65px;
+	}
 </style>
 </head>
 <body>
@@ -64,10 +86,54 @@
 		<br/>
 		<br/>
 		<br/>
-<button onclick="location.href='inquirylist.go'">문의 관리</button>
-<button onclick="location.href='reportList.go'">신고 관리</button>
-<button onclick="location.href='memManageList.go'">회원 관리</button>
-<button onclick="location.href='noticelist.go'">공지사항 관리</button>
+		
+		<table>
+		    <tr>						
+		        <td>
+		            <div class="image-wrapper">
+		                <img alt="recommend" src="resources/img/inquiry.png" width="110" height="110" onclick="location.href='inquirylist.go'">
+		            </div>
+		        </td>
+		        <td>
+		            <div class="image-wrapper">
+		                <img alt="walkmate" src="resources/img/report.png" width="110" height="110" onclick="location.href='reportList.go'">
+		            </div>
+		        </td>
+		        <td>
+		            <div class="image-wrapper">
+		                <img alt="share" src="resources/img/member.png" width="110" height="110" onclick="location.href='memManageList.go'">
+		            </div>
+		        </td>
+		        <td>
+		            <div class="image-wrapper">
+		                <img alt="community" src="resources/img/notice.png" width="110" height="110" onclick="location.href='noticelist.go'">
+		            </div>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td>
+		            <div class="link-wrapper">
+		                <button onclick="location.href='inquirylist.go'">문의 관리</button>
+		            </div>
+		        </td>
+		        <td>
+		            <div class="link-wrapper">
+		               <button onclick="location.href='reportList.go'">신고 관리</button>
+		            </div>
+		        </td>
+		        <td>
+		            <div class="link-wrapper">
+		            	<button onclick="location.href='memManageList.go'">회원 관리</button>            
+		            </div>
+		        </td>
+		        <td>
+		            <div class="link-wrapper">
+		                <button onclick="location.href='noticelist.go'">공지사항 관리</button>
+		            </div>
+		        </td>
+		    </tr>
+		</table>
+
 </div>
 </body>
 <script>

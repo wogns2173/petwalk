@@ -48,7 +48,26 @@
 		}
 		
 		#pagePerNum{
-			float: right;
+		    float: right;
+		    width: 90px;
+		    height: 34px;
+		    margin-top: 22px;
+		}
+		#writeButton{
+		    background-color: #87d1bf;
+		    color: white;
+		    border: none;
+		    width: 93px;
+		    height: 33px;
+		    display: block;
+		    margin-left: 515px;
+		    margin-top: 23px;
+		    margin-bottom: 24px;
+		}
+		#searchButton{
+			background-color: #87d1bf;
+			color: white;
+			border: none;
 		}
 		
 	</style>
@@ -98,7 +117,9 @@
      	<option value="userNickname">닉네임</option>
      	<option value="userID">ID</option>
     </select> 
+    &nbsp&nbsp
 	<input type="text" id="searchInput" placeholder="검색 조건을 입력해주세요.">
+	&nbsp&nbsp
    	<button id="searchButton">검색</button>
 	</div>
 	<select id="pagePerNum">
