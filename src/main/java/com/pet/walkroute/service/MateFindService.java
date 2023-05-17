@@ -56,10 +56,14 @@ public class MateFindService {
 		return dao.mateInsert(params);
 	}
 
-	public ArrayList<MessageDTO> messageList(String sendID) {
-		return dao.messageList(sendID);
+	public ArrayList<MessageDTO> messageSendList(String sendID) {
+		return dao.messageSendList(sendID);
 	}
-
+	
+	public ArrayList<MessageDTO> messageReceiveList(String receiveID) {
+		return dao.messageReceiveList(receiveID);
+	}
+	
 	public ArrayList<MessageDTO> messageHistory(String mateWalkNum) {
 		return dao.messageHistory(mateWalkNum);
 	}
