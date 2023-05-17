@@ -236,15 +236,11 @@ public class MemberController {
 			return page;
 		}
 	   
-	   @RequestMapping(value="/findmemberid.go")
-	   public String findmemberidForm() {
-	      return "findmemberid";      
-	   }
-	   
-	   @RequestMapping(value="/findmemberpw.go")
-	   public String findmemberpwForm() {
-	      return "findmemberpw";      
-	   }
+	   @RequestMapping(value="/findmemberidpw.go")
+	   public String findmemberidForm(@RequestParam String findType, Model model) {
+		   model.addAttribute("findType", findType);
+	      return "findmemberidpw";      
+	   }	  
 	   
 	   @RequestMapping(value="/findmemberid.ajax")	
 	   @ResponseBody

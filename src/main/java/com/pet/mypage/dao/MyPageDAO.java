@@ -48,6 +48,10 @@ public interface MyPageDAO {
 
 	ArrayList<BoardDTO> otreviewlistCall(int cnt, int offset, String userID);
 
+	int deletemr(String id);
+
+	int deletemr(String walkNum, String userID);
+
 	
 
 	

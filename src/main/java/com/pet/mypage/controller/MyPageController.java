@@ -196,4 +196,15 @@ public class MyPageController {
 		
 		return service.otreviewlistCall(Integer.parseInt(page),Integer.parseInt(cnt),userID);
 	}
+	
+	@RequestMapping(value="/deletemr.ajax", method= RequestMethod.GET)
+	@ResponseBody
+	public HashMap<String, Object>deletemr(
+			@RequestParam(value="delList[]") ArrayList<String> delList,
+			HttpSession session){
+		logger.info("delList : "+delList);
+		
+		return service.deletemr(delList, session);
+	}
+	
 }

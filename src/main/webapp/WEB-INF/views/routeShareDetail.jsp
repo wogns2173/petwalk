@@ -80,8 +80,8 @@
 							<a href="../memberdelete.go">회원탈퇴</a>
 						</c:if>
 						<br>				
-						<a onclick="location.href='/main/routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
-						<a onclick="location.href='/main/matefind/list'">산책 메이트</a>
+						<a href="../routeshare/list?walkRouteType=공유">산책 경로 공유</a>
+						<a href="../matefind/list">산책 메이트</a>
 						<a href="../board">커뮤니티</a>
 						<a href="../noticelist.go">공지사항</a>
 						<hr>					

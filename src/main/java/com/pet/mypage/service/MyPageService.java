@@ -409,6 +409,17 @@ public class MyPageService {
 		map.put("otreviewlistCall", otreviewlistCall);
 		return map;
 	}
+	public HashMap<String, Object> deletemr(ArrayList<String> delList, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		String userID = (String) session.getAttribute("userID");
+		for (String walkNum : delList) {
+			dao.deletemr(walkNum, userID);
+		}
+		
+		map.put("success", true);
+		return map;
+	}
 	
 
 

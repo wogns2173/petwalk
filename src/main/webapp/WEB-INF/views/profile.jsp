@@ -79,6 +79,7 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
@@ -90,11 +91,12 @@
 		<div class="inner">
 		<h3 id="title" style="text-align: center;">반려견 프로필</h3>
 		<div style="text-align: right;">
-		<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
+			<c:if test="${empty pet}">
+				<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
+			</c:if>
 		</div>
 		<c:if test="${empty pet}">
-		등록된 반려견 정보가 없습니다.
-		
+			등록된 반려견 정보가 없습니다.		
 		</c:if>
 		
 		<c:if test="${not empty pet}">
@@ -165,8 +167,7 @@
 			<div style="text-align: right;">
 		  	<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>
 			</div>	
-	
-			
+				
 			<table class="table">
 			<thead id="myroutehead">
 				<colgroup>					
@@ -404,7 +405,7 @@ function myroutlistPrint(list){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
 		content +='<td>'+item.walkName+'</td>';
-		content +='<td>'+item.walkDate+'</td>';		
+		content +='<td>'+item.walkDate+'</td>';	
 		content +='</tr>';
 	});
 	}else{
@@ -669,5 +670,6 @@ function myreportlistPrint(list){
 	$('#myreportbody').empty();
 	$('#myreportbody').append(content);
 }
+
 </script>
 </html>

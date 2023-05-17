@@ -110,6 +110,11 @@
 		ORDER BY reviewDate DESC LIMIT #{param1} OFFSET #{param2}
 	</select>
 	
+	<delete id="deletemr">
+		DELETE FROM routelist WHERE walkNum = #{param1} AND userID = #{param2}
+	</delete>
+	
+	
 	
 	
 
