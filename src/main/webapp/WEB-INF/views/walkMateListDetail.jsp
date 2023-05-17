@@ -103,7 +103,11 @@
 		</div>
 	</div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> origin/master
 	<c:if test="${list.userID ne userID}">
 		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>
 	</c:if>
@@ -111,7 +115,11 @@
 		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 확인하기</button>
 	</c:if>
 	<p>${list.mateDetail}</p>
+<<<<<<< HEAD
 >>>>>>> 52533ede69e0af711cb8a48e77d39fd32a2ca85e
+=======
+
+>>>>>>> origin/master
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
 <script>
