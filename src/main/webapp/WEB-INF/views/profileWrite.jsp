@@ -66,6 +66,7 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
@@ -75,40 +76,42 @@
 		<br/>
 	<h3 id="title">반려견 생성</h3>
 		<table class="table">
-			<tr>
-				<th>사진</th>
-				<td>					                    
+			<tr style="text-align: center;">
+				<th colspan="2" id="title">반려견 사진</th>
+			</tr>
+			<tr style="text-align: center;">
+				<td colspan="2">					                    
                      <input type="file" name="photo" id = "photo"/>
 				</td>
 			</tr>
-			<tr>
-				<th>이름</th>
+			<tr style="text-align: center;">
+				<th id="title">이름</th>
 				<td>
 					<input type="text" id="petName"/>					
 				</td>				
 			</tr>
-			<tr>
-				<th>나이</th> 
+			<tr style="text-align: center;">
+				<th id="title">나이</th> 
 				<td>
 					<input type="number" id="petAge"/>										
 				</td>
 			</tr>
-			<tr>					
-				<th>성별</th>
+			<tr style="text-align: center;">					
+				<th id="title">성별</th>
 				<td>
 					<input type="radio" name="petGender" value="남"/>남아 &nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="petGender" value="여"/>여아
 				</td>				
 			</tr>
-			<tr>					
-				<th>중성화 여부</th>
+			<tr style="text-align: center;">					
+				<th id="title">중성화 여부</th>
 				<td>
 					<input type="radio" name="petNeutered" value="1"/>O &nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="petNeutered" value="0"/>X
 				</td>				
 			</tr>
-			<tr>
-				<th>견종 사이즈</th>
+			<tr style="text-align: center;">
+				<th id="title">견종 사이즈</th>
 				<td>
 					<select id ="petSize">
 						<option value="">사이즈를 선택해 주세요.</option>
@@ -118,8 +121,8 @@
 					</select>					
 				</td>				
 			</tr>				
-			<tr>					
-				<th>반려견 소개</th>
+			<tr style="text-align: center;">					
+				<th id="title">반려견 소개</th>
 				<td>					
 					<textarea id="petIntroduce" placeholder="반려견에 대한 소개를 입력 해주세요."></textarea>
 				</td>				

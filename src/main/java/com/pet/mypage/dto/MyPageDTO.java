@@ -37,6 +37,8 @@ public class MyPageDTO {
 	private String reviewName;
 	private String reviewDetail;
 	private String reviewDate;
+	
+	
 
 	
 

@@ -26,29 +26,12 @@
   }
   .right-align{
   	float: right;
-}	
-.image-wrapper,
-.link-wrapper {
-    display: flex;
-    justify-content: center;
-}
-.image-wrapper {
-	margin : 5px 34px;
-}
-	button{
+  }
+  	button{
     	background-color: #87d1bf;
     	border:none;
     	color: white;    	
     }
-    #title {
-		color: #87d1bf;
-		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
-	}
-	table{
-		margin-left: 2px; 
-		margin-right: 20px;
-		margin-top: 65px;
-	}
 </style>
 </head>
 <body>
@@ -79,6 +62,7 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
@@ -133,7 +117,6 @@
 		        </td>
 		    </tr>
 		</table>
-
 </div>
 </body>
 <script>

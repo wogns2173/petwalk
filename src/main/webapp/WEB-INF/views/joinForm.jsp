@@ -67,6 +67,7 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
@@ -75,93 +76,74 @@
 		<br/>
 		<br/>
 <h3 id="title" style="text-align: center;">회원가입</h3>
+<br/>
 		<table style="margin-left: auto; margin-right: auto;">
 			<tr>
-				<th id="title" style="text-align: center;">아이디</th>
-			</tr>
-			<tr>
-				<td id="title" style="text-align: center;">
-					<input type="text" id="userID" placeholder="아이디를 입력 해주세요."/>					
+				<th id="title">아이디</th>
+				<td id="title">
+					<input type="text" id="userID" placeholder="아이디를 입력 해주세요."/><br/>					
 					<span id="idmsg"></span>
 				</td>
 			</tr>
 			<tr>
-				<th id="title" style="text-align: center;">비밀번호</th>
-			</tr>
-			<tr>
-				<td id="title" style="text-align: center;">
-					<input type="password" id="userPW"/>
+				<th id="title">비밀번호</th>
+				<td id="title">
+					<input type="password" id="userPW"/><br/>
 					<span id="upwmsg"></span>	
 				</td>
 			</tr>
 			<tr>
-				<th id="title" style="text-align: center;">비밀번호 확인</th>
-				</td>
-			</tr>
-			<tr>
-				<td id="title" style="text-align: center;">
-					<input type="password" id ="confirm"/>
+				<th id="title">비밀번호 확인</th>
+				<td id="title">
+					<input type="password" id ="confirm"/><br/>
 					<span id="pwmsg"></span>
 				</td>
 			</tr>
 			<tr>
-				<th id="title" style="text-align: center;">이름</th>				
-				</td>				
+
 			</tr>
 			<tr>
-				<td id="title" style="text-align: center;">
+				<th id="title">이름</th>				
+				<td id="title">
 					<input type="text" id="userName"/>					
-				</td>				
-			</tr>								
-			<tr>
-				<th id="title" style="text-align: center;">닉네임</th>
 				</td>
-			</tr>
+			</tr>							
 			<tr>
-				<td id="title" style="text-align: center;">
-					<input type="text" id="userNickname"/>					
+				<th id="title">닉네임</th>
+				<td id="title">
+					<input type="text" id="userNickname"/><br/>					
 					<span id="nicknamemsg"></span>
 				</td>
 			</tr>
 			<tr>
-				<th id="title" style="text-align: center;">연락처</th>				
-			</tr>	
-			<tr>
-				<td id="title" style="text-align: center;">
+				<th id="title">연락처</th>
+				<td id="title">
 					<input type="number" id="ftphn" maxlength="3" value="010" readonly="readonly"/>
 					<input type="number" id="mdphn" placeholder="휴대폰 중간(4자리)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
 					<input type="number" id="ltphn" placeholder="휴대폰 마지막(4자리)" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" />
-				</td>
-			</tr>	
+				</td>				
+			</tr>		
 			<tr>
-				<th id="title" style="text-align: center;">이메일</th>
-			</tr>	
-			<tr>
-				<td id="title" style="text-align: center;">
+				<th id="title">이메일</th>
+				<td id="title">
 					<input type="email" id="userEmail"/>
 				</td>
 			</tr>	
 			<tr>			
-				<th id="title" style="text-align: center;">성별</th>				
-			</tr>	
-			<tr>			
-				<td id="title" style="text-align: center;">
+				<th id="title">성별</th>
+				<td id="title">
 					<input type="radio" name="userGender" value="남"/>남자 
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="radio" name="userGender" value="여"/>여자
 				</td>				
 			</tr>	
 			<tr>
-				<th id="title" style="text-align: center;">나이</th>
+				<th id="title">나이</th>
+				<td id="title"><input type="number" id="userAge"/></td>
 			</tr>
 			<tr>
-				<td id="title" style="text-align: center;"><input type="number" id="userAge"/></td>
-			</tr>
-			<tr>
-				<th id="title" style="text-align: center;">생년월일</th>						
-			</tr>
-			<tr>
-					<td id="title" style="text-align: center;">	
+				<th id="title">생년월일</th>	
+				<td id="title">	
 					<input type="number" id="year" placeholder="년(4자)" min="1900" max="2023" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4"/>
 					<!-- <select id="year">
 						<option value="2005">2005</option>
@@ -239,13 +221,11 @@
 						<option value="30">30</option>									
 						<option value="31">31</option>
 					</select> -->
-				</td>
+				</td>					
 			</tr>
 			<tr>
-				<th id="title" style="text-align: center;">주소</th>
-			</tr>	
-			<tr>
-				<td id="title" style="text-align: center;">
+				<th id="title">주소</th>
+				<td id="title">
 					<select id="siID">
 						<option value="">시를 선택하세요</option>
 						<option value="1">서울 특별시</option>

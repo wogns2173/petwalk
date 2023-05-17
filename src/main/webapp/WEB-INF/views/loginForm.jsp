@@ -67,6 +67,7 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
@@ -97,8 +98,7 @@
          <th colspan="2">
 
             <button onclick="login()">로그인</button>
-            <button onclick="location.href='findmemberid.go'">아이디 찾기</button>
-            <button onclick="location.href='findmemberpw.go'">비밀번호 찾기</button>
+            <button onclick="location.href='findmemberidpw.go?findType=아이디'">ID/PW 찾기</button>            
             <button onclick="location.href='join.go'">회원가입</button>
             <button onclick="location.href='./'">돌아가기</button>
          </th>

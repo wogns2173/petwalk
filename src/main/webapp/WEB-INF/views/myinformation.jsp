@@ -66,14 +66,17 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
 		<br/>
 		<br/>
 		<br/>
-		<br/>
+		<br/>		
 	<h3 id="title" style="text-align: center;">내 정보</h3>
+		<br/>
+		<br/>
 		<table class="table" style="margin-left: auto; margin-right: auto;">
 			<tr style="text-align: center;">
 				<th id="title">아이디</th>
