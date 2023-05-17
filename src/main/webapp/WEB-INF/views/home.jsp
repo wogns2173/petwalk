@@ -127,7 +127,11 @@
 		            </div>
 		        </td>
 		        <td>
+<<<<<<< HEAD
+		            <div class="link-wrapper">
+=======
 		            <div class="link-wrapper">            
+>>>>>>> origin/master
 		            	<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</button>            
 		            </div>
 		        </td>
