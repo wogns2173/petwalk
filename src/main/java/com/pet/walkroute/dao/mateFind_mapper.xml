@@ -47,8 +47,13 @@
 		VALUES(#{userID},#{walkNum},#{siID},#{guID},#{dongID},#{mateName},#{mateDetail},0,#{petWalkDate},'모집중',false);
 	</insert>
 	
-	<select id="messageList" resultType="com.pet.walkroute.dto.MessageDTO">
+	<select id="messageSendList" resultType="com.pet.walkroute.dto.MessageDTO">
 		SELECT * FROM message WHERE sendID = #{param1}
+		GROUP BY mateWalkNum 	
+	</select>
+	
+	<select id="messageReceiveList" resultType="com.pet.walkroute.dto.MessageDTO">
+		SELECT * FROM message WHERE receiveID = #{param1}
 		GROUP BY mateWalkNum 	
 	</select>
 	
