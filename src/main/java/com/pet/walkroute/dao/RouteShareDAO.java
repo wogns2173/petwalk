@@ -27,7 +27,7 @@ public interface RouteShareDAO {
 
 	String isRecommend(String walkRouteNum);
 
-	String isBookmark(String walkNum);
+	String isBookmark(String walkNum, String userID);
 
 	int recommendDo(@Param("walkRouteNum")String walkRouteNum, @Param("userID")String userID);
 

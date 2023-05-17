@@ -43,6 +43,12 @@
     .inner {
     	position : relative;
     }
+    
+.container {
+  display: flex;
+  justify-content: center;
+}
+
 </style>
 </head>
 <body>
@@ -73,6 +79,7 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
@@ -82,34 +89,41 @@
 		<br/>
 		
 		<div class="inner">
+		<h3 id="title" style="text-align: center;">반려견 프로필</h3>
+		<div style="text-align: right;">
+			<c:if test="${empty pet}">
+				<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
+			</c:if>
+		</div>
 		<c:if test="${empty pet}">
-		등록된 반려견 정보가 없습니다.
-		<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
+			등록된 반려견 정보가 없습니다.		
 		</c:if>
 		
 		<c:if test="${not empty pet}">
-		<h3 id="title">반려견 프로필</h3>
-			<table class="table">
+		
+			<table class="table" style="margin-left: auto; margin-right: auto;">
+				<tr style="text-align: center;">
+					<th colspan="2" id="title" >반려견 사진</th>			
+				</tr>
 				<tr>
-					<th>사진</th>
-					<td>
-						<img width="100" src="/photo/${pet.serPhotoname}"/>					
+					<td style="text-align: center;" colspan="2">
+						<img width="100" src="/photo/${pet.serPhotoname}" style="border-radius: 50%;"/>					
 					</td>				
 				</tr>	
-				<tr>
-					<th>이름</th>
+				<tr style="text-align: center;">
+					<th id="title">이름</th>
 					<td>
 						${pet.petName}					
 					</td>				
 				</tr>
-				<tr>
-					<th>나이</th>
+				<tr style="text-align: center;">
+					<th id="title">나이</th>
 					<td>
 						${pet.petAge} 살										
 					</td>
 				</tr>
-				<tr>					
-					<th>성별</th>
+				<tr style="text-align: center;">					
+					<th id="title">성별</th>
 					<td>
 						<c:if test="${pet.petGender eq '남' }">남아</c:if>
 						<c:if test="${pet.petGender eq '여' }">여아</c:if>
@@ -117,8 +131,8 @@
 						<input type="radio" name="petGender" value="여"<c:if test="${pet.petGender eq '여' }">checked</c:if>/>여아 -->
 					</td>				
 				</tr>
-				<tr>					
-					<th>중성화 여부</th>
+				<tr style="text-align: center;">					
+					<th id="title">중성화 여부</th>
 					<td>
 						<c:if test="${pet.petNeutered eq '1' }">O</c:if>
 						<c:if test="${pet.petNeutered eq '0' }">X</c:if>
@@ -126,19 +140,19 @@
 						<input type="radio" name="petNeutered" value="0"<c:if test="${pet.petNeutered eq '0' }">checked</c:if>/>X -->
 					</td>				
 				</tr>		
-				<tr>
-					<th>견종 사이즈</th>
+				<tr style="text-align: center;">
+					<th id="title">견종 사이즈</th>
 					<td>
 						${pet.petSize}										
 					</td>				
 				</tr>							
-				<tr>					
-					<th>반려견 소개</th>
+				<tr style="text-align: center;">					
+					<th id="title">반려견 소개</th>
 					<td>
 						${pet.petIntroduce}
 					</td>				
 				</tr>		
-				<tr>		
+				<tr style="text-align: center;">		
 			         <th colspan="2">
 			            <!-- <button onclick="location.href='petprofileWrite.go'"<c:if test="${pet.petNeutered eq '1' }">hidden</c:if>>반려견 정보 추가하기</button> -->
 			            <button onclick="location.href='petprofileUpdate.go'">수정하기</button>		            		            
@@ -149,9 +163,11 @@
 			
 			<hr>
 			
-			<h3 id="title">작성한 산책 경로</h3>
-			<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>		
-			
+			<h3 id="title" style="text-align: center;">작성한 산책 경로</h3>
+			<div style="text-align: right;">
+		  	<button onclick="location.href='walkroute/routedraw'">산책 경로 작성</button>
+			</div>	
+				
 			<table class="table">
 			<thead id="myroutehead">
 				<colgroup>					
@@ -159,8 +175,8 @@
 					<col width="30%">
 				</colgroup>								
 	   			<tr>						
-					<td>제목</td>
-					<td>작성일자</td>
+					<td id="title">제목</td>
+					<td id="title">작성일자</td>
 				</tr>
 			</thead>		
 			<tbody id="myroutebody">
@@ -169,7 +185,7 @@
 				<tr>
 					<td colspan="2" id="paging">	
 					<!-- 	플러그인 사용	(twbsPagination)	-->
-						<div class="container">									
+						<div class="container" style="text-align: center;">									
 							<nav aria-label="Page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination1"></ul>
 							</nav>					
@@ -180,9 +196,10 @@
 			
 			<hr>
 	
-			<h3 id="title">즐겨찾기한 산책 경로</h3>
-			<button onclick="location.href='routeshare/list'">산책 경로 공유 게시판 가기</button>				
-			
+			<h3 id="title" style="text-align: center;">즐겨찾기한 산책 경로</h3>
+			<div style="text-align: right;">
+			<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유 게시판 가기</button>				
+			</div>
 			<table  class="table">
 			<thead id="mybookmarkhead">
 				<colgroup>					
@@ -191,30 +208,36 @@
 					<col width="25%">
 				</colgroup>					
 				<tr>						
-					<td>제목</td>
-					<td>작성자</td>
-					<td>작성일자</td>
+					<td id="title">제목</td>
+					<td id="title">작성자</td>
+					<td id="title">작성일자</td>
 				</tr>
 			</thead>										
 			<tbody id="mybookmarkbody">
 			
 			</tbody>
 				<tr>
-					<td colspan="3">	
-					<!-- 	플러그인 사용	(twbsPagination)	-->
-						<div class="container">									
-							<nav aria-label="Page navigation" style="text-align:center">
+					<td colspan="3" id="paging">
+						<!-- 	플러그인 사용	(twbsPagination)	-->
+						<div class="container" style="text-align: center;">									
+							<nav aria-label="Page navigation">
 								<ul class="pagination" id="pagination2"></ul>
 							</nav>					
 						</div>
 					</td>
-				</tr>		
+				</tr>
 			</table>
+		
+
+				
+		
 			
 			<hr>
 			
-			<h3 id="title">산책 후기</h3>
+			<h3 id="title" style="text-align: center;">산책 후기</h3>
+			<div style="text-align: right;">
 			<button onclick="location.href='matefind/list'">산책 메이트 찾기</button>				
+			</div>
 			
 			<table  class="table">
 			<thead id="myreviewhead">
@@ -224,9 +247,9 @@
 					<col width="20%">
 				</colgroup>					
 				<tr>						
-					<td>제목</td>
-					<td>내용</td>
-					<td>작성일자</td>
+					<td id="title">제목</td>
+					<td id="title">내용</td>
+					<td id="title">작성일자</td>
 				</tr>
 			</thead>										
 			<tbody id="myreviewbody">
@@ -235,7 +258,7 @@
 				<tr>
 					<td colspan="3">	
 					<!-- 	플러그인 사용	(twbsPagination)	-->
-						<div class="container">									
+						<div class="container" style="text-align: center;">									
 							<nav aria-label="Page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination3"></ul>
 							</nav>					
@@ -246,9 +269,10 @@
 			
 			<hr>	
 			
-			<h3 id="title">문의 내역</h3>
-				<button onclick="location.href='inquirywrite.go'">문의 하기</button>				
-			
+			<h3 id="title" style="text-align: center;">문의 내역</h3>
+			<div style="text-align: right;">
+			<button onclick="location.href='inquirywrite.go'">문의 하기</button>				
+			</div>
 			<table  class="table">
 			<thead id="myinquiryhead">
 				<colgroup>					
@@ -257,9 +281,9 @@
 					<col width="25%">
 				</colgroup>					
 				<tr>						
-					<td>제목</td>
-					<td>문의일자</td>
-					<td>처리여부</td>
+					<td id="title">제목</td>
+					<td id="title">문의일자</td>
+					<td id="title">처리여부</td>
 				</tr>
 			</thead>										
 			<tbody id="myinquirybody">
@@ -268,7 +292,7 @@
 				<tr> 
 					<td colspan="3">	
 					<!-- 	플러그인 사용	(twbsPagination)	-->
-						<div class="container">									
+						<div class="container" style="text-align: center;">									
 							<nav aria-label="Page navigation" style="text-align:center">
 								<ul class="pagination" id="pagination4"></ul>
 							</nav>					
@@ -279,7 +303,7 @@
 			
 			<hr>
 			
-			<h3 id="title">신고 내역</h3>				
+			<h3 id="title" style="text-align: center;">신고 내역</h3>				
 			
 			<table  class="table">
 			<thead id="myreporthead">
@@ -289,9 +313,9 @@
 					<col width="25%">
 				</colgroup>					
 				<tr>						
-					<td>제목</td>
-					<td>문의일자</td>
-					<td>처리여부</td>
+					<td id="title">제목</td>
+					<td id="title">문의일자</td>
+					<td id="title">처리여부</td>
 				</tr>
 			</thead>										
 			<tbody id="myreportbody">
@@ -300,8 +324,8 @@
 				<tr> 
 					<td colspan="3">	
 					<!-- 	플러그인 사용	(twbsPagination)	-->
-						<div class="container">									
-							<nav aria-label="Page navigation" style="text-align:center">
+						<div class="container" style="text-align: center;">									
+							<nav aria-label="Page navigation" style="text-align: center;">
 								<ul class="pagination" id="pagination5"></ul>
 							</nav>					
 						</div>
@@ -381,7 +405,7 @@ function myroutlistPrint(list){
 	list.forEach(function(item, idx){
 		content +='<tr>';		
 		content +='<td>'+item.walkName+'</td>';
-		content +='<td>'+item.walkDate+'</td>';		
+		content +='<td>'+item.walkDate+'</td>';	
 		content +='</tr>';
 	});
 	}else{
@@ -646,5 +670,6 @@ function myreportlistPrint(list){
 	$('#myreportbody').empty();
 	$('#myreportbody').append(content);
 }
+
 </script>
 </html>

@@ -43,7 +43,7 @@
     }
     #title {
 		color: #87d1bf;
-		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+		margin-top: 10px;
 	}
   
 
@@ -75,7 +75,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
+					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<a href="noticelist.go">공지사항</a>
@@ -127,11 +127,8 @@
 		            </div>
 		        </td>
 		        <td>
-<<<<<<< HEAD
 		            <div class="link-wrapper">
-=======
-		            <div class="link-wrapper">            
->>>>>>> origin/master
+
 		            	<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</button>            
 		            </div>
 		        </td>
@@ -150,7 +147,7 @@
 
 	<hr>
 	<h3 id="title">이런곳은 어떠세요?</h3>	
-	<button onclick="location.href=''">더 알아보기</button>
+	<button onclick="location.href='routeshare/list?walkRouteType=추천'">더 알아보기</button>
 	</div>	
 </body>
 </html>

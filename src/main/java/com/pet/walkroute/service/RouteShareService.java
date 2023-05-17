@@ -104,12 +104,16 @@ public class RouteShareService {
 
 	public String bookmark(String walkNum, String userID) {
 		String msg = "즐겨찾기 실패";
-		if(dao.isBookmark(walkNum) == null) {
+		
+		 String ID = dao.isBookmark(walkNum,userID); 
+		
+		if(ID == null) {			
 			dao.bookmarkDo(walkNum, userID);
 			msg = "즐겨찾기 성공";
 		}
 		else {
 			dao.bookmarkCancel(walkNum, userID);
+			msg = "즐겨찾기 취소";
 		}
 		return msg;
 	}

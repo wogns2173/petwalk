@@ -203,8 +203,8 @@ public class MyPageService {
 		return map;
 	}
 	public HashMap<String, Object> myroutlistCall(int page, int cnt,HttpSession session) {
-		logger.info(page+"페이지 보여줘");
-		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		logger.info(page+"페이지(내가 작성한 경로) 보여줘");
+		logger.info("한 페이지에(내가 작성한 경로)  "+cnt+" 개씩 보여줄거야");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		
@@ -219,8 +219,8 @@ public class MyPageService {
 		String userID =  (String) session.getAttribute("userID");
 		int total = dao.totalCount(userID);
 		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
-		logger.info("전체 게시물  수 : "+total);
-		logger.info("총 페이지 수 : "+range);
+		logger.info("(내가 작성한 경로) 전체 게시물  수 : "+total);
+		logger.info("(내가 작성한 경로) 총 페이지 수 : "+range);
 		
 		page = page > range ? range : page;
 		map.put("currPage", page);
@@ -231,8 +231,8 @@ public class MyPageService {
 		return map;
 	}
 	public HashMap<String, Object> mybookmarklistCall(int page, int cnt, HttpSession session) {
-		logger.info(page+"페이지 보여줘");
-		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		logger.info(page+"페이지(내가 즐겨찾기한 경로) 보여줘");
+		logger.info("한 페이지에(내가 즐겨찾기한 경로) "+cnt+" 개씩 보여줄거야");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		
@@ -247,8 +247,8 @@ public class MyPageService {
 		String userID =  (String) session.getAttribute("userID");
 		int total = dao.mybookmarktotalCount(userID);
 		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
-		logger.info("전체 게시물  수 : "+total);
-		logger.info("총 페이지 수 : "+range);
+		logger.info("(내가 즐겨찾기한 경로)전체 게시물  수 : "+total);
+		logger.info("(내가 즐겨찾기한 경로)총 페이지 수 : "+range);
 		
 		page = page > range ? range : page;
 		map.put("mybookmarkcurrPage", page);
@@ -259,41 +259,11 @@ public class MyPageService {
 		return map;
 	}
 	
-/*	public HashMap<String, Object> myreviewlistCall(int page, int cnt, HttpSession session) {
-
-		logger.info(page+"페이지 보여줘");
-		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		
-		//1page = offset : 0
-		//2page = offset : 5
-		//3page = offset : 10
-		int offset = (page-1)*cnt;
-		
-		// 만들 수 있는 총 페이지 수
-		// 전체 게시물 / 페이지당 보여줄 수
-		
-		String userID =  (String) session.getAttribute("userID");
-		int total = dao.mybookmarktotalCount(userID);
-		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
-		logger.info("전체 게시물  수 : "+total);
-		logger.info("총 페이지 수 : "+range);
-		
-		page = page > range ? range : page;
-		map.put("mybookmarkcurrPage", page);
-		map.put("mybookmarkpages", range);
-		
-		ArrayList<BoardDTO> mybookmarklistCall = dao.mybookmarklistCall(cnt, offset, userID);
-		map.put("mybookmarklistCall", mybookmarklistCall);
-		return map;
-	}
-	*/
 	
 	public HashMap<String, Object> myinquirylistCall(int page, int cnt, HttpSession session) {
 		
-		logger.info(page+"페이지 보여줘");
-		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		logger.info(page+"페이지 보여줘(내가 문의한)");
+		logger.info("한 페이지에(내가 문의한) "+cnt+" 개씩 보여줄거야");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		
@@ -308,8 +278,8 @@ public class MyPageService {
 		String userID =  (String) session.getAttribute("userID");
 		int total = dao.myinquirytotalCount(userID);
 		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
-		logger.info("전체 게시물  수 : "+total);
-		logger.info("총 페이지 수 : "+range);
+		logger.info("(내가 문의한)전체 게시물  수 : "+total);
+		logger.info("(내가 문의한)총 페이지 수 : "+range);
 		
 		page = page > range ? range : page;
 		map.put("myinquirycurrPage", page);
@@ -322,8 +292,8 @@ public class MyPageService {
 	}
 	public HashMap<String, Object> myreportlistCall(int page, int cnt, HttpSession session) {
 		
-		logger.info(page+"페이지 보여줘");
-		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		logger.info(page+"페이지(내가 신고한) 보여줘");
+		logger.info("한 페이지에(내가 신고한) "+cnt+" 개씩 보여줄거야");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		
@@ -338,8 +308,8 @@ public class MyPageService {
 		String userID =  (String) session.getAttribute("userID");
 		int total = dao.myreporttotalCount(userID);
 		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
-		logger.info("전체 게시물  수 : "+total);
-		logger.info("총 페이지 수 : "+range);
+		logger.info("(내가 신고한)전체 게시물  수 : "+total);
+		logger.info("(내가 신고한)총 페이지 수 : "+range);
 		
 		page = page > range ? range : page;
 		map.put("myreportcurrPage", page);
@@ -351,134 +321,10 @@ public class MyPageService {
 		return map;
 	}
 	
-	public ArrayList<MyPageDTO> myinquiryList(String userID) {
-		
-		ArrayList<MyPageDTO> myinquiryList = dao.myinquiryList(userID);
-		
-		return myinquiryList;
-	}
-	
-	public ArrayList<MyPageDTO> findrouteShareList(String userID) {
-		
-		ArrayList<MyPageDTO> findrouteShareList = dao.findrouteShareList(userID);
-		
-		return findrouteShareList;
-	}
-	/*
-	public HashMap<String, Object> inqlistme(HashMap<String, Object> params, HttpSession session) {
-
-		logger.info("params :"+params);
-		String userID = (String) session.getAttribute("userID");
-		int page = Integer.parseInt(String.valueOf(params.get("page")));
-	      
-		String categoryCode = String.valueOf(params.get("categoryCode"));
-      
-		int cnt = Integer.parseInt(String.valueOf(params.get("cnt")));
-		
-		String inqProcess = String.valueOf(params.get("inqProcess"));
-		Object storedValue;
-
-		if (inqProcess.equals("default")) {
-		    storedValue = inqProcess; // "default"를 문자열로 저장합니다.
-		} else {
-		    storedValue = inqProcess.equals("true") ? 1 : 0; // "true"일 때는 1로, "false"일 때는 0으로 저장합니다.
-		}
-		
-		logger.info("storedValue :"+storedValue);
-		
-		
-		logger.info("categoryCode :"+categoryCode+"/"+"storedValue :"+storedValue);
-		logger.info(page + "페이지를 선택된 문의 방식이 " +categoryCode+" 때만 보여준다.");
-		logger.info("한 페이지에 " + cnt +" 개씩 보여줄 것 ");
-      
-		HashMap<String, Object> map = new HashMap<String, Object>();
-	      
-	      // 1페이지  offset 0
-	      // 2페이지 offset 5
-	      // 3 페이지 offset 10
-	    int offset = cnt * (page-1);
-	      
-	    logger.info("offset : " + offset);
-	      
-	    // 만들 수 있는 총 페이지 수 : 전체 게시글의 수 / 페이지당 보여줄 수 있는 수
-	    int total = 0;
-
-	    if (categoryCode.equals("default")) {
-	        if (inqProcess.equals("default")) {
-	            total = dao.metotalCount(params, categoryCode,storedValue, userID);
-	            logger.info("전체 문의 리스트 / totalCount");
-	        } else {
-	            total = dao.metotalCountprocess(params, storedValue, categoryCode, userID);
-	            logger.info("처리 여부 리스트 / totalCountprocess" + storedValue);
-	        }
-	    } else {
-	        if (inqProcess.equals("default")) {
-	            total = dao.metotalCountinquiry(params, categoryCode,userID);
-	            logger.info("선택한 문의 리스트 / totalCountinquiry" + categoryCode);
-	        } else {
-	            total = dao.metotalCountAll(params, categoryCode, storedValue, userID);
-	            logger.info("선택한 문의, 처리여부 리스트 / totalCountAll" + categoryCode + storedValue,userID);
-	        }
-	    }
-
-      
-      int range = total%cnt  == 0 ? total/cnt : (total/cnt)+1;
-      
-      logger.info("총게시글 수 : "+ total);
-      logger.info("총 페이지 수 : "+ range);
-      
-      page = page>range ? range:page;
-      
-      map.put("currPage", page);
-      map.put("pages", range);
-      
-      ArrayList<InquiryDTO> inqlist = null;
-           
-      params.put("offset", offset);
-      
-      // if(categoryCode.equals("default")){
-      //  && (inqProcess.equals(Boolean.valueOf("default")))
-		
-		 * if(categoryCode.equals("default") && (inqProcess.equals("default"))){ inqlist
-		 * = inqdao.inquirylist(map, cnt, offset, categoryCode);
-		 * logger.info("전체 문의 리스트 / inquirylist"); }else
-		 * if(!(categoryCode.equals("default") && (inqProcess.equals("default")))) {
-		 * inqlist = inqdao.listinquiry(params, categoryCode, cnt, offset);
-		 * logger.info("선택한 문의 리스트 / listinquiry"+categoryCode); }else
-		 * if(categoryCode.equals("default") && !(inqProcess.equals("default"))) {
-		 * inqlist = inqdao.listinqprocess(params, storedValue, cnt, offset,
-		 * categoryCode); logger.info("처리 여부 리스트 / listinqprocess"+storedValue); }else {
-		 * inqlist = inqdao.listinqAll(params, categoryCode, storedValue, cnt, offset);
-		 * logger.info("선택한 문의, 처리여부 리스트 / listinqAll"+categoryCode+storedValue); }
-		 
-      if (categoryCode.equals("default")) {
-    	    if (inqProcess.equals("default")) {
-    	    	inqlist = dao.meinquirylist(map, cnt, offset, categoryCode,storedValue,userID);
-    	        logger.info("전체 문의 리스트 / inquirylist");
-    	    } else {
-    	    	inqlist = dao.melistinqprocess(params, storedValue, cnt, offset,categoryCode,userID);
-    	        logger.info("처리 여부 리스트 / listinqprocess" + storedValue);
-    	    }
-    	} else {
-    	    if (inqProcess.equals("default")) {
-    	    	inqlist = dao.melistinquiry(params, categoryCode, cnt, offset,userID);
-    	        logger.info("선택한 문의 리스트 / listinquiry" + categoryCode);
-    	    } else {
-    	    	inqlist = dao.melistinqAll(params, categoryCode, storedValue, cnt, offset,userID);
-    	        logger.info("선택한 문의, 처리여부 리스트 / listinqAll" + categoryCode + storedValue);
-    	    }
-    	}
-
-         
-         map.put("inqlist", inqlist);
-         logger.info("inqlist :"+inqlist);
-         return map;
-	}
-*/
 	public HashMap<String, Object> myreviewlistCall(int page, int cnt, HttpSession session) {
 
-		logger.info(page+"페이지 보여줘");
-		logger.info("한 페이지에 "+cnt+" 개씩 보여줄거야");
+		logger.info(page+"페이지 보여줘(내게 달린 후기)");
+		logger.info("한 페이지에(내게 달린 후기) "+cnt+" 개씩 보여줄거야");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		
@@ -491,10 +337,10 @@ public class MyPageService {
 		// 전체 게시물 / 페이지당 보여줄 수
 		
 		String userID =  (String) session.getAttribute("userID");
-		int total = dao.myreporttotalCount(userID);
+		int total = dao.myreviewtotalCount(userID);
 		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
-		logger.info("전체 게시물  수 : "+total);
-		logger.info("총 페이지 수 : "+range);
+		logger.info("(내게 달린 후기)전체 게시물  수 : "+total);
+		logger.info("(내게 달린 후기)총 페이지 수 : "+range);
 		
 		page = page > range ? range : page;
 		map.put("myreviewcurrPage", page);
@@ -505,6 +351,74 @@ public class MyPageService {
 		
 		return map;
 
+	}
+	public HashMap<String, Object> otroutesharelistCall(int page, int cnt, String userID) {
+		
+		logger.info(page+"페이지 보여줘(남이 공유한 경로)");
+		logger.info("한 페이지에(남이 공유한 경로) "+cnt+" 개씩 보여줄거야");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//1page = offset : 0
+		//2page = offset : 5
+		//3page = offset : 10
+		int offset = (page-1)*cnt;
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		
+		int total = dao.otroutesharetotalCount(userID);
+		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
+		logger.info("(남이 공유한 경로)전체 게시물  수 : "+total);
+		logger.info("(남이 공유한 경로)총 페이지 수 : "+range);
+		
+		page = page > range ? range : page;
+		map.put("otroutesharecurrPage", page);
+		map.put("otroutesharepages", range);
+		
+		ArrayList<BoardDTO> otroutesharelistCall = dao.otroutesharelistCall(cnt, offset, userID);
+		map.put("otroutesharelistCall", otroutesharelistCall);
+		return map;
+	}
+	
+	public HashMap<String, Object> otreviewlistCall(int page, int cnt, String userID) {
+
+		logger.info(page+"페이지(남의 후기) 보여줘");
+		logger.info("한 페이지에(남의 후기) "+cnt+" 개씩 보여줄거야");
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		
+		//1page = offset : 0
+		//2page = offset : 5
+		//3page = offset : 10
+		int offset = (page-1)*cnt;
+		
+		// 만들 수 있는 총 페이지 수
+		// 전체 게시물 / 페이지당 보여줄 수
+		
+		int total = dao.otreviewtotalCount(userID);
+		int range = total%cnt ==0? total/cnt : (total/cnt)+1;
+		logger.info("(남의 후기)전체 게시물  수 : "+total);
+		logger.info("(남의 후기)총 페이지 수 : "+range);
+		
+		page = page > range ? range : page;
+		map.put("otreviewcurrPage", page);
+		map.put("otreviewpages", range);
+		
+		ArrayList<BoardDTO> otreviewlistCall = dao.otreviewlistCall(cnt, offset, userID);
+		map.put("otreviewlistCall", otreviewlistCall);
+		return map;
+	}
+	public HashMap<String, Object> deletemr(ArrayList<String> delList, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		String userID = (String) session.getAttribute("userID");
+		for (String walkNum : delList) {
+			dao.deletemr(walkNum, userID);
+		}
+		
+		map.put("success", true);
+		return map;
 	}
 	
 

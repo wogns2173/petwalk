@@ -27,6 +27,11 @@
   .right-align{
   	float: right;
   }
+  	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
 </style>
 </head>
 <body>
@@ -57,6 +62,7 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
@@ -64,9 +70,18 @@
 		<br/>
 		<br/>
 		<br/>
+		<br/>
+		<br/>
+
 <button onclick="location.href='inquirylist.go'">문의 관리</button>
+<br/>
+		<br/>
 <button onclick="location.href='reportList.go'">신고 관리</button>
+<br/>
+		<br/>
 <button onclick="location.href='memManageList.go'">회원 관리</button>
+<br/>
+		<br/>
 <button onclick="location.href='noticelist.go'">공지사항 관리</button>
 </div>
 </body>

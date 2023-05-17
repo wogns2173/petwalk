@@ -36,31 +36,27 @@ public interface MyPageDAO {
 
 	ArrayList<BoardDTO> myreportlistCall(int cnt, int offset, String userID);
 
-	ArrayList<MyPageDTO> myinquiryList(String userID);
+	int myreviewtotalCount(String userID);
 
-	ArrayList<MyPageDTO> findrouteShareList(String userID);
-/*
-	int metotalCount(HashMap<String, Object> params, String categoryCode, Object storedValue, String userID);
-
-	int metotalCountprocess(HashMap<String, Object> params, Object storedValue, String categoryCode, String userID);
-
-	int metotalCountinquiry(HashMap<String, Object> params, String categoryCode, String userID);
-
-	int metotalCountAll(HashMap<String, Object> params, String categoryCode, Object storedValue, String userID);
-
-	ArrayList<InquiryDTO> meinquirylist(HashMap<String, Object> map, int cnt, int offset, String categoryCode,
-			Object storedValue, String userID);
-
-	ArrayList<InquiryDTO> melistinquiry(HashMap<String, Object> params, String categoryCode, int cnt, int offset,
-			String userID);
-
-	ArrayList<InquiryDTO> melistinqAll(HashMap<String, Object> params, String categoryCode, Object storedValue, int cnt,
-			int offset, String userID);
-
-	ArrayList<InquiryDTO> melistinqprocess(HashMap<String, Object> params, Object storedValue, int cnt, int offset,
-			String categoryCode, String userID);
-*/
 	ArrayList<BoardDTO> myreviewlistCall(int cnt, int offset, String userID);
+
+	int otroutesharetotalCount(String userID);
+	
+	ArrayList<BoardDTO> otroutesharelistCall(int cnt, int offset, String userID);
+
+	int otreviewtotalCount(String userID);
+
+	ArrayList<BoardDTO> otreviewlistCall(int cnt, int offset, String userID);
+
+	int deletemr(String id);
+
+	int deletemr(String walkNum, String userID);
+
+	
+
+	
+
+	
 
 	
 

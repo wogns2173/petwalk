@@ -65,6 +65,7 @@
 					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
 					<hr>					
 				</div>															
 		</div>
@@ -81,7 +82,7 @@
 <div>서비스를 이용하시면서 불편함을 드렸다면 죄송합니다.</div>
 <div>더 나은 서비스를 제공하기 위해 노력하는 너나들이가 되겠습니다.</div>
 <hr>
-<h2>이용해주셔서 감사합니다.</h2>
+<h2 id="title">이용해주셔서 감사합니다.</h2>
 <br/>
 <br/>
 <br/>
