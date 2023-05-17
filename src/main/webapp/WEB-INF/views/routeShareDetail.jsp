@@ -40,7 +40,7 @@
 		
 		<c:if test="${list.userID ne userID}"> 
 			<button onclick="recommend()">추천</button>
-			<button onclick="bookmark()">즐겨찾기</button>
+			<button onclick="bookmark()" id="bm">즐겨찾기</button>
 		</c:if>
 	</div>
 </body>
@@ -77,6 +77,11 @@
 			dataType:'text',
 			success:function(data){
 				console.log(data);
+				if(data == '즐겨찾기 성공'){					
+					document.getElementById("bm").innerText = "즐겨찾기 취소"
+				}else{
+					document.getElementById("bm").innerText = "즐겨찾기";
+				}
 			},
 			error:function(e){
 				console.log(e);

@@ -58,7 +58,7 @@
 	</select>
 	
 	<select id="isBookmark" resultType="String">
-		SELECT userID FROM bookmark where walkNum = #{param1}
+		SELECT userID FROM bookmark where walkNum = #{param1} AND userID = #{param2}
 	</select>
 	
 	<insert id="recommendDo" parameterType="map">

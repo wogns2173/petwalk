@@ -88,20 +88,24 @@
 		<br/>
 		
 		<div class="inner">
+		<h3 id="title" style="text-align: center;">반려견 프로필</h3>
+		<div style="text-align: right;">
+		<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
+		</div>
 		<c:if test="${empty pet}">
 		등록된 반려견 정보가 없습니다.
-		<button onclick="location.href='petprofileWrite.go'">반려견 정보 추가하기</button>
+		
 		</c:if>
 		
 		<c:if test="${not empty pet}">
-		<h3 id="title" style="text-align: center;">반려견 프로필</h3>
+		
 			<table class="table" style="margin-left: auto; margin-right: auto;">
 				<tr style="text-align: center;">
 					<th colspan="2" id="title" >반려견 사진</th>			
 				</tr>
 				<tr>
 					<td style="text-align: center;" colspan="2">
-						<img width="100" src="/photo/${pet.serPhotoname}"/>					
+						<img width="100" src="/photo/${pet.serPhotoname}" style="border-radius: 50%;"/>					
 					</td>				
 				</tr>	
 				<tr style="text-align: center;">
@@ -211,14 +215,18 @@
 			<tbody id="mybookmarkbody">
 			
 			</tbody>
-			
+				<tr>
+					<td colspan="3" id="paging">
+						<!-- 	플러그인 사용	(twbsPagination)	-->
+						<div class="container" style="text-align: center;">									
+							<nav aria-label="Page navigation">
+								<ul class="pagination" id="pagination2"></ul>
+							</nav>					
+						</div>
+					</td>
+				</tr>
 			</table>
-		<!-- 	플러그인 사용	(twbsPagination)	-->
-			<div class="container">									
-				<nav aria-label="Page navigation">
-					<ul class="pagination" id="pagination2"></ul>
-				</nav>					
-			</div>
+		
 
 				
 		

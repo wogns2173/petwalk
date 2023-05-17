@@ -111,8 +111,8 @@ public class MyPageController {
 			 MyPageDTO dto = service.findprofileAndphoto(userID);				 
 			 model.addAttribute("pet", dto);
 			 
-			 ArrayList<MyPageDTO> findrouteShareList = service.findrouteShareList(userID);
-			 model.addAttribute("routeShare", findrouteShareList);
+			 model.addAttribute("userID", userID);
+			 
 
 		  		  
 	      return page;      
@@ -173,13 +173,27 @@ public class MyPageController {
 		
 		return service.myreportlistCall(Integer.parseInt(page),Integer.parseInt(cnt),session);
 	}
-	/*
-	@RequestMapping(value="/inqlistme.ajax", method= RequestMethod.POST)
+	
+	@RequestMapping(value="/otroutesharelistCall.ajax", method= RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object>inqlistme(HttpSession session, @RequestParam HashMap<String,Object> params){
+	public HashMap<String, Object>otroutesharelistCall(			
+			@RequestParam String page,
+			@RequestParam String cnt,
+			@RequestParam String userID){
+		
+		logger.info("제발" + userID);
+					
+		return service.otroutesharelistCall(Integer.parseInt(page),Integer.parseInt(cnt),userID);
+	}
+	
+	@RequestMapping(value="/otreviewlistCall.ajax", method= RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object>otreviewlistCall(
+			@RequestParam String page,
+			@RequestParam String cnt,
+			@RequestParam String userID){
 		logger.info("옴?");
 		
-		return service.inqlistme(params,session);
+		return service.otreviewlistCall(Integer.parseInt(page),Integer.parseInt(cnt),userID);
 	}
-	*/
 }
