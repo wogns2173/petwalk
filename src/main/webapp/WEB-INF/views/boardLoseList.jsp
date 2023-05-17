@@ -14,8 +14,8 @@
 	<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 	<style>
 		#boardSearchForm {
-		  display: flex;
-		  justify-content: center;
+			display: flex;
+			justify-content: center;
 		}
 		
 		#paging{
@@ -43,13 +43,31 @@
 		 }
 		
 		.container{
-		width : 710px; 
+			width : 710px; 
 		}
 		
 		#pagePerNum{
-			float: right;
+		    float: right;
+		    width: 90px;
+		    height: 34px;
+		    margin-top: 22px;
 		}
-		
+		#writeButton{
+		    background-color: #87d1bf;
+		    color: white;
+		    border: none;
+		    width: 93px;
+		    height: 33px;
+		    display: block;
+		    margin-left: 515px;
+		    margin-top: 23px;
+		    margin-bottom: 24px;
+		}
+		#searchButton{
+			background-color: #87d1bf;
+			color: white;
+			border: none;
+		}
 	</style>
 </head>
 <body>
@@ -96,13 +114,15 @@
      	<option value="userNickname">닉네임</option>
      	<option value="userID">ID</option>
     </select> 
+    &nbsp &nbsp
 	<input type="text" id="searchInput" placeholder="검색 조건을 입력해주세요.">
+	&nbsp &nbsp
    	<button id="searchButton">검색</button>
 	</div>
 	<select id="pagePerNum">
-		<option value="5">5</option>
-		<option value="10">10</option>
-		<option value="15">15</option>
+		<option value="5">5개씩</option>
+		<option value="10">10개씩</option>
+		<option value="15">15개씩</option>
 	</select>
 	<div class="infolist">
 	<table>

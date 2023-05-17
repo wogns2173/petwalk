@@ -66,7 +66,13 @@ public class RouteShareController {
 		String userID = String.valueOf(session.getAttribute("userID"));
 		params.put("userID", userID);
 		routeShareService.write(userID, params);
-		return "redirect:/routeshare/list";
+		String page = "공유";
+		if(String.valueOf(session.getAttribute("Role")).equals("user")) {
+			page="share";
+		} else {
+			page="recommend";
+		}
+		return "redirect:/routeshare/list?walkRouteType="+page;
 	}
 	
 	@RequestMapping(value = "/routeshare/sigudong.ajax")
