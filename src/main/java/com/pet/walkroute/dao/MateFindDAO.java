@@ -27,7 +27,9 @@ public interface MateFindDAO {
 
 	int mateInsert(HashMap<String, Object> params);
 
-	ArrayList<MessageDTO> messageList(String sendID);
+	ArrayList<MessageDTO> messageSendList(String sendID);
+	
+	ArrayList<MessageDTO> messageReceiveList(String receiveID);
 
 	ArrayList<MessageDTO> messageHistory(String mateWalkNum);
 

@@ -31,6 +31,14 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 <script>
+	var isWriter = false;
+	if('${sessionScope.userID}' == '${receiveID}'){
+		console.log('작성자 맞음');
+		isWriter = true;
+	}
+	if(isWriter) {
+		
+	}
 	var websocket;
 	var sendID='';
 	//입장 버튼을 눌렀을 때 호출되는 함수
@@ -50,40 +58,36 @@
 	}
 	
 	// * 1 메시지 전송
-	function sendMessage(senderID){
-		websocket.send(senderID+' : '+$('#content').val());
-		$('#content').val('');
+	function sendMessage(){
+		console.log('메시지 전송');
+		websocket.send('${sessionScope.userID} : ' + $('#content').val());
 	}
 	
 	// * 2 메세지 수신
 	function onMessage(msg) {
+		console.log('메시지 수신');
 		var data = msg.data;
-		console.log(data);
 		var content = '<div>'+data+'</div>';
 		$('#content').before(content);
 	}
 	
-	$(document).ready(function(){
+	$(document).ready(function() {
 		// 메세지 리스트 리로드
 		messageList();
 	});
 	
 	function messageList() {
-		$.ajax({
-			type:'post',
-			url:'./messageList.ajax',
-			data: {
-				sendID : '${sessionScope.userID}'
-			},
-			dataType:'json',
-			success:function(data){
-				console.log(data);
-				console.log(data.length);
-				if(data.length == 0) {
-					console.log('if문 실행');
-					var content1 = '<div class="receiver"><a onclick="bringMessage(\''+${mateWalkNum}+'\')">${receiveID}님과의 메시지</a></div>';
-					$('#room').html(content1);
-				} else {
+		if(!isWriter){
+			$.ajax({
+				type:'post',
+				url:'./messageListSender.ajax',
+				data: {
+					sendID : '${sessionScope.userID}'
+				},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					console.log(data.length);
 					var content = '';
 					data.forEach(function(list) {
 						console.log(list.receiveID);
@@ -91,14 +95,43 @@
 						content += '<div class="receiver"><a onclick="bringMessage(\''+list.mateWalkNum+'\')">'+list.receiveID+'님과의 메시지</a></div>';
 					});
 					$('#room').html(content);
-				}
-			},
-			error:function(e){
-				console.log(e);
-			}		
-		});
+					
+				},
+				error:function(e){
+					console.log(e);
+				}		
+			});
+		} else {
+			$.ajax({
+				type:'post',
+				url:'./messageListReceiver.ajax',
+				data: {
+					receiveID : '${receiveID}'
+				},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					console.log(data.length);
+					
+					var content = '';
+					data.forEach(function(list) {
+						console.log(list.receiveID);
+						console.log(list.mateWalkNum);
+						content += '<div class="receiver"><a onclick="bringMessage(\''+list.mateWalkNum+'\')">'+list.sendID+'님과의 메시지</a></div>';
+					});
+					$('#room').html(content);
+				},
+				error:function(e){
+					console.log(e);
+				}		
+			});
+			$('#content').val('');
+		}
 	}
-	function bringMessage(mateWalkNum) {
+	function bringMessage(mateWalkNum, sendID) {
+		console.log('bringMessage 호출');
+		console.log(mateWalkNum);
+		console.log(sendID);
 		$.ajax({
 			type:'post',
 			url:'./messageHistory.ajax',
@@ -107,7 +140,7 @@
 			},
 			dataType:'json',
 			success:function(data){
-				//console.log(data);
+				console.log(data);
 				var content = '';
 				data.forEach(function(list){
 					content += '<div>'+list.sendID+': '+list.messageDetail+'</div>';
@@ -120,14 +153,16 @@
 				console.log(e);
 			}		
 		});
+		
 	}
 	
-	function send() {
+	function send(sendID) {
+		sendMessage();
 		console.log('${mateWalkNum}');
 		console.log('${receiveID}');
 		console.log('send');
 		var sendID = '${sessionScope.userID}';
-		$('#message').val('')
+		console.log('메시지 저장');
 		$.ajax({
 			type:'post',
 			url:'./messageSend.ajax',
@@ -143,7 +178,6 @@
 				console.log(e);
 			}		
 		});
-		sendMessage('${sessionScope.userID}');
 	}
 </script>
 </html>
