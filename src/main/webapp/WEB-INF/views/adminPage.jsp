@@ -27,6 +27,11 @@
   .right-align{
   	float: right;
   }
+  	button{
+    	background-color: #87d1bf;
+    	border:none;
+    	color: white;    	
+    }
 </style>
 </head>
 <body>
@@ -64,9 +69,18 @@
 		<br/>
 		<br/>
 		<br/>
+		<br/>
+		<br/>
+
 <button onclick="location.href='inquirylist.go'">문의 관리</button>
+<br/>
+		<br/>
 <button onclick="location.href='reportList.go'">신고 관리</button>
+<br/>
+		<br/>
 <button onclick="location.href='memManageList.go'">회원 관리</button>
+<br/>
+		<br/>
 <button onclick="location.href='noticelist.go'">공지사항 관리</button>
 </div>
 </body>

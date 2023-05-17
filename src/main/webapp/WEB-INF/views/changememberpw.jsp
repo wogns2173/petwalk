@@ -73,7 +73,7 @@
 			<br>
 			<br>
 			<br>
-<h3 id="title">비밀번호 수정</h3>
+<h3 id="title" style="text-align: center;">비밀번호 수정</h3>
 	<table class="table" style="margin-left: auto; margin-right: auto;">
 		<tr style="text-align: center;">
 			<th id="title">현재 비밀번호</th>

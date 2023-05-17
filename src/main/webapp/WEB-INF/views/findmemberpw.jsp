@@ -74,9 +74,12 @@
 		<br/>
 		<br/>
 <h3 id="title" style="text-align: center;">비밀번호 찾기</h3>
+		<br>			
 <div id="title" style="text-align: center;">비밀번호가 생각나지 않으세요?</div>
 <div style="text-align: center;">회원정보에 등록하신 이메일 주소로 임시 비밀번호를 발송해 드립니다.</div>
 <div style="text-align: center;">아래 입력하신 이름과 아이디, 이메일 정보는 회원정보에 정보와 반드시 같아야 합니다.</div>
+	<hr>
+		<br>
 		<table style="margin-left: auto; margin-right: auto;">
 			<tr>
 				<th id="title" style="text-align: center;">이름</th>
