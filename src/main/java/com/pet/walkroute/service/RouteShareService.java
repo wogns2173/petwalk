@@ -24,10 +24,10 @@ public class RouteShareService {
 
 	public int write(String userID, HashMap<String, Object> params) {
 		if(dao.isAdmin(String.valueOf(params.get("userID"))).equals("user")) {
-			params.put("walkRouteType", "공유");
+			params.put("walkRouteType", "share");
 		}
 		else {
-			params.put("walkRouteType", "추천");
+			params.put("walkRouteType", "recommend");
 		}
 		
 		int row = 0;

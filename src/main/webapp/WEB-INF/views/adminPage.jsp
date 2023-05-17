@@ -32,6 +32,14 @@
     	border:none;
     	color: white;    	
     }
+    .image-wrapper,
+.link-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.image-wrapper {
+	margin : 5px 34px;
+}
 </style>
 </head>
 <body>
