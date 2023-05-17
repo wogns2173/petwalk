@@ -25,20 +25,31 @@
 		border-bottom: 1px solid black;
 	}
 	div#map {
-		margin-top : 100px;
+		margin-top : 60px;
 	}
 	inner {
 		postion : relative;
-		witdh: 100px;
-		height: 100px;
 	}
+	.inner2{
+		display: flex;
+		 justify-content: center;
+	}
+	button{
+		background-color: #87d1bf;
+        color: white;
+        border:none;
+	}
+	#thead{
+		 	color:#87d1bf;
+		 	background-color: #E3EDEB;
+		 }
 </style>
 </head>
 <body>
 	<div class="main">
 			<div class = "topMenu">
 				<div class="logo">
-					<a href="./">
+					<a href="../">
 						<img src="../resources/img/logo.png" alt="logo">				
 						<img src="../resources/img/logoaname.png" alt="logoname">
 					</a>	
@@ -68,19 +79,21 @@
 			</div>
 	<p>ㅎㅇ요</p>
 	<div class="inner">
-		<div id="map" style="width: 700px; height: 700px;">
+		<div id="map" style="width: 720px; height: 500px;">
 			
 		</div> 
-		<div>
-			<input type="text" id="text1">
-			<button onclick="search()">검색</button>
-			<button>목록</button>
+		<br/>
+		<div class="inner2">
+			<input type="text" id="text1">&nbsp
+			<button onclick="search()">검색</button>&nbsp
+			<button>목록</button>&nbsp
 			<button onclick="location.href='./write.go'">작성하기</button>
 		</div>
 		
 		<table class="table">
+			<br/>
 	 		<thead>
-	    		<tr>
+	    		<tr id="thead">
 			      <th scope="col">제목</th>
 			      <th scope="col">내용</th>
 			      <th scope="col">작성자</th>
