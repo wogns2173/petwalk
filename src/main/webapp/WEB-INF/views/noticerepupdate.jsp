@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
+
 <title>너나들이</title>
 <link rel="icon" href="./resources/img/favicon.ico">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -12,11 +12,7 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
 <script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <link rel="stylesheet" href="resources/css/common.css" type="text/css">
-=======
-<title>Insert title here</title>
-<link rel="icon" href="./resources/img/favicon.ico">
->>>>>>> origin/master
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
 <style>
    .notice_reply {
       border : 1px solid lightgray;
