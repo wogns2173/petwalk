@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"/>
 <script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+
 <link rel="stylesheet" href="../resources/css/common.css">
 <link rel= "stylesheet" href="../resources/css/paging.css" type="text/css">
 <style>
@@ -51,13 +52,41 @@
 		display : inline;
 	}
 	.paging {
-		position : absolute;
-		top : 100px;
-		right : 10px;
-		width : 200px;
-	}
+	        position: absolute;
+		    top: 300px;
+		    margin-left: 596px;
+		    width: 104px;
+		    height: 36px;
+			}
 	.table {
-		margin-top : 100px;
+		 margin-top: 23px;
+		}
+	
+	 button{
+		background-color: #87d1bf;
+        color: white;
+        border:none;
+	}
+	#thead{
+		 	color:#87d1bf;
+		 	background-color: #E3EDEB;
+		 }
+	.selectDiv{
+		width: 100px;
+		margin-left: 27px;
+		display: inline;
+	}
+	#subejctOrId{
+		width: 100px;
+	}
+	
+	#userBtn,#adminBtn{
+		margin-left: 451px;
+    	margin-top: 35px;
+	}
+	#title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
 	}
 	button{
     	background-color: #87d1bf;
@@ -105,35 +134,55 @@
 		</div>		
 		<br/>
 		<br/>
+
 		<br/>
 		<br/>
 		<br/>
 		<br/>
 		<br/>
+
+		<c:if test="${walkRouteType eq '공유'}">
+			<h3 id="title">&nbsp  &nbsp공유 경로 리스트</h3>
+		</c:if>
+			
+		<c:if test="${walkRouteType eq '추천'}">
+			<h3 id="title">&nbsp  &nbsp추천 경로 리스트</h3>
+		</c:if>
+
 	<div class="selectDiv">
 		<select class="form-select select siList" aria-label="Default select example" name="siID"></select>
 		<select class="form-select select guList" aria-label="Default select example" name="guID"></select>
 		<select class="form-select select dongList" aria-label="Default select example" name="dongID"></select>
 		<button onclick="addressFilter()">검색</button>
 	</div>
-	<div>
+	<br/>
+	<br/>
+	<div style="margin-left: 132px;">
 		<select class="form-select select search" aria-label="Default select example" id="subejctOrId">
 			<option value="제목">제목</option>
 			<option value="아이디">아이디</option>
 		</select>
-		<input type="text" class="form-control search" id="exampleFormControlInput1"/>
+		<input type="text" class="form-control search" id="exampleFormControlInput1" style="width: 300px;"/>
 		<button class="search" onclick="subjectOrIdFilter()">검색</button>
 	</div>
 	
+	<c:if test="${walkRouteType eq '공유'}">
+		<button onclick="userClick()" id="userBtn">공유 글 작성하기</button>
+	</c:if>
+		
+	<c:if test="${walkRouteType eq '추천'}">
+		<button onclick="adminClick()" id="adminBtn">추천 글 작성하기</button>
+	</c:if>
 	<select class="form-select paging" aria-label="Default select example" id="pagePerNum">
 		<option value="5">5개씩</option>
 		<option value="10">10개씩</option>
 		<option value="15">15개씩</option>
 	</select>
+		
 	
 	<table class="table">
  		<thead>
-    		<tr>
+    		<tr id="thead">
     			<th scope="col">제목</th>
 				<th scope="col">제목</th>
 				<th scope="col">작성자</th>
@@ -143,13 +192,12 @@
 			</tr>
 		</thead>
 		<tbody id="tbody">
-   	
 		</tbody>
 		<tr>
 			<td colspan="5" id="paging">
 				<div class="container">
 					<nav aria-label="Page navigation example">
-						<ul id="pagination">
+						<ul id="pagination" style="margin-left: 180px;">
 						<!--  
 							<li class="page-item">
 								<a class="page-link" href="#" aria-label="Previous">
@@ -170,6 +218,7 @@
 				</div>
 			</td>
 		</tr>
+
 	</table>
 	<c:if test="${walkRouteType eq '공유'}">
 		공유<button onclick="userClick()" id="userBtn">작성하기</button>
@@ -178,6 +227,7 @@
 	<c:if test="${walkRouteType eq '추천'}">
 		추천<button onclick="adminClick()" id="adminBtn">작성하기</button>
 	</c:if>
+
 	</div>
 </body>
 <script>
@@ -335,6 +385,7 @@
 		            last : '<span style="color: #87d1bf;">>></span>',
 		            first : '<span style="color: #87d1bf;"><<</span>',
 		           prev : '<span style="color: #87d1bf;"><</span>',
+
 					onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
 						console.log(page, showPage);
 						if(page != showPage){
@@ -401,6 +452,7 @@
 		            last : '<span style="color: #87d1bf;">>></span>',
 		            first : '<span style="color: #87d1bf;"><<</span>',
 		           prev : '<span style="color: #87d1bf;"><</span>',
+
 					onPageClick:function(event,page){// 페이지 클릭시 동작되는 함수(콜백)
 						console.log(page, showPage);
 						if(page != showPage){

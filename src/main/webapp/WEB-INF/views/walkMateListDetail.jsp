@@ -8,6 +8,13 @@
 <title>Insert title here</title>
 <link rel="icon" href="../resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<link rel="icon" href="../resources/img/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../resources/css/common.css">
+<link rel= "stylesheet" href="../resources/css/paging.css" type="text/css">
 <style>
 	.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
 	.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
@@ -17,21 +24,84 @@
 	.distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
 	.distanceInfo .label {display:inline-block;width:50px;}
 	.distanceInfo:after {content:none;}
+	
+	#boardAll{
+     	margin-left: 25px;
+     }
+    button{
+		background-color: #87d1bf;
+        color: white;
+        border:none;
+        width: 123px;
+    	height: 40px;
+    	margin-left: 264px;
+	}
+	#writeDate{
+     	font-size: 14px;
+     	color: darkgray;
+     	margin-top: 0px;
+     }
+	.text-right{
+     	float: right;
+     	margin-right: 25px;
+     	color: darkgray;
+     	font-size: 14px;
+     }
 </style>
 </head>
 <body>
-	<c:set var="userID" value="${sessionScope.userID}"/>
-	<p>상세보기 페이지입니다</p>
-	<h1>${list.mateName}</h1>
-	<p>${list.userID}</p>
-	<p>날짜입니당 : ${list.mateWriteDate}   조회쉬 입니당 : ${list.matebHit}</p>
-	<div id="map" style="width: 700px; height: 700px;">
-		
+	<div class="main">
+			<div class = "topMenu">
+				<div class="logo">
+					<a href="../">
+						<img src="../resources/img/logo.png" alt="logo">				
+						<img src="../resources/img/logoaname.png" alt="logoname">
+					</a>	
+				</div>			
+					<div class="link">																		
+						<c:if test="${empty sessionScope.userID}">
+							<a href="../login.go">로그인</a>
+							<a href="../join.go">회원가입</a>
+						</c:if>
+						
+						<c:if test="${not empty sessionScope.userID}">
+							<a href="../myinformation.go">${sessionScope.userNickname} 님</a>
+							<c:if test="${sessionScope.Role eq 'admin'}">
+								<a href="../adminPage.go">관리자 페이지</a>
+							</c:if>
+							<a href="../logout">로그아웃</a>
+							<a href="../profile.go">프로필</a>
+							<a href="../memberdelete.go">회원탈퇴</a>
+						</c:if>
+						<br>				
+						<a onclick="location.href='/main/routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
+						<a onclick="location.href='/main/matefind/list'">산책 메이트</a>
+						<a href="../board">커뮤니티</a>
+						<a href="../noticelist.go">공지사항</a>
+						<hr>					
+				</div>															
+			</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<div id="boardAll">
+			<c:set var="userID" value="${sessionScope.userID}"/>
+			<p class="text-right">산책 메이트 찾기 게시판</p>
+			<h1>${list.mateName}</h1>
+			<p>${list.userID}</p>
+			<h2 id= "writeDate">${list.mateWriteDate}  조회수 ${list.matebHit}</h2>
+			<div id="map" style="width: 670px; height: 430px;">
+				
+			</div>
+			<br/>
+			<p>${list.mateDetail}</p>
+			<c:if test="${list.userID ne userID}">
+				<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>
+			</c:if>
+		</div>
 	</div>
-	<c:if test="${list.userID ne userID}">
-		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>
-	</c:if>
-	<p>${list.mateDetail}</p>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
 <script>

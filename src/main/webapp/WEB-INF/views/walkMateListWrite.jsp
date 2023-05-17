@@ -10,6 +10,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<!--  
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+
+-->
+<link rel="stylesheet" href="../resources/css/common.css">
+<link rel= "stylesheet" href="../resources/css/paging.css" type="text/css">
 <style>
 	body {
 		height : 1000px;
@@ -28,60 +36,119 @@
 	.distanceInfo .label {display:inline-block;width:50px;}
 	.distanceInfo:after {content:none;}
 	.selectDiv {
-		
+		margin-left: 50px;
 	}
+	
+	inner {
+		postion : relative;
+	}
+	.mineOrBookmark{
+		width: 245px;
+	}
+	#minOrBookmarkButtom{
+		margin-left: 20px;
+	}
+	button{
+		background-color: #87d1bf;
+        color: white;
+        border:none;
+	}
+	#thead{
+	 	color:#87d1bf;
+	 	background-color: #E3EDEB;
+	 }
 </style>
 </head>
 <body>
+	<div class="main">
+				<div class = "topMenu">
+					<div class="logo">
+						<a href="../">
+							<img src="../resources/img/logo.png" alt="logo">				
+							<img src="../resources/img/logoaname.png" alt="logoname">
+						</a>	
+					</div>			
+						<div class="link">																		
+							<c:if test="${empty sessionScope.userID}">
+								<a href="../login.go">로그인</a>
+								<a href="../join.go">회원가입</a>
+							</c:if>
+							
+							<c:if test="${not empty sessionScope.userID}">
+								<a href="../myinformation.go">${sessionScope.userNickname} 님</a>
+								<c:if test="${sessionScope.Role eq 'admin'}">
+									<a href="../adminPage.go">관리자 페이지</a>
+								</c:if>
+								<a href="../logout">로그아웃</a>
+								<a href="../profile.go">프로필</a>
+								<a href="../memberdelete.go">회원탈퇴</a>
+							</c:if>
+							<br>				
+							<a onclick="location.href='/main/routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
+							<a onclick="location.href='/main/matefind/list'">산책 메이트</a>
+							<a href="../board">커뮤니티</a>
+							<a href="../noticelist.go">공지사항</a>
+							<hr>					
+					</div>															
+				</div>
 	<form action="./write.do">
-		<div id="map" style="width:100%;height:350px;"></div>
-		<input type="hidden" value="" name="walkNum" id="walkNum"/>
-		<select class="form-select mineOrBookmark" aria-label="Default select example" name="mineOrBookmark">
-			<option value="1">내가 등록한 산책경로</option>
-			<option value="2">즐겨찾기한 경로</option>
-		</select>
-		<button type="button" onclick="bringIn()">불러오기</button>
-		<div class="mb-3">
-			<label for="exampleFormControlInput1" class="form-label">제목</label>
-			<input type="text" class="form-control" id="exampleFormControlInput1" name="mateName">
-		</div>
-		<div class="mb-3">
-	 		<label for="exampleFormControlTextarea1" class="form-label">내용</label>
-	 		<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="mateDetail"></textarea>
-		</div>
-		<div class="selectDiv">
-			<select class="form-select select siList" aria-label="Default select example" name="siID"></select>
-		
-			<select class="form-select select guList" aria-label="Default select example" name="guID"></select>
+			<div id="map" style="width:100%;height:600px;"></div>
+			<input type="hidden" value="" name="walkNum" id="walkNum"/>
+			<br/>
+			<div style="display: flex; margin-left: 346px;">
+				<select class="form-select mineOrBookmark" aria-label="Default select example" name="mineOrBookmark">
+					<option value="1">내가 등록한 산책경로</option>
+					<option value="2">즐겨찾기한 경로</option>
+				</select>
+				<button type="button" onclick="bringIn()" id="minOrBookmarkButtom">불러오기</button>
+			</div>
+			<div class="mb-3">
+				<label for="exampleFormControlInput1" class="form-label">제목</label>
+				<input type="text" class="form-control" id="exampleFormControlInput1" name="mateName">
+			</div>
+			<div class="mb-3">
+		 		<label for="exampleFormControlTextarea1" class="form-label">내용</label>
+		 		<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="mateDetail" style="height: 160px;"></textarea>
+			</div>
+			<div class="selectDiv">
+				<select class="form-select select siList" aria-label="Default select example" name="siID"></select>
 			
-			<select class="form-select select dongList" aria-label="Default select example" name="dongID"></select>
-		</div>
-		<div>
-			<label for="date">날짜를 선택하세요:
-	  		<input type="date"
-		         id="date"
-		         max="2077-06-20"
-		         min="2077-06-05"
-		         value="2077-06-15"
-		         name="petWalkDate">
-			</label>
-		</div>
-		<button>작성하기</button>
-	</form>
-	<table class="table">
- 		<thead>
-    		<tr>
-		      <th scope="col">제목</th>
-		      <th scope="col">내용</th>
-		      <th scope="col">작성자</th>
-		      <th scope="col">작성일자</th>
-		      <th scope="col">모집여부</th>
-			</tr>
-		</thead>
-		<tbody id="tbody">
-   	
-		</tbody>
-	</table>
+				<select class="form-select select guList" aria-label="Default select example" name="guID"></select>
+				
+				<select class="form-select select dongList" aria-label="Default select example" name="dongID"></select>
+			</div>
+			<div>
+			<br/>
+				<div style="display: inline; margin-left: 175px;">
+					<label for="date">날짜를 선택하세요:
+			  		<input type="date"
+				         id="date"
+				         max="2077-06-20"
+				         min="2077-06-05"
+				         value="2077-06-15"
+				         name="petWalkDate">
+					</label>
+				</div>
+				<button id="walkMateListButton">작성하기</button>
+			</div>
+		</form>
+		<br/>
+		<table class="table">
+	 		<thead>
+	    		<tr id="thead">
+			      <th scope="col">제목</th>
+			      <th scope="col">내용</th>
+			      <th scope="col">작성자</th>
+			      <th scope="col">작성일자</th>
+			      <th scope="col">모집여부</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+	   	
+			</tbody>
+		</table>
+		
+	</div>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
 <script>

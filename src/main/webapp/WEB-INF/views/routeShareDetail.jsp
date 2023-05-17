@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 <link rel="icon" href="../resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../resources/css/common.css">
+<link rel= "stylesheet" href="../resources/css/paging.css" type="text/css">
 <style>
 	.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
 	.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
@@ -17,21 +22,89 @@
 	.distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
 	.distanceInfo .label {display:inline-block;width:50px;}
 	.distanceInfo:after {content:none;}
+	
+	#writeDate{
+     	font-size: 14px;
+     	color: darkgray;
+     	margin-top: 0px;
+     }
+      #boardAll{
+     	margin-left: 25px;
+     }
+     #title {
+		color: #87d1bf;
+		margin-top: 10px; /* 갤러리 제목 위쪽 간격 조절 */
+	}
+	.text-right{
+     	float: right;
+     	margin-right: 25px;
+     	color: darkgray;
+     	font-size: 14px;
+     }
+     button{
+     	background-color: #87d1bf;
+        color: white;
+        border:none;
+        display: inline-block;
+  		margin: 10px;
+  		width: 100px;
+  		height: 40px;
+     }
+     #routeBtns{
+     	text-align: center;
+     }
 </style>
 </head>
 <body>
+	<div class="main">
+			<div class = "topMenu">
+				<div class="logo">
+					<a href="../">
+						<img src="../resources/img/logo.png" alt="logo">				
+						<img src="../resources/img/logoaname.png" alt="logoname">
+					</a>	
+				</div>			
+					<div class="link">																		
+						<c:if test="${empty sessionScope.userID}">
+							<a href="../login.go">로그인</a>
+							<a href="../join.go">회원가입</a>
+						</c:if>
+						
+						<c:if test="${not empty sessionScope.userID}">
+							<a href="../myinformation.go">${sessionScope.userNickname} 님</a>
+							<c:if test="${sessionScope.Role eq 'admin'}">
+								<a href="../adminPage.go">관리자 페이지</a>
+							</c:if>
+							<a href="../logout">로그아웃</a>
+							<a href="../profile.go">프로필</a>
+							<a href="../memberdelete.go">회원탈퇴</a>
+						</c:if>
+						<br>				
+						<a onclick="location.href='/main/routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
+						<a onclick="location.href='/main/matefind/list'">산책 메이트</a>
+						<a href="../board">커뮤니티</a>
+						<a href="../noticelist.go">공지사항</a>
+						<hr>					
+				</div>															
+			</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<div id="boardAll">
 	<c:set var="userID" value="${sessionScope.userID}"/>
-	${list}
-	<p>산책경로 공유 페이지</p>
+	<input type="hidden" value="${list}"/>
+	<h3 class="text-right">산책경로 공유 페이지</h3>
 	<h1>${list.walkRouteName}</h1>
 	<p>${list.userID}</p>
-	<p>날짜입니당 : ${list.walkRouteWriteDate}   조회쉬 입니당 : ${list.walkRoutebHit}</p>
-	<div id="map" style="width: 700px; height: 700px;">
+	<p id="writeDate">${list.walkRouteWriteDate} 조회수 ${list.walkRoutebHit}</p>
+	<div id="map" style="width: 670px; height: 430px;">
 		
 	</div>
 	
 	<p>${list.walkRouteDetail}</p>
-	<div>
+	<div id="routeBtns">
 
 		<c:if test="${list.userID eq userID}">
 			<button onclick="del()">삭제</button>
@@ -42,6 +115,8 @@
 			<button onclick="recommend()">추천</button>
 			<button onclick="bookmark()" id="bm">즐겨찾기</button>
 		</c:if>
+		</div>
+	</div>
 	</div>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
