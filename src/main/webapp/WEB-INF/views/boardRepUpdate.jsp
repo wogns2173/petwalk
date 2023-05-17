@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="icon" href="./resources/img/favicon.ico">
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<link rel="stylesheet" href="resources/css/common.css">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="resources/css/common.css">
+	<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
 <style>
 	.board_reply {
       border : 1px solid lightgray;
@@ -77,6 +77,12 @@
      
      #boardPro{
      	margin-left: -19px;
+     }
+     
+     #writeDate{
+     	font-size: 14px;
+     	color: darkgray;
+     	margin-top: 0px;
      }
      
      #writeDate{
@@ -155,7 +161,7 @@
 		</c:if>
 		<c:if test="${dto.photoBlindWhether eq true }">		
 		</c:if>
-		<p>&nbsp&nbsp${dto.boardDetail}</p>
+		<p>${dto.boardDetail}</p>
 		<div class="boardbuttonAll">
 			<c:if test="${dto.userID ne userID && userID ne null}">
 				<input type="button"  id= "reportButton" onclick="location.href='./reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}&boardNum=${dto.boardNum}'" value="신고"/>
@@ -185,13 +191,13 @@
 					<p><a href="reportwrite.go?categoryCode=${dto.categoryCode}&userID=${dto.userID}">프로필 신고하기</a></p>
 					<!-- <a href="#" rel="modal:close">닫기</a>-->
 				</div>
-				<p><a href="#ex2" rel="modal:open">
-				${boardRep.replyUser} </a>/ ${boardRep.commentWriteDate}
+				<p><a href="#ex2" rel="modal:open">${boardRep.replyUser}</a>
+				<time id="writeDate" datetime="${boardRep.commentWriteDate}">${boardRep.commentWriteDate}</time>
 				
 					<input type ="button" id="repdel" onclick='location.href="boardRepDel.do?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="삭제"/>
 					<input type ="button" id="repupdate" onclick='location.href="boardRepUpdate.go?replyNum=${boardRep.replyNum}&boardNum=${boardRep.boardNum}"' value="수정"/>
 				</p>
-				<p>${boardRep.commentDetail }</p>
+				<p>&nbsp&nbsp&nbsp  ${boardRep.commentDetail }</p>
 		</div>	
 	</c:forEach>
 	

@@ -35,9 +35,10 @@ public class ReportController {
 		logger.info("Report List Page 이동");
 		
 		ModelAndView modelAndView = new ModelAndView();
-
+		
+		String userID = (String) session.getAttribute("userID");
 	    String role = (String) session.getAttribute("Role");
-	    if (role != null && role.equals("admin")) {
+	    if (role != null && role.equals("admin")  && userID != null) {
 	        modelAndView.setViewName("reportList");
 	        return modelAndView; 
 	    } else {
