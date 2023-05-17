@@ -11,6 +11,10 @@
 	<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="resources/css/common.css">
 	<link rel= "stylesheet" href="resources/css/paging.css" type="text/css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+	
 <style>
 	.board_reply {
       border : 1px solid lightgray;
@@ -83,6 +87,10 @@
      	font-size: 14px;
      	color: darkgray;
      	margin-top: 0px;
+     }
+     .modal {
+     	position : relative;
+     	z-index: 100;
      }
 </style>
 </head>
