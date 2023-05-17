@@ -117,19 +117,28 @@ public class MateFindController {
 	}
 	
 	@RequestMapping(value = "/matefind/message.go")
-	public String messageGo(@RequestParam String userID,@RequestParam String mateWalkNum, Model model) {
+	public String messageGo(@RequestParam String userID,@RequestParam String mateWalkNum, Model model, HttpSession session) {
 		logger.info("receiveID : " + userID);
 		logger.info("mateWalkNum : " + mateWalkNum);
+		logger.info("sendID : " + String.valueOf(session.getAttribute("userID")));
 		model.addAttribute("receiveID", userID);
 		model.addAttribute("mateWalkNum", mateWalkNum);
 		
 		return "messageList";
 	}
 	
-	@RequestMapping(value = "/matefind/messageList.ajax")
+	@RequestMapping(value = "/matefind/messageListSender.ajax")
 	@ResponseBody
-	public ArrayList<MessageDTO> massageListAjax(@RequestParam String sendID) {
-		ArrayList<MessageDTO> messageList = service.messageList(sendID);
+	public ArrayList<MessageDTO> massageListSenderAjax(@RequestParam String sendID) {
+		ArrayList<MessageDTO> messageList = service.messageSendList(sendID);
+		return messageList;
+
+	}
+	
+	@RequestMapping(value = "/matefind/messageListReceiver.ajax")
+	@ResponseBody
+	public ArrayList<MessageDTO> massageListReceiverAjax(@RequestParam String receiveID) {
+		ArrayList<MessageDTO> messageList = service.messageReceiveList(receiveID);
 		return messageList;
 
 	}
