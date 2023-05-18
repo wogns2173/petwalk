@@ -420,9 +420,10 @@ function sendArray() {
 		url:'./line.ajax',
 		data: JSON.stringify(list),
 		contentType: "application/json",
-		dataType:'json',
+		dataType:'text',
 		success:function(data){
 			console.log(data);
+			location.href='../profile.go';
 		},
 		error:function(e){
 			console.log(e);
