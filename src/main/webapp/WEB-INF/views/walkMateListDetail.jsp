@@ -102,7 +102,6 @@
 			<button onclick="applicantlist()">신청자 목록</button>
 			<c:if test="${list.userID ne userID}">
 				<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>
-				<button onclick="application(${list.mateWalkNum}, '${sessionScope.userID}')">신청 하기</button>
 			</c:if>
 		</div>
 <<<<<<< HEAD
@@ -280,41 +279,7 @@
 	            zIndex: 3  
 	        });      
 	    }
-	}
-	
-function application(num, ID){
-	/*
-	console.log(num);
-	console.log(ID);
-	var mateWalkNum = num;
-	var userID = ID;
-	console.log(mateWalkNum);
-	console.log(userID);
-	*/
-	console.log(${list.mateWalkNum});
-	var mateWalkNum = '${list.mateWalkNum}';
-	console.log(mateWalkNum);
-	
-	$.ajax({
-		type:'post'
-			,url:'application.ajax'
-			,data:{
-				mateWalkNum : mateWalkNum
-			}			
-			,dataType:'json'
-			,success:function(data){
-				console.log(data);
-
-				if(data.application == 1){
-					alert('신청 되었습니다.')
-				}
-			}
-			,error:function(e){
-				console.log(e);
-				alert('오류가 발생했습니다.');
-			}		
-	});
-}
+	}	
 
 function application(){
 	console.log(${list.mateWalkNum});
@@ -351,7 +316,7 @@ function cancel(){
 	       ,dataType:'json'
 	       ,success:function(data){
 			console.log(data);
-			if(data.success == 1){
+			if(data.success >= 1){
 				alert('신청 취소 완료');
 			}else {
 				alert('신청 취소 실패');
