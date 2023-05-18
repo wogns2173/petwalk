@@ -421,6 +421,44 @@ public class MyPageService {
 		return map;
 	}
 	
+public HashMap<String, Object> application(String mateWalkNum, String userID) {
+		
+		int success = dao.application(mateWalkNum, userID);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		if(success == 1) {			
+			map.put("success", success);
+		}else {
+			map.put("success", 0);
+		}
+				
+		return map;
+	}
+	
+	public HashMap<String, Object> cancel(String mateWalkNum, String userID) {
+		
+		int success = dao.cancel(mateWalkNum, userID);		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		if(success == 1) {			
+			map.put("success", success);
+		}else {
+			map.put("success", 0);
+		}
+		
+		return map;
+	}
+	
+	public HashMap<String, Object> applicantlist(String mateWalkNum) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<BoardDTO> applicantlist = dao.applicantlist(mateWalkNum);
+	
+		map.put("applicantlist", applicantlist);
+
+		return map;
+	}
+	
 
 
 

@@ -97,14 +97,17 @@
 			</div>
 			<br/>
 			<p>${list.mateDetail}</p>
+			<button onclick="application()">신청 하기</button>
+			<button onclick="cancel()">취소 하기</button>
+			<button onclick="applicantlist()">신청자 목록</button>
 			<c:if test="${list.userID ne userID}">
 				<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>
+				<button onclick="application(${list.mateWalkNum}, '${sessionScope.userID}')">신청 하기</button>
 			</c:if>
 		</div>
-	</div>
-
+	</div>	
 	<c:if test="${list.userID ne userID}">
-		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>
+		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>	
 	</c:if>
 	<c:if test="${list.userID eq userID}">
 		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 확인하기</button>
@@ -264,5 +267,111 @@
 	        });      
 	    }
 	}
+	
+function application(num, ID){
+	/*
+	console.log(num);
+	console.log(ID);
+	var mateWalkNum = num;
+	var userID = ID;
+	console.log(mateWalkNum);
+	console.log(userID);
+	*/
+	console.log(${list.mateWalkNum});
+	var mateWalkNum = '${list.mateWalkNum}';
+	console.log(mateWalkNum);
+	
+	$.ajax({
+		type:'post'
+			,url:'application.ajax'
+			,data:{
+				mateWalkNum : mateWalkNum
+			}			
+			,dataType:'json'
+			,success:function(data){
+				console.log(data);
+
+				if(data.application == 1){
+					alert('신청 되었습니다.')
+				}
+			}
+			,error:function(e){
+				console.log(e);
+				alert('오류가 발생했습니다.');
+			}		
+	});
+}
+
+function application(){
+	console.log(${list.mateWalkNum});
+	
+	$.ajax({
+	       type: 'post'
+	       ,url: 'application.ajax'
+	       ,data:{'mateWalkNum':${list.mateWalkNum}}
+	       ,dataType:'json'
+	       ,success:function(data){
+			console.log(data);
+			if(data.success == 1){
+				alert('신청 성공');
+			}else {
+				alert('이미 신청 하셨습니다.')
+			}
+						
+	       }
+	       ,error:function(e){
+	          console.log(e);
+	          alert('오류 발생');
+	       }
+	    });	
+}
+
+function cancel(){
+	
+	console.log(${list.mateWalkNum});	
+	
+	$.ajax({
+	       type: 'post'
+	       ,url: 'cancel.ajax'
+	       ,data:{'mateWalkNum':${list.mateWalkNum}}
+	       ,dataType:'json'
+	       ,success:function(data){
+			console.log(data);
+			if(data.success == 1){
+				alert('신청 취소 완료');
+			}else {
+				alert('신청 취소 실패');
+			}
+						
+	       }
+	       ,error:function(e){
+	          console.log(e);
+	          alert('오류 발생');
+	       }
+	    });
+}
+
+function applicantlist(){
+	console.log(${list.mateWalkNum});
+	
+	$.ajax({
+	       type: 'post'
+	       ,url: 'applicantlist.ajax'
+	       ,data:{'mateWalkNum':${list.mateWalkNum}}
+	       ,dataType:'json'
+	       ,success:function(data){
+			console.log(data);
+			if(data.applicantlist.length > 0){
+				alert('신청자가 있습니다.')
+			}else{
+				alert('신청자가 없습니다.');
+			}
+			}
+	       ,error:function(e){
+	          console.log(e);
+	          alert('오류 발생');
+	       }
+	    });
+}
 </script>
 </html>
