@@ -47,7 +47,7 @@
         border:none;
         display: inline-block;
   		margin: 10px;
-  		width: 100px;
+  		width: 118px;
   		height: 40px;
      }
      #routeBtns{

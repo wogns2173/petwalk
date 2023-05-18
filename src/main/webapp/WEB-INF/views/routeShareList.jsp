@@ -53,7 +53,7 @@
 	}
 	.paging {
 	        position: absolute;
-		    top: 300px;
+		    top: 347px;
 		    margin-left: 596px;
 		    width: 104px;
 		    height: 36px;
@@ -141,11 +141,11 @@
 		<br/>
 		<br/>
 
-		<c:if test="${walkRouteType eq '공유'}">
+		<c:if test="${walkRouteType eq 'share'}">
 			<h3 id="title">&nbsp  &nbsp공유 경로 리스트</h3>
 		</c:if>
 			
-		<c:if test="${walkRouteType eq '추천'}">
+		<c:if test="${walkRouteType eq 'recommend'}">
 			<h3 id="title">&nbsp  &nbsp추천 경로 리스트</h3>
 		</c:if>
 
@@ -166,11 +166,11 @@
 		<button class="search" onclick="subjectOrIdFilter()">검색</button>
 	</div>
 	
-	<c:if test="${walkRouteType eq '공유'}">
+	<c:if test="${walkRouteType eq 'share'}">
 		<button onclick="userClick()" id="userBtn">공유 글 작성하기</button>
 	</c:if>
 		
-	<c:if test="${walkRouteType eq '추천'}">
+	<c:if test="${walkRouteType eq 'recommend'}">
 		<button onclick="adminClick()" id="adminBtn">추천 글 작성하기</button>
 	</c:if>
 	<select class="form-select paging" aria-label="Default select example" id="pagePerNum">
@@ -220,13 +220,6 @@
 		</tr>
 
 	</table>
-	<c:if test="${walkRouteType eq '공유'}">
-		공유<button onclick="userClick()" id="userBtn">작성하기</button>
-	</c:if>
-		
-	<c:if test="${walkRouteType eq '추천'}">
-		추천<button onclick="adminClick()" id="adminBtn">작성하기</button>
-	</c:if>
 
 	</div>
 </body>
@@ -521,7 +514,7 @@
 		else {
 			console.log('유저아님');
 			alert('유저만 작성 가능합니당');
-			location.href='./list?walkRouteType=공유';
+			location.href='./list?walkRouteType=share';
 		}
 	}
 	
@@ -534,7 +527,7 @@
 		else  {
 			console.log('관리자아님');
 			alert('관리자만 작성 가능합니당');
-			location.href='./list?walkRouteType=추천';
+			location.href='./list?walkRouteType=recommend';
 		}
 	}
 </script>

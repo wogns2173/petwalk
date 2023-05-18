@@ -75,7 +75,7 @@
 						<a href="memberdelete.go">회원탈퇴</a>
 					</c:if>
 					<br>				
-					<a href="routeshare/list?walkRouteType=공유">산책 경로 공유</a>
+					<a href="routeshare/list?walkRouteType=share">산책 경로 공유</a>
 					<a href="matefind/list">산책 메이트</a>
 					<a href="board">커뮤니티</a>
 					<a href="noticelist.go">공지사항</a>
@@ -96,7 +96,7 @@
 		    <tr>						
 		        <td>
 		            <div class="image-wrapper">
-		                <img alt="recommend" src="resources/img/recommend.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=추천'">
+		                <img alt="recommend" src="resources/img/recommend.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=recommend'">
 		            </div>
 		        </td>
 		        <td>
@@ -106,7 +106,7 @@
 		        </td>
 		        <td>
 		            <div class="image-wrapper">
-		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=공유'">
+		                <img alt="share" src="resources/img/share.png" width="100" height="100" onclick="location.href='routeshare/list?walkRouteType=share'">
 		            </div>
 		        </td>
 		        <td>
@@ -118,7 +118,7 @@
 		    <tr>
 		        <td>
 		            <div class="link-wrapper">
-		                <button onclick="location.href='routeshare/list?walkRouteType=추천'">추천 경로</button>
+		                <button onclick="location.href='routeshare/list?walkRouteType=recommend'">추천 경로</button>
 		            </div>
 		        </td>
 		        <td>
@@ -129,7 +129,7 @@
 		        <td>
 		            <div class="link-wrapper">
 
-		            	<button onclick="location.href='routeshare/list?walkRouteType=공유'">산책 경로 공유</button>            
+		            	<button onclick="location.href='routeshare/list?walkRouteType=share'">산책 경로 공유</button>            
 		            </div>
 		        </td>
 		        <td>
@@ -146,12 +146,11 @@
 	
 
 	<hr>
-	<h4 id="title">이런곳은 어떠세요?</h4>	
+	<h4 id="title"이런곳은 어떠세요?</h4>	
 	<div style="text-align: right;">
 	<button onclick="location.href='routeshare/list?walkRouteType=추천'">더 알아보기</button>
 	</div>
 	<img alt="main" src="resources/img/main.png" width="721" onclick="location.href='routeshare/list?walkRouteType=추천'">
-	
 	</div>	
 </body>
 </html>

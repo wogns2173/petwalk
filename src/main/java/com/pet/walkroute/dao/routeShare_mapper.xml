@@ -120,7 +120,7 @@
 		FROM routeboard 
 		WHERE walkRouteBlind = false
 		AND walkRouteType = #{walkRouteType}
-		AND walkRouteName = #{walkRouteName}
+		AND walkRouteName LIKE CONCAT('%', #{walkRouteName}, '%')
 		ORDER BY walkRouteNum DESC 
 		LIMIT #{cnt} OFFSET #{offset}
 	</select>

@@ -9,11 +9,18 @@
 <title>Want 사진자랑하기</title>
 <link rel="icon" href="./resources/img/favicon.ico">
 <script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../resources/css/common.css">
+<link rel= "stylesheet" href="../resources/css/paging.css" type="text/css">
 </head>
 <style>
 	#list {
 		border : 1px solid black;
 		text-align: center;
+		color:#87d1bf;
+		font-size: 40px;
 	}
 	span {
 		border : 1px solid blue;
@@ -21,12 +28,77 @@
 	.receiver {
 		padding : 5px 10px;
 	}
+	#userID,#list{
+		border: none;
+	}
+	#history{
+		border: none;
+	}
+	#userID{
+		color: gray;
+		margin-left: 100px;
+	}
+	#messageListAll{
+		margin-left: 46px;
+	}
+	.receiver{
+		color:#87d1bf;
+	}
+	#sendBtn{
+		background-color: #87d1bf;
+        color: white;
+        border:none;
+	}
+	#MLsendID{
+		color: glay;
+	}
+	
 </style>
 <body>
-	<input type="text" value="${sessionScope.userID}"/>
-	<div id="list">메시지 리스트</div>
-	<span id="room">메시지 방</span>
-	<span id="history">메시지 내역</span>
+	<div class="main">
+			<div class = "topMenu">
+				<div class="logo">
+					<a href="../">
+						<img src="../resources/img/logo.png" alt="logo">				
+						<img src="../resources/img/logoaname.png" alt="logoname">
+					</a>	
+				</div>			
+					<div class="link">																		
+						<c:if test="${empty sessionScope.userID}">
+							<a href="../login.go">로그인</a>
+							<a href="../join.go">회원가입</a>
+						</c:if>
+						
+						<c:if test="${not empty sessionScope.userID}">
+							<a href="../myinformation.go">${sessionScope.userNickname} 님</a>
+							<c:if test="${sessionScope.Role eq 'admin'}">
+								<a href="../adminPage.go">관리자 페이지</a>
+							</c:if>
+							<a href="../logout">로그아웃</a>
+							<a href="../profile.go">프로필</a>
+							<a href="../memberdelete.go">회원탈퇴</a>
+						</c:if>
+						<br>				
+						<a onclick="location.href='/main/routeshare/list?walkRouteType=공유'">산책 경로 공유</a>
+						<a onclick="location.href='/main/matefind/list'">산책 메이트</a>
+						<a href="../board">커뮤니티</a>
+						<a href="../noticelist.go">공지사항</a>
+						<hr>					
+				</div>															
+			</div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	<input type="hidden" value="${sessionScope.userID}" id="userID"/>
+	<div id="messageListAll">
+		<div id="list">메시지 리스트</div>
+		
+		<span id="room">메시지 방</span>
+		<span id="history">메시지 내역</span>
+	</div>
+	</div>
 </body>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
@@ -143,7 +215,7 @@
 				console.log(data);
 				var content = '';
 				data.forEach(function(list){
-					content += '<div>'+list.sendID+': '+list.messageDetail+'</div>';
+					content += '<div id="'+list.sendID+'">'+list.sendID+': '+list.messageDetail+'</div>';
 				});
 				content += '<input type="text" id="content"/>';
 				content += '<button onclick="send()" id="sendBtn">보내기</button>';
