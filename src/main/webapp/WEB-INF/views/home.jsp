@@ -146,7 +146,7 @@
 	
 
 	<hr>
-	<h4 id="title"이런곳은 어떠세요?</h4>	
+	<h4 id="title">이런곳은 어떠세요?</h4>	
 	<div style="text-align: right;">
 	<button onclick="location.href='routeshare/list?walkRouteType=추천'">더 알아보기</button>
 	</div>

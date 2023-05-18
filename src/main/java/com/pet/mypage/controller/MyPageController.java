@@ -207,16 +207,6 @@ public class MyPageController {
 		logger.info("delList : "+delList);
 		
 		return service.deletemr(delList, session);
-	}
-	
-	@RequestMapping(value="/matefind/application.ajax")
-	@ResponseBody
-	public HashMap<String, Object> application(@RequestParam String mateWalkNum, HttpSession session){
-		
-		logger.info("num"+mateWalkNum);
-		String userID = (String) session.getAttribute("userID");
-		
-		return service.application(mateWalkNum, userID);
 	}	
 	
 	@RequestMapping(value="/matefind/application.ajax")

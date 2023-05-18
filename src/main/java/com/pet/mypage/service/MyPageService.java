@@ -439,7 +439,9 @@ public HashMap<String, Object> application(String mateWalkNum, String userID) {
 		
 		int success = dao.cancel(mateWalkNum, userID);		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		if(success == 1) {			
+		logger.info("들어와?" + success);
+		
+		if(success >= 1) {			
 			map.put("success", success);
 		}else {
 			map.put("success", 0);
