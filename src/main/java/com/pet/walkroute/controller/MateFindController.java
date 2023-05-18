@@ -75,7 +75,7 @@ public class MateFindController {
 		logger.info("userID : " + session.getAttribute("userID"));
 		params.put("userID", session.getAttribute("userID"));
 		service.mateInsert(params);
-		return "redirect:/matefind/write.go";
+		return "redirect:/matefind/list";
 	}
 	
 	@RequestMapping(value = "/matefind/silist.ajax")

@@ -95,9 +95,8 @@
 	 		<thead>
 	    		<tr id="thead">
 			      <th scope="col">제목</th>
-			      <th scope="col">내용</th>
 			      <th scope="col">작성자</th>
-			      <th scope="col">작성일자</th>
+			      <th scope="col">산쨲날짜</th>
 			      <th scope="col">모집여부</th>
 				</tr>
 			</thead>
@@ -179,9 +178,9 @@ function openPopup() {
 	    			data.forEach((list, index) =>  {
 	    				content += ('<td><a href="./listDetail.do?mateWalkNum='+list.mateWalkNum+'">'+list.mateName+'</a></td>');
 	    				/*location.href=  */
-	    				content += ('<td>'+list.mateDetail+'</td>');
 	    				content += ('<td>'+list.userID+'</td>');
-	    				content += ('<td>'+list.petWalkDate+'</td>');
+	    				var date = new Date(list.petWalkDate);
+	    				content +='<td>'+date.toLocaleDateString('ko-KR')+'</td>';//en-US
 	    				content += ('<td>'+list.state+'</td></tr>');
 	    			});
 	    			console.log(content);
