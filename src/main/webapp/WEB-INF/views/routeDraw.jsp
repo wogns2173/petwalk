@@ -11,6 +11,10 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services,clusterer,drawing"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../resources/css/common.css">
+<link rel= "stylesheet" href="../resources/css/paging.css" type="text/css">
 <style>
 	.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
 	.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
@@ -20,16 +24,59 @@
 	.distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
 	.distanceInfo .label {display:inline-block;width:50px;}
 	.distanceInfo:after {content:none;}
+	
+	button{
+		background-color: #87d1bf;
+        color: white;
+        border:none;
+        
+	}
 </style>
 </head>
 <body>
+	<div class="main">
+		<div class = "topMenu">
+			<div class="logo">
+				<a href="./">
+					<img src="../resources/img/logo.png" alt="logo">				
+					<img src="../resources/img/logoaname.png" alt="logoname">
+				</a>	
+			</div>			
+				<div class="link">																		
+					<c:if test="${empty sessionScope.userID}">
+						<a href="login.go">로그인</a>
+						<a href="join.go">회원가입</a>
+					</c:if>
+					
+					<c:if test="${not empty sessionScope.userID}">
+						<a href="myinformation.go">${sessionScope.userNickname} 님</a>
+						<c:if test="${sessionScope.Role eq 'admin'}">
+							<a href="adminPage.go">관리자 페이지</a>
+						</c:if>
+						<a href="logout">로그아웃</a>
+						<a href="profile.go">프로필</a>
+						<a href="memberdelete.go">회원탈퇴</a>
+					</c:if>
+					<br>				
+					<a href="routeshare/list?walkRouteType=share">산책 경로 공유</a>
+					<a href="matefind/list">산책 메이트</a>
+					<a href="board">커뮤니티</a>
+					<a href="noticelist.go">공지사항</a>
+					<hr>					
+				</div>															
+		</div>		
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 	<div id="map" style="width:100%;height:350px;"></div>  
 	<p>
 	    <em>지도를 마우스로 클릭하면 선 그리기가 시작되고<br>오른쪽 마우스를 클릭하면 선 그리기가 종료됩니다</em>
 	</p>
 	<input type="text" id="location" placeholder="경로를 그리고싶은 지역을 입력하세요(동)">
 	<button onclick="search()">검색하기</button>
-	<p>123</p>
+
 	<p>제목</p>
 	<input type="text" id="subject" placeholder="제목을 입력하세요">
 	<p>내용</p>
@@ -37,6 +84,7 @@
 	
 	</textarea>
 	<button onclick="sendArray()">저장하기</button>
+	</div>
 </body>
 
 <script>

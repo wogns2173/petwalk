@@ -110,7 +110,7 @@
 	</update>
 	
 	<update id="updateuseraddress" >
-		UPDATE member SET siID = #{param2}, guID = #{param2}, dongID = #{param2}WHERE 
+		UPDATE member SET siID = #{param2}, guID = #{param3}, dongID = #{param4}WHERE 
 		userNickname = #{param1}
 	</update>
 	

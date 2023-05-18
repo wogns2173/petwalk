@@ -231,7 +231,7 @@ public class MemberService {
 	public HashMap<String, Object> updateuserContact(String usernickname, String usereContact) {
 
 		HashMap<String, Object> map = new HashMap<>();
-		// 이메일 변경에 실패 했을경우 1, 아니면 0	
+		// 전화번호 변경에 실패 했을경우 1, 아니면 0	
 		map.put("success", dao.updateuserContact(usernickname, usereContact));
 		
 		return map;
@@ -240,7 +240,7 @@ public class MemberService {
 	public HashMap<String, Object> updateuserAge(String usernickname, String userAge) {
 		
 		HashMap<String, Object> map = new HashMap<>();
-		// 이메일 변경에 실패 했을경우 1, 아니면 0	
+		// 나이 변경에 실패 했을경우 1, 아니면 0	
 		map.put("success", dao.updateuserAge(usernickname, userAge));
 		
 		return map;
@@ -258,7 +258,7 @@ public class MemberService {
 	public HashMap<String, Object> updateuseraddress(String usernickname, String siID, String guID, String dongID) {
 
 		HashMap<String, Object> map = new HashMap<>();
-		// 이메일 변경에 실패 했을경우 1, 아니면 0	
+		// 주소 변경에 실패 했을경우 1, 아니면 0	
 		map.put("success", dao.updateuseraddress(usernickname, siID, guID, dongID));
 		
 		return map;
@@ -267,7 +267,7 @@ public class MemberService {
 	public HashMap<String, Object> updateuserGender(String usernickname, String userGender) {
 
 		HashMap<String, Object> map = new HashMap<>();
-		// 이메일 변경에 실패 했을경우 1, 아니면 0	
+		// 성별 변경에 실패 했을경우 1, 아니면 0	
 		map.put("success", dao.updateuserGender(usernickname, userGender));
 		
 		return map;		
