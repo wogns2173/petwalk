@@ -47,6 +47,10 @@
      	color: darkgray;
      	font-size: 14px;
      }
+     .table {
+     	display : none;
+     	width : 100%;
+     }
 </style>
 </head>
 <body>
@@ -97,21 +101,45 @@
 			</div>
 			<br/>
 			<p>${list.mateDetail}</p>
-			<button onclick="application()">신청 하기</button>
-			<button onclick="cancel()">취소 하기</button>
-			<button onclick="applicantlist()">신청자 목록</button>
+			<c:if test="${list.userID ne userID}">
+				<button onclick="application()">신청 하기</button>
+				<button onclick="cancel()">취소 하기</button>
+			</c:if>
+			
+			<c:if test="${list.userID eq userID}">
+				<button onclick="applicantlist()">신청자 목록</button>
+			</c:if>
+			
 			<c:if test="${list.userID ne userID}">
 				<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>
 			</c:if>
+	
+			<c:if test="${list.userID eq userID}">
+				<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 확인</button>
+			</c:if>
+			
+			<table class="table">
+				<colgroup>
+				    <col width="200px"/>
+				    <col width="200px"/>
+				</colgroup>
+				
+		 		<thead>
+		    		<tr id="thead">
+				      <th scope="col">신청자</th>
+				      <th scope="col">수락</th>
+					</tr>
+				</thead>
+				<tbody id="tbody">
+		   	
+				</tbody>
+			</table>
 		</div>
+		
+	
 	</div>	
-	<c:if test="${list.userID ne userID}">
-		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 보내기</button>	
-	</c:if>
-	<c:if test="${list.userID eq userID}">
-		<button onclick="location.href='./message.go?userID=${list.userID}&mateWalkNum=${list.mateWalkNum}'">메시지 확인하기</button>
-	</c:if>
-	<p>${list.mateDetail}</p>
+	
+	
 
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=800da6fe675dabf08c56a06d01b2cbf0&libraries=services"></script>
@@ -326,8 +354,16 @@ function applicantlist(){
 	       ,dataType:'json'
 	       ,success:function(data){
 			console.log(data);
+			var content = '<tr>';
 			if(data.applicantlist.length > 0){
-				alert('신청자가 있습니다.')
+				alert('신청자가 있습니다.');
+				$('.table').css({'display' : 'block'});
+				data.applicantlist.forEach(function(item) {
+					content += '<td>'+item.userID+'</td>';
+					content += '<button>수락</button>';
+				});
+				content += '</tr>';
+				$('#tbody').append(content);
 			}else{
 				alert('신청자가 없습니다.');
 			}
