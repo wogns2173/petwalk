@@ -153,10 +153,10 @@ var urlParams = new URLSearchParams(window.location.search);
 var findType = urlParams.get('findType');
 
 if (findType === '아이디') {
-    document.getElementById('idButton').style.backgroundColor = '#e8e8e8';
+	document.getElementById('pwButton').style.backgroundColor = '#e8e8e8';
 }
 if (findType === '비밀번호') {
-    document.getElementById('pwButton').style.backgroundColor = '#e8e8e8';
+    document.getElementById('idButton').style.backgroundColor = '#e8e8e8';
 }
 
 

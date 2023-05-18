@@ -114,6 +114,19 @@
 		DELETE FROM routelist WHERE walkNum = #{param1} AND userID = #{param2}
 	</delete>
 	
+	<insert id="application">
+		INSERT INTO application(mateWalkNum, userID, acceptWhether) VALUES(#{param1}, #{param2},false)
+	</insert>
+	
+	<update id="cancel">
+		UPDATE application SET acceptWhether = true WHERE
+		mateWalkNum = #{param1} AND userID = #{param2}
+	</update>
+	
+	<select id="applicantlist" resultType="com.pet.mypage.dto.MyPageDTO">
+		SELECT * FROM  application WHERE mateWalkNum = #{param1} AND acceptWhether = false
+	</select>
+	
 	
 	
 	
