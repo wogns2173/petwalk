@@ -148,9 +148,9 @@
 	<hr>
 	<h4 id="title">이런곳은 어떠세요?</h4>	
 	<div style="text-align: right;">
-	<button onclick="location.href='routeshare/list?walkRouteType=추천'">더 알아보기</button>
+	<button onclick="location.href='routeshare/list?walkRouteType=recommend'">더 알아보기</button>
 	</div>
-	<img alt="main" src="resources/img/main.png" width="721" onclick="location.href='routeshare/list?walkRouteType=추천'">
+	<img alt="main" src="resources/img/main.png" width="721" onclick="location.href='routeshare/list?walkRouteType=recommend'">
 	</div>	
 </body>
 </html>
