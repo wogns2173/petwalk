@@ -5,6 +5,7 @@ package com.pet.mypage.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -207,4 +209,38 @@ public class MyPageController {
 		return service.deletemr(delList, session);
 	}
 	
+	@RequestMapping(value="/matefind/application.ajax")
+	@ResponseBody
+	public HashMap<String, Object> application(@RequestParam String mateWalkNum, HttpSession session){
+		
+		logger.info("num"+mateWalkNum);
+		String userID = (String) session.getAttribute("userID");
+		
+		return service.application(mateWalkNum, userID);
+	}	
+	
+	@RequestMapping(value="/matefind/application.ajax")
+	@ResponseBody
+	public HashMap<String, Object>application(HttpSession session, @RequestParam String mateWalkNum){
+		
+		String userID = (String) session.getAttribute("userID");
+		
+		return service.application(mateWalkNum, userID);
+	}
+	
+	@RequestMapping(value="/matefind/cancel.ajax")
+	@ResponseBody
+	public HashMap<String, Object>cancel(HttpSession session, @RequestParam String mateWalkNum){
+		
+		String userID = (String) session.getAttribute("userID");
+		
+		return service.cancel(mateWalkNum, userID);
+	}
+	
+	@RequestMapping(value="/matefind/applicantlist.ajax")
+	@ResponseBody
+	public HashMap<String, Object>applicantlist(@RequestParam String mateWalkNum){
+				
+		return service.applicantlist(mateWalkNum);
+	}
 }

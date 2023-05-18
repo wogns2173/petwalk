@@ -51,6 +51,14 @@ public interface MyPageDAO {
 	int deletemr(String id);
 
 	int deletemr(String walkNum, String userID);
+	
+	int application(String mateWalkNum, String userID);
+
+	int cancel(String mateWalkNum, String userID);
+
+	ArrayList<BoardDTO> applicantlist(String mateWalkNum);
+
+	
 
 	
 
